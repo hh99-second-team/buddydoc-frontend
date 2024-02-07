@@ -3,7 +3,14 @@ import PostItem from './PostItem';
 import styled from 'styled-components';
 
 const PostList = () => {
-  const testList = Array(20).fill('test');
+  const testList = Array(20).fill({
+    type: '스터디',
+    deadline: '2024.02.21',
+    title: 'test',
+    skillList: ['react', 'typescript', 'node', 'express', 'aws'],
+    writer: '곽민지',
+    bookmark: 63,
+  });
 
   return (
     <PostContainer>
