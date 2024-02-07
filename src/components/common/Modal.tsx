@@ -3,12 +3,17 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import styled, { keyframes } from 'styled-components';
 
-const Modal = () => (
+export interface ModalProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const Modal = ({ title, children }: ModalProps) => (
   <>
     <Overlay />
     <Content>
-      <Title>TEST</Title>
-      <Description>test</Description>
+      <Title>{title}</Title>
+      <Description>{children}</Description>
       <Close asChild>
         <button className="IconButton" aria-label="Close">
           <Cross2Icon />

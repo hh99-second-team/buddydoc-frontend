@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import styled from 'styled-components';
-import Modal from './Modal';
+import LoginModal from '../feature/LoginModal';
 
 const Navbar = () => {
   return (
@@ -12,7 +12,7 @@ const Navbar = () => {
           <button className="Button violet">로그인</button>
         </Dialog.Trigger>
         <Dialog.Portal>
-          <Modal />
+          <LoginModal />
         </Dialog.Portal>
       </Dialog.Root>
     </Layout>
