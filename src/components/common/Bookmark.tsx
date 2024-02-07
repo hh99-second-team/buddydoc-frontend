@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import unSelectedbookmark from '../../assets/bookmark.png';
-import selectedbookmark from '../../assets/bookmark-check.png';
+import unSelectedbookmark from '../../assets/unselected-bookmark.svg';
+import selectedbookmark from '../../assets/selected-bookmark.svg';
 import styled from 'styled-components';
 
 interface BookmarkProps {
@@ -19,8 +19,8 @@ const Bookmark = (props: BookmarkProps) => {
   };
 
   return (
-    <BookmarkBox>
-      <img src={bookmarkUrl} alt="" onClick={() => handleToggleBookmark(isBookmarkSelected)} />
+    <BookmarkBox onClick={() => handleToggleBookmark(isBookmarkSelected)}>
+      <img src={bookmarkUrl} alt="" />
       <p>{bookmarkCount}</p>
     </BookmarkBox>
   );
