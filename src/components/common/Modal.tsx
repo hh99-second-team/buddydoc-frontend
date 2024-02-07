@@ -48,6 +48,7 @@ const Overlay = styled(Dialog.Overlay)`
   position: fixed;
   inset: 0;
   animation: ${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
 `;
 
 const Content = styled(Dialog.Content)`
@@ -63,6 +64,7 @@ const Content = styled(Dialog.Content)`
   max-height: 85vh;
   padding: 25px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
 
   &:focus {
     outline: none;

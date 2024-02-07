@@ -15,6 +15,7 @@ const PostList = () => {
 };
 
 const PostContainer = styled.div`
+  margin-top: 70px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 20px;
