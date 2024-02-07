@@ -7,7 +7,7 @@ const PostList = () => {
     type: '스터디',
     deadline: '2024.02.21',
     title: 'test',
-    skillList: ['react', 'typescript', 'node', 'express', 'aws'],
+    skillList: ['react', 'typescript', 'node', 'express', 'aws', 'javascript'],
     writer: '곽민지',
     bookmark: 63,
   });

@@ -26,7 +26,6 @@ const AvatarRoot = styled(Avatar.Root)`
   width: 45px;
   height: 45px;
   border-radius: 100%;
-  background-color: var(--black-a3);
 `;
 
 const AvatarImage = styled(Avatar.Image)`
@@ -42,8 +41,8 @@ const AvatarFallback = styled(Avatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  color: var(--violet-11);
+  background-color: #1563ff;
+  color: white;
   font-size: 15px;
   line-height: 1;
   font-weight: 500;
