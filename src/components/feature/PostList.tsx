@@ -1,6 +1,7 @@
 import React from 'react';
 import PostItem from './PostItem';
 import styled from 'styled-components';
+import SkeletonPost from './SkeletonPost';
 
 const PostList = () => {
   const testList = Array(20).fill({
@@ -17,6 +18,7 @@ const PostList = () => {
       {testList.map((post, idx) => (
         <PostItem post={post} key={idx}></PostItem>
       ))}
+      <SkeletonPost />
     </PostContainer>
   );
 };
