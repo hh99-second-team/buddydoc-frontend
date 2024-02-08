@@ -44,9 +44,9 @@ const Layout = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  border-bottom: 1px solid #d9d9d9;
   background: #fff;
   z-index: 998;
+  box-shadow: 0 0 15px rgba(175, 175, 175, 0.5);
 `;
 
 const Logo = styled.img`
