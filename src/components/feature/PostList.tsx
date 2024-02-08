@@ -1,15 +1,24 @@
 import React from 'react';
 import PostItem from './PostItem';
 import styled from 'styled-components';
+import SkeletonPost from './SkeletonPost';
 
 const PostList = () => {
-  const testList = Array(20).fill('test');
+  const testList = Array(20).fill({
+    type: '스터디',
+    deadline: '2024.02.21',
+    title: 'test',
+    skillList: ['react', 'typescript', 'node', 'express', 'aws', 'javascript'],
+    writer: '곽민지',
+    bookmark: 63,
+  });
 
   return (
     <PostContainer>
       {testList.map((post, idx) => (
         <PostItem post={post} key={idx}></PostItem>
       ))}
+      <SkeletonPost />
     </PostContainer>
   );
 };
