@@ -21,7 +21,7 @@ const Modal = (props: ModalProps) => (
           </button>
         </Close>
       </Header>
-      <Description>{props.children}</Description>
+      <div>{props.children}</div>
     </Content>
   </>
 );
@@ -64,7 +64,6 @@ const Content = styled(Dialog.Content)`
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 450px;
-  max-height: 85vh;
   padding: 30px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 999;
@@ -95,14 +94,9 @@ const Close = styled(Dialog.Close)`
 
   & > svg {
     float: right;
+    width: 22px;
+    height: 22px;
   }
-`;
-
-const Description = styled(Dialog.Description)`
-  margin: 10px 0 20px;
-  color: var(--mauve-11);
-  font-size: 15px;
-  line-height: 1.5;
 `;
 
 export default Modal;

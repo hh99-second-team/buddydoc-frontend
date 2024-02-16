@@ -12,11 +12,12 @@ interface ButtonProps {
       };
     };
   };
+  onClick?: any;
 }
 
-const Button = ({ size, color, children }: ButtonProps) => {
+const Button = ({ size, color, children, onClick }: ButtonProps) => {
   return (
-    <StyledButton size={size} color={color}>
+    <StyledButton size={size} color={color} onClick={onClick}>
       {children}
     </StyledButton>
   );

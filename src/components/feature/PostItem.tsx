@@ -19,8 +19,8 @@ const PostItem = (props: PostProps) => {
       <p>마감일 {props.post.deadline}</p>
       <Title>{props.post.title}</Title>
       <SkillList>
-        {props.post.skillList.slice(0, 5).map((skill) => (
-          <CircleIcon src={skillSet[skill]} fallback={skill} />
+        {props.post.skillList.slice(0, 5).map((skill, idx) => (
+          <CircleIcon key={idx} src={skillSet[skill]} fallback={skill} />
         ))}
         {props.post.skillList.length > 5 && <span>+ {props.post.skillList.length - 5}</span>}
       </SkillList>

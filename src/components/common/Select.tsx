@@ -1,47 +1,53 @@
 import React from 'react';
-import * as Select from '@radix-ui/react-select';
+import * as RadixSelect from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import styled, { css } from 'styled-components';
 
-interface SelectItemProps extends React.ComponentProps<typeof Select.Item> {}
+interface SelectItemProps extends React.ComponentProps<typeof RadixSelect.Item> {}
 interface SelectProps {
+  selectValue: string;
+  onValueChange: any;
   items: string[];
   placeholder: string;
 }
 
-const SelectDemo = ({ items, placeholder }: SelectProps) => (
-  <Select.Root>
-    <SelectTrigger>
-      <Select.Value placeholder={placeholder} />
-      <Select.Icon>
-        <ChevronDownIcon />
-      </Select.Icon>
-    </SelectTrigger>
-    <Select.Portal>
-      <SelectContent>
-        <SelectScrollUpButton>
-          <ChevronUpIcon />
-        </SelectScrollUpButton>
-        <Select.Viewport>
-          <Select.Group>
-            {items.map((item) => (
-              <SelectItemBox value={item}>{item}</SelectItemBox>
-            ))}
-          </Select.Group>
-        </Select.Viewport>
-        <SelectScrollDownButton>
+const Select = ({ selectValue, onValueChange, items, placeholder }: SelectProps) => {
+  return (
+    <RadixSelect.Root defaultValue="" value={selectValue} onValueChange={onValueChange}>
+      <SelectTrigger>
+        <RadixSelect.Value placeholder={placeholder} />
+        <RadixSelect.Icon>
           <ChevronDownIcon />
-        </SelectScrollDownButton>
-      </SelectContent>
-    </Select.Portal>
-  </Select.Root>
-);
+        </RadixSelect.Icon>
+      </SelectTrigger>
+      <RadixSelect.Portal>
+        <SelectContent>
+          <SelectScrollUpButton>
+            <ChevronUpIcon />
+          </SelectScrollUpButton>
+          <RadixSelect.Viewport>
+            <RadixSelect.Group>
+              {items.map((item, idx) => (
+                <SelectItemBox key={idx} value={item}>
+                  {item}
+                </SelectItemBox>
+              ))}
+            </RadixSelect.Group>
+          </RadixSelect.Viewport>
+          <SelectScrollDownButton>
+            <ChevronDownIcon />
+          </SelectScrollDownButton>
+        </SelectContent>
+      </RadixSelect.Portal>
+    </RadixSelect.Root>
+  );
+};
 
 const SelectItemBox = React.forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ children, className, ...props }, forwardedRef) => {
+  ({ children, className, ...props }, forwardRef) => {
     return (
-      <SelectItem className={className} {...props} ref={forwardedRef}>
-        <Select.ItemText>{children}</Select.ItemText>
+      <SelectItem className={className} {...props} ref={forwardRef}>
+        <RadixSelect.ItemText>{children}</RadixSelect.ItemText>
         <SelectItemIndicator>
           <CheckIcon />
         </SelectItemIndicator>
@@ -50,7 +56,7 @@ const SelectItemBox = React.forwardRef<HTMLDivElement, SelectItemProps>(
   }
 );
 
-const SelectTrigger = styled(Select.Trigger)`
+const SelectTrigger = styled(RadixSelect.Trigger)`
   width: 100%;
   padding: 17px 30px;
   border: 1px solid #e2e3e5;
@@ -69,7 +75,7 @@ const SelectTrigger = styled(Select.Trigger)`
   }
 `;
 
-const SelectContent = styled(Select.Content)`
+const SelectContent = styled(RadixSelect.Content)`
   overflow: hidden;
   background-color: white;
   border-radius: 6px;
@@ -77,7 +83,7 @@ const SelectContent = styled(Select.Content)`
   z-index: 9999;
 `;
 
-const SelectItem = styled(Select.Item)`
+const SelectItem = styled(RadixSelect.Item)`
   font-size: 15px;
   line-height: 1;
   color: black;
@@ -95,7 +101,7 @@ const SelectItem = styled(Select.Item)`
   }
 `;
 
-const SelectItemIndicator = styled(Select.ItemIndicator)`
+const SelectItemIndicator = styled(RadixSelect.ItemIndicator)`
   position: absolute;
   left: 0;
   width: 25px;
@@ -114,12 +120,12 @@ const SelectScrollButtonStyles = css`
   cursor: default;
 `;
 
-const SelectScrollDownButton = styled(Select.ScrollDownButton)`
+const SelectScrollDownButton = styled(RadixSelect.ScrollDownButton)`
   ${SelectScrollButtonStyles}
 `;
 
-const SelectScrollUpButton = styled(Select.ScrollUpButton)`
+const SelectScrollUpButton = styled(RadixSelect.ScrollUpButton)`
   ${SelectScrollButtonStyles}
 `;
 
-export default SelectDemo;
+export default Select;
