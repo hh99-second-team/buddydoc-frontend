@@ -12,13 +12,16 @@ const Modal = (props: ModalProps) => (
   <>
     <Overlay />
     <Content>
-      <Title>{props.title}</Title>
+      <Header>
+        <div></div>
+        <Title>{props.title}</Title>
+        <Close asChild>
+          <button aria-label="Close">
+            <Cross2Icon />
+          </button>
+        </Close>
+      </Header>
       <Description>{props.children}</Description>
-      <Close asChild>
-        <button className="IconButton" aria-label="Close">
-          <Cross2Icon />
-        </button>
-      </Close>
     </Content>
   </>
 );
@@ -62,7 +65,7 @@ const Content = styled(Dialog.Content)`
   width: 90vw;
   max-width: 450px;
   max-height: 85vh;
-  padding: 25px;
+  padding: 30px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 999;
 
@@ -71,11 +74,28 @@ const Content = styled(Dialog.Content)`
   }
 `;
 
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin-bottom: 50px;
+`;
+
 const Title = styled(Dialog.Title)`
   margin: 0;
   font-weight: 500;
-  color: var(--mauve-12);
-  font-size: 17px;
+  font-size: 26px;
+  text-align: center;
+`;
+
+const Close = styled(Dialog.Close)`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  & > svg {
+    float: right;
+  }
 `;
 
 const Description = styled(Dialog.Description)`
@@ -84,7 +104,5 @@ const Description = styled(Dialog.Description)`
   font-size: 15px;
   line-height: 1.5;
 `;
-
-const Close = styled(Dialog.Close)``;
 
 export default Modal;
