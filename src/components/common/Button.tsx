@@ -77,9 +77,9 @@ const getButtonPadding = (size: string) => {
     case 'medium':
       return '12px 24px';
     case 'full':
-      return '12px 0';
+      return '14px 27px';
     default:
-      return '12px 24px';
+      return '17px 30px';
   }
 };
 

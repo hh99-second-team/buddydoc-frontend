@@ -28,12 +28,6 @@ const InputBox = styled.input`
   border-radius: 12px;
   background-color: transparent;
 
-  &::-webkit-input-placeholder {
-    background-size: contain;
-    background-position: 1px center;
-    background-repeat: no-repeat;
-  }
-
   &:focus {
     background-image: none;
     outline: none;
