@@ -7,10 +7,10 @@ import styled from 'styled-components';
 interface FormProps {
   inputVal: any;
   setInputVal: any;
-  onClick?: any;
+  setNextPage: any;
 }
 
-const SignupForm = ({ inputVal, setInputVal, onClick }: FormProps) => {
+const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
   const positions = ['프론트엔드', '백엔드', 'IOS', '안드로이드', '데브옵스', '디자이너', '기획'];
   const career = ['초보', '1년 미만', '1년 이상 ~ 3년 이하', '3년 이상 ~ 5년 이하', '5년 이상'];
 
@@ -53,6 +53,14 @@ const SignupForm = ({ inputVal, setInputVal, onClick }: FormProps) => {
   const onChangePosition = (position: string) => setInputVal({ ...inputVal, position });
 
   const onChangeCareer = (career: string) => setInputVal({ ...inputVal, career });
+
+  const handleNextPage = () => {
+    if (!inputVal.name || !inputVal.nickname || !inputVal.email || !inputVal.position || !inputVal.career) {
+      alert('모든 항목을 입력해주세요.');
+      return;
+    }
+    setNextPage();
+  };
 
   return (
     <>
@@ -132,7 +140,7 @@ const SignupForm = ({ inputVal, setInputVal, onClick }: FormProps) => {
           placeholder="경력 기간을 선택해주세요."
         />
       </SelectBox>
-      <Button size="full" color="primary" onClick={onClick}>
+      <Button size="full" color="primary" onClick={handleNextPage}>
         다음
       </Button>
     </>

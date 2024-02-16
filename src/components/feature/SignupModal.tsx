@@ -7,18 +7,18 @@ import SkillsForm from './SkillsForm';
 const SignupModal = () => {
   const [inputVal, setInputVal] = useState({ name: '', nickname: '', email: '', position: '', career: '', skills: [] });
   const [pageNum, setPageNum] = useState(1);
-  const handlePrevPage = () => setPageNum(1);
-  const handleNextPage = () => setPageNum(2);
+  const setPrevPage = () => setPageNum(1);
+  const setNextPage = () => setPageNum(2);
   const handleSubmit = () => {};
   return (
     <Modal title="회원가입">
       <Container>
-        {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} onClick={handleNextPage} />}
+        {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
         {pageNum === 2 && (
           <SkillsForm
             inputVal={inputVal}
             setInputVal={setInputVal}
-            handlePrevPage={handlePrevPage}
+            setPrevPage={setPrevPage}
             handleSubmit={handleSubmit}
           />
         )}
