@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
-import { CaretDownIcon } from '@radix-ui/react-icons';
+// import { CaretDownIcon } from '@radix-ui/react-icons';
 
 function ManageProfile() {
   // 분야 상태관리
@@ -26,7 +26,7 @@ function ManageProfile() {
                 justifyContent: 'space-between',
               }}>
               {selectedItem}
-              <CaretDownIcon />
+              {/* <CaretDownIcon /> */}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content style={{ width: '500px' }}>
@@ -75,7 +75,7 @@ function ManageProfile() {
           <ProfileItemTitle marginTop="50px">경력</ProfileItemTitle>
           <ProfileItemTitle marginTop="50px">기술스택</ProfileItemTitle>
           <ProfileItemTitle marginTop="50px">한 줄 소개</ProfileItemTitle>
-          <ProfileItemTitle marginTop="70px">URL</ProfileItemTitle>
+          <ProfileItemTitle marginTop="210px">URL</ProfileItemTitle>
         </ProfileItemTitleGroup>
 
         {/* 프로필 정보 content */}
@@ -107,7 +107,7 @@ function ManageProfile() {
 
           {/* 한 줄 소개 */}
           <ProfileItemContentContainer>
-            <TextArea placeholder="소개글을 작성해보세요." style={{ height: '50px', padding: '10px' }} />
+            <TextArea placeholder="소개글을 작성해보세요." style={{ height: '200px', padding: '10px' }} />
             {/* +글자수 체크 함수부분 */}
           </ProfileItemContentContainer>
 

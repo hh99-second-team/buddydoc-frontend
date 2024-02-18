@@ -1,6 +1,6 @@
-import { Avatar, Flex } from "@radix-ui/themes";
-import React from "react";
-import styled from "styled-components";
+import { Avatar, Flex } from '@radix-ui/themes';
+import React from 'react';
+import styled from 'styled-components';
 
 function SimpleProfileInfo() {
   return (
