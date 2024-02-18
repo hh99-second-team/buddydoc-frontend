@@ -159,7 +159,7 @@ function LikeList() {
   return (
     <>
       <SideMenuHeader>관심 목록</SideMenuHeader>
-      <SideMenuDescription>현재 참여중인 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
+      <SideMenuDescription>북마크한 목록입니다.</SideMenuDescription>
       <SideMenuBody>
         <Tabs.Root defaultValue="study">
           <StyledTabsList>
@@ -203,10 +203,7 @@ export default LikeList;
 
 const SideMenuHeader = styled.div`
   font-size: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
   font-size: 15px;

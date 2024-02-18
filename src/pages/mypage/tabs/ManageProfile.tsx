@@ -136,6 +136,7 @@ export default ManageProfile;
 
 const SideMenuHeader = styled.div`
   font-size: 30px;
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   align-items: center;

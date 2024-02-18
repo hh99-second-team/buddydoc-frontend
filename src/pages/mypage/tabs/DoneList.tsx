@@ -200,10 +200,7 @@ export default LikeList;
 
 const SideMenuHeader = styled.div`
   font-size: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
   font-size: 15px;

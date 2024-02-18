@@ -1,7 +1,7 @@
 import { Avatar, Box, Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const dummyDatas = [
   {

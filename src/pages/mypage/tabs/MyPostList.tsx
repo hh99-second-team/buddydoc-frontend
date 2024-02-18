@@ -162,7 +162,7 @@ function MyPostList() {
   return (
     <>
       <SideMenuHeader>작성 목록</SideMenuHeader>
-      <SideMenuDescription>신청한 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
+      <SideMenuDescription>내가 작성한 모집글입니다.</SideMenuDescription>
       <SideMenuBody>
         <Tabs.Root defaultValue="study">
           <StyledTabsList>
@@ -206,10 +206,7 @@ export default MyPostList;
 
 const SideMenuHeader = styled.div`
   font-size: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
   font-size: 15px;
