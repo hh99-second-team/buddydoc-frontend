@@ -27,9 +27,7 @@ const SignupModal = () => {
     <Modal title="회원가입">
       <Container>
         {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
-        {pageNum === 2 && (
-          <SkillsForm inputVal={inputVal} setInputVal={setInputVal} setPrevPage={setPrevPage} setSkills={setSkills} />
-        )}
+        {pageNum === 2 && <SkillsForm inputVal={inputVal} setPrevPage={setPrevPage} setSkills={setSkills} />}
       </Container>
     </Modal>
   );

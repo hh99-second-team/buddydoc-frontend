@@ -3,22 +3,28 @@ import Button from '../common/Button';
 import styled, { css } from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { skills } from '../../utils/skillUrlList';
+import api from '../../services/api';
 
 interface FormProps {
   inputVal: any;
-  setInputVal: any;
   setPrevPage: () => void;
   setSkills: (skills: string[]) => void;
 }
 
-const SkillsForm = ({ inputVal, setInputVal, setPrevPage, setSkills }: FormProps) => {
+const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-  const onSkillsChange = (value: string[]) => setSelectedSkills(value);
+  const onChangeSkills = (value: string[]) => setSelectedSkills(value);
+
+  const handleSubmit = async () => {
+    setSkills(selectedSkills);
+    const response = await api.signup(inputVal);
+    console.log(response);
+  };
 
   return (
     <div>
-      <SkillBox type="multiple" value={selectedSkills} onValueChange={onSkillsChange}>
+      <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
         {skills.map((skill, idx) => (
           <SkillItem key={idx} value={skill}>
             {skill}
@@ -35,7 +41,7 @@ const SkillsForm = ({ inputVal, setInputVal, setPrevPage, setSkills }: FormProps
         <Button size="full" color="primary" onClick={setPrevPage}>
           이전
         </Button>
-        <Button size="full" color="primary" onClick={setSkills}>
+        <Button size="full" color="primary" onClick={handleSubmit}>
           완료
         </Button>
       </ButtonSet>
