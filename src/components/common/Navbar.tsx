@@ -5,9 +5,12 @@ import LoginModal from '../feature/LoginModal';
 import logoUrl from '../../assets/buddydoc-logo.png';
 import SignupModal from '../feature/SignupModal';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isSignupOpenState } from '../../store/atomDefinitions';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   return (
     <Layout>
@@ -21,7 +24,7 @@ const Navbar = () => {
             <LoginModal />
           </Dialog.Portal>
         </Dialog.Root>
-        <Dialog.Root>
+        <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
           <Dialog.Trigger asChild>
             <NavButton>회원가입</NavButton>
           </Dialog.Trigger>

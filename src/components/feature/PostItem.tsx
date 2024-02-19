@@ -1,32 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillSet } from '../../utils/skillUrlList';
+import { skillsIcon } from '../../utils/skillUrlList';
 import CircleIcon from '../common/CircleIcon';
 import Bookmark from '../common/Bookmark';
 
+/** 게시물 데이터 형식 */
 interface PostProps {
-  post: { type: string; deadline: string; title: string; skillList: string[]; writer: string; bookmark: number };
+  post: { type: string; deadline: string; title: string; skillList: string[]; nickname: string; bookmark: number };
+
+  // post: {
+  //   postId: number;
+  //   type: string;
+  //   nickname: string;
+  //   title: string;
+  //   deadline: string;
+  //   skillList: string[];
+  //   views: number;
+  //   bookmark: number;
+  // };
 }
 
-const PostItem = (props: PostProps) => {
+const PostItem = ({ post }: PostProps) => {
   return (
     <Card>
       <div>
         <div></div>
-        <TypeBox>{props.post.type}</TypeBox>
+        <TypeBox>{post.type}</TypeBox>
         <div></div>
       </div>
-      <p>마감일 {props.post.deadline}</p>
-      <Title>{props.post.title}</Title>
+      <p>마감일 {post.deadline}</p>
+      <Title>{post.title}</Title>
       <SkillList>
-        {props.post.skillList.slice(0, 5).map((skill) => (
-          <CircleIcon src={skillSet[skill]} fallback={skill} />
+        {post.skillList.slice(0, 5).map((skill, idx) => (
+          <CircleIcon key={idx} src={skillsIcon[skill]} fallback={skill} />
         ))}
-        {props.post.skillList.length > 5 && <span>+ {props.post.skillList.length - 5}</span>}
+        {post.skillList.length > 5 && <span>+ {post.skillList.length - 5}</span>}
       </SkillList>
       <PostFooter>
-        <Writer>작성자 {props.post.writer}</Writer>
-        <Bookmark count={props.post.bookmark} />
+        <Writer>작성자 {post.nickname}</Writer>
+        <Bookmark count={post.bookmark} />
       </PostFooter>
     </Card>
   );
