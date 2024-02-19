@@ -38,13 +38,16 @@ const dummyDatas = [
 ];
 
 function MyPostList() {
+  // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('study');
+
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
   const [coffeeChatCount, setCoffeeChatCount] = useState(0);
+
+  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
-    // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {

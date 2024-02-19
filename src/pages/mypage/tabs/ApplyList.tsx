@@ -45,13 +45,16 @@ const dummyDatas = [
 ];
 
 function ApplyList() {
+  // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('study');
+
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
   const [coffeeChatCount, setCoffeeChatCount] = useState(0);
+
+  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
-    // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {
@@ -76,7 +79,7 @@ function ApplyList() {
     setCoffeeChatCount(counts.coffeeChat);
   }, []);
 
-  // 각 활동 탭에 해당하는 데이터 분류해주는 함수
+  // 각 활동 탭에 해당하는 데이터를 분류해주는 함수
   const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
 
   // 분류에 따라 content를 다르게 렌더링하는 함수

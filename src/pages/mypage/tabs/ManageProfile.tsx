@@ -46,6 +46,7 @@ function ManageProfile() {
       </ProfileItemContentContainer>
     );
   };
+
   // 드롭다운 카테고리 분류
   const dropdownCategoryHandler = (category: string, item: string) => {
     if (category === 'position') {
