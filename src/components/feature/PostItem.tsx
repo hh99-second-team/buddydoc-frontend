@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillSet } from '../../utils/skillUrlList';
+import { skillsIcon } from '../../utils/skillUrlList';
 import CircleIcon from '../common/CircleIcon';
 import Bookmark from '../common/Bookmark';
 
@@ -20,7 +20,7 @@ const PostItem = (props: PostProps) => {
       <Title>{props.post.title}</Title>
       <SkillList>
         {props.post.skillList.slice(0, 5).map((skill, idx) => (
-          <CircleIcon key={idx} src={skillSet[skill]} fallback={skill} />
+          <CircleIcon key={idx} src={skillsIcon[skill]} fallback={skill} />
         ))}
         {props.post.skillList.length > 5 && <span>+ {props.post.skillList.length - 5}</span>}
       </SkillList>
