@@ -4,23 +4,31 @@ import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import SkillsForm from './SkillsForm';
 
+interface InputVal {
+  nickname: string;
+  position: string;
+  career: string;
+  skills: string[];
+}
+
 const SignupModal = () => {
-  const [inputVal, setInputVal] = useState({ name: '', nickname: '', email: '', position: '', career: '', skills: [] });
+  const [inputVal, setInputVal] = useState<InputVal>({
+    nickname: '',
+    position: '',
+    career: '',
+    skills: [],
+  });
   const [pageNum, setPageNum] = useState(1);
   const setPrevPage = () => setPageNum(1);
   const setNextPage = () => setPageNum(2);
-  const handleSubmit = () => {};
+  const setSkills = (skills: string[]) => setInputVal({ ...inputVal, skills });
+
   return (
     <Modal title="회원가입">
       <Container>
         {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
         {pageNum === 2 && (
-          <SkillsForm
-            inputVal={inputVal}
-            setInputVal={setInputVal}
-            setPrevPage={setPrevPage}
-            handleSubmit={handleSubmit}
-          />
+          <SkillsForm inputVal={inputVal} setInputVal={setInputVal} setPrevPage={setPrevPage} setSkills={setSkills} />
         )}
       </Container>
     </Modal>
