@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { skills } from '../../utils/skillUrlList';
 import api from '../../services/api';
+import { isSignupOpenState } from '../../store/atomDefinitions';
+import { useRecoilState } from 'recoil';
 
 interface FormProps {
   inputVal: any;
@@ -13,6 +15,7 @@ interface FormProps {
 
 const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const onChangeSkills = (value: string[]) => setSelectedSkills(value);
 
@@ -20,6 +23,7 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
     setSkills(selectedSkills);
     const response = await api.signup(inputVal);
     console.log(response);
+    setIsSignupOpen(false);
   };
 
   return (

@@ -1,33 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from '../common/Modal';
 import styled, { css } from 'styled-components';
-import * as Dialog from '@radix-ui/react-dialog';
-import SignupModal from './SignupModal';
 
-const LoginModal = ({}) => {
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
-
+const LoginModal = () => {
   return (
     <Modal
       title="SNS 계정으로 간편하게 
     로그인 / 회원가입 하세요!">
-      <Dialog.Root open={isSignupOpen}>
-        <Dialog.Trigger asChild>
-          <KakaoConnect>카카오로 시작하기</KakaoConnect>
-        </Dialog.Trigger>
-        <Dialog.Trigger asChild>
-          <NaverConnect>네이버로 시작하기</NaverConnect>
-        </Dialog.Trigger>
-        <Dialog.Trigger asChild>
-          <GoogleConnect>구글로 시작하기</GoogleConnect>
-        </Dialog.Trigger>
-        <Dialog.Trigger asChild>
-          <GithubConnect>Github로 시작하기</GithubConnect>
-        </Dialog.Trigger>
-        <Dialog.Portal>
-          <SignupModal />
-        </Dialog.Portal>
-      </Dialog.Root>
+      <KakaoConnect>카카오로 시작하기</KakaoConnect>
+      <NaverConnect>네이버로 시작하기</NaverConnect>
+      <GoogleConnect>구글로 시작하기</GoogleConnect>
+      <GithubConnect>Github로 시작하기</GithubConnect>
     </Modal>
   );
 };

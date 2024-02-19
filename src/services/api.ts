@@ -37,8 +37,8 @@ interface UserData {
 // API 호출 메서드 정의
 const api = {
   /** 게시물 목록 조회 */
-  getPost: async (): Promise<PostData> => {
-    const response: AxiosResponse<PostData> = await axiosInstance.get('/post');
+  getPost: async () => {
+    const response = await axiosInstance.get('/post');
     return response.data;
   },
 
