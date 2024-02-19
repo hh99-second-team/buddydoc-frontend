@@ -43,20 +43,40 @@ const api = {
   },
 
   /** 사용자 정보 가져오기 */
-  getUser: async (userId: string): Promise<UserData> => {
+  getUser: async (userId: string) => {
     const response: AxiosResponse<UserData> = await axiosInstance.get(`/users/${userId}`);
     return response.data;
   },
 
   /** 사용자 정보 업데이트 */
-  updateUser: async (userId: string, userData: UserData): Promise<UserData> => {
+  updateUser: async (userId: string, userData: UserData) => {
     const response: AxiosResponse<UserData> = await axiosInstance.put(`/users/${userId}`, userData);
     return response.data;
   },
 
-  signup: async (userData: UserData): Promise<UserData> => {
+  /** 회원가입 */
+  signup: async (userData: UserData) => {
     const response: AxiosResponse<UserData> = await axiosInstance.post('/signup', userData);
     return response.data;
+  },
+
+  /** 카카오 로그인 */
+  kakaoLogin: async () => {
+    // 사용자를 카카오 로그인 페이지로 리디렉션합니다.
+    const response = window.open(`${API_ROOT}/oauth/callback/kakao`);
+    console.log(response);
+  },
+
+  /** 네이버 로그인 */
+  naverLogin: async () => {
+    // 사용자를 네이버 로그인 페이지로 리디렉션합니다.
+    window.open(`${API_ROOT}/oauth/callback/naver`);
+  },
+
+  /** 구글 로그인 */
+  googleLogin: async () => {
+    // 사용자를 구글 로그인 페이지로 리디렉션합니다.
+    window.open(`${API_ROOT}/oauth/callback/google`);
   },
 };
 

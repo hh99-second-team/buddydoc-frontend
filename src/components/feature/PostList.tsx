@@ -19,13 +19,21 @@ interface PostData {
 
 const PostList = () => {
   const { isLoading, data, isError, error } = useQuery<PostData[]>('posts', api.getPost);
+  const testList = Array(20).fill({
+    type: '스터디',
+    deadline: '2024.02.21',
+    title: 'test',
+    skillList: ['react', 'typescript', 'node', 'express', 'aws', 'javascript'],
+    writer: '곽민지',
+    bookmark: 63,
+  });
 
   return (
     <PostContainer>
       {/* 로딩 중일 때 Skeleton UI 표시*/}
       {/* 최초엔 12개의 스켈레톤 표시 */}
       {isLoading && Array.from({ length: 12 }, (_, idx) => <SkeletonPost />)}
-      {/* {data && data.map((post, idx) => <PostItem post={post} key={idx} />)} */}
+      {testList && testList.map((post, idx) => <PostItem post={post} key={idx} />)}
     </PostContainer>
   );
 };

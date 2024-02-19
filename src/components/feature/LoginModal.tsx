@@ -1,15 +1,16 @@
 import React from 'react';
 import Modal from '../common/Modal';
 import styled, { css } from 'styled-components';
+import api from '../../services/api';
 
 const LoginModal = () => {
   return (
     <Modal
       title="SNS 계정으로 간편하게 
     로그인 / 회원가입 하세요!">
-      <KakaoConnect>카카오로 시작하기</KakaoConnect>
-      <NaverConnect>네이버로 시작하기</NaverConnect>
-      <GoogleConnect>구글로 시작하기</GoogleConnect>
+      <KakaoConnect onClick={api.kakaoLogin}>카카오로 시작하기</KakaoConnect>
+      <NaverConnect onClick={api.naverLogin}>네이버로 시작하기</NaverConnect>
+      <GoogleConnect onClick={api.googleLogin}>구글로 시작하기</GoogleConnect>
       <GithubConnect>Github로 시작하기</GithubConnect>
     </Modal>
   );

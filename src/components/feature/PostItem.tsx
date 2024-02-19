@@ -6,16 +6,18 @@ import Bookmark from '../common/Bookmark';
 
 /** 게시물 데이터 형식 */
 interface PostProps {
-  post: {
-    postId: number;
-    type: string;
-    nickname: string;
-    title: string;
-    deadline: string;
-    skillList: string[];
-    views: number;
-    bookmark: number;
-  };
+  post: { type: string; deadline: string; title: string; skillList: string[]; nickname: string; bookmark: number };
+
+  // post: {
+  //   postId: number;
+  //   type: string;
+  //   nickname: string;
+  //   title: string;
+  //   deadline: string;
+  //   skillList: string[];
+  //   views: number;
+  //   bookmark: number;
+  // };
 }
 
 const PostItem = ({ post }: PostProps) => {
