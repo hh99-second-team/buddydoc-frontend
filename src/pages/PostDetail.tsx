@@ -7,8 +7,8 @@ import GatherInfo from '../components/feature/postDetail/GatherInfo';
 import Button from '../components/common/Button';
 import styled from 'styled-components';
 import DetailContent from '../components/feature/postDetail/DetailContent';
-import ApplicationModal from '../components/common/ApplicationModal';
-import NoteModal from '../components/feature/NoteModal';
+import ApplicationModal from '../components/feature/postDetail/ApplicationModal';
+import NoteModal from '../components/feature/postDetail/NoteModal';
 
 const PostDetail = () => {
   const location = useLocation().state;
