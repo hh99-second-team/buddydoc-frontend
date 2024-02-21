@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import Banner from '../components/feature/Banner';
 import PostList from '../components/feature/PostList';
+import { Layout } from '../styles/GlobalStyles';
 
 const Main = () => {
   return (
@@ -11,9 +11,5 @@ const Main = () => {
     </Layout>
   );
 };
-
-const Layout = styled.div`
-  padding: 40px 140px;
-`;
 
 export default Main;
