@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export const Layout = styled.div`
-  padding: 40px 140px;
+  padding: 5vh 12vw;
 `;
 
 export default GlobalStyles;

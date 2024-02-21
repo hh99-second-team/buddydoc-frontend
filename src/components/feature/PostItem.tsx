@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillsIcon } from '../../utils/skillUrlList';
-import CircleIcon from '../common/CircleIcon';
 import Bookmark from '../common/Bookmark';
 import { useNavigate } from 'react-router-dom';
 import StudyTypeIcon from '../common/StudyTypeIcon';
+import SkillList from '../common/SkillList';
+import { getDateFomat } from '../../utils/DateFormatFunction';
 
 /** 게시물 데이터 형식 */
 interface PostProps {
@@ -40,14 +40,9 @@ const PostItem = ({ post }: PostProps) => {
         <StudyTypeIcon>{post.type}</StudyTypeIcon>
         <div></div>
       </div>
-      <p>마감일 {post.deadline.toString()}</p>
+      <p>마감일 {getDateFomat(post.deadline)}</p>
       <Title>{post.title}</Title>
-      <SkillList>
-        {post.skillList.slice(0, 5).map((skill, idx) => (
-          <CircleIcon key={idx} src={skillsIcon[skill]} fallback={skill} />
-        ))}
-        {post.skillList.length > 5 && <span>+ {post.skillList.length - 5}</span>}
-      </SkillList>
+      <SkillList skip={true} skillList={post.skillList} />
       <PostFooter>
         <Writer>작성자 {post.nickname}</Writer>
         <Bookmark flexDirection="column" count={post.bookmark} />
@@ -71,12 +66,6 @@ const Card = styled.div`
 const Title = styled.div`
   height: 120px;
   font-size: 1.5rem;
-`;
-
-const SkillList = styled.div`
-  display: flex;
-  column-gap: 10px;
-  align-items: center;
 `;
 
 const PostFooter = styled.div`
