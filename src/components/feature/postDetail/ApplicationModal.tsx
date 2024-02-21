@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Modal from './Modal';
+import Modal from '../../common/Modal';
 import styled from 'styled-components';
-import Select from './Select';
-import { positions } from '../../utils/skillUrlList';
-import Textarea from './Textarea';
-import Button from './Button';
+import Select from '../../common/Select';
+import { positions } from '../../../utils/skillUrlList';
+import Textarea from '../../common/Textarea';
+import Button from '../../common/Button';
 
 interface ModalProps {
   setIsOpen: (isOpen: boolean) => void;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Modal from '../common/Modal';
-import Textarea from '../common/Textarea';
-import Button from '../common/Button';
+import Modal from '../../common/Modal';
+import Textarea from '../../common/Textarea';
+import Button from '../../common/Button';
 import styled from 'styled-components';
 
 interface ModalProps {
