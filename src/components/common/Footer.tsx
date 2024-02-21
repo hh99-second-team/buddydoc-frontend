@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Footer = () => {
+  const menuList = ['Home', 'About', 'Services', 'Team', 'Contact'];
   return (
     <FooterBox>
       <div>
@@ -25,23 +26,14 @@ const Footer = () => {
         </MenuItem>
       </Menu>
       <Menu>
-        <MenuItem>
-          <MenuLink>Home</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink>About</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink>Services</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink>Team</MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink>Contact</MenuLink>
-        </MenuItem>
+        {menuList.map((menu) => (
+          <MenuItem key={menu}>
+            <MenuLink>{menu}</MenuLink>
+          </MenuItem>
+        ))}
       </Menu>
-      <p>&copy;2024 HangHae 18 | All Rights Reserved</p>
+      <p>곽민지 | 박성진 | 임희원 | 김기민 | 최예은</p>
+      <p>&copy;2024 항해 18기 2조 | All Rights Reserved</p>
     </FooterBox>
   );
 };
