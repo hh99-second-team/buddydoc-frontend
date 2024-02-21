@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import GlobalStyles from './styles/GlobalStyles';
 import Router from './routes/Router';
+import Footer from './components/common/Footer';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <GlobalStyles />
           <Router />
+          <Footer />
         </QueryClientProvider>
       </RecoilRoot>
     </ThemeProvider>

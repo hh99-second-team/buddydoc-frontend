@@ -22,7 +22,7 @@ const GatherInfo = ({ post }: any) => {
     '모집 일시': getDateFomat(post.createdAt),
     '모집 분야': '프론트엔드',
     '모집 구분': post.type,
-    '모집 인원': 4,
+    '모집 인원': '4명',
     '프로젝트 시작': getDateFomat(post.deadline),
     '프로젝트 기간': '3주',
     '기술 스택': post.skillList,
