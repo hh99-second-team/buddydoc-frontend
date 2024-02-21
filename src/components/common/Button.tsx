@@ -5,13 +5,6 @@ interface ButtonProps {
   size: 'small' | 'medium' | 'half' | 'full';
   color: string;
   children: React.ReactNode;
-  theme?: {
-    colors: {
-      button: {
-        primary: string;
-      };
-    };
-  };
   onClick?: any;
 }
 

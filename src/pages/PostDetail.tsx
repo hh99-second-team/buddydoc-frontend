@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Layout } from '../styles/GlobalStyles';
+import * as Dialog from '@radix-ui/react-dialog';
 import DetailHeader from '../components/feature/postDetail/DetailHeader';
 import GatherInfo from '../components/feature/postDetail/GatherInfo';
 import Button from '../components/common/Button';
 import styled from 'styled-components';
 import DetailContent from '../components/feature/postDetail/DetailContent';
+import ApplicationModal from '../components/common/ApplicationModal';
+import NoteModal from '../components/feature/NoteModal';
 
 const PostDetail = () => {
   const location = useLocation().state;
   const post = location.post;
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
   return (
     <Layout>
       <DetailHeader post={post} />
       <GatherInfo post={post} />
       <ButtonSet>
-        <Button size="half" color="primary">
-          신청하기
-        </Button>
-        <Button size="half" color="black">
-          문의하기
-        </Button>
+        <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
+          <Dialog.Trigger asChild>
+            <Button size="half" color="primary">
+              신청하기
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <ApplicationModal setIsOpen={setIsApplicationModalOpen} />
+          </Dialog.Portal>
+        </Dialog.Root>
+        <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
+          <Dialog.Trigger asChild>
+            <Button size="half" color="black">
+              문의하기
+            </Button>
+          </Dialog.Trigger>
+          <Dialog.Portal>
+            <NoteModal setIsOpen={setIsNoteModalOpen} />
+          </Dialog.Portal>
+        </Dialog.Root>
       </ButtonSet>
       <DetailContent>
         안녕하세요. AXYZ는 문자가 가지는 뜻 그대로 사용자 자신이 중심이 되는 시스템과 하나의 선이라는 연속성에 기반하여
