@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import firstBanner from '../../assets/banner-test-1.jpg';
-import secondBanner from '../../assets/banner-test-2.jpg';
+import firstBanner from '../../assets/banner-green.png';
+import secondBanner from '../../assets/banner-black.png';
 import styled from 'styled-components';
 
 interface BannerProps {
@@ -37,9 +37,16 @@ const Banner = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 320px;
-  border-radius: 28px;
-  overflow: hidden;
+  padding-top: 8vh;
+  height: 330px;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export default Banner;

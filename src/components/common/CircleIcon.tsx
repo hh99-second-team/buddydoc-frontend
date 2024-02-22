@@ -5,26 +5,27 @@ import styled from 'styled-components';
 interface IconProps {
   src: string;
   fallback: string;
+  size?: 'small' | 'basic';
 }
 
-const CircleIcon = (props: IconProps) => {
+const CircleIcon = ({ src, fallback, size }: IconProps) => {
   return (
     <AvatarRoot>
-      <AvatarImage src={props.src} alt="Colm Tuite" />
-      <AvatarFallback delayMs={600}>{props.fallback}</AvatarFallback>
+      <AvatarImage src={src} alt="Colm Tuite" />
+      <AvatarFallback delayMs={600}>{fallback}</AvatarFallback>
     </AvatarRoot>
   );
 };
 
-const AvatarRoot = styled(Avatar.Root)`
+const AvatarRoot = styled(Avatar.Root)<{ size?: 'small' | 'basic' }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  width: 45px;
-  height: 45px;
+  width: ${(props) => (props.size === 'small' ? '30px' : '42px')};
+  height: ${(props) => (props.size === 'small' ? '30px' : '42px')};
   border-radius: 100%;
 `;
 

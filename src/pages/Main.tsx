@@ -1,19 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
 import Banner from '../components/feature/Banner';
 import PostList from '../components/feature/PostList';
+import styled from 'styled-components';
 
 const Main = () => {
   return (
-    <Layout>
+    <>
       <Banner />
-      <PostList />
-    </Layout>
+      <Layout>
+        <PostList />
+      </Layout>
+    </>
   );
 };
 
 const Layout = styled.div`
-  padding: 40px 140px;
+  padding: 0 12vw 5vh 12vw;
 `;
 
 export default Main;
