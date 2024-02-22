@@ -58,6 +58,7 @@ const SelectItemBox = React.forwardRef<HTMLDivElement, SelectItemProps>(
 
 const SelectTrigger = styled(RadixSelect.Trigger)`
   width: 100%;
+  height: 51.5px;
   padding: 17px 30px;
   border: 1px solid #e2e3e5;
   border-radius: 12px;

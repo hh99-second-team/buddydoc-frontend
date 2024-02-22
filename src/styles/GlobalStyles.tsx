@@ -1,9 +1,13 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
     *{box-sizing: border-box;}
+`;
+
+export const Layout = styled.div`
+  padding: 5vh 12vw;
 `;
 
 export default GlobalStyles;

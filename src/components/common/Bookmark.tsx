@@ -5,31 +5,34 @@ import styled from 'styled-components';
 
 interface BookmarkProps {
   count: number;
+  flexDirection: 'row' | 'column';
 }
 
-const Bookmark = (props: BookmarkProps) => {
+const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(false);
-  const [bookmarkCount, setBookmarkCount] = useState(props.count);
+  const [bookmarkCount, setBookmarkCount] = useState(count);
   const [bookmarkUrl, setBookmarkUrl] = useState(isBookmarkSelected ? selectedbookmark : unSelectedbookmark);
 
-  const handleToggleBookmark = (isBookmarkSelected: boolean) => {
+  const handleToggleBookmark = (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
+    e.stopPropagation();
     setIsBookmarkSelected((state) => !state);
     setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
     setBookmarkUrl(() => (isBookmarkSelected ? unSelectedbookmark : selectedbookmark));
   };
 
   return (
-    <BookmarkBox onClick={() => handleToggleBookmark(isBookmarkSelected)}>
-      <img src={bookmarkUrl} alt="" />
+    <BookmarkBox flexDirection={flexDirection}>
+      <img src={bookmarkUrl} alt="" onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)} />
       <p>{bookmarkCount}</p>
     </BookmarkBox>
   );
 };
 
-const BookmarkBox = styled.div`
+const BookmarkBox = styled.div<{ flexDirection: 'row' | 'column' }>`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  column-gap: ${(props) => (props.flexDirection === 'row' ? '5px' : '0')};
+  flex-direction: ${(props) => (props.flexDirection === 'row' ? 'row' : 'column')};
 
   & > img {
     width: 25px;

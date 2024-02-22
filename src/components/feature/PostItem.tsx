@@ -1,12 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillsIcon } from '../../utils/skillUrlList';
-import CircleIcon from '../common/CircleIcon';
 import Bookmark from '../common/Bookmark';
+import { useNavigate } from 'react-router-dom';
+import StudyTypeIcon from '../common/StudyTypeIcon';
+import SkillList from '../common/SkillList';
+import { getDateFomat } from '../../utils/dateUtils';
 
 /** 게시물 데이터 형식 */
 interface PostProps {
-  post: { type: string; deadline: string; title: string; skillList: string[]; nickname: string; bookmark: number };
+  post: {
+    postId: number;
+    type: string;
+    deadline: Date;
+    title: string;
+    skillList: string[];
+    nickname: string;
+    bookmark: number;
+  };
 
   // post: {
   //   postId: number;
@@ -21,24 +31,21 @@ interface PostProps {
 }
 
 const PostItem = ({ post }: PostProps) => {
+  const navigate = useNavigate();
+
   return (
-    <Card>
+    <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
       <div>
         <div></div>
-        <TypeBox>{post.type}</TypeBox>
+        <StudyTypeIcon>{post.type}</StudyTypeIcon>
         <div></div>
       </div>
-      <p>마감일 {post.deadline}</p>
+      <p>마감일 {getDateFomat(post.deadline)}</p>
       <Title>{post.title}</Title>
-      <SkillList>
-        {post.skillList.slice(0, 5).map((skill, idx) => (
-          <CircleIcon key={idx} src={skillsIcon[skill]} fallback={skill} />
-        ))}
-        {post.skillList.length > 5 && <span>+ {post.skillList.length - 5}</span>}
-      </SkillList>
+      <SkillList skip={true} skillList={post.skillList} />
       <PostFooter>
         <Writer>작성자 {post.nickname}</Writer>
-        <Bookmark count={post.bookmark} />
+        <Bookmark flexDirection="column" count={post.bookmark} />
       </PostFooter>
     </Card>
   );
@@ -56,25 +63,9 @@ const Card = styled.div`
   background: var(--grey01, #f9fafc);
 `;
 
-const TypeBox = styled.div`
-  display: inline-flex;
-  padding: 4.026px 8.052px;
-  justify-content: center;
-  align-items: center;
-  gap: 6.442px;
-  border-radius: 45.091px;
-  background: #fff;
-`;
-
 const Title = styled.div`
   height: 120px;
   font-size: 1.5rem;
-`;
-
-const SkillList = styled.div`
-  display: flex;
-  column-gap: 10px;
-  align-items: center;
 `;
 
 const PostFooter = styled.div`

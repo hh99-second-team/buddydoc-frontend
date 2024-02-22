@@ -11,7 +11,7 @@ interface PostData {
   type: string;
   nickname: string;
   title: string;
-  deadline: string;
+  deadline: Date;
   skillList: string[];
   views: number;
   bookmark: number;
@@ -19,12 +19,19 @@ interface PostData {
 
 const PostList = () => {
   const { isLoading, data, isError, error } = useQuery<PostData[]>('posts', api.getPost);
+
+  const createDate = new Date();
+  const deadlineDate = new Date();
+  deadlineDate.setDate(deadlineDate.getDate() + 10);
   const testList = Array(20).fill({
-    type: '스터디',
-    deadline: '2024.02.21',
-    title: 'test',
+    postId: 1,
+    type: '프로젝트',
+    nickname: '오늘은맑음',
+    title: '개발자 매칭 플랫폼 Web FE 팀원 추가 모집합니다~!',
+    createdAt: createDate,
+    deadline: deadlineDate,
     skillList: ['react', 'typescript', 'node', 'express', 'aws', 'javascript'],
-    writer: '곽민지',
+    views: 278,
     bookmark: 63,
   });
 

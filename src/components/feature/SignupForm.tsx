@@ -3,6 +3,7 @@ import Input from '../common/Input';
 import Select from '../common/Select';
 import Button from '../common/Button';
 import styled from 'styled-components';
+import { career, positions } from '../../constants/data';
 
 interface FormProps {
   inputVal: any;
@@ -11,9 +12,6 @@ interface FormProps {
 }
 
 const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
-  const positions = ['프론트엔드', '백엔드', 'IOS', '안드로이드', '데브옵스', '디자이너', '기획'];
-  const career = ['초보', '1년 미만', '1년 이상 ~ 3년 이하', '3년 이상 ~ 5년 이하', '5년 이상'];
-
   const [isValid, setIsValid] = useState({
     isNameValid: true,
     isNicknameValid: true,
@@ -49,7 +47,7 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
 
   return (
     <>
-      <InputBox>
+      <div>
         <Title>
           닉네임<span> *</span>
         </Title>
@@ -67,7 +65,7 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
             ? '* 사용 가능한 닉네임입니다.'
             : '* 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 입력해주세요.'}
         </ValidText>
-      </InputBox>
+      </div>
 
       <SelectBox>
         <Title>
@@ -97,8 +95,6 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
     </>
   );
 };
-
-const InputBox = styled.div``;
 
 const SelectBox = styled.div`
   margin-bottom: 15px;
