@@ -13,7 +13,8 @@ const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
   const [bookmarkCount, setBookmarkCount] = useState(count);
   const [bookmarkUrl, setBookmarkUrl] = useState(isBookmarkSelected ? selectedbookmark : unSelectedbookmark);
 
-  const handleToggleBookmark = (isBookmarkSelected: boolean) => {
+  const handleToggleBookmark = (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
+    e.stopPropagation();
     setIsBookmarkSelected((state) => !state);
     setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
     setBookmarkUrl(() => (isBookmarkSelected ? unSelectedbookmark : selectedbookmark));
@@ -21,7 +22,7 @@ const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
 
   return (
     <BookmarkBox flexDirection={flexDirection}>
-      <img src={bookmarkUrl} alt="" onClick={() => handleToggleBookmark(isBookmarkSelected)} />
+      <img src={bookmarkUrl} alt="" onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)} />
       <p>{bookmarkCount}</p>
     </BookmarkBox>
   );
