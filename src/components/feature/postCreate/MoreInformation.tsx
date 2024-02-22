@@ -24,6 +24,16 @@ interface Props {
 const MoreInformation = ({ inputVal, setInputVal }: Props) => {
   const editorRef = useRef<Editor>(null);
 
+  const toolbarItems = [
+    // 툴바 옵션 설정
+    ['heading', 'bold', 'italic', 'strike'],
+    ['hr', 'quote'],
+    ['ul', 'ol', 'task', 'indent', 'outdent'],
+    ['table', 'image', 'link'],
+    ['code', 'codeblock'],
+    ['scrollSync'],
+  ];
+
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputVal({ ...inputVal, title: e.target.value });
 
   const onChangeGetHTML = () => {
@@ -45,18 +55,12 @@ const MoreInformation = ({ inputVal, setInputVal }: Props) => {
           isValid="none"
         />
         <Editor
-          toolbarItems={[
-            // 툴바 옵션 설정
-            ['heading', 'bold', 'italic', 'strike'],
-            ['hr', 'quote'],
-            ['ul', 'ol', 'task', 'indent', 'outdent'],
-            ['table', 'image', 'link'],
-            ['code', 'codeblock'],
-          ]}
-          height="500px" // 에디터 창 높이
-          initialEditType="markdown" // 기본 에디터 타입 (or wysiwyg)
-          previewStyle="vertical" // 미리보기 스타일 (or tab) (verttical은 양쪽이 나뉨)
           ref={editorRef} // ref 참조
+          initialValue={inputVal.content || ' '} // 글 수정 시 사용
+          toolbarItems={toolbarItems}
+          height="500px" // 에디터 창 높이
+          initialEditType="wysiwyg" // 기본 에디터 타입 (or wysiwyg)
+          previewStyle="vertical" // 미리보기 스타일 (or tab) (verttical은 양쪽이 나뉨)
           onChange={onChangeGetHTML} // onChange 이벤트
         ></Editor>
       </Container>
