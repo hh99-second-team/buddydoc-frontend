@@ -4,9 +4,9 @@ import styled from 'styled-components';
 interface InputProps {
   type: string;
   placeholder: string;
-  value: string;
-  onChange: any;
-  isValid: boolean;
+  value: string | number;
+  onChange: (value: any) => void;
+  isValid?: boolean;
 }
 
 const Input = ({ type, placeholder, value, onChange, isValid }: InputProps) => {
