@@ -6,7 +6,7 @@ interface InputProps {
   placeholder: string;
   value: string | number;
   onChange: (value: any) => void;
-  isValid?: boolean;
+  isValid?: 'none' | boolean;
 }
 
 const Input = ({ type, placeholder, value, onChange, isValid }: InputProps) => {
@@ -16,7 +16,7 @@ const Input = ({ type, placeholder, value, onChange, isValid }: InputProps) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={isValid ? '' : 'not--valid'}
+      className={isValid === 'none' ? '' : isValid ? 'valid' : 'not--valid'}
     />
   );
 };
@@ -29,6 +29,10 @@ const InputBox = styled.input`
   background-color: transparent;
 
   &:focus {
+    outline: none;
+  }
+
+  &.valid:focus {
     background-image: none;
     outline: none;
     border-color: #80befc;

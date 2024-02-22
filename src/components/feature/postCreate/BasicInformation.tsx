@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { period, positions, skills, studyType } from '../../../constants/data';
 import styled from 'styled-components';
 import Select from '../../common/Select';
@@ -14,19 +14,16 @@ interface inputInterface {
   tableOfOrganization: string;
   positons: string[];
   selectedSkills: string[];
+  title: string;
+  content: string;
 }
 
-const BasicInformation = () => {
-  const [inputVal, setInputVal] = useState<inputInterface>({
-    type: '',
-    deadlineDate: new Date(),
-    startDate: new Date(),
-    period: '',
-    tableOfOrganization: '',
-    positons: [],
-    selectedSkills: [],
-  });
+interface Props {
+  inputVal: inputInterface;
+  setInputVal: any;
+}
 
+const BasicInformation = ({ inputVal, setInputVal }: Props) => {
   const onChangeType = (type: string) => setInputVal({ ...inputVal, type });
 
   const onChangeDeadlineDate = (deadlineDate: Date) => setInputVal({ ...inputVal, deadlineDate });

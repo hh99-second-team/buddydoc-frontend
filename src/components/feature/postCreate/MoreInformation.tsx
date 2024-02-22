@@ -1,13 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
+import Input from '../../common/Input';
 
-const MoreInformation = () => {
+interface inputInterface {
+  type: string;
+  deadlineDate: Date;
+  startDate: Date;
+  period: string;
+  tableOfOrganization: string;
+  positons: string[];
+  selectedSkills: string[];
+  title: string;
+  content: string;
+}
+
+interface Props {
+  inputVal: inputInterface;
+  setInputVal: any;
+}
+
+const MoreInformation = ({ inputVal, setInputVal }: Props) => {
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputVal({ ...inputVal, title: e.target.value });
+
   return (
     <div>
       <Title>상세 정보 입력</Title>
       <Container>
         <InputBox>
           <p>제목</p>
+          <Input
+            type="text"
+            placeholder="모집 글 제목을 입력해주세요."
+            value={inputVal.title}
+            onChange={onChangeTitle}
+            isValid="none"
+          />
         </InputBox>
         <InputBox>
           <p>본문 내용</p>
@@ -35,6 +62,7 @@ const InputBox = styled.div`
 
   & > p {
     font-size: 20px;
+    margin-bottom: 12px;
   }
 `;
 
