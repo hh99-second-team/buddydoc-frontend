@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import LoginModal from '../feature/LoginModal';
 import logoUrl from '../../assets/buddydoc-logo.png';
 import SignupModal from '../feature/SignupModal';
+import { ReactComponent as BellIcon } from '../../assets/bell-icon.svg';
 import { useNavigate } from 'react-router-dom';
-import { MagnifyingGlassIcon, BellIcon } from '@radix-ui/react-icons';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 
@@ -101,11 +102,6 @@ const NavButton = styled.div`
   &:hover {
     color: #686868;
   }
-
-  & > svg {
-    width: 17px;
-    height: 17px;
-  }
 `;
 
 const SearchBox = styled.div`
@@ -162,6 +158,11 @@ const SearchButton = styled.button`
     background-color: transparent;
     border-bottom: 1px solid #bfc0c4;
     transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
+  }
+
+  & > svg {
+    width: 18px;
+    height: 18px;
   }
 `;
 

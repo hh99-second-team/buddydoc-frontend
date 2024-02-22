@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import closeIcon from '../../assets/close-icon.svg';
+import { CrossCircledIcon } from '@radix-ui/react-icons';
 
 interface Props {
   item: string;
@@ -11,7 +11,7 @@ const RoundBorderIcon = ({ item, onRemove }: Props) => {
   return (
     <IconBox>
       <p>{item}</p>
-      <img src={closeIcon} alt="" onClick={() => onRemove(item)} />
+      <CrossCircledIcon onClick={() => onRemove(item)} />
     </IconBox>
   );
 };
@@ -26,7 +26,8 @@ const IconBox = styled.div`
   box-shadow: 0 0 5px rgba(46, 51, 55, 0.5);
   height: 2rem;
 
-  & > img {
+  & > svg {
+    color: #ff6c6c;
   }
 `;
 

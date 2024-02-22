@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import unSelectedbookmark from '../../assets/unselected-bookmark.svg';
-import selectedbookmark from '../../assets/selected-bookmark.svg';
 import styled from 'styled-components';
+import { BookmarkIcon, BookmarkFilledIcon } from '@radix-ui/react-icons';
 
 interface BookmarkProps {
   count: number;
@@ -11,18 +10,18 @@ interface BookmarkProps {
 const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(false);
   const [bookmarkCount, setBookmarkCount] = useState(count);
-  const [bookmarkUrl, setBookmarkUrl] = useState(isBookmarkSelected ? selectedbookmark : unSelectedbookmark);
 
   const handleToggleBookmark = (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
     e.stopPropagation();
     setIsBookmarkSelected((state) => !state);
     setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
-    setBookmarkUrl(() => (isBookmarkSelected ? unSelectedbookmark : selectedbookmark));
   };
 
   return (
     <BookmarkBox flexDirection={flexDirection}>
-      <img src={bookmarkUrl} alt="" onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)} />
+      <div onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)}>
+        {isBookmarkSelected ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+      </div>
       <p>{bookmarkCount}</p>
     </BookmarkBox>
   );
@@ -34,8 +33,10 @@ const BookmarkBox = styled.div<{ flexDirection: 'row' | 'column' }>`
   column-gap: ${(props) => (props.flexDirection === 'row' ? '5px' : '0')};
   flex-direction: ${(props) => (props.flexDirection === 'row' ? 'row' : 'column')};
 
-  & > img {
+  & > div > svg {
     width: 25px;
+    height: 25px;
+    color: #007dfa;
   }
 
   & > p {

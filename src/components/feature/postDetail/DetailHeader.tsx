@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import StudyTypeIcon from '../../common/StudyTypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
-import gobackIcon from '../../../assets/goback-icon.svg';
 import userIcon from '../../../assets/user-circle-icon.svg';
 import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 
 const DetailHeader = ({ post }: any) => {
   const navigate = useNavigate();
 
   return (
     <Header>
-      <img src={gobackIcon} alt="" onClick={() => navigate(-1)} />
+      <ChevronLeftIcon onClick={() => navigate(-1)} />
       <IconSet>
         <StudyTypeIcon>{post.type}</StudyTypeIcon>
         <DeadlineIcon date={post.deadline} />
@@ -44,7 +44,9 @@ const Header = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid #d9d9d9;
 
-  & > img {
+  & > svg {
+    width: 24px;
+    height: 24px;
     cursor: pointer;
   }
 `;

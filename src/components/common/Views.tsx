@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import viewIcon from '../../assets/view-Icon.svg';
+import { EyeOpenIcon } from '@radix-ui/react-icons';
 
 interface Props {
   count: number;
@@ -9,7 +9,7 @@ interface Props {
 const Views = ({ count }: Props) => {
   return (
     <ViewsBox>
-      <img src={viewIcon} alt="" />
+      <EyeOpenIcon />
       <p>{count}</p>
     </ViewsBox>
   );
@@ -20,8 +20,9 @@ const ViewsBox = styled.div`
   align-items: center;
   column-gap: 6px;
 
-  & > img {
+  & > svg {
     width: 25px;
+    height: 25px;
   }
 
   & > p {
