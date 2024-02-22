@@ -105,38 +105,39 @@ const BasicInformation = () => {
       </GridBox>
       {inputVal.type === '프로젝트' && (
         <StyledGrid>
-          <MultiSelectedGrid>
-            <InputBox>
-              <p>필요 포지션</p>
+          <InputBox>
+            <p>필요 포지션</p>
+            <MultiSelectedGrid>
               <Select
                 selectValue={inputVal.positons[inputVal.positons.length - 1]}
                 onValueChange={onChangePositions}
                 items={positions}
                 placeholder="필요한 포지션을 선택하세요."
               />
-            </InputBox>
-            <SelectedBox>
-              {inputVal.positons.map((position) => (
-                <RoundBorderIcon key={position} item={position} onRemove={handlePositionRemove} />
-              ))}
-            </SelectedBox>
-          </MultiSelectedGrid>
-          <MultiSelectedGrid>
-            <InputBox>
-              <p>기술 스택</p>
+              <SelectedBox>
+                {inputVal.positons.map((position) => (
+                  <RoundBorderIcon key={position} item={position} onRemove={handlePositionRemove} />
+                ))}
+              </SelectedBox>
+            </MultiSelectedGrid>
+          </InputBox>
+
+          <InputBox>
+            <p>기술 스택</p>
+            <MultiSelectedGrid>
               <Select
                 selectValue={inputVal.selectedSkills[inputVal.selectedSkills.length - 1]}
                 onValueChange={onChangeSkills}
                 items={skills}
                 placeholder="필요 기술 스택을 선택하세요."
               />
-            </InputBox>
-            <SelectedBox>
-              {inputVal.selectedSkills.map((skill) => (
-                <RoundBorderIcon key={skill} item={skill} onRemove={handleSkillRemove} />
-              ))}
-            </SelectedBox>
-          </MultiSelectedGrid>
+              <SelectedBox>
+                {inputVal.selectedSkills.map((skill) => (
+                  <RoundBorderIcon key={skill} item={skill} onRemove={handleSkillRemove} />
+                ))}
+              </SelectedBox>
+            </MultiSelectedGrid>
+          </InputBox>
         </StyledGrid>
       )}
     </div>
