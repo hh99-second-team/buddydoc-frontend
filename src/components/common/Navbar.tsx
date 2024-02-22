@@ -133,7 +133,7 @@ const SearchInput = styled.input`
   }
 
   &:focus {
-    width: 200px;
+    width: 250px;
     border-radius: 0px;
     background-color: transparent;
     border-bottom: 1px solid #bfc0c4;
@@ -157,7 +157,7 @@ const SearchButton = styled.button`
   pointer-events: painted;
 
   &:focus ~ ${SearchInput} {
-    width: 200px;
+    width: 250px;
     border-radius: 0px;
     background-color: transparent;
     border-bottom: 1px solid #bfc0c4;
