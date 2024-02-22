@@ -4,7 +4,7 @@ import firstBanner from '../../assets/banner-test-1.jpg';
 import secondBanner from '../../assets/banner-test-2.jpg';
 import styled from 'styled-components';
 
-export interface BannerProps {
+interface BannerProps {
   item: { bannerImg: string };
 }
 
@@ -37,7 +37,7 @@ const Banner = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 160px;
+  height: 320px;
   border-radius: 28px;
   overflow: hidden;
 `;

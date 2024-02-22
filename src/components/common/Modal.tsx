@@ -3,22 +3,25 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import styled, { keyframes } from 'styled-components';
 
-export interface ModalProps {
+interface ModalProps {
   title: string;
   children: React.ReactNode;
 }
 
-const Modal = ({ title, children }: ModalProps) => (
+const Modal = (props: ModalProps) => (
   <>
     <Overlay />
     <Content>
-      <Title>{title}</Title>
-      <Description>{children}</Description>
-      <Close asChild>
-        <button className="IconButton" aria-label="Close">
-          <Cross2Icon />
-        </button>
-      </Close>
+      <Header>
+        <div></div>
+        <Title>{props.title}</Title>
+        <Close asChild>
+          <button aria-label="Close">
+            <Cross2Icon />
+          </button>
+        </Close>
+      </Header>
+      <div>{props.children}</div>
     </Content>
   </>
 );
@@ -61,8 +64,7 @@ const Content = styled(Dialog.Content)`
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 450px;
-  max-height: 85vh;
-  padding: 25px;
+  padding: 30px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 999;
 
@@ -71,20 +73,30 @@ const Content = styled(Dialog.Content)`
   }
 `;
 
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin-bottom: 50px;
+`;
+
 const Title = styled(Dialog.Title)`
   margin: 0;
   font-weight: 500;
-  color: var(--mauve-12);
-  font-size: 17px;
+  font-size: 26px;
+  text-align: center;
 `;
 
-const Description = styled(Dialog.Description)`
-  margin: 10px 0 20px;
-  color: var(--mauve-11);
-  font-size: 15px;
-  line-height: 1.5;
-`;
+const Close = styled(Dialog.Close)`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
 
-const Close = styled(Dialog.Close)``;
+  & > svg {
+    float: right;
+    width: 22px;
+    height: 22px;
+  }
+`;
 
 export default Modal;
