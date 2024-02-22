@@ -5,10 +5,12 @@ import { Layout } from '../styles/GlobalStyles';
 
 const Main = () => {
   return (
-    <Layout>
+    <>
       <Banner />
-      <PostList />
-    </Layout>
+      <Layout>
+        <PostList />
+      </Layout>
+    </>
   );
 };
 
