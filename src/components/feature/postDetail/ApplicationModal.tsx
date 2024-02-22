@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from '../../common/Modal';
 import styled from 'styled-components';
 import Select from '../../common/Select';
-import { positions } from '../../../utils/skillUrlList';
+import { positions } from '../../../constants/data';
 import Textarea from '../../common/Textarea';
 import Button from '../../common/Button';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../common/Button';
 import styled, { css } from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { skills } from '../../utils/skillUrlList';
+import { skills } from '../../constants/data';
 import api from '../../services/api';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';

@@ -4,7 +4,7 @@ import Bookmark from '../common/Bookmark';
 import { useNavigate } from 'react-router-dom';
 import StudyTypeIcon from '../common/StudyTypeIcon';
 import SkillList from '../common/SkillList';
-import { getDateFomat } from '../../utils/DateFormatFunction';
+import { getDateFomat } from '../../utils/dateUtils';
 
 /** 게시물 데이터 형식 */
 interface PostProps {

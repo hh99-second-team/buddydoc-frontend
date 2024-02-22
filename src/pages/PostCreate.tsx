@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const PostCreate = () => {
   return (
-    <Layout>
+    <CreateLayout>
       <BasicInformation />
       <MoreInformation />
       <ButtonSet>
@@ -18,9 +18,14 @@ const PostCreate = () => {
           등록
         </Button>
       </ButtonSet>
-    </Layout>
+    </CreateLayout>
   );
 };
+
+const CreateLayout = styled(Layout)`
+  display: grid;
+  row-gap: 4rem;
+`;
 
 const ButtonSet = styled.div`
   display: flex;

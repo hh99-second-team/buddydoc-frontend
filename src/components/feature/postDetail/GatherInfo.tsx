@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SkillList from '../../common/SkillList';
-import { getDateFomat } from '../../../utils/DateFormatFunction';
+import { getDateFomat } from '../../../utils/dateUtils';
 
 interface GatherContent {
   [key: string]: any;

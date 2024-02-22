@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillsIcon } from '../../utils/skillUrlList';
+import { skillsIcon } from '../../constants/data';
 import CircleIcon from '../common/CircleIcon';
 
 interface Props {

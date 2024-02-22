@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDDayCounter } from '../../utils/DateFormatFunction';
+import { getDDayCounter } from '../../utils/dateUtils';
 import styled from 'styled-components';
 
 interface Props {

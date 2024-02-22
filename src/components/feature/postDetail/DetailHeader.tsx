@@ -8,7 +8,7 @@ import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../../utils/DateFormatFunction';
+import { getDateFomat } from '../../../utils/dateUtils';
 
 const DetailHeader = ({ post }: any) => {
   const navigate = useNavigate();

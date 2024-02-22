@@ -3,7 +3,7 @@ import Input from '../common/Input';
 import Select from '../common/Select';
 import Button from '../common/Button';
 import styled from 'styled-components';
-import { career, positions } from '../../utils/skillUrlList';
+import { career, positions } from '../../constants/data';
 
 interface FormProps {
   inputVal: any;
