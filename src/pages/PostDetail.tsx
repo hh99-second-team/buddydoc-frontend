@@ -8,8 +8,8 @@ import Button from '../components/common/Button';
 import styled from 'styled-components';
 import ApplicationModal from '../components/feature/postDetail/ApplicationModal';
 import NoteModal from '../components/feature/postDetail/NoteModal';
-import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 
 const PostDetail = () => {
   const location = useLocation().state;
@@ -45,7 +45,9 @@ const PostDetail = () => {
           </Dialog.Portal>
         </Dialog.Root>
       </ButtonSet>
-      <ContentBox initialValue={testHtml} />
+      <PostViewer>
+        <Viewer initialValue={testHtml} />
+      </PostViewer>
     </Layout>
   );
 };
@@ -56,11 +58,13 @@ const ButtonSet = styled.div`
   padding: 30px 0;
 `;
 
-const ContentBox = styled(Viewer)`
-  padding: 40px 0;
-  min-height: 500px;
-  font-size: 1.3rem;
-  line-height: 1.7;
+const PostViewer = styled.div`
+  div {
+    padding: 10px 0;
+    min-height: 500px;
+    font-size: 1.3rem;
+    line-height: 1.7;
+  }
 `;
 
 export default PostDetail;
