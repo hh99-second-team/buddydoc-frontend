@@ -127,25 +127,25 @@ const Wave = styled.div`
   background-size: 1000px 100px;
 
   &#wave1 {
-    z-index: 1000;
+    z-index: 996;
     opacity: 1;
     bottom: 0;
     animation: ${animateWaves} 4s linear infinite;
   }
   &#wave2 {
-    z-index: 999;
+    z-index: 995;
     opacity: 0.5;
     bottom: 10px;
     animation: ${animate} 4s linear infinite !important;
   }
   &#wave3 {
-    z-index: 1000;
+    z-index: 996;
     opacity: 0.2;
     bottom: 15px;
     animation: ${animateWaves} 3s linear infinite;
   }
   &#wave4 {
-    z-index: 999;
+    z-index: 995;
     opacity: 0.7;
     bottom: 20px;
     animation: ${animate} 3s linear infinite;
