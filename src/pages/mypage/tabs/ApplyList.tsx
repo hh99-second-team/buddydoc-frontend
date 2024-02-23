@@ -53,7 +53,7 @@ function ApplyList() {
   const [projectCount, setProjectCount] = useState(0);
   const [coffeeChatCount, setCoffeeChatCount] = useState(0);
 
-  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
+  // 페이지 렌더링할때 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
     const counts = dummyDatas.reduce(
       (acc, data) => {
