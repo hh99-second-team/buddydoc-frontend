@@ -48,8 +48,8 @@ const PostList = () => {
 const PostContainer = styled.div`
   margin-top: 70px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 20px;
-  column-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 30px;
+  column-gap: 30px;
 `;
 export default PostList;

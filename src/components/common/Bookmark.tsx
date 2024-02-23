@@ -22,7 +22,7 @@ const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
       <div onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)}>
         {isBookmarkSelected ? <BookmarkFilledIcon /> : <BookmarkIcon />}
       </div>
-      <p>{bookmarkCount}</p>
+      {flexDirection === 'row' && <p>{bookmarkCount}</p>}
     </BookmarkBox>
   );
 };
@@ -34,8 +34,8 @@ const BookmarkBox = styled.div<{ flexDirection: 'row' | 'column' }>`
   flex-direction: ${(props) => (props.flexDirection === 'row' ? 'row' : 'column')};
 
   & > div > svg {
-    width: 25px;
-    height: 25px;
+    width: ${(props) => (props.flexDirection === 'row' ? '25px' : '30px')};
+    height: ${(props) => (props.flexDirection === 'row' ? '25px' : '30px')};
     color: #007dfa;
   }
 

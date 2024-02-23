@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Bookmark from '../common/Bookmark';
-import { useNavigate } from 'react-router-dom';
-import StudyTypeIcon from '../common/StudyTypeIcon';
 import SkillList from '../common/SkillList';
+import StudyTypeIcon from '../common/StudyTypeIcon';
+import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../utils/dateUtils';
+import basicUserIcon from '../../assets/user-circle-icon.svg';
+import studyIcon from '../../assets/study-icon.svg';
+import projectIcon from '../../assets/project-icon.svg';
 
 /** 게시물 데이터 형식 */
 interface PostProps {
@@ -35,17 +38,19 @@ const PostItem = ({ post }: PostProps) => {
 
   return (
     <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
-      <div>
-        <div></div>
-        <StudyTypeIcon>{post.type}</StudyTypeIcon>
-        <div></div>
-      </div>
-      <p>마감일 {getDateFomat(post.deadline)}</p>
+      <CardHeader>
+        <TypeBox>
+          {post.type === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
+          <StudyTypeIcon>{post.type}</StudyTypeIcon>
+        </TypeBox>
+        <Bookmark flexDirection="column" count={post.bookmark} />
+      </CardHeader>
       <Title>{post.title}</Title>
+      <Deadline>마감일 {getDateFomat(post.deadline)}</Deadline>
       <SkillList skip={true} skillList={post.skillList} />
       <PostFooter>
-        <Writer>작성자 {post.nickname}</Writer>
-        <Bookmark flexDirection="column" count={post.bookmark} />
+        <img src={basicUserIcon} alt="" />
+        <Writer>{post.nickname}</Writer>
       </PostFooter>
     </Card>
   );
@@ -54,7 +59,7 @@ const PostItem = ({ post }: PostProps) => {
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 20px;
   padding: 28px;
   width: 100%;
   height: 350px;
@@ -63,15 +68,34 @@ const Card = styled.div`
   background: var(--grey01, #f9fafc);
 `;
 
+const CardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TypeBox = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+`;
 const Title = styled.div`
-  height: 120px;
+  width: 80%;
+  height: 20%;
   font-size: 1.5rem;
 `;
 
+const Deadline = styled.p``;
+
 const PostFooter = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: end;
+  align-items: center;
+  column-gap: 7px;
+
+  & > img {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 const Writer = styled.div``;
