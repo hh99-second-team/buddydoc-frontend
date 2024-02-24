@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { BookmarkIcon, BookmarkFilledIcon } from '@radix-ui/react-icons';
+import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
 
 interface BookmarkProps {
   count: number;
@@ -20,7 +20,7 @@ const Bookmark = ({ count, direction }: BookmarkProps) => {
   return (
     <BookmarkBox direction={direction}>
       <div onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)}>
-        {isBookmarkSelected ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+        <BookmarkIcon className={isBookmarkSelected ? 'selected' : ''} />
       </div>
       {direction === 'row' && <p>{bookmarkCount}</p>}
     </BookmarkBox>
@@ -36,7 +36,12 @@ const BookmarkBox = styled.div<{ direction: 'row' | 'column' }>`
   & > div > svg {
     width: ${(props) => (props.direction === 'row' ? '25px' : '30px')};
     height: ${(props) => (props.direction === 'row' ? '25px' : '30px')};
-    color: #007dfa;
+    stroke: #434855;
+
+    &.selected {
+      stroke: #007dfa;
+      fill: #007dfa;
+    }
   }
 
   & > p {
