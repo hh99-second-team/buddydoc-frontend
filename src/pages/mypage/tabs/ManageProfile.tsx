@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
+import { CaretDownIcon } from '@radix-ui/react-icons';
+import SkillsForm from '../../../components/feature/SkillsForm';
 // import { CaretDownIcon } from '@radix-ui/react-icons';
 
 function ManageProfile() {
@@ -19,17 +21,17 @@ function ManageProfile() {
           <DropdownMenu.Trigger>
             <Button
               variant="solid"
-              color="cyan"
+              highContrast
               style={{
-                width: '500px',
+                width: '550px',
                 height: '36px',
                 justifyContent: 'space-between',
               }}>
               {selectedItem}
-              {/* <CaretDownIcon /> */}
+              <CaretDownIcon />
             </Button>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content style={{ width: '500px' }}>
+          <DropdownMenu.Content style={{ width: '550px' }}>
             {contents.map((item, index) => (
               <DropdownMenu.Item
                 key={index}
@@ -144,7 +146,7 @@ const SideMenuHeader = styled.div`
   gap: 10px;
 `;
 const SideMenuBody = styled.div`
-  width: inherit;
+  width: 900px;
   display: flex;
   flex-direction: row;
   margin-top: 30px;

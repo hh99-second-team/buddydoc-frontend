@@ -2,6 +2,7 @@ import { Avatar, Box, Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CircleIcon } from '@radix-ui/react-icons';
 
 const dummyDatas = [
   {
@@ -146,11 +147,11 @@ function JoinList() {
                 </MentorCareer>
               </MentorInfoText>
             </MentorInfoContainer>
-            <ScheduledDate>
+            <DateInfo>
               예정된 커피챗 : {data.scheduledDate}
               <br />
               {data.scheduledTime}
-            </ScheduledDate>
+            </DateInfo>
             <ContentButton>파트너 홈</ContentButton>
           </ContentContainer>
         ));
@@ -205,12 +206,22 @@ function JoinList() {
 export default JoinList;
 
 const SideMenuHeader = styled.div`
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
   font-size: 30px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 const SideMenuDescription = styled.div`
-  font-size: 15px;
-  font-weight: bold;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 const SideMenuBody = styled.div`
   width: inherit;
@@ -219,14 +230,14 @@ const SideMenuBody = styled.div`
   margin-top: 30px;
 `;
 const StyledTabsList = styled(Tabs.List)`
-  width: 700px;
-  height: 90px;
+  width: 900px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 220px;
-  height: 100%;
+  width: 280px;
+  height: 100px;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 18px;
@@ -249,7 +260,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 `;
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 170px;
+  min-height: 230px;
   background-color: lightgray;
   border-radius: 15px;
   padding: 30px;
@@ -259,34 +270,49 @@ const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 `;
 const Category = styled.p`
-  border: 2px solid black;
+  border: 1px solid gray;
   border-radius: 20px;
-  padding: 1px 10px;
+  padding: 1px 12px;
+  font-size: 18px;
+  font-weight: 400;
   background-color: #fff;
 `;
-const Title = styled.h3``;
-const MemberCount = styled.h4`
-  margin: 0px;
+const Title = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 15px;
+`;
+const MemberCount = styled.p`
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
 `;
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
   bottom: 30px;
   ${(props) => (props.left ? `left: ${props.left};` : 'right: 30px;')}
   margin: 0px;
+  font-weight: 700;
+  color: #787878;
+  text-align: end;
 `;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
-  top: 60px;
+  font-weight: 800;
+  font-size: 18px;
+  top: 40px;
   right: 30px;
-  width: 150px;
-  height: 40px;
+  width: 170px;
+  height: 50px;
 `;
-const MentorName = styled.h2`
+const MentorName = styled.p`
+  font-size: 23px;
+  font-weight: bold;
   margin-bottom: 0px;
 `;
 const CompanyName = styled.p`
@@ -294,18 +320,10 @@ const CompanyName = styled.p`
 `;
 const MentorCareer = styled.p``;
 const MentorInfoContainer = styled.p`
-  margin: 0px;
+  margin: 30px 0 0 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
 `;
 const MentorInfoText = styled.p``;
-const ScheduledDate = styled.p`
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  margin: 0px;
-  display: flex;
-  text-align: end;
-`;
