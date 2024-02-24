@@ -6,7 +6,7 @@ import CircleIcon from '../common/CircleIcon';
 interface Props {
   skip?: boolean;
   skillList: string[];
-  size?: 'small' | 'basic';
+  size?: 'small' | 'basic' | string;
 }
 
 const SkillList = ({ skip, skillList, size }: Props) => {
@@ -16,7 +16,9 @@ const SkillList = ({ skip, skillList, size }: Props) => {
         skillList
           .slice(0, 5)
           .map((skill, idx) => <CircleIcon key={idx} size={size} src={skillsIcon[skill]} fallback={skill} />)}
-      {skip && skillList.length > 5 && <span>+ {skillList.length - 5}</span>}
+      {skip && skillList.length > 5 && (
+        <CircleIcon size={size} src="" fallback={'+' + (skillList.length - 5).toString()} />
+      )}
       {!skip &&
         skillList.map((skill, idx) => <CircleIcon key={idx} size={size} src={skillsIcon[skill]} fallback={skill} />)}
     </SkillBox>

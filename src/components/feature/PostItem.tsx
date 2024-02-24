@@ -9,6 +9,8 @@ import { PostCardData } from '../../types/commonTypes';
 import basicUserIcon from '../../assets/user-circle-icon.svg';
 import studyIcon from '../../assets/study-icon.svg';
 import projectIcon from '../../assets/project-icon.svg';
+import Views from '../common/Views';
+import DeadlineIcon from '../common/DeadlineIcon';
 
 const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
   const navigate = useNavigate();
@@ -22,27 +24,31 @@ const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
         <TypeBox>
           {post.postType === 'study' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
           <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <DeadlineIcon date={deadlineDate} />
         </TypeBox>
         <Bookmark direction="column" count={post.preference} />
       </CardHeader>
-      <Title>{post.postTitle}</Title>
+      <Title>{post.postTitle.length < 45 ? post.postTitle : post.postTitle.slice(0, 42) + ' ...'}</Title>
       <Deadline>마감일 {getDateFomat(deadlineDate)}</Deadline>
-      <SkillList skip={true} skillList={post.skillList} size="small" />
+      <SkillBox>
+        <SkillList skip={true} skillList={post.skillList} size="small" />
+      </SkillBox>
       <PostFooter>
-        <img src={basicUserIcon} alt="" />
-        <Writer>{post.users?.userNickname}</Writer>
+        <UserInfo>
+          <img src={basicUserIcon} alt="" />
+          <p>{post.users?.userNickname}</p>
+        </UserInfo>
+        <Views count={post.views} />
       </PostFooter>
     </Card>
   );
 };
 
 const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  padding: 28px;
-  width: 100%;
-  height: 350px;
+  position: relative;
+  padding: 24px 28px;
+  width: 528px;
+  height: 298px;
   border-radius: 28px;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
@@ -59,25 +65,65 @@ const TypeBox = styled.div`
   align-items: center;
   column-gap: 10px;
 `;
+
 const Title = styled.div`
+  position: absolute;
+  top: 71px;
   width: 80%;
-  height: 20%;
-  font-size: 1.5rem;
+  height: 62px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
-const Deadline = styled.p``;
+const Deadline = styled.p`
+  position: absolute;
+  top: 144px;
+  height: 21px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const SkillBox = styled.div`
+  position: absolute;
+  top: 194px;
+`;
 
 const PostFooter = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  column-gap: 7px;
-
-  & > img {
-    width: 25px;
-    height: 25px;
-  }
 `;
 
-const Writer = styled.div``;
+const UserInfo = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  column-gap: 10px;
+
+  & > img {
+    width: 30px;
+    height: 30px;
+  }
+
+  & > p {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+  }
+`;
 
 export default PostItem;
