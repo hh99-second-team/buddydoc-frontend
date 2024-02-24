@@ -2,12 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import SkillList from '../../common/SkillList';
 import { getDateFomat } from '../../../utils/dateUtils';
+import { PostDetailData } from '../../../types/commonTypes';
 
-interface GatherContent {
-  [key: string]: any;
-}
-
-const GatherInfo = ({ post }: any) => {
+const GatherInfo: React.FC<{ post: PostDetailData }> = ({ post }) => {
   const gatherInfo = [
     '모집 일시',
     '모집 분야',
@@ -18,12 +15,15 @@ const GatherInfo = ({ post }: any) => {
     '기술 스택',
   ];
 
-  const gathercontent: GatherContent = {
+  const deadlineDate = new Date(post.createdAt);
+  deadlineDate.setDate(deadlineDate.getDate() + 10);
+
+  const gatherContent: { [key: string]: any } = {
     '모집 일시': getDateFomat(post.createdAt),
-    '모집 분야': '프론트엔드',
-    '모집 구분': post.type,
+    '모집 분야': post.position,
+    '모집 구분': post.postType,
     '모집 인원': '4명',
-    '프로젝트 시작': getDateFomat(post.deadline),
+    '프로젝트 시작': getDateFomat(deadlineDate),
     '프로젝트 기간': '3주',
     '기술 스택': post.skillList,
   };
@@ -34,11 +34,11 @@ const GatherInfo = ({ post }: any) => {
         <Info key={info}>
           <p>{info}</p>
           {info === '기술 스택' ? (
-            <SkillList skillList={gathercontent[info]} />
+            <SkillList skillList={gatherContent[info]} />
           ) : info === '모집 분야' ? (
-            <p>{gathercontent[info]}</p>
+            <p>{gatherContent[info]}</p>
           ) : (
-            <p>{gathercontent[info]}</p>
+            <p>{gatherContent[info]}</p>
           )}
         </Info>
       ))}

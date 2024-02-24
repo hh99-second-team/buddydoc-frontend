@@ -23,6 +23,7 @@ const ViewsBox = styled.div`
   & > svg {
     width: 25px;
     height: 25px;
+    color: #434855;
   }
 
   & > p {
