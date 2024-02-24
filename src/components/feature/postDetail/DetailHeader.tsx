@@ -31,7 +31,7 @@ const DetailHeader = ({ post }: any) => {
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark flexDirection="row" count={post.bookmark} />
+          <Bookmark direction="row" count={post.bookmark} />
         </CountBox>
       </BottomSet>
     </Header>

@@ -5,52 +5,32 @@ import SkillList from '../common/SkillList';
 import StudyTypeIcon from '../common/StudyTypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../utils/dateUtils';
+import { PostData } from '../../types/commonTypes';
 import basicUserIcon from '../../assets/user-circle-icon.svg';
 import studyIcon from '../../assets/study-icon.svg';
 import projectIcon from '../../assets/project-icon.svg';
 
-/** 게시물 데이터 형식 */
-interface PostProps {
-  post: {
-    postId: number;
-    type: string;
-    deadline: Date;
-    title: string;
-    skillList: string[];
-    nickname: string;
-    bookmark: number;
-  };
-
-  // post: {
-  //   postId: number;
-  //   type: string;
-  //   nickname: string;
-  //   title: string;
-  //   deadline: string;
-  //   skillList: string[];
-  //   views: number;
-  //   bookmark: number;
-  // };
-}
-
-const PostItem = ({ post }: PostProps) => {
+const PostItem: React.FC<{ post: PostData }> = ({ post }) => {
   const navigate = useNavigate();
+
+  const deadlineDate = new Date();
+  deadlineDate.setDate(deadlineDate.getDate() + 10);
 
   return (
     <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
       <CardHeader>
         <TypeBox>
-          {post.type === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
-          <StudyTypeIcon>{post.type}</StudyTypeIcon>
+          {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
+          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
         </TypeBox>
-        <Bookmark flexDirection="column" count={post.bookmark} />
+        <Bookmark direction="column" count={post.preference} />
       </CardHeader>
-      <Title>{post.title}</Title>
+      <Title>{post.postTitle}</Title>
       <Deadline>마감일 {getDateFomat(post.deadline)}</Deadline>
-      <SkillList skip={true} skillList={post.skillList} />
+      <SkillList skip={true} skillList={post.skillList} size="small" />
       <PostFooter>
         <img src={basicUserIcon} alt="" />
-        <Writer>{post.nickname}</Writer>
+        <Writer>{post.users?.userNickname}</Writer>
       </PostFooter>
     </Card>
   );

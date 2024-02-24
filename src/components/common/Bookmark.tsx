@@ -4,10 +4,10 @@ import { BookmarkIcon, BookmarkFilledIcon } from '@radix-ui/react-icons';
 
 interface BookmarkProps {
   count: number;
-  flexDirection: 'row' | 'column';
+  direction: 'row' | 'column';
 }
 
-const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
+const Bookmark = ({ count, direction }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(false);
   const [bookmarkCount, setBookmarkCount] = useState(count);
 
@@ -18,24 +18,24 @@ const Bookmark = ({ count, flexDirection }: BookmarkProps) => {
   };
 
   return (
-    <BookmarkBox flexDirection={flexDirection}>
+    <BookmarkBox direction={direction}>
       <div onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)}>
         {isBookmarkSelected ? <BookmarkFilledIcon /> : <BookmarkIcon />}
       </div>
-      {flexDirection === 'row' && <p>{bookmarkCount}</p>}
+      {direction === 'row' && <p>{bookmarkCount}</p>}
     </BookmarkBox>
   );
 };
 
-const BookmarkBox = styled.div<{ flexDirection: 'row' | 'column' }>`
+const BookmarkBox = styled.div<{ direction: 'row' | 'column' }>`
   display: flex;
   align-items: center;
-  column-gap: ${(props) => (props.flexDirection === 'row' ? '5px' : '0')};
-  flex-direction: ${(props) => (props.flexDirection === 'row' ? 'row' : 'column')};
+  column-gap: ${(props) => (props.direction === 'row' ? '5px' : '0')};
+  flex-direction: ${(props) => (props.direction === 'row' ? 'row' : 'column')};
 
   & > div > svg {
-    width: ${(props) => (props.flexDirection === 'row' ? '25px' : '30px')};
-    height: ${(props) => (props.flexDirection === 'row' ? '25px' : '30px')};
+    width: ${(props) => (props.direction === 'row' ? '25px' : '30px')};
+    height: ${(props) => (props.direction === 'row' ? '25px' : '30px')};
     color: #007dfa;
   }
 
