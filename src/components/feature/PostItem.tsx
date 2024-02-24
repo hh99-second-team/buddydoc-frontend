@@ -5,12 +5,12 @@ import SkillList from '../common/SkillList';
 import StudyTypeIcon from '../common/StudyTypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../utils/dateUtils';
-import { PostData } from '../../types/commonTypes';
+import { PostCardData } from '../../types/commonTypes';
 import basicUserIcon from '../../assets/user-circle-icon.svg';
 import studyIcon from '../../assets/study-icon.svg';
 import projectIcon from '../../assets/project-icon.svg';
 
-const PostItem: React.FC<{ post: PostData }> = ({ post }) => {
+const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
   const navigate = useNavigate();
 
   const deadlineDate = new Date();
@@ -20,13 +20,13 @@ const PostItem: React.FC<{ post: PostData }> = ({ post }) => {
     <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
       <CardHeader>
         <TypeBox>
-          {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
+          {post.postType === 'study' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
           <StudyTypeIcon>{post.postType}</StudyTypeIcon>
         </TypeBox>
         <Bookmark direction="column" count={post.preference} />
       </CardHeader>
       <Title>{post.postTitle}</Title>
-      <Deadline>마감일 {getDateFomat(post.deadline)}</Deadline>
+      <Deadline>마감일 {getDateFomat(deadlineDate)}</Deadline>
       <SkillList skip={true} skillList={post.skillList} size="small" />
       <PostFooter>
         <img src={basicUserIcon} alt="" />

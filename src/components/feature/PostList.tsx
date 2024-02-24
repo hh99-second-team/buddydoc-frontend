@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { PostData } from '../../types/commonTypes';
+import { PostCardData } from '../../types/commonTypes';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
 import api from '../../services/api';
 
 const PostList = () => {
-  const { isLoading, data } = useQuery<{ posts: PostData[]; isLastPage: boolean }>('posts', api.getPost);
+  const { isLoading, data } = useQuery<{ posts: PostCardData[]; isLastPage: boolean }>('posts', api.getPost);
 
   return (
     <PostContainer>

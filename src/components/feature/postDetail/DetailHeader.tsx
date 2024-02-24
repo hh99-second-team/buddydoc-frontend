@@ -9,29 +9,34 @@ import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import { PostDetailData } from '../../../types/commonTypes';
 
-const DetailHeader = ({ post }: any) => {
+const DetailHeader: React.FC<{ post: PostDetailData }> = ({ post }) => {
   const navigate = useNavigate();
+
+  const deadlineDate = new Date(post.createdAt);
+  deadlineDate.setDate(deadlineDate.getDate() + 10);
+  console.log(post.createdAt, deadlineDate);
 
   return (
     <Header>
       <ChevronLeftIcon onClick={() => navigate(-1)} />
       <IconSet>
-        <StudyTypeIcon>{post.type}</StudyTypeIcon>
-        <DeadlineIcon date={post.deadline} />
+        <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+        <DeadlineIcon date={deadlineDate} />
       </IconSet>
       <Title>{post.title}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={userIcon} fallback={post.nickname} />
+          <CircleIcon src={userIcon} fallback={post.user?.nickname} />
           <div>
-            <p>{post.nickname}</p>
+            <p>{post.user?.nickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>
           </div>
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark direction="row" count={post.bookmark} />
+          <Bookmark direction="row" count={post.preference} />
         </CountBox>
       </BottomSet>
     </Header>

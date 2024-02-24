@@ -13,7 +13,7 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 /** 게시물 데이터 형식 */
-interface PostData {
+interface PostCardData {
   postId: number;
   title: string;
   userId: number;
@@ -40,6 +40,11 @@ const api = {
   getPost: async () => {
     const response = await axiosInstance.get('/post');
     return response.data;
+  },
+
+  getPostDetail: async (postId: string) => {
+    const response = await axiosInstance.get(`/post/${postId}`);
+    return response.data.data[0];
   },
 
   /** 사용자 정보 가져오기 */
