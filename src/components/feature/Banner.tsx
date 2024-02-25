@@ -27,25 +27,31 @@ const Banner = () => {
   ];
 
   return (
-    <Carousel>
+    <StyledCarousel>
       {items.map((item, i) => (
         <Item key={i} item={item} />
       ))}
-    </Carousel>
+    </StyledCarousel>
   );
 };
 
-const Container = styled.div`
+const StyledCarousel = styled(Carousel)`
   width: 100%;
-  padding-top: 8vh;
-  height: 330px;
-  img {
-    position: absolute;
+  height: auto; /* 자동으로 높이를 조절합니다. */
+`;
+
+const Container = styled.div`
+  position: relative; /* 이미지의 상대적인 위치를 설정합니다. */
+  width: 100%;
+  padding-top: calc(945 / 4096 * 100%); /* 이미지의 원래 비율을 유지합니다. */
+
+  & > img {
+    position: absolute; /* 이미지의 절대적인 위치를 설정합니다. */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* 이미지를 컨테이너에 맞춥니다. */
   }
 `;
 
