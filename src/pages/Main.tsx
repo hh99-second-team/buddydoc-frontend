@@ -65,7 +65,7 @@ const TabsList = styled(Tabs.List)`
 
   @media screen and (max-width: 768px) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -79,11 +79,11 @@ const TabsTrigger = styled(Tabs.Trigger)`
   user-select: none;
   color: var(--grey03, #ced0d3);
   font-family: Pretendard;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  padding-right: 30px;
+  margin-right: 40px;
 
   &:hover {
     color: darkgray;
@@ -95,6 +95,7 @@ const TabsTrigger = styled(Tabs.Trigger)`
   @media screen and (max-width: 768px) {
     font-size: 1.3rem;
     justify-content: center;
+    margin: 0 20px;
   }
 `;
 
