@@ -36,9 +36,19 @@ interface UserData {
 
 // API 호출 메서드 정의
 const api = {
+  /** GET 요청을 보내는 함수 */
+  get: async (endpoint: string) => {
+    try {
+      const response = await axios.get(`${API_ROOT}/${endpoint}`);
+      return response.data; // 응답 데이터를 반환합니다.
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error}`);
+    }
+  },
+
   /** 게시물 목록 조회 */
-  getPost: async () => {
-    const response = await axiosInstance.get('/post');
+  getPost: async (lastPostId: number) => {
+    const response = await axiosInstance.get('/post', { params: { lastPostId } });
     return response.data;
   },
 

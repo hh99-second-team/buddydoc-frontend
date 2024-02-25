@@ -1,44 +1,87 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PostCardData } from '../../../types/commonTypes';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
 import api from '../../../services/api';
+import { useInView } from 'react-intersection-observer';
 
 const PostList = () => {
-  const { isLoading, data } = useQuery<{ posts: PostCardData[]; isLastPage: boolean }>('posts', api.getPost);
+  const [posts, setPosts] = useState<PostCardData[]>([]);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ref, inView] = useInView();
 
-  const testPost: PostCardData = {
-    postId: 34,
-    post_userId: 25,
-    postType: 'project',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    deadline: new Date(),
-    postTitle:
-      '정말 기깔난 프론트엔드 개발자 구합니다 ~~~ 같이 프로젝트 하시면 네카라쿠배 합격 확률 200%!!! 여기 개발 맛집이에요.',
-    position: '프론트엔드',
-    skillList: ['React', 'Vue', 'Next.js', 'Svelte', 'Figma', 'MySql'],
-    users: {
-      userNickname: '오늘은맑음',
-    },
-    preference: 3,
-    views: 23,
+  const fetchPosts = useCallback(async () => {
+    if (isLastPage) {
+      return;
+    }
+    setIsLoading(true);
+    const response = await api.getPost(page);
+
+    const testPost: PostCardData = {
+      postId: 34,
+      post_userId: 25,
+      postType: 'project',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deadline: new Date(),
+      postTitle:
+        '정말 기깔난 프론트엔드 개발자 구합니다 ~~~ 같이 프로젝트 하시면 네카라쿠배 합격 확률 200%!!! 여기 개발 맛집이에요.',
+      position: '프론트엔드',
+      skillList: ['React', 'Vue', 'Next.js', 'Svelte', 'Figma', 'MySql'],
+      users: {
+        userNickname: '오늘은맑음',
+      },
+      preference: 3,
+      views: 23,
+    };
+
+    setPosts((prevState) => [...prevState, testPost, ...response.posts]);
+    console.log(response);
+    setIsLastPage(response.isLastPage);
+    setIsLoading(false);
+  }, [page]);
+
+  // fetchPosts이 바뀔 때마다 함수 실행
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  useEffect(() => {
+    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+    if (inView && !isLoading) {
+      setPage(posts[posts.length - 1].postId);
+    }
+  }, [inView, isLoading]);
+
+  const renderPostList = () => {
+    return (
+      <>
+        {posts.map((post, idx) => (
+          <React.Fragment key={idx}>
+            {posts.length - 1 === idx ? (
+              <div ref={ref}>
+                <PostItem post={post} />
+              </div>
+            ) : (
+              <div>
+                <PostItem post={post} />
+              </div>
+            )}
+          </React.Fragment>
+        ))}
+        {/* 로딩 중일 때 Skeleton UI 표시*/}
+        {/* 최초엔 12개의 스켈레톤 표시 */}
+        {isLoading && posts.length === 0 && Array.from({ length: 3 }, (_, idx) => <SkeletonPost key={idx} />)}
+        {/* 그 이후에는 한 개의 스켈레톤만 보여주기 */}
+        {isLoading && posts.length > 1 && <SkeletonPost />}
+      </>
+    );
   };
 
-  if (!isLoading) {
-    data?.posts.push(testPost);
-  }
-
-  return (
-    <PostContainer>
-      {/* 로딩 중일 때 Skeleton UI 표시*/}
-      {/* 최초엔 12개의 스켈레톤 표시 */}
-      {isLoading && Array.from({ length: 12 }, (_, idx) => <SkeletonPost key={idx} />)}
-      {data?.posts && data.posts.map((post) => <PostItem post={post} key={post.postId} />)}
-    </PostContainer>
-  );
+  return <PostContainer>{renderPostList()}</PostContainer>;
 };
 
 const PostContainer = styled.div`
