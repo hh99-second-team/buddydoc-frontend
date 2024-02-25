@@ -1,6 +1,6 @@
 import React from 'react';
-import Banner from '../components/feature/Banner';
-import PostList from '../components/feature/PostList';
+import Banner from '../components/feature/main/Banner';
+import PostList from '../components/feature/main/PostList';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Layout } from '../styles/GlobalStyles';

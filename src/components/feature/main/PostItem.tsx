@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bookmark from '../common/Bookmark';
-import SkillList from '../common/SkillList';
-import StudyTypeIcon from '../common/StudyTypeIcon';
+import Bookmark from '../../common/Bookmark';
+import SkillList from '../../common/SkillList';
+import StudyTypeIcon from '../../common/StudyTypeIcon';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../utils/dateUtils';
-import { PostCardData } from '../../types/commonTypes';
-import basicUserIcon from '../../assets/user-circle-icon.svg';
-import studyIcon from '../../assets/study-icon.svg';
-import projectIcon from '../../assets/project-icon.svg';
-import Views from '../common/Views';
-import DeadlineIcon from '../common/DeadlineIcon';
+import { getDateFomat } from '../../../utils/dateUtils';
+import { PostCardData } from '../../../types/commonTypes';
+import basicUserIcon from '../../../assets/user-circle-icon.svg';
+import studyIcon from '../../../assets/study-icon.svg';
+import projectIcon from '../../../assets/project-icon.svg';
+import Views from '../../common/Views';
+import DeadlineIcon from '../../common/DeadlineIcon';
 
 const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
   const navigate = useNavigate();
