@@ -35,7 +35,7 @@ const Navbar = () => {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <IconContainer>
-              <div>채팅</div>
+              <div onClick={() => navigate(`/chat`)}>채팅</div>
               <ChatNotificationDot />
             </IconContainer>
           </Dialog.Trigger>
@@ -87,20 +87,13 @@ const Navbar = () => {
           </Popover.Trigger>
           <Popover.Portal>
             <PopoverContent sideOffset={5}>
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <IconContainer>
-                    <div>채팅</div>
-                    <ChatNotificationDot />
-                  </IconContainer>
-                </Dialog.Trigger>
-                <Dialog.Portal></Dialog.Portal>
-              </Dialog.Root>
+              <IconContainer>
+                <div onClick={() => navigate(`/chat`)}>채팅</div>
+              </IconContainer>
               <Dialog.Root>
                 <Dialog.Trigger asChild>
                   <IconContainer>
                     <div>알림</div>
-                    <NotificationDot />
                   </IconContainer>
                 </Dialog.Trigger>
                 <Dialog.Portal></Dialog.Portal>
@@ -222,6 +215,10 @@ const PopoverContent = styled(Popover.Content)`
 const NavButton = styled.div`
   cursor: pointer;
   text-align: center;
+  padding: 1rem 0;
+  @media screen and (max-width: 768px) {
+    border-bottom: 0.6px solid #e2e3e5;
+  }
 
   &:hover {
     color: #686868;
@@ -292,11 +289,16 @@ const SearchButton = styled.button`
 
 const IconContainer = styled(NavButton)`
   position: relative;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const NotificationDot = styled.div`
   position: absolute;
-  top: 0;
+  top: 1rem;
   right: -5px;
   width: 7px;
   height: 7px;
