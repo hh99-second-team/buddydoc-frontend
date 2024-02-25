@@ -6,7 +6,6 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { Layout } from '../styles/GlobalStyles';
 import Button from '../components/common/Button';
 import { useNavigate } from 'react-router-dom';
-import CoffeeChat from '../components/CoffeeChat';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ const Main = () => {
               <TabsTrigger value="all">전체</TabsTrigger>
               <TabsTrigger value="study">스터디</TabsTrigger>
               <TabsTrigger value="project">프로젝트</TabsTrigger>
-              <TabsTrigger value="coffeeChat">커피챗</TabsTrigger>
             </TabsList>
             <Button size="large" color="primary" onClick={() => navigate('/create')}>
               팀원 모집하기
@@ -35,9 +33,6 @@ const Main = () => {
           </TabsContent>
           <TabsContent value="project">
             <PostList />
-          </TabsContent>
-          <TabsContent value="coffeeChat">
-            <CoffeeChat />
           </TabsContent>
         </TabsRoot>
       </Layout>
