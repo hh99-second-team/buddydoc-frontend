@@ -52,6 +52,7 @@ const api = {
     return response.data;
   },
 
+  /** 게시물 상세 정보 조회 */
   getPostDetail: async (postId: string) => {
     const response = await axiosInstance.get(`/post/${postId}`);
     return response.data.data[0];
@@ -68,6 +69,9 @@ const api = {
     const response: AxiosResponse<UserData> = await axiosInstance.put(`/users/${userId}`, userData);
     return response.data;
   },
+
+  /** 북마크 */
+  // updateBookmark:
 
   /** 회원가입 */
   signup: async (userData: UserData) => {
