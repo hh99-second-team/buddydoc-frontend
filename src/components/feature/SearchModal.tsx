@@ -95,7 +95,7 @@ const Content = styled(Dialog.Content)`
     font-size: 1.3rem;
     border: none;
     @media screen and (max-width: 768px) {
-      width: 75%;
+      width: 70%;
     }
 
     &:focus {
@@ -104,7 +104,7 @@ const Content = styled(Dialog.Content)`
   }
   & > button {
     @media screen and (max-width: 768px) {
-      width: 20%;
+      width: 25%;
     }
   }
 `;
