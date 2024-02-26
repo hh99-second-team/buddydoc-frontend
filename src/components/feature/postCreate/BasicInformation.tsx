@@ -77,7 +77,17 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           <CustomDatePicker selected={inputVal.deadlineDate} onChange={(date: Date) => onChangeDeadlineDate(date)} />
         </InputBox>
         <InputBox>
-          <p>프로젝트 시작</p>
+          <p>모집 인원</p>
+          <Input
+            type="number"
+            placeholder="총 모집 인원을 입력해주세요."
+            value={inputVal.tableOfOrganization}
+            onChange={onChangeTO}
+            isValid={true}
+          />
+        </InputBox>
+        <InputBox>
+          <p>스터디 / 프로젝트 시작일</p>
           <CustomDatePicker selected={inputVal.startDate} onChange={(date: Date) => onChangeStartDate(date)} />
         </InputBox>
         <InputBox>
@@ -86,17 +96,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
             selectValue={inputVal.period}
             onValueChange={onChangePeriod}
             items={period}
-            placeholder="스터디/프로젝트 진행 기간을 선택하세요."
-          />
-        </InputBox>
-        <InputBox>
-          <p>모집 인원</p>
-          <Input
-            type="number"
-            placeholder="총 모집 인원을 입력해주세요."
-            value={inputVal.tableOfOrganization}
-            onChange={onChangeTO}
-            isValid={true}
+            placeholder="스터디 / 프로젝트 진행 기간을 선택하세요."
           />
         </InputBox>
       </GridBox>
