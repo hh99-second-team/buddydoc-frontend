@@ -3,20 +3,25 @@ import styled from 'styled-components';
 import { skillsIcon } from '../../constants/data';
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 
-const SelectedIcon: React.FC<{ type: string; item: string; onRemove: any }> = ({ type, item, onRemove }) => {
+const SelectedIcon: React.FC<{ type: string; item: string; removeBtn?: boolean; onRemove?: any }> = ({
+  type,
+  item,
+  removeBtn,
+  onRemove,
+}) => {
   return (
     <IconBox>
       {type === 'skill' && <img src={skillsIcon[item]} alt="" />}
       <p>{item}</p>
-      <CrossCircledIcon onClick={() => onRemove(item)} />
+      {removeBtn && <CrossCircledIcon onClick={() => onRemove(item)} />}
     </IconBox>
   );
 };
 
-const IconBox = styled.div`
+const IconBox = styled.div<{ removeBtn?: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${(props) => (!props.removeBtn ? 'baseline' : 'space-between')};
   column-gap: 0.6rem;
   height: 51.5px;
   padding: 0 1rem;
@@ -31,8 +36,6 @@ const IconBox = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    @media screen and (max-width: 768px) {
-    }
   }
 
   & > img {

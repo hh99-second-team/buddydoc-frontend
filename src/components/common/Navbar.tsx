@@ -70,14 +70,12 @@ const Navbar = () => {
       <ToggleHeader>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <NavButton>
-              <SearchBox>
-                <SearchButton>
-                  <MagnifyingGlassIcon />
-                </SearchButton>
-                <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
-              </SearchBox>
-            </NavButton>
+            <SearchBox>
+              <SearchButton>
+                <MagnifyingGlassIcon />
+              </SearchButton>
+              <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
+            </SearchBox>
           </Dialog.Trigger>
           <Dialog.Portal></Dialog.Portal>
         </Dialog.Root>
