@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../common/Button';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { skills } from '../../constants/data';
 import api from '../../services/api';

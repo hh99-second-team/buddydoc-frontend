@@ -12,7 +12,6 @@ const ChatList = () => {
 };
 
 const ListBox = styled.div`
-  position: relative;
   border-radius: 12px;
   background: #fff;
   width: 21.625rem;
