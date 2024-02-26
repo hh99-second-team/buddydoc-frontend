@@ -32,6 +32,9 @@ const CallbackPage = () => {
     navigate('/');
     if (!decoded?.nickname) {
       setIsSignupOpen(true);
+      localStorage.setItem('isLoggined', 'false');
+    } else {
+      localStorage.setItem('isLoggined', 'true');
     }
   }, [location]);
 

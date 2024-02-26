@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import * as Popover from '@radix-ui/react-popover';
 import SearchModal from '../feature/SearchModal';
+import emptyUserIcon from '../../assets/user-circle-icon.svg';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -29,35 +30,42 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        <IconContainer>
-          <div onClick={() => navigate(`/chat`)}>채팅</div>
-          <ChatNotificationDot />
-        </IconContainer>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
+          <>
             <IconContainer>
-              <BellIcon />
-              <NotificationDot />
+              <div onClick={() => navigate(`/chat`)}>채팅</div>
+              <ChatNotificationDot />
             </IconContainer>
-          </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
-        </Dialog.Root>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
-            <NavButton>로그인</NavButton>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <LoginModal />
-          </Dialog.Portal>
-        </Dialog.Root>
-        <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-          <Dialog.Trigger asChild>
-            <NavButton>회원가입</NavButton>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <SignupModal />
-          </Dialog.Portal>
-        </Dialog.Root>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <IconContainer>
+                  <BellIcon />
+                  <NotificationDot />
+                </IconContainer>
+              </Dialog.Trigger>
+              <Dialog.Portal></Dialog.Portal>
+            </Dialog.Root>
+            <IconContainer onClick={() => navigate('/mypage')}>
+              <img src={emptyUserIcon} alt="" />
+            </IconContainer>
+          </>
+        ) : (
+          <>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <NavButton>로그인</NavButton>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <LoginModal />
+              </Dialog.Portal>
+            </Dialog.Root>
+            <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+              <Dialog.Portal>
+                <SignupModal />
+              </Dialog.Portal>
+            </Dialog.Root>
+          </>
+        )}
       </WideMenus>
       <ToggleHeader>
         <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
@@ -68,42 +76,38 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        <Popover.Root>
-          <Popover.Trigger asChild>
-            <HamburgerMenuIcon />
-          </Popover.Trigger>
-          <Popover.Portal>
-            <PopoverContent sideOffset={5}>
-              <IconContainer>
-                <div onClick={() => navigate(`/chat`)}>채팅</div>
-              </IconContainer>
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <IconContainer>
-                    <div>알림</div>
-                  </IconContainer>
-                </Dialog.Trigger>
-                <Dialog.Portal></Dialog.Portal>
-              </Dialog.Root>
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <NavButton>로그인</NavButton>
-                </Dialog.Trigger>
-                <Dialog.Portal>
-                  <LoginModal />
-                </Dialog.Portal>
-              </Dialog.Root>
-              <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-                <Dialog.Trigger asChild>
-                  <NavButton>회원가입</NavButton>
-                </Dialog.Trigger>
-                <Dialog.Portal>
-                  <SignupModal />
-                </Dialog.Portal>
-              </Dialog.Root>
-            </PopoverContent>
-          </Popover.Portal>
-        </Popover.Root>
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') ? (
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <HamburgerMenuIcon />
+            </Popover.Trigger>
+            <Popover.Portal>
+              <PopoverContent sideOffset={5}>
+                <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
+                <IconContainer>
+                  <div onClick={() => navigate(`/chat`)}>채팅</div>
+                </IconContainer>
+                <Dialog.Root>
+                  <Dialog.Trigger asChild>
+                    <IconContainer>
+                      <div>알림</div>
+                    </IconContainer>
+                  </Dialog.Trigger>
+                  <Dialog.Portal></Dialog.Portal>
+                </Dialog.Root>
+              </PopoverContent>
+            </Popover.Portal>
+          </Popover.Root>
+        ) : (
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <div>로그인</div>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <LoginModal />
+            </Dialog.Portal>
+          </Dialog.Root>
+        )}
       </ToggleHeader>
     </Layout>
   );
@@ -114,7 +118,7 @@ const Layout = styled.div`
   top: 0;
   width: 100%;
   height: 4.375rem;
-  padding: 0 2rem;
+  padding: 0 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -122,6 +126,9 @@ const Layout = styled.div`
   background: #fff;
   z-index: 998;
   box-shadow: 0 0 1rem rgba(175, 175, 175, 0.5);
+  @media screen and (max-width: 768px) {
+    padding: 0 2rem;
+  }
 `;
 
 const Logo = styled.img`
