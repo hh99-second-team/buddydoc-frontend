@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bookmark from '../common/Bookmark';
-import SkillList from '../common/SkillList';
-import StudyTypeIcon from '../common/StudyTypeIcon';
+import Bookmark from '../../common/Bookmark';
+import SkillList from '../../common/SkillList';
+import StudyTypeIcon from '../../common/StudyTypeIcon';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../utils/dateUtils';
-import { PostCardData } from '../../types/commonTypes';
-import basicUserIcon from '../../assets/user-circle-icon.svg';
-import studyIcon from '../../assets/study-icon.svg';
-import projectIcon from '../../assets/project-icon.svg';
-import Views from '../common/Views';
-import DeadlineIcon from '../common/DeadlineIcon';
+import { getDateFomat } from '../../../utils/dateUtils';
+import { PostCardData } from '../../../types/commonTypes';
+import basicUserIcon from '../../../assets/user-circle-icon.svg';
+import studyIcon from '../../../assets/study-icon.svg';
+import projectIcon from '../../../assets/project-icon.svg';
+import Views from '../../common/Views';
+import DeadlineIcon from '../../common/DeadlineIcon';
 
 const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
         </TypeBox>
         <Bookmark direction="column" count={post.preference} />
       </CardHeader>
-      <Title>{post.postTitle.length < 45 ? post.postTitle : post.postTitle.slice(0, 42) + ' ...'}</Title>
+      <Title>{post.postTitle}</Title>
       <Deadline>마감일 {getDateFomat(deadlineDate)}</Deadline>
       <SkillBox>
         <SkillList skip={true} skillList={post.skillList} size="small" />
@@ -46,10 +46,10 @@ const PostItem: React.FC<{ post: PostCardData }> = ({ post }) => {
 
 const Card = styled.div`
   position: relative;
-  padding: 24px 28px;
-  width: 528px;
-  height: 298px;
-  border-radius: 28px;
+  padding: 1.5rem 1.75rem;
+  width: 100%;
+  height: 18.625rem;
+  border-radius: 1.75rem;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
 `;
@@ -63,29 +63,37 @@ const CardHeader = styled.div`
 const TypeBox = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 0.625rem;
 `;
 
 const Title = styled.div`
   position: absolute;
-  top: 71px;
+  top: 4.4375rem;
   width: 80%;
-  height: 62px;
+  height: 3.8rem;
   color: #000;
   font-family: Pretendard;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const Deadline = styled.p`
   position: absolute;
-  top: 144px;
-  height: 21px;
+  top: 9rem;
+  height: 1.3125rem;
   color: #000;
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -93,12 +101,12 @@ const Deadline = styled.p`
 
 const SkillBox = styled.div`
   position: absolute;
-  top: 194px;
+  top: 12.125rem;
 `;
 
 const PostFooter = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 1.25rem;
   width: 90%;
   display: flex;
   justify-content: space-between;
@@ -110,17 +118,17 @@ const UserInfo = styled.div`
   display: flex;
   justify-content: baseline;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 0.625rem;
 
   & > img {
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
   }
 
   & > p {
     color: #000;
     font-family: Pretendard;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     line-height: normal;
   }

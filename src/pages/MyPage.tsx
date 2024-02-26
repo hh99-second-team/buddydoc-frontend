@@ -9,6 +9,14 @@ import SideMenu from './mypage/SideMenu';
 const MyPage = () => {
   return (
     <MyPageBackGround>
+      {/* Navbar 영역 */}
+
+      {/* 간단한 프로필 정보 영역 */}
+      {/* <Header>
+        <SimpleProfileInfo />
+      </Header> */}
+      {/* 다지인에서 삭제된 부분 -> 검토후 삭제예정 */}
+
       {/* 메인 영역 */}
       <MainContainer>
         <Main>
@@ -42,8 +50,7 @@ const MainContainer = styled.div`
   box-sizing: border-box;
 `;
 const Main = styled.div`
-  position: relative;
-  width: 99vw;
+  width: 70%;
   height: inherit;
   background-color: white;
   padding: 50px 30px;
