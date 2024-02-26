@@ -10,7 +10,7 @@ const SelectedIcon: React.FC<{ type: string; item: string; removeBtn: boolean; o
   onRemove,
 }) => {
   return (
-    <IconBox>
+    <IconBox removeBtn>
       {type === 'skill' && <img src={skillsIcon[item]} alt="" />}
       <p>{item}</p>
       {removeBtn && <CrossCircledIcon onClick={() => onRemove(item)} />}
@@ -18,7 +18,7 @@ const SelectedIcon: React.FC<{ type: string; item: string; removeBtn: boolean; o
   );
 };
 
-const IconBox = styled.div<{ removeBtn?: boolean }>`
+const IconBox = styled.div<{ removeBtn: boolean }>`
   display: flex;
   align-items: center;
   justify-content: ${(props) => (!props.removeBtn ? 'baseline' : 'space-between')};
