@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { UserType } from '../types/commonTypes';
 
 // 환경 변수에서 API 루트 경로 가져오기
 const API_ROOT = process.env.REACT_APP_API_ROOT;
@@ -11,28 +12,6 @@ const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json', // JSON 형식의 요청을 보낼 것임을 명시
   },
 });
-
-/** 게시물 데이터 형식 */
-interface PostCardData {
-  postId: number;
-  title: string;
-  userId: number;
-  email: string;
-  deadLine: string;
-  type: string;
-  views: number;
-  bookMark: number;
-}
-
-/** 유저 정보 데이터 형식 */
-interface UserData {
-  email: string;
-  name: string;
-  nickname: string;
-  position: string;
-  career: string;
-  skills: string[];
-}
 
 // API 호출 메서드 정의
 const api = {
@@ -60,13 +39,13 @@ const api = {
 
   /** 사용자 정보 가져오기 */
   getUser: async (userId: string) => {
-    const response: AxiosResponse<UserData> = await axiosInstance.get(`/users/${userId}`);
+    const response: AxiosResponse<UserType> = await axiosInstance.get(`/users/${userId}`);
     return response.data;
   },
 
   /** 사용자 정보 업데이트 */
-  updateUser: async (userId: string, userData: UserData) => {
-    const response: AxiosResponse<UserData> = await axiosInstance.put(`/users/${userId}`, userData);
+  updateUser: async (userId: string, userData: UserType) => {
+    const response: AxiosResponse<UserType> = await axiosInstance.put(`/users/${userId}`, userData);
     return response.data;
   },
 
@@ -74,8 +53,8 @@ const api = {
   // updateBookmark:
 
   /** 회원가입 */
-  signup: async (userData: UserData) => {
-    const response: AxiosResponse<UserData> = await axiosInstance.post('/signup', userData);
+  signup: async (userData: UserType) => {
+    const response: AxiosResponse<UserType> = await axiosInstance.post('/signup', userData);
     return response.data;
   },
 

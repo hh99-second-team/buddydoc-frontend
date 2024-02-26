@@ -55,3 +55,13 @@ export interface PostDetailType {
   bookmarked: boolean;
   views: number;
 }
+
+/** 유저 정보 데이터 형식 */
+export interface UserType {
+  email: string;
+  name: string;
+  nickname: string;
+  position: string;
+  career: string;
+  skills: string[];
+}
