@@ -7,6 +7,7 @@ import PostCreate from '../pages/PostCreate';
 import ScrollToTop from '../components/feature/scrollToTop';
 import ChatRoom from '../pages/ChatRoom';
 import Footer from '../components/common/Footer';
+import SearchPage from '../pages/SearchPage';
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/create" element={<PostCreate />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/chat" element={<ChatRoom />} />
+        <Route path="/search/:id" element={<SearchPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
