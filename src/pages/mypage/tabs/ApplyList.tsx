@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, Box, Button } from '@radix-ui/themes';
-// import mypageMainRender from '../../../components/feature/mypageCard';
 
 const dummyDatas = [
   {
