@@ -67,15 +67,26 @@ const Content = styled(Dialog.Content)`
   &:focus {
     outline: none;
   }
+  @media screen and (max-width: 768px) {
+    padding: 0 2rem;
+  }
 
   & > input {
     width: 80%;
     height: 90%;
     font-size: 1.3rem;
     border: none;
+    @media screen and (max-width: 768px) {
+      width: 75%;
+    }
 
     &:focus {
       outline: none;
+    }
+  }
+  & > button {
+    @media screen and (max-width: 768px) {
+      width: 20%;
     }
   }
 `;
