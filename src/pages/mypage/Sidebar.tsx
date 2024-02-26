@@ -69,11 +69,11 @@ export default SideBar;
 type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 const SidebarContainer = styled.div`
-  width: 12vw;
+  width: 15%;
   height: 300px;
   box-sizing: border-box;
-  padding-top: 10px;
-  margin: 20px 0px 0px 140px;
+  padding: 20px 0px 0px 0px;
+  margin: 20px 0px 0px 80px;
 `;
 const TabsListStyle = {
   display: 'flex',

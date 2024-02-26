@@ -146,11 +146,11 @@ function LikeList() {
                 </MentorCareer>
               </MentorInfoText>
             </MentorInfoContainer>
-            <DateInfo>
+            <ScheduledDate>
               예정된 커피챗 : {data.scheduledDate}
               <br />
               {data.scheduledTime}
-            </DateInfo>
+            </ScheduledDate>
             <ContentButton>파트너 홈</ContentButton>
           </ContentContainer>
         ));
@@ -204,22 +204,12 @@ function LikeList() {
 export default LikeList;
 
 const SideMenuHeader = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
   font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-size: 15px;
+  font-weight: bold;
 `;
 const SideMenuBody = styled.div`
   width: inherit;
@@ -228,14 +218,14 @@ const SideMenuBody = styled.div`
   margin-top: 30px;
 `;
 const StyledTabsList = styled(Tabs.List)`
-  width: 900px;
-  height: 100px;
+  width: 700px;
+  height: 90px;
   display: flex;
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 280px;
-  height: 100px;
+  width: 220px;
+  height: 100%;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 18px;
@@ -258,7 +248,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 `;
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 230px;
+  min-height: 170px;
   background-color: lightgray;
   border-radius: 15px;
   padding: 30px;
@@ -268,49 +258,34 @@ const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 `;
 const Category = styled.p`
-  border: 1px solid gray;
+  border: 2px solid black;
   border-radius: 20px;
-  padding: 1px 12px;
-  font-size: 18px;
-  font-weight: 400;
+  padding: 1px 10px;
   background-color: #fff;
 `;
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
-const MemberCount = styled.p`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
+const Title = styled.h3``;
+const MemberCount = styled.h4`
+  margin: 0px;
 `;
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
   bottom: 30px;
   ${(props) => (props.left ? `left: ${props.left};` : 'right: 30px;')}
   margin: 0px;
-  font-weight: 700;
-  color: #787878;
-  text-align: end;
 `;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 40px;
+  top: 60px;
   right: 30px;
-  width: 170px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
 `;
-const MentorName = styled.p`
-  font-size: 23px;
-  font-weight: bold;
+const MentorName = styled.h2`
   margin-bottom: 0px;
 `;
 const CompanyName = styled.p`
@@ -325,3 +300,11 @@ const MentorInfoContainer = styled.p`
   gap: 20px;
 `;
 const MentorInfoText = styled.p``;
+const ScheduledDate = styled.p`
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  margin: 0px;
+  display: flex;
+  text-align: end;
+`;

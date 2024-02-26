@@ -8,21 +8,21 @@ const dummyDatas = [
     category: 'study',
     title: '웹 개발 모각코 스터디1',
     postStatus: '모집중',
-    postDate: '2024.02.02',
+    startDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
     category: 'project',
     title: '웹 프로젝트1',
     postStatus: '모집중',
-    postDate: '2024.02.02',
+    startDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
     category: 'project',
     title: '웹 프로젝트2',
     postStatus: '모집중',
-    postDate: '2024.02.02',
+    startDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
@@ -95,7 +95,7 @@ function MyPostList() {
             <ContentButton color="gray" top="105px">
               신청자 관리
             </ContentButton>
-            <DateInfo left="30px">작성일 : {data.postDate}</DateInfo>
+            <DateInfo left="30px">작성일 : {data.startDate}</DateInfo>
             <DateInfo>마감일 : {data.endDate}</DateInfo>
           </ContentContainer>
         ));
@@ -116,7 +116,7 @@ function MyPostList() {
             <ContentButton color="gray" top="105px">
               신청자 관리
             </ContentButton>
-            <DateInfo left="30px">작성일 : {data.postDate}</DateInfo>
+            <DateInfo left="30px">작성일 : {data.startDate}</DateInfo>
             <DateInfo>마감일 : {data.endDate}</DateInfo>
           </ContentContainer>
         ));
@@ -146,11 +146,11 @@ function MyPostList() {
                 </MentorCareer>
               </MentorInfoText>
             </MentorInfoContainer>
-            <DateInfo>
+            <ScheduledDate>
               예정된 커피챗 : {data.scheduledDate}
               <br />
               {data.scheduledTime}
-            </DateInfo>
+            </ScheduledDate>
             <PostStatus>{data.postStatus}</PostStatus>
             <ContentButton>파트너 홈</ContentButton>
             <ContentButton color="gray" top="105px">
@@ -208,22 +208,12 @@ function MyPostList() {
 export default MyPostList;
 
 const SideMenuHeader = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
   font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-size: 15px;
+  font-weight: bold;
 `;
 const SideMenuBody = styled.div`
   width: inherit;
@@ -232,14 +222,14 @@ const SideMenuBody = styled.div`
   margin-top: 30px;
 `;
 const StyledTabsList = styled(Tabs.List)`
-  width: 900px;
-  height: 100px;
+  width: 700px;
+  height: 90px;
   display: flex;
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 280px;
-  height: 100px;
+  width: 220px;
+  height: 100%;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 18px;
@@ -262,7 +252,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 `;
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 230px;
+  min-height: 170px;
   background-color: lightgray;
   border-radius: 15px;
   padding: 30px;
@@ -272,29 +262,20 @@ const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 `;
 const Category = styled.p`
-  border: 1px solid gray;
+  border: 2px solid black;
   border-radius: 20px;
-  padding: 1px 12px;
-  font-size: 18px;
-  font-weight: 400;
+  padding: 1px 10px;
   background-color: #fff;
 `;
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
+const Title = styled.h3``;
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
   bottom: 30px;
   ${(props) => (props.left ? `left: ${props.left};` : 'right: 30px;')}
   margin: 0px;
-  font-weight: 700;
-  color: #787878;
-  text-align: end;
 `;
 const PostStatus = styled.div`
   position: absolute;
@@ -307,18 +288,14 @@ const PostStatus = styled.div`
 `;
 const ContentButton = styled(Button)<{ top?: string }>`
   position: absolute;
-  background-color: #000;
+  background-color: ${(props) => props.color || '#000'};
   border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 60px;
+  top: ${(props) => props.top || '60px'};
   right: 30px;
-  width: 170px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
 `;
-const MentorName = styled.p`
-  font-size: 23px;
-  font-weight: bold;
+const MentorName = styled.h2`
   margin-bottom: 0px;
 `;
 const CompanyName = styled.p`
@@ -326,10 +303,18 @@ const CompanyName = styled.p`
 `;
 const MentorCareer = styled.p``;
 const MentorInfoContainer = styled.p`
-  margin: 30px 0 0 0;
+  margin: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
 `;
 const MentorInfoText = styled.p``;
+const ScheduledDate = styled.p`
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  margin: 0px;
+  display: flex;
+  text-align: end;
+`;
