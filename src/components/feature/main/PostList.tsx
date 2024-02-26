@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PostCardData } from '../../../types/commonTypes';
+import { PostCardType } from '../../../types/commonTypes';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
@@ -7,7 +7,7 @@ import api from '../../../services/api';
 import { useInView } from 'react-intersection-observer';
 
 const PostList = () => {
-  const [posts, setPosts] = useState<PostCardData[]>([]);
+  const [posts, setPosts] = useState<PostCardType[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,21 +20,25 @@ const PostList = () => {
     setIsLoading(true);
     const response = await api.getPost(page);
 
-    const testPost: PostCardData = {
+    const testPost: PostCardType = {
       postId: 34,
       post_userId: 25,
       postType: 'project',
       createdAt: new Date(),
       updatedAt: new Date(),
-      deadline: new Date(),
+      startDate: new Date(),
+      deadLine: new Date(),
       postTitle:
         '정말 기깔난 프론트엔드 개발자 구합니다 ~~~ 같이 프로젝트 하시면 네카라쿠배 합격 확률 200%!!! 여기 개발 맛집이에요.',
-      position: '프론트엔드',
+      memberCount: 4,
+      period: '3개월 이상',
+      position: ['프론트엔드', '백엔드'],
       skillList: ['React', 'Vue', 'Next.js', 'Svelte', 'Figma', 'MySql'],
       users: {
         userNickname: '오늘은맑음',
       },
       preference: 3,
+      bookmark: true,
       views: 23,
     };
 

@@ -5,45 +5,34 @@ import MoreInformation from '../components/feature/postCreate/MoreInformation';
 import Button from '../components/common/Button';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
-interface inputInterface {
-  type: string;
-  deadlineDate: Date;
-  startDate: Date;
-  period: string;
-  tableOfOrganization: string;
-  positons: string[];
-  selectedSkills: string[];
-  title: string;
-  content: string;
-}
+import { PostCreateType } from '../types/commonTypes';
 
 const PostCreate = () => {
   const navigate = useNavigate();
 
-  const [inputVal, setInputVal] = useState<inputInterface>({
-    type: '',
-    deadlineDate: new Date(),
+  const [inputVal, setInputVal] = useState<PostCreateType>({
+    postType: '',
+    title: '',
+    position: [],
+    skillList: [],
+    content: '',
+    deadLine: new Date(),
     startDate: new Date(),
     period: '',
-    tableOfOrganization: '',
-    positons: [],
-    selectedSkills: [],
-    title: '',
-    content: '',
+    memberCount: 0,
   });
 
   const handleSubmit = () => {
     if (
-      !inputVal.type ||
-      !inputVal.deadlineDate ||
+      !inputVal.postType ||
+      !inputVal.title ||
+      !inputVal.position.length ||
+      !inputVal.skillList.length ||
+      !inputVal.content ||
+      !inputVal.deadLine ||
       !inputVal.startDate ||
       !inputVal.period ||
-      !inputVal.tableOfOrganization ||
-      !inputVal.positons ||
-      !inputVal.selectedSkills ||
-      !inputVal.title ||
-      !inputVal.content
+      !inputVal.memberCount
     ) {
       alert('모든 항목을 입력해주세요!');
       return;

@@ -9,21 +9,17 @@ import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
-import { PostDetailData } from '../../../types/commonTypes';
+import { PostDetailType } from '../../../types/commonTypes';
 
-const DetailHeader: React.FC<{ post: PostDetailData }> = ({ post }) => {
+const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const navigate = useNavigate();
-
-  const deadlineDate = new Date(post.createdAt);
-  deadlineDate.setDate(deadlineDate.getDate() + 10);
-  console.log(post.createdAt, deadlineDate);
 
   return (
     <Header>
       <ChevronLeftIcon onClick={() => navigate(-1)} />
       <IconSet>
         <StudyTypeIcon>{post.postType}</StudyTypeIcon>
-        <DeadlineIcon date={deadlineDate} />
+        <DeadlineIcon date={post.deadLine} />
       </IconSet>
       <Title>{post.title}</Title>
       <BottomSet>
@@ -36,7 +32,7 @@ const DetailHeader: React.FC<{ post: PostDetailData }> = ({ post }) => {
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark direction="row" count={post.preference} />
+          <Bookmark direction="row" count={post.preference} isToggle={post.bookmarked} />
         </CountBox>
       </BottomSet>
     </Header>

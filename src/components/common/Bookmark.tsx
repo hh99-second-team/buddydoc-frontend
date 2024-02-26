@@ -5,10 +5,11 @@ import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
 interface BookmarkProps {
   count: number;
   direction: 'row' | 'column';
+  isToggle: boolean;
 }
 
-const Bookmark = ({ count, direction }: BookmarkProps) => {
-  const [isBookmarkSelected, setIsBookmarkSelected] = useState(false);
+const Bookmark = ({ count, direction, isToggle }: BookmarkProps) => {
+  const [isBookmarkSelected, setIsBookmarkSelected] = useState(isToggle);
   const [bookmarkCount, setBookmarkCount] = useState(count);
 
   const handleToggleBookmark = (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {

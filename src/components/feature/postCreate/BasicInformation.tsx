@@ -5,58 +5,47 @@ import Select from '../../common/Select';
 import Input from '../../common/Input';
 import CustomDatePicker from '../../common/CustomDatePicker';
 import SelectedIcon from '../../common/SelectedIcon';
-
-interface inputInterface {
-  type: string;
-  deadlineDate: Date;
-  startDate: Date;
-  period: string;
-  tableOfOrganization: string;
-  positons: string[];
-  selectedSkills: string[];
-  title: string;
-  content: string;
-}
+import { PostCreateType } from '../../../types/commonTypes';
 
 interface Props {
-  inputVal: inputInterface;
+  inputVal: PostCreateType;
   setInputVal: any;
 }
 
 const BasicInformation = ({ inputVal, setInputVal }: Props) => {
-  const onChangeType = (type: string) => setInputVal({ ...inputVal, type });
+  const onChangeType = (postType: string) => setInputVal({ ...inputVal, postType });
 
-  const onChangeDeadlineDate = (deadlineDate: Date) => setInputVal({ ...inputVal, deadlineDate });
+  const onChangeDeadLine = (deadLine: Date) => setInputVal({ ...inputVal, deadLine });
 
   const onChangeStartDate = (startDate: Date) => setInputVal({ ...inputVal, startDate });
 
   const onChangePeriod = (period: string) => setInputVal({ ...inputVal, period });
 
   const onChangeTO = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInputVal({ ...inputVal, tableOfOrganization: e.target.value });
+    setInputVal({ ...inputVal, memberCount: e.target.value });
 
   const onChangePositions = (position: string) => {
-    if (inputVal.positons.includes(position)) {
+    if (inputVal.position.includes(position)) {
       return;
     }
-    setInputVal({ ...inputVal, positons: [...inputVal.positons, position] });
+    setInputVal({ ...inputVal, position: [...inputVal.position, position] });
   };
 
   const onChangeSkills = (skill: string) => {
-    if (inputVal.selectedSkills.includes(skill)) {
+    if (inputVal.skillList.includes(skill)) {
       return;
     }
-    setInputVal({ ...inputVal, selectedSkills: [...inputVal.selectedSkills, skill] });
+    setInputVal({ ...inputVal, skillList: [...inputVal.skillList, skill] });
   };
 
   const handlePositionRemove = (position: string) => {
-    const removedPositions = inputVal.positons.filter((value) => value !== position);
-    setInputVal({ ...inputVal, positons: removedPositions });
+    const removedPositions = inputVal.position.filter((value) => value !== position);
+    setInputVal({ ...inputVal, position: removedPositions });
   };
 
   const handleSkillRemove = (skill: string) => {
-    const removedSkills = inputVal.selectedSkills.filter((value) => value !== skill);
-    setInputVal({ ...inputVal, selectedSkills: removedSkills });
+    const removedSkills = inputVal.skillList.filter((value) => value !== skill);
+    setInputVal({ ...inputVal, skillList: removedSkills });
   };
 
   return (
@@ -66,7 +55,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
         <InputBox>
           <p>모집 구분</p>
           <Select
-            selectValue={inputVal.type}
+            selectValue={inputVal.postType}
             onValueChange={onChangeType}
             items={studyType}
             placeholder="모집하는 그룹을 선택하세요."
@@ -74,14 +63,14 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
         </InputBox>
         <InputBox>
           <p>모집 마감일</p>
-          <CustomDatePicker selected={inputVal.deadlineDate} onChange={(date: Date) => onChangeDeadlineDate(date)} />
+          <CustomDatePicker selected={inputVal.deadLine} onChange={(date: Date) => onChangeDeadLine(date)} />
         </InputBox>
         <InputBox>
           <p>모집 인원</p>
           <Input
             type="number"
             placeholder="총 모집 인원을 입력해주세요."
-            value={inputVal.tableOfOrganization}
+            value={inputVal.memberCount}
             onChange={onChangeTO}
             isValid={true}
           />
@@ -100,19 +89,19 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           />
         </InputBox>
       </GridBox>
-      {inputVal.type === '프로젝트' && (
+      {inputVal.postType === '프로젝트' && (
         <StyledGrid>
           <InputBox>
             <p>필요 포지션</p>
             <MultiSelectedGrid>
               <Select
-                selectValue={inputVal.positons[inputVal.positons.length - 1]}
+                selectValue={inputVal.position[inputVal.position.length - 1]}
                 onValueChange={onChangePositions}
                 items={positions}
                 placeholder="필요한 포지션을 선택하세요."
               />
               <SelectedBox>
-                {inputVal.positons.map((position) => (
+                {inputVal.position.map((position) => (
                   <SelectedIcon
                     key={position}
                     type="position"
@@ -129,13 +118,13 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
             <p>기술 스택</p>
             <MultiSelectedGrid>
               <Select
-                selectValue={inputVal.selectedSkills[inputVal.selectedSkills.length - 1]}
+                selectValue={inputVal.skillList[inputVal.skillList.length - 1]}
                 onValueChange={onChangeSkills}
                 items={skills}
                 placeholder="필요 기술 스택을 선택하세요."
               />
               <SelectedBox>
-                {inputVal.selectedSkills.map((skill) => (
+                {inputVal.skillList.map((skill) => (
                   <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
                 ))}
               </SelectedBox>

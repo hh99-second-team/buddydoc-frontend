@@ -3,21 +3,10 @@ import styled from 'styled-components';
 import Input from '../../common/Input';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-
-interface inputInterface {
-  type: string;
-  deadlineDate: Date;
-  startDate: Date;
-  period: string;
-  tableOfOrganization: string;
-  positons: string[];
-  selectedSkills: string[];
-  title: string;
-  content: string;
-}
+import { PostCreateType } from '../../../types/commonTypes';
 
 interface Props {
-  inputVal: inputInterface;
+  inputVal: PostCreateType;
   setInputVal: any;
 }
 

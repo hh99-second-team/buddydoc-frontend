@@ -1,35 +1,57 @@
 /** 게시물 카드 데이터 형식 */
-export interface PostCardData {
+export interface PostCardType {
   postId: number;
   post_userId: number;
-  postType: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deadline: Date;
-  postTitle: string;
-  position: string;
-  skillList: string[];
   users: {
     userNickname: string;
   };
+  postType: string;
+  postTitle: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deadLine: Date;
+  startDate: Date;
+  memberCount: number;
+  period: string;
+  position: string[];
+  skillList: string[];
   preference: number;
+  bookmark: boolean;
   views: number;
 }
 
-/** 게시물 상세 정보 데이터 형식 */
-export interface PostDetailData {
-  postId: number;
+/** 게시물 작성 / 수정 데이터 형식 */
+export interface PostCreateType {
   postType: string;
   title: string;
-  position: string;
+  position: string[];
   skillList: string[];
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  deadLine: Date;
+  startDate: Date;
+  period: string;
+  memberCount: number;
+}
+
+/** 게시물 상세 정보 데이터 형식 */
+export interface PostDetailType {
+  postId: number;
+  postType: string;
   user: {
     userId: number;
     nickname: string;
   };
+  title: string;
+  position: string[];
+  skillList: string[];
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deadLine: Date;
+  startDate: Date;
+  memberCount: number;
+  period: string;
   preference: number;
+  bookmarked: boolean;
   views: number;
 }
