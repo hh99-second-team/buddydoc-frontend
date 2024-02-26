@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import CustomDatePicker from '../../common/CustomDatePicker';
-import RoundBorderIcon from '../../common/RoundBorderIcon';
+import SelectedIcon from '../../common/SelectedIcon';
 
 interface inputInterface {
   type: string;
@@ -113,7 +113,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.positons.map((position) => (
-                  <RoundBorderIcon key={position} item={position} onRemove={handlePositionRemove} />
+                  <SelectedIcon key={position} type="position" item={position} onRemove={handlePositionRemove} />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
@@ -130,7 +130,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.selectedSkills.map((skill) => (
-                  <RoundBorderIcon key={skill} item={skill} onRemove={handleSkillRemove} />
+                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
@@ -155,6 +155,9 @@ const StyledGrid = styled.div`
 
 const GridBox = styled(StyledGrid)`
   grid-template-columns: repeat(3, 1fr);
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const InputBox = styled.div`
@@ -172,6 +175,11 @@ const MultiSelectedGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 45px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SelectedBox = styled.div`
@@ -181,6 +189,11 @@ const SelectedBox = styled.div`
   align-items: end;
   column-gap: 1rem;
   padding-bottom: 7px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1rem;
+    align-items: center;
+  }
 `;
 
 export default BasicInformation;
