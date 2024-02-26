@@ -10,6 +10,7 @@ import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import * as Popover from '@radix-ui/react-popover';
+import SearchModal from '../feature/SearchModal';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -21,26 +22,16 @@ const Navbar = () => {
       <WideMenus>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <NavButton>
-              <SearchBox>
-                <SearchButton>
-                  <MagnifyingGlassIcon />
-                </SearchButton>
-                <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
-              </SearchBox>
-            </NavButton>
+            <MagnifyingGlassIcon />
           </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
+          <Dialog.Portal>
+            <SearchModal />
+          </Dialog.Portal>
         </Dialog.Root>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
-            <IconContainer>
-              <div onClick={() => navigate(`/chat`)}>채팅</div>
-              <ChatNotificationDot />
-            </IconContainer>
-          </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
-        </Dialog.Root>
+        <IconContainer>
+          <div onClick={() => navigate(`/chat`)}>채팅</div>
+          <ChatNotificationDot />
+        </IconContainer>
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <IconContainer>
@@ -70,14 +61,11 @@ const Navbar = () => {
       <ToggleHeader>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <SearchBox>
-              <SearchButton>
-                <MagnifyingGlassIcon />
-              </SearchButton>
-              <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
-            </SearchBox>
+            <MagnifyingGlassIcon />
           </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
+          <Dialog.Portal>
+            <SearchModal />
+          </Dialog.Portal>
         </Dialog.Root>
         <Popover.Root>
           <Popover.Trigger asChild>
