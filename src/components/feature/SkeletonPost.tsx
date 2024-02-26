@@ -8,7 +8,7 @@ const SkeletonPost = () => {
     <PostBox>
       <SkeletonHeader />
       <SkeletonDeadline />
-      <SkeletonContentBox count={2} />
+      <SkeletonContentBox count={3} />
       <SkeletonImgBox>
         <Skeleton count={5} />
       </SkeletonImgBox>
@@ -20,11 +20,11 @@ const SkeletonPost = () => {
 const PostBox = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 0.8em;
-  padding: 1.5rem 1.75rem;
+  row-gap: 23px;
+  padding: 28px;
   width: 100%;
-  height: 18.625rem;
-  border-radius: 1.75rem;
+  height: 350px;
+  border-radius: 28px;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
 `;

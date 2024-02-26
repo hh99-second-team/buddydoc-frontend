@@ -18,10 +18,12 @@ const PostDetail = () => {
   const params = useParams();
 
   const { isLoading, data } = useQuery<PostDetailData>('postDetail', () => api.getPostDetail(params.id!), {
-    refetchOnMount: 'always', // 최초 렌더링 시에만 항상 API를 호출합니다.
+    enabled: true, // true일 경우에만 최초 렌더링 시에 데이터를 불러옵니다.
   });
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+
+  if (!isLoading) console.log(data);
 
   return (
     <Layout>
