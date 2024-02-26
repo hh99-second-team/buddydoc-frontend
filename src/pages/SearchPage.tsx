@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../components/common/Button';
 import PostList from '../components/feature/main/PostList';
 import { Layout } from '../styles/GlobalStyles';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const SearchPage = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const [searchWord, setSearchWord] = useState(params.word);
+
+  const handleSearchButton = () => navigate(`/search/${searchWord}`);
+
   return (
     <Layout>
       <SearchBox>
         <div>
-          <input type="text" placeholder="검색어를 입력해주세요." />
+          <input
+            type="text"
+            placeholder="검색어를 입력해주세요."
+            value={searchWord}
+            onChange={(e) => setSearchWord(e.target.value)}
+          />
         </div>
-        <Button size="medium" color="black">
+        <Button size="medium" color="black" onClick={handleSearchButton}>
           검색
         </Button>
       </SearchBox>

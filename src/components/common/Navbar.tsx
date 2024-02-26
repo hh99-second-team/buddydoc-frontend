@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 import LoginModal from '../feature/LoginModal';
@@ -15,17 +15,18 @@ import SearchModal from '../feature/SearchModal';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <Layout>
       <Logo src={logoUrl} alt="" onClick={() => navigate('/')} />
       <WideMenus>
-        <Dialog.Root>
+        <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
             <MagnifyingGlassIcon />
           </Dialog.Trigger>
           <Dialog.Portal>
-            <SearchModal />
+            <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
         <IconContainer>
@@ -59,12 +60,12 @@ const Navbar = () => {
         </Dialog.Root>
       </WideMenus>
       <ToggleHeader>
-        <Dialog.Root>
+        <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
             <MagnifyingGlassIcon />
           </Dialog.Trigger>
           <Dialog.Portal>
-            <SearchModal />
+            <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
         <Popover.Root>

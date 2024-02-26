@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/create" element={<PostCreate />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/chat" element={<ChatRoom />} />
-        <Route path="/search/:id" element={<SearchPage />} />
+        <Route path="/search/:word" element={<SearchPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

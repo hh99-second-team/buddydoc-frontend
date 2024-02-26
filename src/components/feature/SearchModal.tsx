@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 import Button from '../common/Button';
+import { useNavigate } from 'react-router-dom';
 
-const SearchModal = () => {
+interface Props {
+  onOpenChange: any;
+}
+
+const SearchModal = ({ onOpenChange }: Props) => {
+  const [searchWord, setSearchWord] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearchButton = () => {
+    onOpenChange(false);
+    navigate(`/search/${searchWord}`);
+  };
+
   return (
     <>
       <Overlay />
       <Content>
-        <input type="text" placeholder="검색어를 입력해주세요." />
-        <Button size="small" color="black">
+        <input
+          type="text"
+          placeholder="검색어를 입력해주세요."
+          value={searchWord}
+          onChange={(e) => setSearchWord(e.target.value)}
+        />
+        <Button size="small" color="black" onClick={handleSearchButton}>
           검색
         </Button>
       </Content>
