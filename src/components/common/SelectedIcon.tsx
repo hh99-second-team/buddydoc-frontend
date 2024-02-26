@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { skillsIcon } from '../../constants/data';
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 
-const SelectedIcon: React.FC<{ type: string; item: string; removeBtn?: boolean; onRemove?: any }> = ({
+const SelectedIcon: React.FC<{ type: string; item: string; removeBtn: boolean; onRemove?: any }> = ({
   type,
   item,
   removeBtn,

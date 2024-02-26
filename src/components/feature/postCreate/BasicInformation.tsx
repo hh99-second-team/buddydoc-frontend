@@ -113,7 +113,13 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.positons.map((position) => (
-                  <SelectedIcon key={position} type="position" item={position} onRemove={handlePositionRemove} />
+                  <SelectedIcon
+                    key={position}
+                    type="position"
+                    item={position}
+                    onRemove={handlePositionRemove}
+                    removeBtn={true}
+                  />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
@@ -130,7 +136,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.selectedSkills.map((skill) => (
-                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} />
+                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
