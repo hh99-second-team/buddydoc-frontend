@@ -65,3 +65,11 @@ export interface UserType {
   career: string;
   skills: string[];
 }
+
+/** 회원가입 시 입력 타입 */
+export interface SignUpType {
+  userNickname: string;
+  position: string;
+  career: string;
+  skills: string[];
+}

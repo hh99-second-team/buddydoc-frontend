@@ -212,12 +212,6 @@ const NavButton = styled.div`
   }
 `;
 
-const SearchBox = styled.div`
-  width: fit-content;
-  height: fit-content;
-  position: relative;
-`;
-
 const SearchInput = styled.input`
   height: 30px;
   width: 30px;
@@ -242,35 +236,6 @@ const SearchInput = styled.input`
     background-color: transparent;
     border-bottom: 1px solid #bfc0c4;
     transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
-`;
-
-const SearchButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border-style: none;
-  font-size: 20px;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-  border-radius: 50%;
-  position: absolute;
-  right: 0px;
-  color: black;
-  background-color: transparent;
-  pointer-events: painted;
-
-  &:focus ~ ${SearchInput} {
-    width: 250px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid #bfc0c4;
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
-
-  & > svg {
-    width: 18px;
-    height: 18px;
   }
 `;
 

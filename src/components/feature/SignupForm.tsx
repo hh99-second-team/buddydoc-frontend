@@ -4,33 +4,30 @@ import Select from '../common/Select';
 import Button from '../common/Button';
 import styled from 'styled-components';
 import { career, positions } from '../../constants/data';
+import { SignUpType } from '../../types/commonTypes';
 
 interface FormProps {
-  inputVal: any;
+  inputVal: SignUpType;
   setInputVal: any;
   setNextPage: any;
 }
 
 const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
-  const [isValid, setIsValid] = useState({
-    isNameValid: true,
-    isNicknameValid: true,
-    isEmailValid: true,
-  });
+  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(true);
 
   /**
-   * nickname: 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성, 한글 초성 및 모음은 허가하지 않는다.
+   * userNickname: 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 구성, 한글 초성 및 모음은 허가하지 않는다.
    */
   const regex: { [key: string]: RegExp } = {
-    nickname: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
+    userNickname: /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/,
   };
 
   const validateInput = (type: string, value: string): boolean => regex[type].test(value);
 
   const onChangeNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nickname = e.target.value;
-    setInputVal({ ...inputVal, nickname });
-    setIsValid({ ...isValid, isNicknameValid: validateInput('nickname', nickname) });
+    const userNickname = e.target.value;
+    setInputVal({ ...inputVal, userNickname });
+    setIsNicknameValid(validateInput('userNickname', userNickname));
   };
 
   const onChangePosition = (position: string) => setInputVal({ ...inputVal, position });
@@ -38,8 +35,12 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
   const onChangeCareer = (career: string) => setInputVal({ ...inputVal, career });
 
   const handleNextPage = () => {
-    if (!inputVal.nickname || !inputVal.position || !inputVal.career) {
+    if (!inputVal.userNickname || !inputVal.position || !inputVal.career) {
       alert('모든 항목을 입력해주세요.');
+      return;
+    }
+    if (!isNicknameValid) {
+      alert('닉네임 양식을 지켜주세요.');
       return;
     }
     setNextPage();
@@ -54,14 +55,14 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
         <Input
           type="text"
           placeholder="닉네임을 입력해주세요."
-          value={inputVal.nickname}
+          value={inputVal.userNickname}
           onChange={onChangeNickname}
-          isValid={isValid.isNicknameValid || !inputVal.nickname.length}
+          isValid={isNicknameValid || !inputVal.userNickname.length}
         />
-        <ValidText className={isValid.isNicknameValid ? '' : 'not--valid'}>
-          {!inputVal.nickname.length
+        <ValidText className={isNicknameValid ? '' : 'not--valid'}>
+          {!inputVal.userNickname.length
             ? ''
-            : isValid.isNicknameValid
+            : isNicknameValid
             ? '* 사용 가능한 닉네임입니다.'
             : '* 2자 이상 16자 이하, 영어 또는 숫자 또는 한글로 입력해주세요.'}
         </ValidText>

@@ -8,7 +8,7 @@ import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
-import { ChevronLeftIcon } from '@radix-ui/react-icons';
+import { ChevronLeftIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
 import { PostDetailType } from '../../../types/commonTypes';
 
 const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
@@ -16,7 +16,10 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
 
   return (
     <Header>
-      <ChevronLeftIcon onClick={() => navigate(-1)} />
+      <Flex>
+        <ChevronLeftIcon onClick={() => navigate(-1)} />
+        <DotsVerticalIcon />
+      </Flex>
       <IconSet>
         <StudyTypeIcon>{post.postType}</StudyTypeIcon>
         <DeadlineIcon date={post.deadLine} />
@@ -44,7 +47,11 @@ const Header = styled.div`
   row-gap: 20px;
   padding: 20px 0;
   border-bottom: 1px solid #d9d9d9;
+`;
 
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
   & > svg {
     width: 24px;
     height: 24px;

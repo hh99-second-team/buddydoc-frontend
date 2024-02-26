@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { UserType } from '../types/commonTypes';
+import { SignUpType, UserType } from '../types/commonTypes';
 
 // 환경 변수에서 API 루트 경로 가져오기
 const API_ROOT = process.env.REACT_APP_API_ROOT;
@@ -53,28 +53,27 @@ const api = {
   // updateBookmark:
 
   /** 회원가입 */
-  signup: async (userData: UserType) => {
-    const response: AxiosResponse<UserType> = await axiosInstance.post('/signup', userData);
+  signup: async (userData: SignUpType) => {
+    const response: AxiosResponse<SignUpType> = await axiosInstance.post('/signup', userData);
     return response.data;
   },
 
   /** 카카오 로그인 */
   kakaoLogin: async () => {
     // 사용자를 카카오 로그인 페이지로 리디렉션합니다.
-    const response = window.open(`${API_ROOT}/oauth/callback/kakao`);
-    console.log(response);
+    window.location.href = `${API_ROOT}/oauth/callback/kakao`;
   },
 
   /** 네이버 로그인 */
   naverLogin: async () => {
     // 사용자를 네이버 로그인 페이지로 리디렉션합니다.
-    window.open(`${API_ROOT}/oauth/callback/naver`);
+    window.location.href = `${API_ROOT}/oauth/callback/naver`;
   },
 
   /** 구글 로그인 */
   googleLogin: async () => {
     // 사용자를 구글 로그인 페이지로 리디렉션합니다.
-    window.open(`${API_ROOT}/oauth/callback/google`);
+    window.location.href = `${API_ROOT}/oauth/callback/google`;
   },
 };
 
