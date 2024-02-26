@@ -36,10 +36,14 @@ const SearchBox = styled.div`
       width: 50%;
     }
     & > input {
+      width: 100%;
       font-size: 1.3rem;
       border: none;
       &:focus {
         outline: none;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: 1.1rem;
       }
     }
   }
