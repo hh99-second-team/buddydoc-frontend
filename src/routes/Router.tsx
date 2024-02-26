@@ -5,6 +5,8 @@ import PostDetail from '../pages/PostDetail';
 import Navbar from '../components/common/Navbar';
 import PostCreate from '../pages/PostCreate';
 import ScrollToTop from '../components/feature/scrollToTop';
+import ChatRoom from '../pages/ChatRoom';
+import Footer from '../components/common/Footer';
 
 const Router = () => {
   return (
@@ -16,7 +18,9 @@ const Router = () => {
         <Route path="/:id" element={<PostDetail />} />
         <Route path="/create" element={<PostCreate />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/chat" element={<ChatRoom />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

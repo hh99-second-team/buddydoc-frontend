@@ -47,7 +47,7 @@ const MoreInformation = ({ inputVal, setInputVal }: Props) => {
     <div>
       <Title>상세 정보 입력</Title>
       <Container>
-        <Input
+        <StyledInput
           type="text"
           placeholder="모집 글 제목을 입력해주세요."
           value={inputVal.title}
@@ -77,6 +77,16 @@ const Container = styled.div`
   grid-template-columns: repeat(1, 1fr);
   row-gap: 40px;
   padding: 40px 0;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const StyledInput = styled(Input)`
+  @media screen and (max-width: 768px) {
+    margin-bottom: 40px;
+  }
 `;
 
 export default MoreInformation;

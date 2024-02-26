@@ -34,7 +34,7 @@ const Navbar = () => {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <IconContainer>
-              <div>채팅</div>
+              <div onClick={() => navigate(`/chat`)}>채팅</div>
               <ChatNotificationDot />
             </IconContainer>
           </Dialog.Trigger>
@@ -65,6 +65,56 @@ const Navbar = () => {
             <SignupModal />
           </Dialog.Portal>
         </Dialog.Root>
+      </WideMenus>
+      <ToggleHeader>
+        <Dialog.Root>
+          <Dialog.Trigger asChild>
+            <SearchBox>
+              <SearchButton>
+                <MagnifyingGlassIcon />
+              </SearchButton>
+              <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
+            </SearchBox>
+          </Dialog.Trigger>
+          <Dialog.Portal></Dialog.Portal>
+        </Dialog.Root>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <HamburgerMenuIcon />
+          </Popover.Trigger>
+          <Popover.Portal>
+            <PopoverContent sideOffset={5}>
+              <IconContainer>
+                <div onClick={() => navigate(`/chat`)}>채팅</div>
+              </IconContainer>
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <IconContainer>
+                    <div>알림</div>
+                  </IconContainer>
+                </Dialog.Trigger>
+                <Dialog.Portal></Dialog.Portal>
+              </Dialog.Root>
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <NavButton>로그인</NavButton>
+                </Dialog.Trigger>
+                <Dialog.Portal>
+                  <LoginModal />
+                </Dialog.Portal>
+              </Dialog.Root>
+              <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+                <Dialog.Trigger asChild>
+                  <NavButton>회원가입</NavButton>
+                </Dialog.Trigger>
+                <Dialog.Portal>
+                  <SignupModal />
+                </Dialog.Portal>
+              </Dialog.Root>
+            </PopoverContent>
+          </Popover.Portal>
+        </Popover.Root>
+      </ToggleHeader>
       </ButtonSet>
     </Layout>
   );
@@ -98,6 +148,10 @@ const ButtonSet = styled.div`
 const NavButton = styled.div`
   cursor: pointer;
   text-align: center;
+  padding: 1rem 0;
+  @media screen and (max-width: 768px) {
+    border-bottom: 0.6px solid #e2e3e5;
+  }
 
   &:hover {
     color: #686868;
@@ -168,11 +222,16 @@ const SearchButton = styled.button`
 
 const IconContainer = styled(NavButton)`
   position: relative;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const NotificationDot = styled.div`
   position: absolute;
-  top: 0;
+  top: 1rem;
   right: -5px;
   width: 7px;
   height: 7px;

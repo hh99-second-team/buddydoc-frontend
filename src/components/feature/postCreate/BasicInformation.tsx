@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import CustomDatePicker from '../../common/CustomDatePicker';
-import RoundBorderIcon from '../../common/RoundBorderIcon';
+import SelectedIcon from '../../common/SelectedIcon';
 
 interface inputInterface {
   type: string;
@@ -77,7 +77,17 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           <CustomDatePicker selected={inputVal.deadlineDate} onChange={(date: Date) => onChangeDeadlineDate(date)} />
         </InputBox>
         <InputBox>
-          <p>프로젝트 시작</p>
+          <p>모집 인원</p>
+          <Input
+            type="number"
+            placeholder="총 모집 인원을 입력해주세요."
+            value={inputVal.tableOfOrganization}
+            onChange={onChangeTO}
+            isValid={true}
+          />
+        </InputBox>
+        <InputBox>
+          <p>스터디 / 프로젝트 시작일</p>
           <CustomDatePicker selected={inputVal.startDate} onChange={(date: Date) => onChangeStartDate(date)} />
         </InputBox>
         <InputBox>
@@ -86,17 +96,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
             selectValue={inputVal.period}
             onValueChange={onChangePeriod}
             items={period}
-            placeholder="스터디/프로젝트 진행 기간을 선택하세요."
-          />
-        </InputBox>
-        <InputBox>
-          <p>모집 인원</p>
-          <Input
-            type="number"
-            placeholder="총 모집 인원을 입력해주세요."
-            value={inputVal.tableOfOrganization}
-            onChange={onChangeTO}
-            isValid={true}
+            placeholder="스터디 / 프로젝트 진행 기간을 선택하세요."
           />
         </InputBox>
       </GridBox>
@@ -113,7 +113,13 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.positons.map((position) => (
-                  <RoundBorderIcon key={position} item={position} onRemove={handlePositionRemove} />
+                  <SelectedIcon
+                    key={position}
+                    type="position"
+                    item={position}
+                    onRemove={handlePositionRemove}
+                    removeBtn={true}
+                  />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
@@ -130,7 +136,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
               />
               <SelectedBox>
                 {inputVal.selectedSkills.map((skill) => (
-                  <RoundBorderIcon key={skill} item={skill} onRemove={handleSkillRemove} />
+                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
                 ))}
               </SelectedBox>
             </MultiSelectedGrid>
@@ -155,6 +161,9 @@ const StyledGrid = styled.div`
 
 const GridBox = styled(StyledGrid)`
   grid-template-columns: repeat(3, 1fr);
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const InputBox = styled.div`
@@ -172,6 +181,11 @@ const MultiSelectedGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 45px;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SelectedBox = styled.div`
@@ -181,6 +195,11 @@ const SelectedBox = styled.div`
   align-items: end;
   column-gap: 1rem;
   padding-bottom: 7px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 1rem;
+    align-items: center;
+  }
 `;
 
 export default BasicInformation;

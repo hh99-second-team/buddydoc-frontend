@@ -1,8 +1,13 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const Footer = () => {
   const menuList = ['Home', 'About', 'Services', 'Team', 'Contact'];
+  const location = useLocation();
+
+  if (location.pathname.startsWith('/chat')) return <></>;
+
   return (
     <FooterBox>
       <div>

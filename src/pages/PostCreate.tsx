@@ -71,12 +71,22 @@ const PostCreate = () => {
 const CreateLayout = styled(Layout)`
   display: grid;
   row-gap: 4rem;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const ButtonSet = styled.div`
   display: flex;
   justify-content: center;
   column-gap: 2rem;
+
+  & > button {
+    @media screen and (max-width: 768px) {
+      width: 50%;
+    }
+  }
 `;
 
 export default PostCreate;
