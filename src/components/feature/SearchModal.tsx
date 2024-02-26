@@ -17,6 +17,12 @@ const SearchModal = ({ onOpenChange }: Props) => {
     navigate(`/search/${searchWord}`);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearchButton();
+    }
+  };
+
   return (
     <>
       <Overlay />
@@ -26,6 +32,7 @@ const SearchModal = ({ onOpenChange }: Props) => {
           placeholder="검색어를 입력해주세요."
           value={searchWord}
           onChange={(e) => setSearchWord(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         <Button size="small" color="black" onClick={handleSearchButton}>
           검색

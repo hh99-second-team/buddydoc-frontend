@@ -12,6 +12,12 @@ const SearchPage = () => {
 
   const handleSearchButton = () => navigate(`/search/${searchWord}`);
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearchButton();
+    }
+  };
+
   return (
     <Layout>
       <SearchBox>
@@ -21,6 +27,7 @@ const SearchPage = () => {
             placeholder="검색어를 입력해주세요."
             value={searchWord}
             onChange={(e) => setSearchWord(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <Button size="medium" color="black" onClick={handleSearchButton}>

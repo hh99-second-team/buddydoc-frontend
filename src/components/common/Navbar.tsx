@@ -24,7 +24,7 @@ const Navbar = () => {
       <WideMenus>
         <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
-            <MagnifyingGlassIcon />
+            <StyledMagnifyingGlassIcon />
           </Dialog.Trigger>
           <Dialog.Portal>
             <SearchModal onOpenChange={setIsSearchOpen} />
@@ -70,13 +70,13 @@ const Navbar = () => {
       <ToggleHeader>
         <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
-            <MagnifyingGlassIcon />
+            <StyledMagnifyingGlassIcon />
           </Dialog.Trigger>
           <Dialog.Portal>
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') ? (
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
           <Popover.Root>
             <Popover.Trigger asChild>
               <HamburgerMenuIcon />
@@ -219,33 +219,6 @@ const NavButton = styled.div`
   }
 `;
 
-const SearchInput = styled.input`
-  height: 30px;
-  width: 30px;
-  border-style: none;
-  letter-spacing: 2px;
-  outline: none;
-  border-radius: 50%;
-  transition: all 0.5s ease-in-out;
-  background-color: #fff;
-  padding-right: 40px;
-  color: black;
-
-  &::placeholder {
-    color: black;
-    letter-spacing: 2px;
-    font-weight: 100;
-  }
-
-  &:focus {
-    width: 250px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid #bfc0c4;
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
-`;
-
 const IconContainer = styled(NavButton)`
   position: relative;
   @media screen and (max-width: 768px) {
@@ -267,6 +240,11 @@ const NotificationDot = styled.div`
 
 const ChatNotificationDot = styled(NotificationDot)`
   right: -9px;
+`;
+
+const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 export default Navbar;

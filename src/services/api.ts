@@ -37,6 +37,12 @@ const api = {
     return response.data.data[0];
   },
 
+  /** 게시물 삭제 */
+  deletePost: async (postId: string, userId: number) => {
+    const response = await axiosInstance.delete(`/post/${postId}`, { params: { userId } });
+    return response.data;
+  },
+
   /** 사용자 정보 가져오기 */
   getUser: async (userId: string) => {
     const response: AxiosResponse<UserType> = await axiosInstance.get(`/users/${userId}`);
