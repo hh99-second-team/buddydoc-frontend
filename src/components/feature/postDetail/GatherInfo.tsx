@@ -52,6 +52,9 @@ const Content = styled.div`
   row-gap: 40px;
   padding: 40px 0;
   border-bottom: 1px solid #d9d9d9;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Info = styled.div`
