@@ -46,11 +46,7 @@ export const getDDayCounter = (date?: Date): number | string => {
 };
 
 /** 날짜 차이 반환 함수 */
-export const getDayDiff = (date?: Date): number | string => {
-  if (!date) {
-    return '';
-  }
-
+export const getDayDiff = (date: Date): number => {
   const today: Date = new Date();
   const deadline: Date = new Date(date);
   today.setHours(0, 0, 0, 0);

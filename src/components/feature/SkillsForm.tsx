@@ -8,9 +8,10 @@ import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import SelectedIcon from '../common/SelectedIcon';
+import { SignUpType } from '../../types/commonTypes';
 
 interface FormProps {
-  inputVal: any;
+  inputVal: SignUpType;
   setPrevPage: () => void;
   setSkills: (skills: string[]) => void;
 }
@@ -23,9 +24,15 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
 
   const handleSubmit = async () => {
     setSkills(selectedSkills);
-    const response = await api.signup(inputVal);
-    console.log(response);
-    setIsSignupOpen(false);
+
+    if (!skills.length) {
+      alert('기술 스택을 선택하세요.');
+    }
+
+    if (localStorage.getItem('accessToken')) {
+      await api.signup(inputVal);
+      setIsSignupOpen(false);
+    }
   };
 
   return (

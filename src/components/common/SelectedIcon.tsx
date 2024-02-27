@@ -44,7 +44,7 @@ const IconBox = styled.div<{ removeBtn: boolean }>`
   }
 
   & > svg {
-    color: #ff6c6c;
+    color: gray;
   }
 `;
 

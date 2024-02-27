@@ -23,7 +23,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
           <StudyTypeIcon>{post.postType}</StudyTypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </TypeBox>
-        <Bookmark direction="column" count={post.preference} isToggle={post.bookmark} />
+        <Bookmark postId={post.postId} direction="column" count={post.preference} isToggle={post.bookmark} />
       </CardHeader>
       <Title>{post.postTitle}</Title>
       <Deadline>마감일 {getDateFomat(post.deadLine)}</Deadline>
