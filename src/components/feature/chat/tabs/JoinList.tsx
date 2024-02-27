@@ -30,24 +30,14 @@ const dummyDatas = [
     myPosition: '프론트엔드',
     memberCount: 10,
   },
-  {
-    category: 'coffeeChat',
-    mentorName: 'JH Kim',
-    mentorCompanyName: '회사명',
-    mentorPosition: '백엔드',
-    mentorCareer: 5,
-    mentorCoffChatCount: 20,
-    mentorIntroduce: '개발독학으로 한번에 입사하는 비법과 면접꿀팁을 알려드립니다.',
-  },
 ];
 
-function JoinListContent() {
+function JoinList() {
   // 현재 선택된 탭 상태 관리
   const [selectedTab, setSelectedTab] = useState('study');
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
-  const [coffeeChatCount, setCoffeeChatCount] = useState(0);
 
   // 멤버 이미지 리턴함수
   const memberImage = () => {
@@ -74,19 +64,15 @@ function JoinListContent() {
           case 'project':
             acc.project++;
             break;
-          case 'coffeeChat':
-            acc.coffeeChat++;
-            break;
           default:
             break;
         }
         return acc;
       },
-      { study: 0, project: 0, coffeeChat: 0 }
+      { study: 0, project: 0 }
     );
     setStudyCount(counts.study);
     setProjectCount(counts.project);
-    setCoffeeChatCount(counts.coffeeChat);
   }, []);
 
   // 각 활동 탭에 해당하는 데이터 분류해주는 함수
@@ -123,23 +109,6 @@ function JoinListContent() {
             </CardLowerArea>
           </CardContainer>
         ));
-      // category가 coffeeChat인 데이터
-      case 'coffeeChat':
-        return filteredData.map((data, index) => (
-          <CardContainer key={index} height="320px">
-            <CardUpperArea>
-              <MentorName>{data.mentorName}</MentorName>
-              <MentorCompanyName>{data.mentorCompanyName}</MentorCompanyName>
-              <MentorCareer>
-                개발팀 {data.mentorPosition} / {data.mentorCareer}년
-              </MentorCareer>
-            </CardUpperArea>
-            <CardLowerArea>
-              <MentorCoffeeChatCount>커피챗 {data.mentorCoffChatCount}회</MentorCoffeeChatCount>
-              <MentorIntroduce>{data.mentorIntroduce}</MentorIntroduce>
-            </CardLowerArea>
-          </CardContainer>
-        ));
       default:
         return <p>참여중인 목록이 없습니다.</p>;
     }
@@ -154,26 +123,18 @@ function JoinListContent() {
         <TabsTrigger value="project" isSelected={selectedTab === 'project'} onClick={() => setSelectedTab('project')}>
           프로젝트({projectCount})
         </TabsTrigger>
-        <TabsTrigger
-          value="coffeeChat"
-          isSelected={selectedTab === 'coffeeChat'}
-          onClick={() => setSelectedTab('coffeeChat')}>
-          커피챗({coffeeChatCount})
-        </TabsTrigger>
       </TabsList>
       <ContentContainer>
         {/* 스터디 카드 영역 */}
         <TabsContent value="study">{renderData('study')}</TabsContent>
         {/* 프로젝트 카드 영역 */}
         <TabsContent value="project">{renderData('project')}</TabsContent>
-        {/* 커피챗 카드 영역 */}
-        <TabsContent value="coffeeChat">{renderData('coffeeChat')}</TabsContent>
       </ContentContainer>
     </Tabs.Root>
   );
 }
 
-export default React.memo(JoinListContent);
+export default React.memo(JoinList);
 
 const TabsList = styled(Tabs.List)`
   display: flex;
@@ -241,20 +202,5 @@ const CardMemberCount = styled.h4`
   gap: 10px;
 `;
 const CardMyPosition = styled.h5`
-  margin: 0px;
-`;
-const MentorName = styled.h2`
-  margin: 0px;
-`;
-const MentorCompanyName = styled.h4`
-  margin: 0px;
-`;
-const MentorCareer = styled.h4`
-  margin: 0px;
-`;
-const MentorCoffeeChatCount = styled.h5`
-  margin: 0px;
-`;
-const MentorIntroduce = styled.h5`
   margin: 0px;
 `;

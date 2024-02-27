@@ -69,11 +69,11 @@ export default SideBar;
 type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 const SidebarContainer = styled.div`
-  width: 15%;
+  width: 12vw;
   height: 300px;
   box-sizing: border-box;
-  padding: 20px 0px 0px 0px;
-  margin: 20px 0px 0px 80px;
+  padding-top: 10px;
+  margin: 20px 0px 0px 140px;
 `;
 const TabsListStyle = {
   display: 'flex',
@@ -93,7 +93,8 @@ const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
   padding-left: 25px;
   transition: background-color 0.3s;
   &:hover {
-    background-color: #d9d9d9;
+    background-color: #000;
+    color: #fff;
   }
   ${(props) =>
     props.selected &&

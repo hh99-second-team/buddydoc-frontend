@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import styled from 'styled-components';
 import ChatRoomCard from './ChatRoomCard';
 
-const Chatting = () => {
+const ChatScreen = () => {
   const [userId, setUserId] = useState('');
   const [postId, setPostId] = useState('');
   const [message, setMessage] = useState('');
@@ -38,9 +38,9 @@ const Chatting = () => {
     console.log(userId);
     const socket = io('http://localhost:3000/chat');
     socket.emit('send-message', {
-      postId,
       message,
       userId,
+      postId,
     });
     setMessage('');
   };
@@ -50,6 +50,7 @@ const Chatting = () => {
       <Title>채팅</Title>
       <ChatRoomCard title="버디독" />
       <div>
+        받은 메시지
         <ul>
           {receivedMessages.map((msg, index) => (
             <li key={index}>{`${msg.userId}: ${msg.message}`}</li>
@@ -67,7 +68,7 @@ const Chatting = () => {
   );
 };
 
-export default Chatting;
+export default ChatScreen;
 
 const Layout = styled.div`
   padding-left: 1.75rem;
