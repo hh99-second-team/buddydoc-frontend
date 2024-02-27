@@ -8,9 +8,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 const SearchPage = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [searchWord, setSearchWord] = useState(params.word);
+  const [searchTitle, setsearchTitle] = useState(params.word);
 
-  const handleSearchButton = () => navigate(`/search/${searchWord}`);
+  const handleSearchButton = () => navigate(`/search/${searchTitle}`);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -25,8 +25,8 @@ const SearchPage = () => {
           <input
             type="text"
             placeholder="검색어를 입력해주세요."
-            value={searchWord}
-            onChange={(e) => setSearchWord(e.target.value)}
+            value={searchTitle}
+            onChange={(e) => setsearchTitle(e.target.value)}
             onKeyDown={handleKeyDown}
           />
         </div>

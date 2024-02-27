@@ -9,12 +9,12 @@ interface Props {
 }
 
 const SearchModal = ({ onOpenChange }: Props) => {
-  const [searchWord, setSearchWord] = useState('');
+  const [searchTitle, setsearchTitle] = useState('');
   const navigate = useNavigate();
 
   const handleSearchButton = () => {
     onOpenChange(false);
-    navigate(`/search/${searchWord}`);
+    navigate(`/search/${searchTitle}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -30,8 +30,8 @@ const SearchModal = ({ onOpenChange }: Props) => {
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
-          value={searchWord}
-          onChange={(e) => setSearchWord(e.target.value)}
+          value={searchTitle}
+          onChange={(e) => setsearchTitle(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Button size="small" color="black" onClick={handleSearchButton}>

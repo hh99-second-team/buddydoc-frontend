@@ -30,8 +30,8 @@ const api = {
   },
 
   /** 게시물 목록 조회 */
-  getPost: async (lastPostId: number) => {
-    const response = await axiosInstance.get('/post', { params: { lastPostId } });
+  getPost: async (lastPostId: number, postType?: 'study' | 'project') => {
+    const response = await axiosInstance.get('/post', { params: { lastPostId, postType } });
     return response.data;
   },
 

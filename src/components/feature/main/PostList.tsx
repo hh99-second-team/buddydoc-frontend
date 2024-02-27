@@ -6,7 +6,12 @@ import SkeletonPost from './SkeletonPost';
 import api from '../../../services/api';
 import { useInView } from 'react-intersection-observer';
 
-const PostList = () => {
+interface ParamsType {
+  postType?: 'study' | 'project';
+  searchTitle?: string;
+}
+
+const PostList = ({ postType, searchTitle }: ParamsType) => {
   const [posts, setPosts] = useState<PostCardType[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(0);
@@ -18,7 +23,12 @@ const PostList = () => {
       return;
     }
     setIsLoading(true);
-    const response = await api.getPost(page);
+
+    const response = !!postType
+      ? await api.getPost(page, postType)
+      : !!searchTitle
+      ? await api.getPost(page)
+      : await api.getPost(page);
 
     const testPost: PostCardType = {
       postId: 34,
