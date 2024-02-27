@@ -29,10 +29,10 @@ const Main = () => {
             <PostList />
           </TabsContent>
           <TabsContent value="study">
-            <PostList />
+            <PostList postType="study" />
           </TabsContent>
           <TabsContent value="project">
-            <PostList />
+            <PostList postType="project" />
           </TabsContent>
         </TabsRoot>
       </Layout>

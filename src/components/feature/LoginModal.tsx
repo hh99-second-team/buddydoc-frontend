@@ -2,36 +2,64 @@ import React from 'react';
 import Modal from '../common/Modal';
 import styled, { css } from 'styled-components';
 import api from '../../services/api';
+import kakaoIcon from '../../assets/kakao.icon.png';
+import googleIcon from '../../assets/google.icon.png';
+import naverIcon from '../../assets/naver.icon.png';
 
 const LoginModal = () => {
   return (
     <Modal
       title="SNS 계정으로 간편하게 
     로그인 / 회원가입 하세요!">
-      <KakaoConnect onClick={api.kakaoLogin}>카카오로 시작하기</KakaoConnect>
-      <NaverConnect onClick={api.naverLogin}>네이버로 시작하기</NaverConnect>
-      <GoogleConnect onClick={api.googleLogin}>구글로 시작하기</GoogleConnect>
-      <GithubConnect>Github로 시작하기</GithubConnect>
+      <KakaoConnect onClick={api.kakaoLogin}>
+        <img src={kakaoIcon} alt="" />
+        카카오로 시작하기
+      </KakaoConnect>
+      <GoogleConnect onClick={api.googleLogin}>
+        <img src={googleIcon} alt="" />
+        구글로 시작하기
+      </GoogleConnect>
+      <NaverConnect onClick={api.naverLogin}>
+        <img src={naverIcon} alt="" />
+        네이버로 시작하기
+      </NaverConnect>
     </Modal>
   );
 };
 
 const SocialStyles = css`
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin: 20px auto;
-  height: 50px;
+  margin: 0 auto;
   cursor: pointer;
   font-size: 14px;
-  border-radius: 8px;
   border: none;
   line-height: 40px;
   outline: none;
+  padding: 1rem 0;
+  border-radius: 59.175px;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  max-width: 22rem;
+  column-gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  & > img {
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
 const KakaoConnect = styled.button`
   ${SocialStyles}
-  background:#fee500;
+  background:#FFED00;
   color: black;
   box-shadow: 0 15px 30px rgba(254, 229, 0, 0.36);
   transition: 0.2s linear;
@@ -61,10 +89,11 @@ const NaverConnect = styled.button`
 
 const GoogleConnect = styled.button`
   ${SocialStyles}
-  background:#5b90f0;
-  color: white;
-  box-shadow: 0 15px 30px rgba(91, 144, 240, 0.36);
+  background: var(--white, #FFF);
+  border: 1px solid var(--grey03, #ced0d3);
+  box-shadow: 0 15px 30px var(--grey03, #ced0d354);
   transition: 0.2s linear;
+
   & > i {
     font-size: 20px;
     padding: 0 5px 0 0;

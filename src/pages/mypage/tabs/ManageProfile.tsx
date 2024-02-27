@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import { skills, positions, career } from '../../../constants/data';
+import { useNavigate } from 'react-router-dom';
+// import { CaretDownIcon } from '@radix-ui/react-icons';
 
 function ManageProfile() {
+  const navigate = useNavigate();
   // 분야 상태관리
   const [selectedPositionItem, setSelectedPositionItem] = useState<string>('분야 선택');
   // 경력 상태관리
@@ -13,6 +16,12 @@ function ManageProfile() {
   const [selectedTechSkills, setSelectedTechSkills] = useState<string>('기술스택 선택');
   // 내 기술스택 상태관리
   // const [myTechSkills, setMyTechSkills] = useState<string[]>([]);
+
+  // 로그아웃
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   // 드롭다운 생성함수
   const dropdownSetter = (selectedItem: any, contents: string[], category: string) => {
@@ -126,6 +135,22 @@ function ManageProfile() {
                 padding: '0px',
               }}>
               + 추가
+            </Button>
+          </ProfileItemContentContainer>
+          <ProfileItemContentContainer>
+            <Button
+              style={{
+                width: '100%',
+                fontWeight: 'bold',
+                backgroundColor: '#007DFa',
+                color: '#fff',
+                fontSize: '17px',
+                marginTop: '10px',
+                padding: '0px',
+                cursor: 'pointer',
+              }}
+              onClick={handleLogout}>
+              로그아웃
             </Button>
           </ProfileItemContentContainer>
         </ProfileItemContentGroup>

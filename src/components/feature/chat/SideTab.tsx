@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import ChatList from './ChatList';
 import Chatting from './Chatting';
+<<<<<<< HEAD
 import JoinList from './JoinList';
+=======
+>>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7
 
 const SideTab = () => {
   const tabTitle = ['현재 참여 목록', '채팅', '설정'];
@@ -17,11 +20,18 @@ const SideTab = () => {
           </TabsTrigger>
         ))}
       </TabsList>
+<<<<<<< HEAD
       <Tabs.Content value="현재 참여 목록">
         <JoinList />
       </Tabs.Content>
       <TabsContent value="채팅">
         <ChatList />
+=======
+      <Tabs.Content value="현재 참여 목록"></Tabs.Content>
+      <TabsContent value="채팅">
+        <ChatList />
+        <Chatting />
+>>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7
       </TabsContent>
       <Tabs.Content value="설정"></Tabs.Content>
     </TabsRoot>
