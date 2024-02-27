@@ -6,9 +6,20 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { Layout } from '../styles/GlobalStyles';
 import Button from '../components/common/Button';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isLoginOpenState } from '../store/atomDefinitions';
 
 const Main = () => {
   const navigate = useNavigate();
+  const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+
+  const handleGatherBtn = () => {
+    if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
+      setIsLoginOpen(true);
+      return;
+    }
+    navigate('/create');
+  };
 
   return (
     <>
@@ -21,7 +32,7 @@ const Main = () => {
               <TabsTrigger value="study">스터디</TabsTrigger>
               <TabsTrigger value="project">프로젝트</TabsTrigger>
             </TabsList>
-            <Button size="large" color="primary" onClick={() => navigate('/create')}>
+            <Button size="large" color="primary" onClick={handleGatherBtn}>
               팀원 모집하기
             </Button>
           </TabHeader>

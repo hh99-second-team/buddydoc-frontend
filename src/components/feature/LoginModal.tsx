@@ -102,19 +102,4 @@ const GoogleConnect = styled.button`
   }
 `;
 
-const GithubConnect = styled.button`
-  ${SocialStyles}
-  background:#25282d;
-  color: white;
-  box-shadow: 0 15px 30px rgba(37, 40, 45, 0.36);
-  transition: 0.2s linear;
-  & > i {
-    font-size: 20px;
-    padding: 0 5px 0 0;
-  }
-  &:hover {
-    box-shadow: 0 0 0 rgba(37, 40, 45, 0);
-  }
-`;
-
 export default LoginModal;

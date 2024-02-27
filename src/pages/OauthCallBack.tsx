@@ -29,9 +29,9 @@ const CallbackPage = () => {
 
     if (!decoded?.nickname) {
       setIsSignupOpen(true);
-      localStorage.setItem('isLoggined', 'false');
+      localStorage.setItem('isLogin', 'false');
     } else {
-      localStorage.setItem('isLoggined', 'true');
+      localStorage.setItem('isLogin', 'true');
     }
     // 사용자를 로그인 후 페이지로 리디렉션할 수 있습니다.
     navigate('/');

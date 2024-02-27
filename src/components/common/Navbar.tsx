@@ -33,7 +33,7 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
               <div onClick={() => navigate(`/chat`)}>채팅</div>
@@ -79,7 +79,7 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <Menubar.Root>
               <Menubar.Menu>

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Menubar from '@radix-ui/react-menubar';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const PortalContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (

@@ -18,7 +18,7 @@ interface FormProps {
 
 const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const onChangeSkills = (value: string[]) => setSelectedSkills(value);
 
