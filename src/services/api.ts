@@ -28,7 +28,6 @@ const api = {
   /** 게시물 검색 */
   getPostSearch: async (lastPostId: number, search: string) => {
     const response = await axiosInstance.get(`/post/search`, { params: { lastPostId, search } });
-
     return response.data;
   },
 
@@ -71,14 +70,12 @@ const api = {
   /** 참여 신청하기 */
   createApplication: async (postId: string, noti_message: string) => {
     const response = await axiosInstance.post(`/post/${postId}/noti`, { noti_message });
-
     return response.data;
   },
 
   /** 북마크 */
   updateBookmark: async (postId: number) => {
     const response = await axiosInstance.post(`/post/${postId}/bookmarks`);
-
     return response.data;
   },
 

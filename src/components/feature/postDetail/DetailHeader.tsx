@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import StudyTypeIcon from '../../common/StudyTypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
@@ -36,10 +36,6 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
 
   const checkUserId = (): boolean => {
     const myUserId = localStorage.getItem('userId');
-    console.log(post.user?.userId);
-    console.log(Number(myUserId));
-    console.log(Number(myUserId) !== post.user?.userId);
-    console.log(post);
 
     if (!myUserId || Number(myUserId) !== post.user?.userId) {
       return false;
