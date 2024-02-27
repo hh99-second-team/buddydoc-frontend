@@ -27,16 +27,15 @@ const CallbackPage = () => {
       localStorage.setItem('nickname', decoded.nickname);
     }
 
-    // 사용자를 로그인 후 페이지로 리디렉션할 수 있습니다.
-
-    navigate('/');
     if (!decoded?.nickname) {
       setIsSignupOpen(true);
       localStorage.setItem('isLoggined', 'false');
     } else {
       localStorage.setItem('isLoggined', 'true');
     }
-  }, [location]);
+    // 사용자를 로그인 후 페이지로 리디렉션할 수 있습니다.
+    navigate('/');
+  }, [location, navigate, setIsSignupOpen]);
 
   return <></>;
 };
