@@ -20,7 +20,6 @@ const Container = styled.div`
 const RoomName = styled.p`
   width: 100%;
   color: #000;
-  font-family: Pretendard;
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 500;

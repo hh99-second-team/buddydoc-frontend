@@ -21,7 +21,6 @@ const ListBox = styled.div`
 
 const Title = styled.p`
   color: #000;
-  font-family: Pretendard;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;

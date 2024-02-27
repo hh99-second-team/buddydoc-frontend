@@ -78,7 +78,6 @@ const TabsTrigger = styled(Tabs.Trigger)`
   justify-content: left;
   user-select: none;
   color: var(--grey03, #ced0d3);
-  font-family: Pretendard;
   font-size: 1.8rem;
   font-style: normal;
   font-weight: 700;
