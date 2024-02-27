@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, Box, Button } from '@radix-ui/themes';
+import api from '../../../services/api';
+import { PostCardType } from '../../../types/commonTypes';
 
 const dummyDatas = [
   {
@@ -34,6 +36,24 @@ function MyPostList() {
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  // const [myPosts, setMyPosts] = useState<PostCardType>();
+
+  // 내 정보 작성 게시글 목록 api 호출
+  const fetchMyPosts = async () => {
+    try {
+      const response = await api.getMyPosts(); // API 호출
+      console.log(response);
+      // setMyPosts(response); // 가져온 정보를 상태에 저장
+    } catch (error) {
+      console.error('Error fetching my info:', error);
+      // 에러 처리
+    }
+  };
+
+  // 페이지 로드 시 내 정보 가져오기
+  useEffect(() => {
+    fetchMyPosts();
+  }, []);
 
   // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {

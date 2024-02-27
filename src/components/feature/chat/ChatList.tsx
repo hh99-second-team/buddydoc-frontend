@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ChatRoomCard from './ChatRoomCard';
-<<<<<<< HEAD
+// import ChatRoomCard from './ChatRoomCard';
 import * as Tabs from '@radix-ui/react-tabs';
-import Chatting from './Chatting';
+import Chatting from './ChatScreen';
 
 const ChatList = () => {
   const tabTitle = ['FE 스터디', 'BE 스터디', '웹개발 프로젝트'];
@@ -29,23 +28,12 @@ const ChatList = () => {
           <Chatting />
         </TabsContent>
       </Tabs.Root>
-=======
-
-const ChatList = () => {
-  return (
-    <ListBox>
-      <Title>채팅</Title>
-      <ChatRoomCard title="버디독" />
->>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7
     </ListBox>
   );
 };
 
-<<<<<<< HEAD
 export default ChatList;
 
-=======
->>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7
 const ListBox = styled.div`
   border-radius: 12px;
   background: #fff;
@@ -57,17 +45,12 @@ const ListBox = styled.div`
 const Title = styled.p`
   color: #000;
   font-family: Pretendard;
-<<<<<<< HEAD
   font-size: 25px;
-=======
-  font-size: 20px;
->>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 `;
 
-<<<<<<< HEAD
 const TabsList = styled(Tabs.List)`
   display: flex;
   flex-direction: column;
@@ -90,6 +73,3 @@ const TabsTrigger = styled(Tabs.Trigger)`
 `;
 
 const TabsContent = styled(Tabs.Content)``;
-=======
-export default ChatList;
->>>>>>> 1582d546f0f9d9abcd970b5dbdcf85158180b6c7

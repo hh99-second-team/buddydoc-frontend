@@ -2,6 +2,7 @@ import { Avatar, Box, Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import api from '../../../services/api';
 
 const dummyDatas = [
   {
@@ -25,6 +26,24 @@ function JoinList() {
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  // const [myStudyLists, setMyStudyLists] = useState<>();
+
+  // 내 정보 참여 스터디 목록 api 호출
+  const fetchMyStudylists = async () => {
+    try {
+      const response = await api.getMyStudylists(); // API 호출
+      console.log(response);
+      // setMyStudyLists(response); // 가져온 정보를 상태에 저장
+    } catch (error) {
+      console.error('Error fetching my studylists:', error);
+      // 에러 처리
+    }
+  };
+
+  // 페이지 로드 시 내가 참여중인 스터디리스트 가져오기
+  useEffect(() => {
+    fetchMyStudylists();
+  }, []);
 
   // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
