@@ -34,32 +34,45 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
     navigate('/');
   };
 
+  const checkUserId = (): boolean => {
+    const myUserId = localStorage.getItem('userId');
+    if (!myUserId || parseInt(myUserId) !== post.user?.userId) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <Header>
       <Flex>
         <ChevronLeftIcon onClick={() => navigate(-1)} />
-        <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
-          <Menubar.Root>
-            <Menubar.Menu>
-              <MenuBarTrigger>
-                <DotsVerticalIcon />
-                <PortalContent>
-                  <Menubar.Item>
-                    <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>수정</NavButton>
-                  </Menubar.Item>
-                  <Menubar.Item>
-                    <AlertDialog.Trigger asChild>
-                      <NavButton onClick={handleOpen}>삭제</NavButton>
-                    </AlertDialog.Trigger>
-                  </Menubar.Item>
-                </PortalContent>
-              </MenuBarTrigger>
-            </Menubar.Menu>
-          </Menubar.Root>
-          <AlertDialog.Portal>
-            <AlertModal title="삭제하시겠습니까?" handleClose={handleClose} onClick={handleDeletePost}></AlertModal>
-          </AlertDialog.Portal>
-        </AlertDialog.Root>
+        {checkUserId() && (
+          <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+            <Menubar.Root>
+              <Menubar.Menu>
+                <MenuBarTrigger>
+                  <DotsVerticalIcon />
+                  <PortalContent>
+                    <Menubar.Item>
+                      <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>
+                        수정
+                      </NavButton>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <AlertDialog.Trigger asChild>
+                        <NavButton onClick={handleOpen}>삭제</NavButton>
+                      </AlertDialog.Trigger>
+                    </Menubar.Item>
+                  </PortalContent>
+                </MenuBarTrigger>
+              </Menubar.Menu>
+            </Menubar.Root>
+            <AlertDialog.Portal>
+              <AlertModal title="삭제하시겠습니까?" handleClose={handleClose} onClick={handleDeletePost}></AlertModal>
+            </AlertDialog.Portal>
+          </AlertDialog.Root>
+        )}
       </Flex>
       <IconSet>
         <StudyTypeIcon>{post.postType}</StudyTypeIcon>
