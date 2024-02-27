@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, Box, Button } from '@radix-ui/themes';
+import api from '../../../services/api';
 
 const dummyDatas = [
   {
@@ -32,16 +33,6 @@ const dummyDatas = [
     applyStatus: '대기중',
     memberCount: 11,
   },
-  // {
-  //   category: 'coffeeChat',
-  //   mentorName: 'JY Kim',
-  //   companyName: 'company A',
-  //   scheduledDate: '2024.01.01',
-  //   scheduledTime: '21시',
-  //   devPosition: '개발팀 프론트엔드',
-  //   applyStatus: '대기중',
-  //   career: 5,
-  // },
 ];
 
 function ApplyList() {
@@ -51,7 +42,6 @@ function ApplyList() {
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
-  // const [coffeeChatCount, setCoffeeChatCount] = useState(0);
 
   // 페이지 렌더링할때 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
@@ -64,20 +54,15 @@ function ApplyList() {
           case 'project':
             acc.project++;
             break;
-          // case 'coffeeChat':
-          //   acc.coffeeChat++;
-          //   break;
           default:
             break;
         }
         return acc;
       },
-      // { study: 0, project: 0, coffeeChat: 0 }
       { study: 0, project: 0 }
     );
     setStudyCount(counts.study);
     setProjectCount(counts.project);
-    // setCoffeeChatCount(counts.coffeeChat);
   }, []);
 
   const mypageMainRender = (category: string) => {
@@ -118,41 +103,6 @@ function ApplyList() {
             <DateInfo>신청일 : {data.applyDate}</DateInfo>
           </ContentContainer>
         ));
-      // category가 coffeeChat인 데이터
-      // case 'coffeeChat':
-      //   return filteredData.map((data, index) => (
-      //     <ContentContainer key={index}>
-      //       <CategoryContainer>
-      //         <Avatar
-      //           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-      //           fallback="studyIcon"
-      //         />
-      //         <Category>커피챗</Category>
-      //       </CategoryContainer>
-      //       <MentorInfoContainer>
-      //         <Avatar
-      //           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-      //           fallback="MentorProfileImage"
-      //           size="7"
-      //           radius="full"
-      //         />
-      //         <MentorInfoText>
-      //           <MentorName>{data.mentorName}</MentorName>
-      //           <CompanyName>{data.companyName}</CompanyName>
-      //           <MentorCareer>
-      //             {data.devPosition} / {data.career}년
-      //           </MentorCareer>
-      //         </MentorInfoText>
-      //       </MentorInfoContainer>
-      //       <DateInfo>
-      //         예정된 커피챗 : {data.scheduledDate}
-      //         <br />
-      //         {data.scheduledTime}
-      //       </DateInfo>
-      //       <ApplyStatus>{data.applyStatus}</ApplyStatus>
-      //       <ContentButton>파트너 홈</ContentButton>
-      //     </ContentContainer>
-      //   ));
       default:
         return <p>신청한 목록이 없습니다.</p>;
     }
@@ -184,19 +134,10 @@ function ApplyList() {
               <br />
               프로젝트
             </StyledTabsTrigger>
-            {/* <StyledTabsTrigger
-              value="coffeeChat"
-              onClick={() => setSelectedTab('coffeeChat')}
-              aria-selected={selectedTab === 'coffeeChat' ? 'true' : 'false'}>
-              {coffeeChatCount}
-              <br />
-              커피챗
-            </StyledTabsTrigger> */}
           </StyledTabsList>
           <Box pt="5" pb="2">
             <StyledTabsContent value="study">{mypageMainRender('study')}</StyledTabsContent>
             <StyledTabsContent value="project">{mypageMainRender('project')}</StyledTabsContent>
-            {/* <StyledTabsContent value="coffeeChat">{mypageMainRender('coffeeChat')}</StyledTabsContent> */}
           </Box>
         </Tabs.Root>
       </SideMenuBody>
@@ -320,20 +261,3 @@ const ContentButton = styled(Button)`
   width: 170px;
   height: 50px;
 `;
-// const MentorName = styled.p`
-//   font-size: 23px;
-//   font-weight: bold;
-//   margin-bottom: 0px;
-// `;
-// const CompanyName = styled.p`
-//   margin: 0px;
-// `;
-// const MentorCareer = styled.p``;
-// const MentorInfoContainer = styled.p`
-//   margin: 30px 0 0 0;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   gap: 20px;
-// `;
-// const MentorInfoText = styled.p``;
