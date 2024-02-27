@@ -60,7 +60,11 @@ const api = {
   },
 
   /** 북마크 */
-  // updateBookmark:
+  updateBookmark: async (postId: number) => {
+    const response = await axiosInstance.post(`/${postId}/bookmarks`);
+
+    return response;
+  },
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {

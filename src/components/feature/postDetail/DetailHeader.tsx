@@ -28,7 +28,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   };
 
   const handleDeletePost = async () => {
-    const response = await api.deletePost(post.postId.toString(), post.user.userId);
+    await api.deletePost(post.postId.toString(), post.user.userId);
     navigate('/');
   };
 
@@ -73,7 +73,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark direction="row" count={post.preference} isToggle={post.bookmarked} />
+          <Bookmark direction="row" count={post.preference} isToggle={post.bookmarked} postId={post.postId} />
         </CountBox>
       </BottomSet>
     </Header>

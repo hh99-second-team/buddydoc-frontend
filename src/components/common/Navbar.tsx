@@ -8,7 +8,7 @@ import { ReactComponent as BellIcon } from '../../assets/bell-icon.svg';
 import { useNavigate } from 'react-router-dom';
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
-import { isSignupOpenState } from '../../store/atomDefinitions';
+import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
 import * as Popover from '@radix-ui/react-popover';
 import SearchModal from '../feature/SearchModal';
 import emptyUserIcon from '../../assets/user-circle-icon.svg';
@@ -16,6 +16,7 @@ import emptyUserIcon from '../../assets/user-circle-icon.svg';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [isLoginOpen, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
@@ -51,7 +52,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Dialog.Root>
+            <Dialog.Root open={isLoginOpen} onOpenChange={setIsLoginOpen}>
               <Dialog.Trigger asChild>
                 <NavButton>로그인</NavButton>
               </Dialog.Trigger>

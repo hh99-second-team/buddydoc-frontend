@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
+import { isLoginOpenState } from '../../store/atomDefinitions';
+import { useRecoilState } from 'recoil';
+import api from '../../services/api';
 
 interface BookmarkProps {
   count: number;
   direction: 'row' | 'column';
   isToggle: boolean;
+  postId: number;
 }
 
-const Bookmark = ({ count, direction, isToggle }: BookmarkProps) => {
+const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(isToggle);
   const [bookmarkCount, setBookmarkCount] = useState(count);
+  const [isLoginOpen, setIsLoginOpen] = useRecoilState(isLoginOpenState);
 
-  const handleToggleBookmark = (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
+  const handleToggleBookmark = async (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
     e.stopPropagation();
+
+    // 로그인 안 했다면 로그인 창 띄워주기
+    if (!localStorage.getItem('isLoggined') || localStorage.getItem('isLoggined') === 'false') {
+      setIsLoginOpen(true);
+      return;
+    }
+
+    await api.updateBookmark(postId);
     setIsBookmarkSelected((state) => !state);
     setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
   };
