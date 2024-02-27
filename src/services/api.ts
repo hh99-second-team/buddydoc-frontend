@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { SignUpType, UserType } from '../types/commonTypes';
+import { PostCreateType, SignUpType, UserModifyType } from '../types/commonTypes';
 
 // 환경 변수에서 API 루트 경로 가져오기
 const API_ROOT = process.env.REACT_APP_API_ROOT;
@@ -19,16 +19,6 @@ const axiosInstance: AxiosInstance = axios.create({
 
 // API 호출 메서드 정의
 const api = {
-  /** GET 요청을 보내는 함수 */
-  get: async (endpoint: string) => {
-    try {
-      const response = await axios.get(`${API_ROOT}/${endpoint}`);
-      return response.data; // 응답 데이터를 반환합니다.
-    } catch (error) {
-      throw new Error(`Error fetching data: ${error}`);
-    }
-  },
-
   /** 게시물 목록 조회 */
   getPost: async (lastPostId: number, postType?: 'study' | 'project') => {
     const response = await axiosInstance.get('/post', { params: { lastPostId, postType } });
@@ -41,21 +31,34 @@ const api = {
     return response.data.data[0];
   },
 
+  /** 게시물 검색 */
+  getPostSearch: async (search: string) => {
+    const response = await axiosInstance.get(`/post/search`, { params: { search } });
+    return response.data;
+  },
+
+  /** 게시물 작성 */
+  createPost: async (post: PostCreateType) => {
+    const response = await axiosInstance.post('/post', post);
+    return response.data;
+  },
+
+  /** 게시물 수정 */
+  updatePost: async (postId: string, post: PostCreateType) => {
+    const response = await axiosInstance.put(`/post/${postId}`, post);
+    return response.data;
+  },
+
   /** 게시물 삭제 */
-  deletePost: async (postId: string, userId: number) => {
-    const response = await axiosInstance.delete(`/post/${postId}`, { params: { userId } });
+  deletePost: async (postId: string) => {
+    const response = await axiosInstance.delete(`/post/${postId}`);
     return response.data;
   },
 
-  /** 사용자 정보 가져오기 */
-  getUser: async (userId: string) => {
-    const response: AxiosResponse<UserType> = await axiosInstance.get(`/users/${userId}`);
-    return response.data;
-  },
+  /** 참여 신청하기 */
+  createApplication: async (postId: string, noti_message: string) => {
+    const response = await axiosInstance.post(`/post/${postId}/noti`, { noti_message });
 
-  /** 사용자 정보 업데이트 */
-  updateUser: async (userId: string, userData: UserType) => {
-    const response: AxiosResponse<UserType> = await axiosInstance.put(`/users/${userId}`, userData);
     return response.data;
   },
 
@@ -63,7 +66,7 @@ const api = {
   updateBookmark: async (postId: number) => {
     const response = await axiosInstance.post(`/post/${postId}/bookmarks`);
 
-    return response;
+    return response.data;
   },
 
   /** 회원가입 */
@@ -88,6 +91,36 @@ const api = {
   googleLogin: async () => {
     // 사용자를 구글 로그인 페이지로 리디렉션합니다.
     window.location.href = `${API_ROOT}/oauth/callback/google`;
+  },
+
+  /** 내 정보 조회 */
+  getMyInfo: async () => {
+    const response = await axiosInstance.get('/user/my-info');
+    return response.data;
+  },
+
+  /** 내 정보 관심 목록 */
+  getMyBookmarks: async () => {
+    const response = await axiosInstance.get('/user/my-bookmarks');
+    return response.data;
+  },
+
+  /** 내 정보 참여 스터디 목록 */
+  getMyStudylists: async () => {
+    const response = await axiosInstance.get('/user/my-studylists');
+    return response.data;
+  },
+
+  /** 내 정보 작성 게시글 목록 */
+  getMyPosts: async () => {
+    const response = await axiosInstance.get('/user/posts');
+    return response.data;
+  },
+
+  /** 내 정보 수정 */
+  updateMyInfo: async (info: UserModifyType) => {
+    const response = await axiosInstance.put('/user/my-info', { info });
+    return response.data;
   },
 };
 

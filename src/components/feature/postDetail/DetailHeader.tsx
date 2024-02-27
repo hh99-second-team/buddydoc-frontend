@@ -28,7 +28,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   };
 
   const handleDeletePost = async () => {
-    await api.deletePost(post.postId.toString(), post.user.userId);
+    await api.deletePost(post.postId.toString());
     navigate('/');
   };
 

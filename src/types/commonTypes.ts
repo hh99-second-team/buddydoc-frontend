@@ -23,7 +23,7 @@ export interface PostCardType {
 /** 게시물 작성 / 수정 데이터 형식 */
 export interface PostCreateType {
   postType: string;
-  title: string;
+  postTitle: string;
   position: string[];
   skillList: string[];
   content: string;
@@ -58,11 +58,16 @@ export interface PostDetailType {
 
 /** 유저 정보 데이터 형식 */
 export interface UserType {
-  email: string;
-  name: string;
-  nickname: string;
+  userId: number;
+  userNickname: string;
   position: string;
-  career: string;
+  skills: string[];
+}
+
+/** 유저 수정 데이터 형식 */
+export interface UserModifyType {
+  userNickname: string;
+  position: string;
   skills: string[];
 }
 

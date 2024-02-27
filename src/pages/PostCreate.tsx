@@ -12,7 +12,7 @@ const PostCreate = () => {
 
   const [inputVal, setInputVal] = useState<PostCreateType>({
     postType: '',
-    title: '',
+    postTitle: '',
     position: [],
     skillList: [],
     content: '',
@@ -25,7 +25,7 @@ const PostCreate = () => {
   const handleSubmit = () => {
     if (
       !inputVal.postType ||
-      !inputVal.title ||
+      !inputVal.postTitle ||
       !inputVal.position.length ||
       !inputVal.skillList.length ||
       !inputVal.content ||
