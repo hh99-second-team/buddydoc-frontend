@@ -28,7 +28,6 @@ const api = {
   /** 게시물 검색 */
   getPostSearch: async (lastPostId: number, search: string) => {
     const response = await axiosInstance.get(`/post/search`, { params: { lastPostId, search } });
-    console.log(response);
 
     return response.data;
   },
@@ -41,13 +40,25 @@ const api = {
 
   /** 게시물 작성 */
   createPost: async (post: PostCreateType) => {
-    const response = await axiosInstance.post('/post', post);
+    const response = await axiosInstance.post('/post', {
+      ...post,
+      deadLine: post.deadLine.toISOString(),
+      startDate: post.startDate.toISOString(),
+      memberCount: Number(post.memberCount),
+    });
+
     return response.data;
   },
 
   /** 게시물 수정 */
   updatePost: async (postId: string, post: PostCreateType) => {
-    const response = await axiosInstance.put(`/post/${postId}`, post);
+    const response = await axiosInstance.put(`/post/${postId}`, {
+      ...post,
+      deadLine: post.deadLine.toISOString(),
+      startDate: post.startDate.toISOString(),
+      memberCount: Number(post.memberCount),
+    });
+
     return response.data;
   },
 

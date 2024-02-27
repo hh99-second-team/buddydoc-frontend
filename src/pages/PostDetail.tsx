@@ -13,6 +13,8 @@ import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import api from '../services/api';
 import { useQuery } from 'react-query';
 import { PostDetailType } from '../types/commonTypes';
+import { isLoginOpenState } from '../store/atomDefinitions';
+import { useRecoilState } from 'recoil';
 
 const PostDetail = () => {
   const params = useParams();
@@ -21,8 +23,18 @@ const PostDetail = () => {
   const { isLoading, data } = useQuery<PostDetailType>('postDetail', () => api.getPostDetail(postId), {
     refetchOnMount: 'always', // 최초 렌더링 시에만 항상 API를 호출합니다.
   });
+
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+  const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   // const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+
+  const handleApplicationBtn = () => {
+    if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
+      setIsLoginOpen(true);
+      return;
+    }
+    setIsApplicationModalOpen(true);
+  };
 
   return (
     <Layout>
@@ -30,11 +42,9 @@ const PostDetail = () => {
       {!isLoading && <GatherInfo post={data!} />}
       <ButtonSet>
         <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
-          <Dialog.Trigger asChild>
-            <Button size="full" color="primary">
-              신청하기
-            </Button>
-          </Dialog.Trigger>
+          <Button size="full" color="primary" onClick={handleApplicationBtn}>
+            신청하기
+          </Button>
           <Dialog.Portal>
             <ApplicationModal postId={postId} setIsOpen={setIsApplicationModalOpen} />
           </Dialog.Portal>

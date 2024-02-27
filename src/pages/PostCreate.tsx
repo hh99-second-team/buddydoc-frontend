@@ -17,7 +17,6 @@ const PostCreate = () => {
   });
 
   const handleSubmit = async () => {
-    console.log(inputVal);
     await api.createPost(inputVal);
   };
 
