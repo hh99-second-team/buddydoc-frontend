@@ -3,17 +3,11 @@ import Modal from '../common/Modal';
 import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import SkillsForm from './SkillsForm';
-
-interface InputVal {
-  nickname: string;
-  position: string;
-  career: string;
-  skills: string[];
-}
+import { SignUpType } from '../../types/commonTypes';
 
 const SignupModal = () => {
-  const [inputVal, setInputVal] = useState<InputVal>({
-    nickname: '',
+  const [inputVal, setInputVal] = useState<SignUpType>({
+    userNickname: '',
     position: '',
     career: '',
     skills: [],

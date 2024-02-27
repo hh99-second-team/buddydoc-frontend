@@ -12,12 +12,12 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import api from '../services/api';
 import { useQuery } from 'react-query';
-import { PostDetailData } from '../types/commonTypes';
+import { PostDetailType } from '../types/commonTypes';
 
 const PostDetail = () => {
   const params = useParams();
 
-  const { isLoading, data } = useQuery<PostDetailData>('postDetail', () => api.getPostDetail(params.id!), {
+  const { isLoading, data } = useQuery<PostDetailType>('postDetail', () => api.getPostDetail(params.id!), {
     refetchOnMount: 'always', // 최초 렌더링 시에만 항상 API를 호출합니다.
   });
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
