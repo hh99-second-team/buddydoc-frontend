@@ -68,7 +68,6 @@ const api = {
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {
-    console.log(localStorage.getItem('accessToken'));
     const response: AxiosResponse<SignUpType> = await axiosInstance.post('/signup', userData);
     return response.data;
   },

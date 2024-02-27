@@ -28,8 +28,11 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
     if (!skills.length) {
       alert('기술 스택을 선택하세요.');
     }
-    const response = await api.signup(inputVal);
-    setIsSignupOpen(false);
+
+    if (localStorage.getItem('accessToken')) {
+      await api.signup(inputVal);
+      setIsSignupOpen(false);
+    }
   };
 
   return (
