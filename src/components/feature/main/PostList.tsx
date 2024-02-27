@@ -33,7 +33,7 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     setPosts((prevState) => [...prevState, ...response.posts]);
     setIsLastPage(response.isLastPage);
     setIsLoading(false);
-  }, [page]);
+  }, [isLastPage, page, postType, searchTitle]);
 
   // fetchPosts이 바뀔 때마다 함수 실행
   useEffect(() => {
@@ -45,7 +45,7 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     if (inView && !isLoading) {
       setPage(posts[posts.length - 1].postId);
     }
-  }, [inView, isLoading]);
+  }, [inView, isLoading, posts]);
 
   const renderPostList = () => {
     return (

@@ -13,7 +13,7 @@ interface DecodedToken {
 const CallbackPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
