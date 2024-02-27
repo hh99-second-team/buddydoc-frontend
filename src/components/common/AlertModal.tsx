@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import Button from './Button';
 
 interface Props {
   handleClose: any;
@@ -18,10 +19,14 @@ const AlertModal = ({ handleClose, title, children, onClick }: Props) => {
         {children && <Description>{children}</Description>}
         <Flex>
           <Cancel asChild>
-            <Button onClick={handleClose}>취소</Button>
+            <Button size="half" color="primary" onClick={handleClose}>
+              취소
+            </Button>
           </Cancel>
           <Action asChild>
-            <Button onClick={onClick}>삭제</Button>
+            <Button size="half" color="black" onClick={onClick}>
+              삭제
+            </Button>
           </Action>
         </Flex>
       </Content>
@@ -66,10 +71,10 @@ const Content = styled(AlertDialog.Content)`
 `;
 
 const Title = styled(AlertDialog.Title)`
-  margin: 0;
-  color: pink;
-  font-size: 17px;
-  font-weight: 500;
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
 `;
 
 const Description = styled(AlertDialog.Description)`
@@ -81,20 +86,7 @@ const Description = styled(AlertDialog.Description)`
 
 const Flex = styled.div`
   display: flex;
-`;
-
-const Button = styled.button`
-  all: unset;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  padding: 0 15px;
-  font-size: 15px;
-  line-height: 1;
-  font-weight: 500;
-  height: 35px;
-  cursor: pointer;
+  column-gap: 1rem;
 `;
 
 const Cancel = styled(AlertDialog.Cancel)``;
