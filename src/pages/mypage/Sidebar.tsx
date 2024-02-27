@@ -88,12 +88,13 @@ const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
   background-color: transparent;
   font-size: 18px;
   font-weight: bold;
-  color: #000000;
+  color: #000;
   text-align: start;
   padding-left: 25px;
   transition: background-color 0.3s;
   &:hover {
-    background-color: #d9d9d9;
+    background-color: #000;
+    color: #fff;
   }
   ${(props) =>
     props.selected &&
