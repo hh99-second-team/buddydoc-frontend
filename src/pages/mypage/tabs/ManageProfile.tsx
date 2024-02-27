@@ -1,47 +1,48 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
-// import { CaretDownIcon } from '@radix-ui/react-icons';
+import { CaretDownIcon } from '@radix-ui/react-icons';
+import { skills, positions, career } from '../../../constants/data';
 
 function ManageProfile() {
   // 분야 상태관리
-  const [selectedPositionItem, setSelectedPositionItem] = useState('프론트엔드');
+  const [selectedPositionItem, setSelectedPositionItem] = useState<string>('분야 선택');
   // 경력 상태관리
-  const [selectedCareerItem, setSelectedCareerItem] = useState('신입');
-  // 기술스택 상태관리
-  const [selectedTechSkillItem, setSelectedTechSkillItem] = useState('React');
+  const [selectedCareerItem, setSelectedCareerItem] = useState<string>('경력 선택');
+  // 드롭박스에서 선택된 기술스택 상태관리
+  const [selectedTechSkills, setSelectedTechSkills] = useState<string>('기술스택 선택');
+  // 내 기술스택 상태관리
+  // const [myTechSkills, setMyTechSkills] = useState<string[]>([]);
 
   // 드롭다운 생성함수
-  const dropdownSetter = (selectedItem: string, contents: string[], category: string) => {
+  const dropdownSetter = (selectedItem: any, contents: string[], category: string) => {
     return (
       <ProfileItemContentContainer>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Button
               variant="solid"
-              color="cyan"
+              highContrast
               style={{
-                width: '500px',
+                width: '550px',
                 height: '36px',
                 justifyContent: 'space-between',
               }}>
               {selectedItem}
-              {/* <CaretDownIcon /> */}
+              <CaretDownIcon />
             </Button>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content style={{ width: '500px' }}>
+          <DropdownMenuContent>
             {contents.map((item, index) => (
-              <DropdownMenu.Item
+              <DropdownMenuItem
                 key={index}
                 onClick={() => {
                   dropdownCategoryHandler(category, item);
-                  console.log(selectedItem);
-                }}
-                style={{ justifyContent: 'center' }}>
+                }}>
                 {item}
-              </DropdownMenu.Item>
+              </DropdownMenuItem>
             ))}
-          </DropdownMenu.Content>
+          </DropdownMenuContent>
         </DropdownMenu.Root>
       </ProfileItemContentContainer>
     );
@@ -53,7 +54,7 @@ function ManageProfile() {
       setSelectedPositionItem(item);
     }
     if (category === 'techSkill') {
-      setSelectedTechSkillItem(item);
+      setSelectedTechSkills(item);
     }
     if (category === 'career') {
       setSelectedCareerItem(item);
@@ -93,17 +94,17 @@ function ManageProfile() {
 
           {/* 분야 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedPositionItem, ['프론트엔드', '백엔드', '디자이너 '], 'position')}
+            {dropdownSetter(selectedPositionItem, positions, 'position')}
           </ProfileItemContentContainer>
 
           {/* 분야 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedCareerItem, ['신입', '1년', '2년'], 'career')}
+            {dropdownSetter(selectedCareerItem, career, 'career')}
           </ProfileItemContentContainer>
 
           {/* 기술 스택 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedTechSkillItem, ['React', 'Spring', 'Node.js'], 'techSkill')}
+            {dropdownSetter(selectedTechSkills, skills, 'techSkill')}
           </ProfileItemContentContainer>
 
           {/* 한 줄 소개 */}
@@ -144,7 +145,7 @@ const SideMenuHeader = styled.div`
   gap: 10px;
 `;
 const SideMenuBody = styled.div`
-  width: inherit;
+  width: 900px;
   display: flex;
   flex-direction: row;
   margin-top: 30px;
@@ -153,7 +154,7 @@ const ProfileItemTitleGroup = styled.div`
   width: 200px;
   padding-left: 30px;
 `;
-const ProfileItemTitle = styled.h4<{ marginTop?: string }>`
+const ProfileItemTitle = styled.p<{ marginTop?: string }>`
   font-size: 18px;
   font-weight: bold;
   margin-top: ${(props) => props.marginTop || '0px'};
@@ -166,6 +167,23 @@ const ProfileItemContentGroup = styled.div`
 const ProfileItemContentContainer = styled.div`
   margin-bottom: 40px;
 `;
+const DropdownMenuContent = styled(DropdownMenu.Content)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 15px;
+  column-gap: 10px;
+  width: 550px;
+`;
+const DropdownMenuItem = styled(DropdownMenu.Item)`
+  display: flex;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--grey02, #e2e3e5);
+  font-size: 14px;
+  justify-content: 'center';
+`;
 const ProfifleItemContentImage = styled.div`
   width: 150px;
   height: 150px;
@@ -173,7 +191,7 @@ const ProfifleItemContentImage = styled.div`
   background-color: #e2e3e5;
 `;
 const ProfileInput = styled.input`
-  width: 400px;
+  width: 550px;
   height: ${(props) => props.height || '40px'};
   border-radius: 10px;
   border: 1px solid #d6d6d6;
