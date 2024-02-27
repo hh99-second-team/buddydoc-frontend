@@ -23,7 +23,8 @@ const MoreInformation = ({ inputVal, setInputVal }: Props) => {
     ['scrollSync'],
   ];
 
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputVal({ ...inputVal, title: e.target.value });
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setInputVal({ ...inputVal, postTitle: e.target.value });
 
   const onChangeGetHTML = () => {
     // 에디터에 입력된 내용을 HTML 태그 형태로 취득

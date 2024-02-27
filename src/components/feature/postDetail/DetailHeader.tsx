@@ -42,7 +42,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
           </Popover.Trigger>
           <Popover.Portal>
             <PopoverContent sideOffset={5}>
-              <NavButton onClick={() => navigate('/modify')}>수정하기</NavButton>
+              <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>수정하기</NavButton>
               <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
                 <Trigger asChild>
                   <NavButton onClick={handleOpen}>삭제</NavButton>
