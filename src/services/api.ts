@@ -61,7 +61,7 @@ const api = {
 
   /** 북마크 */
   updateBookmark: async (postId: number) => {
-    const response = await axiosInstance.post(`/${postId}/bookmarks`);
+    const response = await axiosInstance.post(`/post/${postId}/bookmarks`);
 
     return response;
   },
