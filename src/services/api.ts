@@ -25,16 +25,18 @@ const api = {
     return response.data;
   },
 
+  /** 게시물 검색 */
+  getPostSearch: async (lastPostId: number, search: string) => {
+    const response = await axiosInstance.get(`/post/search`, { params: { lastPostId, search } });
+    console.log(response);
+
+    return response.data;
+  },
+
   /** 게시물 상세 정보 조회 */
   getPostDetail: async (postId: string) => {
     const response = await axiosInstance.get(`/post/${postId}`);
     return response.data.data[0];
-  },
-
-  /** 게시물 검색 */
-  getPostSearch: async (search: string) => {
-    const response = await axiosInstance.get(`/post/search`, { params: { search } });
-    return response.data;
   },
 
   /** 게시물 작성 */

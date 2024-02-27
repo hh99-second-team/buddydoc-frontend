@@ -7,7 +7,7 @@ import GatherInfo from '../components/feature/postDetail/GatherInfo';
 import Button from '../components/common/Button';
 import styled from 'styled-components';
 import ApplicationModal from '../components/feature/postDetail/ApplicationModal';
-import NoteModal from '../components/feature/postDetail/NoteModal';
+// import NoteModal from '../components/feature/postDetail/NoteModal';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import api from '../services/api';
@@ -21,7 +21,7 @@ const PostDetail = () => {
     refetchOnMount: 'always', // 최초 렌더링 시에만 항상 API를 호출합니다.
   });
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
-  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  // const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
   return (
     <Layout>
@@ -30,7 +30,7 @@ const PostDetail = () => {
       <ButtonSet>
         <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
           <Dialog.Trigger asChild>
-            <Button size="half" color="primary">
+            <Button size="full" color="primary">
               신청하기
             </Button>
           </Dialog.Trigger>
@@ -38,7 +38,7 @@ const PostDetail = () => {
             <ApplicationModal setIsOpen={setIsApplicationModalOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
+        {/* <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
           <Dialog.Trigger asChild>
             <Button size="half" color="black">
               문의하기
@@ -47,7 +47,7 @@ const PostDetail = () => {
           <Dialog.Portal>
             <NoteModal setIsOpen={setIsNoteModalOpen} />
           </Dialog.Portal>
-        </Dialog.Root>
+        </Dialog.Root> */}
       </ButtonSet>
       <PostViewer>{!isLoading && <Viewer initialValue={data?.content} />}</PostViewer>
     </Layout>

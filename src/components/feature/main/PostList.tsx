@@ -27,7 +27,7 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     const response = !!postType
       ? await api.getPost(page, postType)
       : !!searchTitle
-      ? await api.getPost(page)
+      ? await api.getPostSearch(page, searchTitle)
       : await api.getPost(page);
 
     setPosts((prevState) => [...prevState, ...response.posts]);
