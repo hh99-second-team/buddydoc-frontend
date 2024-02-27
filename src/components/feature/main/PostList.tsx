@@ -43,7 +43,6 @@ const PostList = () => {
     };
 
     setPosts((prevState) => [...prevState, testPost, ...response.posts]);
-    console.log(response);
     setIsLastPage(response.isLastPage);
     setIsLoading(false);
   }, [page]);
