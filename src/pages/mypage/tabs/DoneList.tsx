@@ -16,33 +16,33 @@ const dummyDatas = [
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
   },
-  {
-    category: 'coffeeChat',
-    MentorName: 'JY Kim',
-    companyName: 'company A',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 프론트엔드',
-    career: 5,
-  },
-  {
-    category: 'coffeeChat',
-    MentorName: 'HW Lim',
-    companyName: 'company B',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 백엔드',
-    career: 6,
-  },
-  {
-    category: 'coffeeChat',
-    MentorName: 'GD Hong',
-    companyName: 'company C',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 백엔드',
-    career: 7,
-  },
+  // {
+  //   category: 'coffeeChat',
+  //   MentorName: 'JY Kim',
+  //   companyName: 'company A',
+  //   period: '2024.05.05 ~ 2025.05.05',
+  //   participationStatus: '참여 완료',
+  //   devPosition: '개발팀 프론트엔드',
+  //   career: 5,
+  // },
+  // {
+  //   category: 'coffeeChat',
+  //   MentorName: 'HW Lim',
+  //   companyName: 'company B',
+  //   period: '2024.05.05 ~ 2025.05.05',
+  //   participationStatus: '참여 완료',
+  //   devPosition: '개발팀 백엔드',
+  //   career: 6,
+  // },
+  // {
+  //   category: 'coffeeChat',
+  //   MentorName: 'GD Hong',
+  //   companyName: 'company C',
+  //   period: '2024.05.05 ~ 2025.05.05',
+  //   participationStatus: '참여 완료',
+  //   devPosition: '개발팀 백엔드',
+  //   career: 7,
+  // },
 ];
 
 function LikeList() {
@@ -51,7 +51,7 @@ function LikeList() {
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
-  const [coffeeChatCount, setCoffeeChatCount] = useState(0);
+  // const [coffeeChatCount, setCoffeeChatCount] = useState(0);
 
   // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
@@ -64,19 +64,20 @@ function LikeList() {
           case 'project':
             acc.project++;
             break;
-          case 'coffeeChat':
-            acc.coffeeChat++;
-            break;
+          // case 'coffeeChat':
+          //   acc.coffeeChat++;
+          //   break;
           default:
             break;
         }
         return acc;
       },
-      { study: 0, project: 0, coffeeChat: 0 }
+      // { study: 0, project: 0, coffeeChat: 0 }
+      { study: 0, project: 0 }
     );
     setStudyCount(counts.study);
     setProjectCount(counts.project);
-    setCoffeeChatCount(counts.coffeeChat);
+    // setCoffeeChatCount(counts.coffeeChat);
   }, []);
 
   // 각 활동 탭에 해당하는 데이터 분류해주는 함수
@@ -120,36 +121,36 @@ function LikeList() {
           </ContentContainer>
         ));
       // category가 coffeeChat인 데이터
-      case 'coffeeChat':
-        return filteredData.map((data, index) => (
-          <ContentContainer key={index}>
-            <CategoryContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="studyIcon"
-              />
-              <Category>커피챗</Category>
-            </CategoryContainer>
-            <MentorInfoContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="MentorProfileImage"
-                size="7"
-                radius="full"
-              />
-              <MentorInfoText>
-                <MentorName>{data.MentorName}</MentorName>
-                <CompanyName>{data.companyName}</CompanyName>
-                <MentorCareer>
-                  {data.devPosition} / {data.career}년
-                </MentorCareer>
-              </MentorInfoText>
-            </MentorInfoContainer>
-            <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
-            <DateInfo>기간 : {data.period}</DateInfo>
-            <ContentButton>파트너 홈</ContentButton>
-          </ContentContainer>
-        ));
+      // case 'coffeeChat':
+      //   return filteredData.map((data, index) => (
+      //     <ContentContainer key={index}>
+      //       <CategoryContainer>
+      //         <Avatar
+      //           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+      //           fallback="studyIcon"
+      //         />
+      //         <Category>커피챗</Category>
+      //       </CategoryContainer>
+      //       <MentorInfoContainer>
+      //         <Avatar
+      //           src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+      //           fallback="MentorProfileImage"
+      //           size="7"
+      //           radius="full"
+      //         />
+      //         <MentorInfoText>
+      //           <MentorName>{data.MentorName}</MentorName>
+      //           <CompanyName>{data.companyName}</CompanyName>
+      //           <MentorCareer>
+      //             {data.devPosition} / {data.career}년
+      //           </MentorCareer>
+      //         </MentorInfoText>
+      //       </MentorInfoContainer>
+      //       <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
+      //       <DateInfo>기간 : {data.period}</DateInfo>
+      //       <ContentButton>파트너 홈</ContentButton>
+      //     </ContentContainer>
+      //   ));
       default:
         return <p>참여중인 목록이 없습니다.</p>;
     }
@@ -177,19 +178,19 @@ function LikeList() {
               <br />
               프로젝트
             </StyledTabsTrigger>
-            <StyledTabsTrigger
+            {/* <StyledTabsTrigger
               value="coffeeChat"
               onClick={() => setSelectedTab('coffeeChat')}
               aria-selected={selectedTab === 'coffeeChat' ? 'true' : 'false'}>
               {coffeeChatCount}
               <br />
               커피챗
-            </StyledTabsTrigger>
+            </StyledTabsTrigger> */}
           </StyledTabsList>
           <Box pt="5" pb="2">
             <StyledTabsContent value="study">{renderData('study')}</StyledTabsContent>
             <StyledTabsContent value="project">{renderData('project')}</StyledTabsContent>
-            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
+            {/* <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent> */}
           </Box>
         </Tabs.Root>
       </SideMenuBody>
@@ -230,7 +231,7 @@ const StyledTabsList = styled(Tabs.List)`
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 280px;
+  width: 435px;
   height: 100px;
   border: 2px solid black;
   border-radius: 10px;
@@ -304,20 +305,20 @@ const ContentButton = styled(Button)`
   width: 170px;
   height: 50px;
 `;
-const MentorName = styled.p`
-  font-size: 23px;
-  font-weight: bold;
-  margin-bottom: 0px;
-`;
-const CompanyName = styled.p`
-  margin: 0px;
-`;
-const MentorCareer = styled.p``;
-const MentorInfoContainer = styled.p`
-  margin: 30px 0 0 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-`;
-const MentorInfoText = styled.p``;
+// const MentorName = styled.p`
+//   font-size: 23px;
+//   font-weight: bold;
+//   margin-bottom: 0px;
+// `;
+// const CompanyName = styled.p`
+//   margin: 0px;
+// `;
+// const MentorCareer = styled.p``;
+// const MentorInfoContainer = styled.p`
+//   margin: 30px 0 0 0;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   gap: 20px;
+// `;
+// const MentorInfoText = styled.p``;
