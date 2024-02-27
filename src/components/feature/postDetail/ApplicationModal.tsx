@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import Modal from '../../common/Modal';
 import styled from 'styled-components';
-import Select from '../../common/Select';
-import { positions } from '../../../constants/data';
 import Textarea from '../../common/Textarea';
 import Button from '../../common/Button';
+import api from '../../../services/api';
 
 interface ModalProps {
+  postId: string;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const ApplicationModal = ({ setIsOpen }: ModalProps) => {
-  const [inputVal, setInputVal] = useState({ position: '', goalsText: '' });
-  const onChangePosition = (position: string) => setInputVal({ ...inputVal, position });
-  const onChangeGoalsText = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInputVal({ ...inputVal, goalsText: e.target.value });
+const ApplicationModal = ({ postId, setIsOpen }: ModalProps) => {
+  const [notiMsg, setNotiMsg] = useState('');
+  const onChangeNotiMsgText = (e: React.ChangeEvent<HTMLInputElement>) => setNotiMsg(e.target.value);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    await api.createApplication(postId, notiMsg);
     setIsOpen(false);
   };
 
@@ -25,23 +24,12 @@ const ApplicationModal = ({ setIsOpen }: ModalProps) => {
       <Container>
         <div>
           <Title>
-            포지션<span> *</span>
-          </Title>
-          <Select
-            items={positions}
-            selectValue={inputVal.position}
-            onValueChange={onChangePosition}
-            placeholder="지원하는 포지션을 선택해주세요."
-          />
-        </div>
-        <div>
-          <Title>
             자기소개<span> *</span>
           </Title>
           <Textarea
             placeholder="간단한 지원동기나 자기소개를 작성해주세요 :)"
-            value={inputVal.goalsText}
-            onChange={onChangeGoalsText}
+            value={notiMsg}
+            onChange={onChangeNotiMsgText}
             rows={10}
           />
         </div>

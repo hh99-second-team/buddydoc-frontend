@@ -69,7 +69,6 @@ const Title = styled.div`
   width: 80%;
   height: 3.8rem;
   color: #000;
-  font-family: Pretendard;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 500;
@@ -89,7 +88,6 @@ const Deadline = styled.p`
   top: 9rem;
   height: 1.3125rem;
   color: #000;
-  font-family: Pretendard;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
@@ -124,7 +122,6 @@ const UserInfo = styled.div`
 
   & > p {
     color: #000;
-    font-family: Pretendard;
     font-size: 1rem;
     font-style: normal;
     line-height: normal;

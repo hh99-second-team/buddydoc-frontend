@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import styled, { keyframes } from 'styled-components';
+import * as Menubar from '@radix-ui/react-menubar';
+import styled from 'styled-components';
 import LoginModal from '../feature/LoginModal';
 import logoUrl from '../../assets/buddydoc-logo.png';
 import SignupModal from '../feature/SignupModal';
@@ -9,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
 import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
-import * as Popover from '@radix-ui/react-popover';
 import SearchModal from '../feature/SearchModal';
 import emptyUserIcon from '../../assets/user-circle-icon.svg';
+import MenuBarTrigger from './menuBar/MenuBarTrigger';
+import PortalContent from './menuBar/PortalContent';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
               <div onClick={() => navigate(`/chat`)}>채팅</div>
@@ -77,28 +79,36 @@ const Navbar = () => {
             <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLoggined') === 'true' ? (
-          <Popover.Root>
-            <Popover.Trigger asChild>
-              <HamburgerMenuIcon />
-            </Popover.Trigger>
-            <Popover.Portal>
-              <PopoverContent sideOffset={5}>
-                <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
-                <IconContainer>
-                  <div onClick={() => navigate(`/chat`)}>채팅</div>
-                </IconContainer>
-                <Dialog.Root>
-                  <Dialog.Trigger asChild>
-                    <IconContainer>
-                      <div>알림</div>
-                    </IconContainer>
-                  </Dialog.Trigger>
-                  <Dialog.Portal></Dialog.Portal>
-                </Dialog.Root>
-              </PopoverContent>
-            </Popover.Portal>
-          </Popover.Root>
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
+          <>
+            <Menubar.Root>
+              <Menubar.Menu>
+                <MenuBarTrigger>
+                  <HamburgerMenuIcon />
+                  <PortalContent>
+                    <Menubar.Item>
+                      <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <IconContainer>
+                        <div onClick={() => navigate(`/chat`)}>채팅</div>
+                      </IconContainer>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <IconContainer>
+                            <div>알림</div>
+                          </IconContainer>
+                        </Dialog.Trigger>
+                        <Dialog.Portal></Dialog.Portal>
+                      </Dialog.Root>
+                    </Menubar.Item>
+                  </PortalContent>
+                </MenuBarTrigger>
+              </Menubar.Menu>
+            </Menubar.Root>
+          </>
         ) : (
           <Dialog.Root>
             <Dialog.Trigger asChild>
@@ -151,59 +161,6 @@ const ToggleHeader = styled.div`
     display: flex;
     align-items: center;
     column-gap: 1rem;
-  }
-`;
-
-const slideUpAndFade = keyframes`
-  0% { opacity: 0; transform: translateY(2px) };
-  100% { opacity: 1; transform: translateY(0) };
-`;
-
-const slideRightAndFade = keyframes`
-  0% { opacity: 0; transform: translateX(-2px) };
-  100% { opacity: 1; transform: translateX(0) };
-`;
-
-const slideDownAndFade = keyframes`
-  0% { opacity: 0; transform: translateY(-2px) };
-  100% { opacity: 1; transform: translateY(0) };
-`;
-
-const slideLeftAndFade = keyframes`
-  0% { opacity: 0; transform: translateX(2px) };
-  100% { opacity: 1; transform: translateX(0) };
-`;
-
-const PopoverContent = styled(Popover.Content)`
-  z-index: 999;
-  border-radius: 4;
-  padding: 1rem;
-  margin-top: 1rem;
-  width: 10rem;
-  display: grid;
-  row-gap: 1rem;
-  background-color: white;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-  &[data-state='open'] {
-    &[data-side='top'] {
-      animation-name: ${slideDownAndFade};
-    }
-    &[data-side='right'] {
-      animation-name: ${slideLeftAndFade};
-    }
-    &[data-side='bottom'] {
-      animation-name: ${slideUpAndFade};
-    }
-    &[data-side='left'] {
-      animation-name: ${slideRightAndFade};
-    }
-  }
-
-  &:hover {
-    border: none;
   }
 `;
 

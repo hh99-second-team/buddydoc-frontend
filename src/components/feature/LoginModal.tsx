@@ -42,7 +42,6 @@ const SocialStyles = css`
   border-radius: 59.175px;
   color: #000;
   text-align: center;
-  font-family: Pretendard;
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
@@ -100,21 +99,6 @@ const GoogleConnect = styled.button`
   }
   &:hover {
     box-shadow: 0 0 0 rgba(91, 144, 240, 0);
-  }
-`;
-
-const GithubConnect = styled.button`
-  ${SocialStyles}
-  background:#25282d;
-  color: white;
-  box-shadow: 0 15px 30px rgba(37, 40, 45, 0.36);
-  transition: 0.2s linear;
-  & > i {
-    font-size: 20px;
-    padding: 0 5px 0 0;
-  }
-  &:hover {
-    box-shadow: 0 0 0 rgba(37, 40, 45, 0);
   }
 `;
 

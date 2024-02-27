@@ -28,7 +28,6 @@ const ChatTitleBox = styled.div`
 
 const Title = styled.p`
   color: var(--Primary, #000);
-  font-family: Pretendard;
   font-size: 26px;
   font-style: normal;
   font-weight: 600;

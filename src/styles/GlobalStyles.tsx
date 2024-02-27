@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins",  'Apple SD Gothic Neo', sans-serif;
   }
 `;
 
