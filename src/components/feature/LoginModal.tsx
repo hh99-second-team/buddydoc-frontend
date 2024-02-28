@@ -9,7 +9,7 @@ import naverIcon from '../../assets/naver.icon.png';
 const LoginModal = () => {
   return (
     <Modal
-      title="SNS 계정으로 간편하게 
+      postTitle="SNS 계정으로 간편하게 
     로그인 / 회원가입 하세요!">
       <KakaoConnect onClick={api.kakaoLogin}>
         <img src={kakaoIcon} alt="" />

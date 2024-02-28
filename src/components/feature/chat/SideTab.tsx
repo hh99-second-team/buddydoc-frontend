@@ -10,9 +10,9 @@ const SideTab = () => {
   return (
     <TabsRoot defaultValue="현재 참여 목록">
       <TabsList>
-        {tabTitle.map((title) => (
-          <TabsTrigger key={title} value={title}>
-            {title}
+        {tabTitle.map((postTitle) => (
+          <TabsTrigger key={postTitle} value={postTitle}>
+            {postTitle}
           </TabsTrigger>
         ))}
       </TabsList>

@@ -18,7 +18,7 @@ const SignupModal = () => {
   const setSkills = (skills: string[]) => setInputVal({ ...inputVal, skills });
 
   return (
-    <Modal title="회원가입">
+    <Modal postTitle="회원가입">
       <Container>
         {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
         {pageNum === 2 && <SkillsForm inputVal={inputVal} setPrevPage={setPrevPage} setSkills={setSkills} />}

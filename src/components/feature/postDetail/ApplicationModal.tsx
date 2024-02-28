@@ -20,7 +20,7 @@ const ApplicationModal = ({ postId, setIsOpen }: ModalProps) => {
   };
 
   return (
-    <Modal title="신청서">
+    <Modal postTitle="신청서">
       <Container>
         <div>
           <Title>

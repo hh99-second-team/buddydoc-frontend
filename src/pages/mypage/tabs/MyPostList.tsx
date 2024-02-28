@@ -6,21 +6,21 @@ import { Avatar, Box, Button } from '@radix-ui/themes';
 const dummyDatas = [
   {
     category: 'study',
-    title: '웹 개발 모각코 스터디1',
+    postTitle: '웹 개발 모각코 스터디1',
     postStatus: '모집중',
     startDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
     category: 'project',
-    title: '웹 프로젝트1',
+    postTitle: '웹 프로젝트1',
     postStatus: '모집중',
     startDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
     category: 'project',
-    title: '웹 프로젝트2',
+    postTitle: '웹 프로젝트2',
     postStatus: '모집중',
     startDate: '2024.02.02',
     endDate: '2024.02.03',
@@ -89,7 +89,7 @@ function MyPostList() {
               />
               <Category>스터디</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <PostStatus>{data.postStatus}</PostStatus>
             <ContentButton>게시물 확인</ContentButton>
             <ContentButton color="gray" top="105px">
@@ -110,7 +110,7 @@ function MyPostList() {
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <PostStatus>{data.postStatus}</PostStatus>
             <ContentButton>프로젝트 홈</ContentButton>
             <ContentButton color="gray" top="105px">
