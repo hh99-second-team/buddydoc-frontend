@@ -2,12 +2,19 @@ import React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import styled from 'styled-components';
 import JoinList from '../components/feature/chat/tabs/JoinList';
-import Settings from './mypage/tabs/Settings';
-// import ChatPageSideBar from '../components/feature/chat/ChatPageSideBar';
-// import ChatPageMain from '../components/feature/chat/ChatPageMain';
 
 const ChatPage = () => {
-  const tabTitle = ['현재참여목록', '채팅', '설정'];
+  // const tabTitle = ['현재참여목록', '채팅', '설정'];
+  const tabTitle = ['현재참여목록', '채팅'];
+  const createChatRoom = (chatRoomTitle: string) => {
+    return (
+      <>
+        <ChatRoomTitle>{chatRoomTitle}</ChatRoomTitle>
+        <ChatRoomBody>ChatRoomBody</ChatRoomBody>
+        <ChatRoomInputGroup>ChatRoomInputGroup</ChatRoomInputGroup>
+      </>
+    );
+  };
   return (
     <Layout>
       <TabsRoot defaultValue="현재참여목록">
@@ -38,22 +45,16 @@ const ChatPage = () => {
                   <TabsTrigger value="채팅3">채팅3</TabsTrigger>
                 </ChatList>
               </Tabs.List>
-              <ChatScreen>
-                <Tabs.Content value="채팅1">
-                  <ChatRoomTitle>채팅방 제목1</ChatRoomTitle>
-                </Tabs.Content>
-                <Tabs.Content value="채팅2">
-                  <ChatRoomTitle>채팅방 제목2</ChatRoomTitle>
-                </Tabs.Content>
-                <Tabs.Content value="채팅3">
-                  <ChatRoomTitle>채팅방 제목3</ChatRoomTitle>
-                </Tabs.Content>
-              </ChatScreen>
+              <ChatRoomContainer>
+                <Tabs.Content value="채팅1">{createChatRoom('채팅1')}</Tabs.Content>
+                <Tabs.Content value="채팅2">{createChatRoom('채팅2')}</Tabs.Content>
+                <Tabs.Content value="채팅3">{createChatRoom('채팅3')}</Tabs.Content>
+              </ChatRoomContainer>
             </TabsRoot>
           </Tabs.Content>
-          <Tabs.Content value="설정">
+          {/* <Tabs.Content value="설정">
             <Settings />
-          </Tabs.Content>
+          </Tabs.Content> */}
         </TabsContentContainer>
       </TabsRoot>
     </Layout>
@@ -79,14 +80,13 @@ const ChatRoomList = styled.div`
   background-color: #fff;
 `;
 const TabsTrigger = styled(Tabs.Trigger)<{ borderBottom?: string }>`
-  display: flex;
   width: 100%;
   height: 49px;
   padding: 8px;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
   color: #7a7a7a;
   text-align: center;
   font-family: Pretendard;
@@ -128,24 +128,39 @@ const ChatListTitle = styled.div`
   line-height: normal;
   padding: 20px;
 `;
-const ChatScreen = styled.div`
-  width: 761px;
+const ChatRoomContainer = styled.div`
+  position: relative;
+  width: 1200px;
   height: 800px;
   flex-shrink: 0;
-  margin: 0 0 0 30px;
-  padding: 30px;
+  margin-left: 20px;
+  padding: 0 30px 30px 30px;
   background-color: transparent;
   border-radius: 12px;
 `;
 const ChatRoomTitle = styled.div`
+  width: 1130px;
+  height: 84px;
   font-size: 26px;
   font-weight: 700;
   border-radius: 12px;
-  width: 700px;
-  height: 84px;
   flex-shrink: 0;
   background-color: #fff;
   padding: 20px;
+`;
+const ChatRoomBody = styled.div`
+  width: 1130px;
+  height: 565px;
+  padding: 0 30px;
+  background-color: green;
+`;
+const ChatRoomInputGroup = styled.div`
+  position: absolute;
+  width: 1130px;
+  height: 150px;
+  bottom: 0;
+  border-radius: 10px;
+  background-color: #fff;
 `;
 
 export default ChatPage;
