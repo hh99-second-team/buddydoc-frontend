@@ -6,7 +6,7 @@ const ChatList = () => {
   return (
     <ListBox>
       <Title>채팅</Title>
-      <ChatRoomCard title="버디독" />
+      <ChatRoomCard postTitle="버디독" />
     </ListBox>
   );
 };

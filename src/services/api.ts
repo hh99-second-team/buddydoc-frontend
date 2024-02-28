@@ -13,6 +13,7 @@ const axiosInstance: AxiosInstance = axios.create({
   timeout: 5000, // 요청 타임아웃 설정 (예: 5초)
   headers: {
     'Content-Type': 'application/json', // JSON 형식의 요청을 보낼 것임을 명시
+    'Access-Control-Allow-Origin': '*',
     Authorization: token ? `Bearer ${token}` : '', // 토큰이 존재하는 경우에만 헤더에 추가
   },
 });
@@ -41,8 +42,6 @@ const api = {
   createPost: async (post: PostCreateType) => {
     const response = await axiosInstance.post('/post', {
       ...post,
-      deadLine: post.deadLine.toISOString(),
-      startDate: post.startDate.toISOString(),
       memberCount: Number(post.memberCount),
     });
 
@@ -53,8 +52,6 @@ const api = {
   updatePost: async (postId: string, post: PostCreateType) => {
     const response = await axiosInstance.put(`/post/${postId}`, {
       ...post,
-      deadLine: post.deadLine.toISOString(),
-      startDate: post.startDate.toISOString(),
       memberCount: Number(post.memberCount),
     });
 

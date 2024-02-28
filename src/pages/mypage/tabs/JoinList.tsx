@@ -6,13 +6,13 @@ import styled from 'styled-components';
 const dummyDatas = [
   {
     category: 'study',
-    title: '웹개발 스터디1',
+    postTitle: '웹개발 스터디1',
     startDate: '2024.05.05',
     memberCount: 12,
   },
   {
     category: 'project',
-    title: '웹 프로젝트2',
+    postTitle: '웹 프로젝트2',
     startDate: '20244.02.03',
     memberCount: 12,
   },
@@ -97,7 +97,7 @@ function JoinList() {
               />
               <Category>스터디</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <ContentButton>스터디 홈</ContentButton>
             <DateInfo>시작일 : {data.startDate}</DateInfo>
@@ -114,7 +114,7 @@ function JoinList() {
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <DateInfo>시작일 : {data.startDate}</DateInfo>
             <ContentButton>프로젝트 홈</ContentButton>

@@ -32,6 +32,7 @@ const MoreInformation = ({ inputVal, setInputVal }: Props) => {
     // Body에 담기
     setInputVal({ ...inputVal, content });
   };
+  console.log(inputVal);
 
   return (
     <div>

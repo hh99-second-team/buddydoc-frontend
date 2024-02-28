@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ChatRoomCard: React.FC<{ title: string }> = ({ title }) => {
+const ChatRoomCard: React.FC<{ postTitle: string }> = ({ postTitle }) => {
   return (
     <Container>
-      <RoomName>{title}</RoomName>
+      <RoomName>{postTitle}</RoomName>
     </Container>
   );
 };

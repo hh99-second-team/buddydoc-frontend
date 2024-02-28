@@ -70,7 +70,10 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
               </Menubar.Menu>
             </Menubar.Root>
             <AlertDialog.Portal>
-              <AlertModal title="삭제하시겠습니까?" handleClose={handleClose} onClick={handleDeletePost}></AlertModal>
+              <AlertModal
+                postTitle="삭제하시겠습니까?"
+                handleClose={handleClose}
+                onClick={handleDeletePost}></AlertModal>
             </AlertDialog.Portal>
           </AlertDialog.Root>
         )}
@@ -79,7 +82,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
         <StudyTypeIcon>{post.postType}</StudyTypeIcon>
         <DeadlineIcon date={post.deadLine} />
       </IconSet>
-      <Title>{post.title}</Title>
+      <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
           <CircleIcon src={userIcon} fallback={post.user?.nickname} />

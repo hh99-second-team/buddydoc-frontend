@@ -41,7 +41,7 @@ export interface PostDetailType {
     userId: number;
     nickname: string;
   };
-  title: string;
+  postTitle: string;
   position: string[];
   skillList: string[];
   content: string;

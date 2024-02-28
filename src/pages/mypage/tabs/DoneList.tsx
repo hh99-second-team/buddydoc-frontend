@@ -6,13 +6,13 @@ import { Avatar, Box, Button } from '@radix-ui/themes';
 const dummyDatas = [
   {
     category: 'study',
-    title: '웹개발 스터디1',
+    postTitle: '웹개발 스터디1',
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
   },
   {
     category: 'project',
-    title: '웹 프로젝트2',
+    postTitle: '웹 프로젝트2',
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
   },
@@ -96,7 +96,7 @@ function LikeList() {
               />
               <Category>스터디</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
             <ContentButton>스터디 홈</ContentButton>
             <DateInfo>기간 : {data.period}</DateInfo>
@@ -113,7 +113,7 @@ function LikeList() {
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
             <DateInfo>기간 : {data.period}</DateInfo>
             <ContentButton>프로젝트 홈</ContentButton>
