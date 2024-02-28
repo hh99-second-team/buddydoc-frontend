@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import StudyTypeIcon from '../../common/StudyTypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
 import userIcon from '../../../assets/user-circle-icon.svg';
@@ -10,10 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
 import { ChevronLeftIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
 import { PostDetailType } from '../../../types/commonTypes';
-import * as Popover from '@radix-ui/react-popover';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
+import * as Menubar from '@radix-ui/react-menubar';
 import AlertModal from '../../common/AlertModal';
 import api from '../../../services/api';
+import MenuBarTrigger from '../../common/menuBar/MenuBarTrigger';
+import PortalContent from '../../common/menuBar/PortalContent';
 
 const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const navigate = useNavigate();
@@ -32,37 +34,55 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
     navigate('/');
   };
 
+  const checkUserId = (): boolean => {
+    const myUserId = localStorage.getItem('userId');
+
+    if (!myUserId || Number(myUserId) !== post.user?.userId) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <Header>
       <Flex>
         <ChevronLeftIcon onClick={() => navigate(-1)} />
-        <Popover.Root>
-          <Popover.Trigger asChild>
-            <DotsVerticalIcon />
-          </Popover.Trigger>
-          <Popover.Portal>
-            <PopoverContent sideOffset={5}>
-              <NavButton onClick={() => navigate('/modify')}>수정하기</NavButton>
-              <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
-                <Trigger asChild>
-                  <NavButton onClick={handleOpen}>삭제</NavButton>
-                </Trigger>
-                <AlertDialog.Portal>
-                  <AlertModal
-                    title="삭제하시겠습니까?"
-                    handleClose={handleClose}
-                    onClick={handleDeletePost}></AlertModal>
-                </AlertDialog.Portal>
-              </AlertDialog.Root>
-            </PopoverContent>
-          </Popover.Portal>
-        </Popover.Root>
+        {checkUserId() && (
+          <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
+            <Menubar.Root>
+              <Menubar.Menu>
+                <MenuBarTrigger>
+                  <DotsVerticalIcon />
+                  <PortalContent>
+                    <Menubar.Item>
+                      <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>
+                        수정
+                      </NavButton>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <AlertDialog.Trigger asChild>
+                        <NavButton onClick={handleOpen}>삭제</NavButton>
+                      </AlertDialog.Trigger>
+                    </Menubar.Item>
+                  </PortalContent>
+                </MenuBarTrigger>
+              </Menubar.Menu>
+            </Menubar.Root>
+            <AlertDialog.Portal>
+              <AlertModal
+                postTitle="삭제하시겠습니까?"
+                handleClose={handleClose}
+                onClick={handleDeletePost}></AlertModal>
+            </AlertDialog.Portal>
+          </AlertDialog.Root>
+        )}
       </Flex>
       <IconSet>
         <StudyTypeIcon>{post.postType}</StudyTypeIcon>
         <DeadlineIcon date={post.deadLine} />
       </IconSet>
-      <Title>{post.title}</Title>
+      <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
           <CircleIcon src={userIcon} fallback={post.user?.nickname} />
@@ -86,8 +106,6 @@ const Header = styled.div`
   padding: 20px 0;
   border-bottom: 1px solid #d9d9d9;
 `;
-
-const Trigger = styled(AlertDialog.Trigger)``;
 
 const Flex = styled.div`
   display: flex;
@@ -129,57 +147,6 @@ const CountBox = styled.div`
   display: flex;
   align-items: center;
   column-gap: 18px;
-`;
-
-const slideUpAndFade = keyframes`
-  0% { opacity: 0; transform: translateY(20px) };
-  100% { opacity: 1; transform: translateY(0) };
-`;
-
-const slideRightAndFade = keyframes`
-  0% { opacity: 0; transform: translateX(-2px) };
-  100% { opacity: 1; transform: translateX(0) };
-`;
-
-const slideDownAndFade = keyframes`
-  0% { opacity: 0; transform: translateY(-2px) };
-  100% { opacity: 1; transform: translateY(0) };
-`;
-
-const slideLeftAndFade = keyframes`
-  0% { opacity: 0; transform: translateX(2px) };
-  100% { opacity: 1; transform: translateX(0) };
-`;
-
-const PopoverContent = styled(Popover.Content)`
-  z-index: 999;
-  border-radius: 4;
-  margin-top: 1rem;
-  width: 10rem;
-  display: grid;
-  background-color: white;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-  &[data-state='open'] {
-    &[data-side='top'] {
-      animation-name: ${slideDownAndFade};
-    }
-    &[data-side='right'] {
-      animation-name: ${slideLeftAndFade};
-    }
-    &[data-side='bottom'] {
-      animation-name: ${slideUpAndFade};
-    }
-    &[data-side='left'] {
-      animation-name: ${slideRightAndFade};
-    }
-  }
-
-  &:hover {
-    border: none;
-  }
 `;
 
 const NavButton = styled.div`

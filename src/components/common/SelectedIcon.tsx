@@ -31,7 +31,6 @@ const IconBox = styled.div<{ removeBtn: boolean }>`
 
   & > p {
     color: #000;
-    font-family: Pretendard;
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;

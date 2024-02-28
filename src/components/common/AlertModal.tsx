@@ -5,17 +5,17 @@ import Button from './Button';
 
 interface Props {
   handleClose: any;
-  title: string;
+  postTitle: string;
   children?: React.ReactNode;
   onClick: any;
 }
 
-const AlertModal = ({ handleClose, title, children, onClick }: Props) => {
+const AlertModal = ({ handleClose, postTitle, children, onClick }: Props) => {
   return (
     <>
       <Overlay />
       <Content>
-        <Title>{title}</Title>
+        <Title>{postTitle}</Title>
         {children && <Description>{children}</Description>}
         <Flex>
           <Cancel asChild>

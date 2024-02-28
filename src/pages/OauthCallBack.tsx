@@ -13,7 +13,7 @@ interface DecodedToken {
 const CallbackPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -27,16 +27,15 @@ const CallbackPage = () => {
       localStorage.setItem('nickname', decoded.nickname);
     }
 
-    // 사용자를 로그인 후 페이지로 리디렉션할 수 있습니다.
-
-    navigate('/');
     if (!decoded?.nickname) {
       setIsSignupOpen(true);
-      localStorage.setItem('isLoggined', 'false');
+      localStorage.setItem('isLogin', 'false');
     } else {
-      localStorage.setItem('isLoggined', 'true');
+      localStorage.setItem('isLogin', 'true');
     }
-  }, [location]);
+    // 사용자를 로그인 후 페이지로 리디렉션할 수 있습니다.
+    navigate('/');
+  }, [location, navigate, setIsSignupOpen]);
 
   return <></>;
 };

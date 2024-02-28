@@ -4,7 +4,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import styled, { keyframes } from 'styled-components';
 
 interface ModalProps {
-  title: string;
+  postTitle: string;
   children: React.ReactNode;
 }
 
@@ -21,12 +21,12 @@ const Modal = (props: ModalProps) => (
       </Header>
       <Description>
         <Title>
-          {props.title.length < 14 ? (
-            <p>{props.title}</p>
+          {props.postTitle.length < 14 ? (
+            <p>{props.postTitle}</p>
           ) : (
             <>
-              <p>{props.title.slice(0, 13)}</p>
-              <p>{props.title.slice(13, props.title.length)}</p>
+              <p>{props.postTitle.slice(0, 13)}</p>
+              <p>{props.postTitle.slice(13, props.postTitle.length)}</p>
             </>
           )}
         </Title>

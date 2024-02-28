@@ -27,35 +27,13 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     const response = !!postType
       ? await api.getPost(page, postType)
       : !!searchTitle
-      ? await api.getPost(page)
+      ? await api.getPostSearch(page, searchTitle)
       : await api.getPost(page);
 
-    const testPost: PostCardType = {
-      postId: 34,
-      post_userId: 25,
-      postType: 'project',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      startDate: new Date(),
-      deadLine: new Date(),
-      postTitle:
-        '정말 기깔난 프론트엔드 개발자 구합니다 ~~~ 같이 프로젝트 하시면 네카라쿠배 합격 확률 200%!!! 여기 개발 맛집이에요.',
-      memberCount: 4,
-      period: '3개월 이상',
-      position: ['프론트엔드', '백엔드'],
-      skillList: ['React', 'Vue', 'Next.js', 'Svelte', 'Figma', 'MySql'],
-      users: {
-        userNickname: '오늘은맑음',
-      },
-      preference: 3,
-      bookmark: true,
-      views: 23,
-    };
-
-    setPosts((prevState) => [...prevState, testPost, ...response.posts]);
+    setPosts((prevState) => [...prevState, ...response.posts]);
     setIsLastPage(response.isLastPage);
     setIsLoading(false);
-  }, [page]);
+  }, [isLastPage, page, postType, searchTitle]);
 
   // fetchPosts이 바뀔 때마다 함수 실행
   useEffect(() => {
@@ -67,7 +45,7 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     if (inView && !isLoading) {
       setPage(posts[posts.length - 1].postId);
     }
-  }, [inView, isLoading]);
+  }, [inView, isLoading, posts]);
 
   const renderPostList = () => {
     return (
@@ -86,8 +64,8 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
           </React.Fragment>
         ))}
         {/* 로딩 중일 때 Skeleton UI 표시*/}
-        {/* 최초엔 12개의 스켈레톤 표시 */}
-        {isLoading && posts.length === 0 && Array.from({ length: 3 }, (_, idx) => <SkeletonPost key={idx} />)}
+        {/* 최초엔 10개의 스켈레톤 표시 */}
+        {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
         {/* 그 이후에는 한 개의 스켈레톤만 보여주기 */}
         {isLoading && posts.length > 1 && <SkeletonPost />}
       </>

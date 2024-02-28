@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ChatRoomCard: React.FC<{ title: string }> = ({ title }) => {
+const ChatRoomCard: React.FC<{ postTitle: string }> = ({ postTitle }) => {
   return (
     <Container>
-      <RoomName>{title}</RoomName>
+      <RoomName>{postTitle}</RoomName>
     </Container>
   );
 };
@@ -20,7 +20,6 @@ const Container = styled.div`
 const RoomName = styled.p`
   width: 100%;
   color: #000;
-  font-family: Pretendard;
   font-size: 1.3rem;
   font-style: normal;
   font-weight: 500;

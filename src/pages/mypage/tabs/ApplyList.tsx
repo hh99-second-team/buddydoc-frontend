@@ -7,28 +7,28 @@ import api from '../../../services/api';
 const dummyDatas = [
   {
     category: 'study',
-    title: '웹 개발 모각코 스터디1',
+    postTitle: '웹 개발 모각코 스터디1',
     applyDate: '2024.02.03',
     applyStatus: '대기중',
     memberCount: 5,
   },
   {
     category: 'study',
-    title: '웹 개발 모각코 스터디2',
+    postTitle: '웹 개발 모각코 스터디2',
     applyDate: '2024.02.04',
     applyStatus: '불발',
     memberCount: 5,
   },
   {
     category: 'project',
-    title: '웹 프로젝트1',
+    postTitle: '웹 프로젝트1',
     applyDate: '20244.02.03',
     applyStatus: '불발',
     memberCount: 10,
   },
   {
     category: 'project',
-    title: '웹 프로젝트2',
+    postTitle: '웹 프로젝트2',
     applyDate: '20244.02.04',
     applyStatus: '대기중',
     memberCount: 11,
@@ -78,7 +78,7 @@ function ApplyList() {
               />
               <Category>스터디</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <ApplyStatus>{data.applyStatus}</ApplyStatus>
             <ContentButton>스터디 홈</ContentButton>
@@ -96,7 +96,7 @@ function ApplyList() {
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <ApplyStatus>{data.applyStatus}</ApplyStatus>
             <ContentButton>프로젝트 홈</ContentButton>

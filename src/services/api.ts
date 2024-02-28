@@ -13,6 +13,7 @@ const axiosInstance: AxiosInstance = axios.create({
   timeout: 5000, // 요청 타임아웃 설정 (예: 5초)
   headers: {
     'Content-Type': 'application/json', // JSON 형식의 요청을 보낼 것임을 명시
+    'Access-Control-Allow-Origin': '*',
     Authorization: token ? `Bearer ${token}` : '', // 토큰이 존재하는 경우에만 헤더에 추가
   },
 });
@@ -25,27 +26,35 @@ const api = {
     return response.data;
   },
 
+  /** 게시물 검색 */
+  getPostSearch: async (lastPostId: number, search: string) => {
+    const response = await axiosInstance.get(`/post/search`, { params: { lastPostId, search } });
+    return response.data;
+  },
+
   /** 게시물 상세 정보 조회 */
   getPostDetail: async (postId: string) => {
     const response = await axiosInstance.get(`/post/${postId}`);
     return response.data.data[0];
   },
 
-  /** 게시물 검색 */
-  getPostSearch: async (search: string) => {
-    const response = await axiosInstance.get(`/post/search`, { params: { search } });
-    return response.data;
-  },
-
   /** 게시물 작성 */
   createPost: async (post: PostCreateType) => {
-    const response = await axiosInstance.post('/post', post);
+    const response = await axiosInstance.post('/post', {
+      ...post,
+      memberCount: Number(post.memberCount),
+    });
+
     return response.data;
   },
 
   /** 게시물 수정 */
   updatePost: async (postId: string, post: PostCreateType) => {
-    const response = await axiosInstance.put(`/post/${postId}`, post);
+    const response = await axiosInstance.put(`/post/${postId}`, {
+      ...post,
+      memberCount: Number(post.memberCount),
+    });
+
     return response.data;
   },
 
@@ -58,14 +67,12 @@ const api = {
   /** 참여 신청하기 */
   createApplication: async (postId: string, noti_message: string) => {
     const response = await axiosInstance.post(`/post/${postId}/noti`, { noti_message });
-
     return response.data;
   },
 
   /** 북마크 */
   updateBookmark: async (postId: number) => {
     const response = await axiosInstance.post(`/post/${postId}/bookmarks`);
-
     return response.data;
   },
 

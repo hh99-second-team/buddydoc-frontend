@@ -15,13 +15,13 @@ interface BookmarkProps {
 const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(isToggle);
   const [bookmarkCount, setBookmarkCount] = useState(count);
-  const [isLoginOpen, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+  const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
 
   const handleToggleBookmark = async (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
     e.stopPropagation();
 
     // 로그인 안 했다면 로그인 창 띄워주기
-    if (!localStorage.getItem('isLoggined') || localStorage.getItem('isLoggined') === 'false') {
+    if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
       setIsLoginOpen(true);
       return;
     }

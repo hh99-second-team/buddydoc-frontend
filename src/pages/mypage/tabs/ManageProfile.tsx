@@ -99,7 +99,7 @@ function ManageProfile() {
         </Button> */}
       </SideMenuHeader>
       <SideMenuBody>
-        {/* 프로필 정보 title */}
+        {/* 프로필 정보 postTitle */}
         <ProfileItemTitleGroup>
           <ProfileItemTitle>프로필 사진</ProfileItemTitle>
           <ProfileItemTitle marginTop="170px">닉네임</ProfileItemTitle>
