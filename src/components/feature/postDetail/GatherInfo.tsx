@@ -9,7 +9,7 @@ const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const gatherContent: { [key: string]: any } = {
     '모집 일시': getDateFomat(post.createdAt),
     '모집 분야': post.position,
-    '모집 구분': post.postType === 'study' ? '스터디' : '프로젝트',
+    '모집 구분': post.postType === '스터디' ? '스터디' : '프로젝트',
     '모집 인원': post.memberCount + '명',
     '프로젝트 시작': getDateFomat(post.startDate),
     '프로젝트 기간': post.period,

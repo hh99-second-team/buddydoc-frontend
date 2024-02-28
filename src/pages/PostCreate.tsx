@@ -5,7 +5,7 @@ import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
 
 const PostCreate = () => {
   const [inputVal, setInputVal] = useState<PostCreateType>({
-    postType: '',
+    postType: '스터디',
     postTitle: '',
     position: [],
     skillList: [],

@@ -5,13 +5,13 @@ import { Avatar, Box, Button } from '@radix-ui/themes';
 
 const dummyDatas = [
   {
-    category: 'study',
+    category: '스터디',
     postTitle: '웹개발 스터디1',
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
   },
   {
-    category: 'project',
+    category: '프로젝트',
     postTitle: '웹 프로젝트2',
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
@@ -47,7 +47,7 @@ const dummyDatas = [
 
 function LikeList() {
   // 선택된 탭 상태관리
-  const [selectedTab, setSelectedTab] = useState('study');
+  const [selectedTab, setSelectedTab] = useState('스터디');
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
@@ -58,10 +58,10 @@ function LikeList() {
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {
-          case 'study':
+          case '스터디':
             acc.study++;
             break;
-          case 'project':
+          case '프로젝트':
             acc.project++;
             break;
           case 'coffeeChat':
@@ -86,7 +86,7 @@ function LikeList() {
   const renderData = (category: string) => {
     switch (category) {
       // category가 study인 데이터
-      case 'study':
+      case '스터디':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -103,7 +103,7 @@ function LikeList() {
           </ContentContainer>
         ));
       // category가 project인 데이터
-      case 'project':
+      case '프로젝트':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -159,20 +159,20 @@ function LikeList() {
       <SideMenuHeader>완료 목록</SideMenuHeader>
       <SideMenuDescription>기간이 지난 커피챗 목록, 완수한 스터디/프로젝트 목록입니다.</SideMenuDescription>
       <SideMenuBody>
-        <Tabs.Root defaultValue="study">
+        <Tabs.Root defaultValue="스터디">
           <StyledTabsList>
             <StyledTabsTrigger
-              value="study"
-              onClick={() => setSelectedTab('study')}
-              aria-selected={selectedTab === 'study' ? 'true' : 'false'}>
+              value="스터디"
+              onClick={() => setSelectedTab('스터디')}
+              aria-selected={selectedTab === '스터디' ? 'true' : 'false'}>
               {studyCount}
               <br />
               스터디
             </StyledTabsTrigger>
             <StyledTabsTrigger
-              value="project"
-              onClick={() => setSelectedTab('project')}
-              aria-selected={selectedTab === 'project' ? 'true' : 'false'}>
+              value="프로젝트"
+              onClick={() => setSelectedTab('프로젝트')}
+              aria-selected={selectedTab === '프로젝트' ? 'true' : 'false'}>
               {projectCount}
               <br />
               프로젝트
@@ -187,8 +187,8 @@ function LikeList() {
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="study">{renderData('study')}</StyledTabsContent>
-            <StyledTabsContent value="project">{renderData('project')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
             <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>

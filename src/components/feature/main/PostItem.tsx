@@ -19,7 +19,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
     <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
       <CardHeader>
         <TypeBox>
-          {post.postType === 'study' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
+          {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
           <StudyTypeIcon>{post.postType}</StudyTypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </TypeBox>
@@ -33,7 +33,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       <PostFooter>
         <UserInfo>
           <img src={basicUserIcon} alt="" />
-          <p>{post.users?.userNickname}</p>
+          <p>{post.userNickname}</p>
         </UserInfo>
         <Views count={post.views} />
       </PostFooter>

@@ -7,7 +7,7 @@ import api from '../../../services/api';
 import { useInView } from 'react-intersection-observer';
 
 interface ParamsType {
-  postType?: 'study' | 'project';
+  postType?: '스터디' | '프로젝트';
   searchTitle?: string;
 }
 

@@ -26,7 +26,7 @@ const Main = () => {
     if (localStorage.getItem('isLogin') === 'false') {
       setIsSignupOpen(true);
     }
-  }, []);
+  }, [setIsSignupOpen]);
 
   return (
     <>
@@ -36,8 +36,8 @@ const Main = () => {
           <TabHeader>
             <TabsList aria-label="게시물 목록">
               <TabsTrigger value="all">전체</TabsTrigger>
-              <TabsTrigger value="study">스터디</TabsTrigger>
-              <TabsTrigger value="project">프로젝트</TabsTrigger>
+              <TabsTrigger value="스터디">스터디</TabsTrigger>
+              <TabsTrigger value="프로젝트">프로젝트</TabsTrigger>
             </TabsList>
             <Button size="large" color="primary" onClick={handleGatherBtn}>
               팀원 모집하기
@@ -46,11 +46,11 @@ const Main = () => {
           <TabsContent value="all">
             <PostList />
           </TabsContent>
-          <TabsContent value="study">
-            <PostList postType="study" />
+          <TabsContent value="스터디">
+            <PostList postType="스터디" />
           </TabsContent>
-          <TabsContent value="project">
-            <PostList postType="project" />
+          <TabsContent value="프로젝트">
+            <PostList postType="프로젝트" />
           </TabsContent>
         </TabsRoot>
       </Layout>

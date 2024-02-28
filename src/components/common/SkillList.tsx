@@ -29,6 +29,11 @@ const SkillBox = styled.div`
   display: flex;
   column-gap: 10px;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 10px;
+  }
 `;
 
 export default SkillList;

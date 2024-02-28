@@ -25,7 +25,8 @@ const PostModifyCreateForm = ({ inputVal, setInputVal, handleSubmit }: Props) =>
       !inputVal.startDate ||
       !inputVal.period ||
       !inputVal.memberCount ||
-      (inputVal.postType === 'project' && (!inputVal.position.length || !inputVal.skillList.length))
+      !inputVal.position.length ||
+      !inputVal.skillList.length
     ) {
       alert('모든 항목을 입력해주세요!');
       return;

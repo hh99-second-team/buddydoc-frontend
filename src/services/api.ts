@@ -21,7 +21,7 @@ const axiosInstance: AxiosInstance = axios.create({
 // API 호출 메서드 정의
 const api = {
   /** 게시물 목록 조회 */
-  getPost: async (lastPostId: number, postType?: 'study' | 'project') => {
+  getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
     const response = await axiosInstance.get('/post', { params: { lastPostId, postType } });
     return response.data;
   },
