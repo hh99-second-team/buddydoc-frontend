@@ -52,7 +52,7 @@ function SideBar() {
           완료 목록
         </StyledTrigger>
 
-        {/* 사이드바 메뉴 - 알림  */}
+        {/* 사이드바 메뉴 - 설정  */}
         <StyledTrigger
           value="Settings"
           onClick={() => setSelectedTab('Settings')}

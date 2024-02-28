@@ -221,7 +221,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 const ContentContainer = styled.div`
   position: relative;
   min-height: 230px;
-  background-color: lightgray;
+  background-color: #e6e6e6;
   border-radius: 15px;
   padding: 30px;
   margin-bottom: 15px;
@@ -233,11 +233,11 @@ const CategoryContainer = styled.div`
   gap: 20px;
 `;
 const Category = styled.p`
-  border: 1px solid gray;
+  border: 2px solid gray;
   border-radius: 20px;
   padding: 1px 12px;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
   background-color: #fff;
 `;
 const Title = styled.p`

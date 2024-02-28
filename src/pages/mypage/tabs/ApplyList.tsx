@@ -92,7 +92,7 @@ function ApplyList() {
             <CategoryContainer>
               <Avatar
                 src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="studyIcon"
+                fallback="projectIcon"
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
@@ -203,7 +203,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 const ContentContainer = styled.div`
   position: relative;
   min-height: 230px;
-  background-color: lightgray;
+  background-color: #e6e6e6;
   border-radius: 15px;
   padding: 30px;
   margin-bottom: 15px;
@@ -215,11 +215,11 @@ const CategoryContainer = styled.div`
   gap: 20px;
 `;
 const Category = styled.p`
-  border: 1px solid gray;
+  border: 2px solid gray;
   border-radius: 20px;
   padding: 1px 12px;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
   background-color: #fff;
 `;
 const Title = styled.p`
@@ -243,12 +243,13 @@ const DateInfo = styled.p<{ left?: string }>`
 `;
 const ApplyStatus = styled.div`
   position: absolute;
-  font-weight: bold;
+  font-weight: 700;
   border: 2px solid black;
   border-radius: 10px;
   top: 20px;
   right: 30px;
   padding: 3px 5px;
+  background-color: #fff;
 `;
 const ContentButton = styled(Button)`
   position: absolute;

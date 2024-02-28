@@ -43,7 +43,7 @@ function SideMenu() {
 
       {/* 설정 탭 */}
       <Tabs.Content value="Settings" style={TabsContentStyle}>
-        설정 ( 와이어프레임 미완성 )
+        준비중입니다.
       </Tabs.Content>
     </SideMenuContainer>
   );
