@@ -30,7 +30,6 @@ const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
 
 const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   row-gap: 40px;
   padding: 40px 0;
   border-bottom: 1px solid #d9d9d9;
