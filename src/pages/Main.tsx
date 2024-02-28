@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../components/feature/main/Banner';
 import PostList from '../components/feature/main/PostList';
 import styled from 'styled-components';
@@ -7,11 +7,12 @@ import { Layout } from '../styles/GlobalStyles';
 import Button from '../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { isLoginOpenState } from '../store/atomDefinitions';
+import { isLoginOpenState, isSignupOpenState } from '../store/atomDefinitions';
 
 const Main = () => {
   const navigate = useNavigate();
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const handleGatherBtn = () => {
     if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
@@ -20,6 +21,12 @@ const Main = () => {
     }
     navigate('/create');
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('isLogin') === 'false') {
+      setIsSignupOpen(true);
+    }
+  }, []);
 
   return (
     <>
