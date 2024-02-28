@@ -11,6 +11,7 @@ const token = localStorage.getItem('accessToken');
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_ROOT, // API 루트 경로를 기본 URL로 설정
   timeout: 5000, // 요청 타임아웃 설정 (예: 5초)
+  withCredentials: true, // withCredentials 옵션 추가
   headers: {
     'Content-Type': 'application/json', // JSON 형식의 요청을 보낼 것임을 명시
     'Access-Control-Allow-Origin': '*',
