@@ -54,14 +54,14 @@ export default SideMenu;
 type FlexDirection = 'row' | 'row-reverse' | 'column' | 'column-reverse';
 
 const SideMenuContainer = styled.div`
-  width: 70vw;
+  width: 70%;
   min-height: 700px;
   box-sizing: border-box;
   padding: 20px 30px 30px 60px;
   margin: 20px 0px 0px 60px;
   display: flex;
   justify-content: start;
-  /* background-color: #0f0; */
+  background-color: #fff;
   border-radius: 20px;
 `;
 const TabsContentStyle = {

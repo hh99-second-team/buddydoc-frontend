@@ -4,7 +4,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import styled, { keyframes } from 'styled-components';
 
 interface ModalProps {
-  title: string;
+  postTitle: string;
   children: React.ReactNode;
 }
 
@@ -13,15 +13,25 @@ const Modal = (props: ModalProps) => (
     <Overlay />
     <Content>
       <Header>
-        <div></div>
-        <Title>{props.title}</Title>
         <Close asChild>
           <button aria-label="Close">
             <Cross2Icon />
           </button>
         </Close>
       </Header>
-      <div>{props.children}</div>
+      <Description>
+        <Title>
+          {props.postTitle.length < 14 ? (
+            <p>{props.postTitle}</p>
+          ) : (
+            <>
+              <p>{props.postTitle.slice(0, 13)}</p>
+              <p>{props.postTitle.slice(13, props.postTitle.length)}</p>
+            </>
+          )}
+        </Title>
+        <Body>{props.children}</Body>
+      </Description>
     </Content>
   </>
 );
@@ -63,8 +73,8 @@ const Content = styled(Dialog.Content)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw;
-  max-width: 450px;
-  padding: 30px;
+  max-width: 650px;
+  max-height: 760px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 999;
 
@@ -74,16 +84,14 @@ const Content = styled(Dialog.Content)`
 `;
 
 const Header = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  margin-bottom: 50px;
-`;
-
-const Title = styled(Dialog.Title)`
-  margin: 0;
-  font-weight: 500;
-  font-size: 26px;
-  text-align: center;
+  height: 3.5rem;
+  border-radius: 12px 12px 0px 0px;
+  border-bottom: 1px solid #d8d8d8;
+  background: #f9fafc;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 1rem;
 `;
 
 const Close = styled(Dialog.Close)`
@@ -97,6 +105,23 @@ const Close = styled(Dialog.Close)`
     width: 22px;
     height: 22px;
   }
+`;
+
+const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+`;
+
+const Title = styled(Dialog.Title)`
+  font-weight: 500;
+  font-size: 1.625rem;
+  text-align: center;
+`;
+
+const Body = styled.div`
+  margin-top: 4rem;
 `;
 
 export default Modal;

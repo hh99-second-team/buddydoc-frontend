@@ -2,29 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import SkillList from '../../common/SkillList';
 import { getDateFomat } from '../../../utils/dateUtils';
+import { PostDetailType } from '../../../types/commonTypes';
+import { gatherInfo } from '../../../constants/data';
 
-interface GatherContent {
-  [key: string]: any;
-}
-
-const GatherInfo = ({ post }: any) => {
-  const gatherInfo = [
-    '모집 일시',
-    '모집 분야',
-    '모집 구분',
-    '모집 인원',
-    '프로젝트 시작',
-    '프로젝트 기간',
-    '기술 스택',
-  ];
-
-  const gathercontent: GatherContent = {
+const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
+  const gatherContent: { [key: string]: any } = {
     '모집 일시': getDateFomat(post.createdAt),
-    '모집 분야': '프론트엔드',
-    '모집 구분': post.type,
-    '모집 인원': '4명',
-    '프로젝트 시작': getDateFomat(post.deadline),
-    '프로젝트 기간': '3주',
+    '모집 분야': post.position,
+    '모집 구분': post.postType === '스터디' ? '스터디' : '프로젝트',
+    '모집 인원': post.memberCount + '명',
+    '프로젝트 시작': getDateFomat(post.startDate),
+    '프로젝트 기간': post.period,
     '기술 스택': post.skillList,
   };
 
@@ -33,13 +21,7 @@ const GatherInfo = ({ post }: any) => {
       {gatherInfo.map((info) => (
         <Info key={info}>
           <p>{info}</p>
-          {info === '기술 스택' ? (
-            <SkillList skillList={gathercontent[info]} />
-          ) : info === '모집 분야' ? (
-            <p>{gathercontent[info]}</p>
-          ) : (
-            <p>{gathercontent[info]}</p>
-          )}
+          {info === '기술 스택' ? <SkillList skillList={gatherContent[info]} /> : <p>{gatherContent[info]}</p>}
         </Info>
       ))}
     </Content>
@@ -48,10 +30,12 @@ const GatherInfo = ({ post }: any) => {
 
 const Content = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   row-gap: 40px;
   padding: 40px 0;
   border-bottom: 1px solid #d9d9d9;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Info = styled.div`

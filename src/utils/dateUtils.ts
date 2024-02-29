@@ -33,11 +33,30 @@ export const getDDayCounter = (date?: Date): number | string => {
     return '';
   }
 
-  const today = moment();
-  const postingDate = moment(date);
-  const dayDiff = postingDate.diff(today, 'days');
+  const today: Date = new Date();
+  const deadline: Date = new Date(date);
+  today.setHours(0, 0, 0, 0);
+  deadline.setHours(0, 0, 0, 0);
 
-  return 'D-' + dayDiff;
+  const timeDifference: number = today.getTime() - deadline.getTime();
+  const oneDay = 24 * 60 * 60 * 1000;
+  const daysPassed = Math.ceil(timeDifference / oneDay);
+
+  return daysPassed > 0 ? '마감' : daysPassed < 0 ? 'D-' + Math.abs(daysPassed) : '오늘마감';
+};
+
+/** 날짜 차이 반환 함수 */
+export const getDayDiff = (date: Date): number => {
+  const today: Date = new Date();
+  const deadline: Date = new Date(date);
+  today.setHours(0, 0, 0, 0);
+  deadline.setHours(0, 0, 0, 0);
+
+  const timeDifference: number = today.getTime() - deadline.getTime();
+  const oneDay = 24 * 60 * 60 * 1000;
+  const daysPassed = Math.ceil(timeDifference / oneDay);
+
+  return daysPassed;
 };
 
 /** 날짜 YYYY.MM.DD 형식으로 로 변환하기 */

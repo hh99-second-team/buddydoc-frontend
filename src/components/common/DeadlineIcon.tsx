@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDDayCounter } from '../../utils/dateUtils';
+import { getDDayCounter, getDayDiff } from '../../utils/dateUtils';
 import styled from 'styled-components';
 
 interface Props {
@@ -8,8 +8,13 @@ interface Props {
 
 const DeadlineIcon = ({ date }: Props) => {
   const deadlineLeft = getDDayCounter(date);
+  const dayDiff = getDayDiff(date);
 
-  return <DDayBox>{deadlineLeft}</DDayBox>;
+  return (
+    <DDayBox className={dayDiff > 0 ? 'closed' : dayDiff > -6 ? 'befFive' : dayDiff < -11 ? 'befTen' : 'cool'}>
+      {deadlineLeft}
+    </DDayBox>
+  );
 };
 
 const DDayBox = styled.div`
@@ -21,6 +26,19 @@ const DDayBox = styled.div`
   border-radius: 45.091px;
   background: #ff5858;
   color: white;
+
+  &.closed {
+    background: #ced0d3;
+  }
+  &.befFive {
+    background: #ff5858;
+  }
+  &.befTen {
+    background: #6196ff;
+  }
+  &.cool {
+    background: #434855;
+  }
 `;
 
 export default DeadlineIcon;

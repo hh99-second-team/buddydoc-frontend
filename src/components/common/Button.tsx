@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface ButtonProps {
-  size: 'small' | 'medium' | 'half' | 'full';
+  size: 'small' | 'medium' | 'large' | 'half' | 'full';
   color: string;
   children: React.ReactNode;
   onClick?: any;
@@ -48,6 +48,8 @@ const getButtonWidth = (size: string) => {
       return '5vw';
     case 'medium':
       return '8vw';
+    case 'large':
+      return '12vw';
     case 'half':
       return '50%';
     case 'full':

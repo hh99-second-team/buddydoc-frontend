@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 const dummyDatas = [
   {
-    category: 'study',
-    title: '웹개발 스터디1',
+    category: '스터디',
+    postTitle: '웹개발 스터디1',
     startDate: '2024.05.05',
     memberCount: 12,
   },
   {
-    category: 'project',
-    title: '웹 프로젝트2',
+    category: '프로젝트',
+    postTitle: '웹 프로젝트2',
     startDate: '20244.02.03',
     memberCount: 12,
   },
@@ -47,7 +47,7 @@ const dummyDatas = [
 
 function JoinList() {
   // 선택된 탭 상태관리
-  const [selectedTab, setSelectedTab] = useState('study');
+  const [selectedTab, setSelectedTab] = useState('스터디');
 
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
@@ -59,10 +59,10 @@ function JoinList() {
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {
-          case 'study':
+          case '스터디':
             acc.study++;
             break;
-          case 'project':
+          case '프로젝트':
             acc.project++;
             break;
           case 'coffeeChat':
@@ -87,7 +87,7 @@ function JoinList() {
   const renderData = (category: string) => {
     switch (category) {
       // category가 study인 데이터
-      case 'study':
+      case '스터디':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -97,14 +97,14 @@ function JoinList() {
               />
               <Category>스터디</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <ContentButton>스터디 홈</ContentButton>
             <DateInfo>시작일 : {data.startDate}</DateInfo>
           </ContentContainer>
         ));
       // category가 project인 데이터
-      case 'project':
+      case '프로젝트':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -114,7 +114,7 @@ function JoinList() {
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
-            <Title>{data.title}</Title>
+            <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
             <DateInfo>시작일 : {data.startDate}</DateInfo>
             <ContentButton>프로젝트 홈</ContentButton>
@@ -146,11 +146,11 @@ function JoinList() {
                 </MentorCareer>
               </MentorInfoText>
             </MentorInfoContainer>
-            <DateInfo>
+            <ScheduledDate>
               예정된 커피챗 : {data.scheduledDate}
               <br />
               {data.scheduledTime}
-            </DateInfo>
+            </ScheduledDate>
             <ContentButton>파트너 홈</ContentButton>
           </ContentContainer>
         ));
@@ -164,20 +164,20 @@ function JoinList() {
       <SideMenuHeader>현재 참여 목록</SideMenuHeader>
       <SideMenuDescription>현재 참여중인 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
       <SideMenuBody>
-        <Tabs.Root defaultValue="study">
+        <Tabs.Root defaultValue="스터디">
           <StyledTabsList>
             <StyledTabsTrigger
-              value="study"
-              onClick={() => setSelectedTab('study')}
-              aria-selected={selectedTab === 'study' ? 'true' : 'false'}>
+              value="스터디"
+              onClick={() => setSelectedTab('스터디')}
+              aria-selected={selectedTab === '스터디' ? 'true' : 'false'}>
               {studyCount}
               <br />
               스터디
             </StyledTabsTrigger>
             <StyledTabsTrigger
-              value="project"
-              onClick={() => setSelectedTab('project')}
-              aria-selected={selectedTab === 'project' ? 'true' : 'false'}>
+              value="프로젝트"
+              onClick={() => setSelectedTab('프로젝트')}
+              aria-selected={selectedTab === '프로젝트' ? 'true' : 'false'}>
               {projectCount}
               <br />
               프로젝트
@@ -192,8 +192,8 @@ function JoinList() {
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="study">{renderData('study')}</StyledTabsContent>
-            <StyledTabsContent value="project">{renderData('project')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
             <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>
@@ -205,22 +205,12 @@ function JoinList() {
 export default JoinList;
 
 const SideMenuHeader = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
   font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  font-weight: bold;
 `;
 const SideMenuDescription = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-size: 15px;
+  font-weight: bold;
 `;
 const SideMenuBody = styled.div`
   width: inherit;
@@ -229,14 +219,14 @@ const SideMenuBody = styled.div`
   margin-top: 30px;
 `;
 const StyledTabsList = styled(Tabs.List)`
-  width: 900px;
-  height: 100px;
+  width: 700px;
+  height: 90px;
   display: flex;
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 280px;
-  height: 100px;
+  width: 220px;
+  height: 100%;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 18px;
@@ -259,7 +249,7 @@ const StyledTabsContent = styled(Tabs.Content)`
 `;
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 230px;
+  min-height: 170px;
   background-color: lightgray;
   border-radius: 15px;
   padding: 30px;
@@ -269,49 +259,34 @@ const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 `;
 const Category = styled.p`
-  border: 1px solid gray;
+  border: 2px solid black;
   border-radius: 20px;
-  padding: 1px 12px;
-  font-size: 18px;
-  font-weight: 400;
+  padding: 1px 10px;
   background-color: #fff;
 `;
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
-const MemberCount = styled.p`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
+const Title = styled.h3``;
+const MemberCount = styled.h4`
+  margin: 0px;
 `;
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
   bottom: 30px;
   ${(props) => (props.left ? `left: ${props.left};` : 'right: 30px;')}
   margin: 0px;
-  font-weight: 700;
-  color: #787878;
-  text-align: end;
 `;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 40px;
+  top: 60px;
   right: 30px;
-  width: 170px;
-  height: 50px;
+  width: 150px;
+  height: 40px;
 `;
-const MentorName = styled.p`
-  font-size: 23px;
-  font-weight: bold;
+const MentorName = styled.h2`
   margin-bottom: 0px;
 `;
 const CompanyName = styled.p`
@@ -319,10 +294,18 @@ const CompanyName = styled.p`
 `;
 const MentorCareer = styled.p``;
 const MentorInfoContainer = styled.p`
-  margin: 30px 0 0 0;
+  margin: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
 `;
 const MentorInfoText = styled.p``;
+const ScheduledDate = styled.p`
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  margin: 0px;
+  display: flex;
+  text-align: end;
+`;

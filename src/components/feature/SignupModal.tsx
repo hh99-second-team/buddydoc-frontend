@@ -3,17 +3,11 @@ import Modal from '../common/Modal';
 import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import SkillsForm from './SkillsForm';
-
-interface InputVal {
-  nickname: string;
-  position: string;
-  career: string;
-  skills: string[];
-}
+import { SignUpType } from '../../types/commonTypes';
 
 const SignupModal = () => {
-  const [inputVal, setInputVal] = useState<InputVal>({
-    nickname: '',
+  const [inputVal, setInputVal] = useState<SignUpType>({
+    userNickname: '',
     position: '',
     career: '',
     skills: [],
@@ -24,7 +18,7 @@ const SignupModal = () => {
   const setSkills = (skills: string[]) => setInputVal({ ...inputVal, skills });
 
   return (
-    <Modal title="회원가입">
+    <Modal postTitle="회원가입">
       <Container>
         {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
         {pageNum === 2 && <SkillsForm inputVal={inputVal} setPrevPage={setPrevPage} setSkills={setSkills} />}

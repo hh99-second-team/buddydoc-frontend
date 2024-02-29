@@ -17,7 +17,7 @@ const NoteModal = ({ setIsOpen }: ModalProps) => {
   };
 
   return (
-    <Modal title="쪽지">
+    <Modal postTitle="쪽지">
       <Container>
         <Textarea
           placeholder="담당자에게 문의 내용을 남기세요."

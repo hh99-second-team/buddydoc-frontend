@@ -1,71 +1,125 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import * as Menubar from '@radix-ui/react-menubar';
 import styled from 'styled-components';
 import LoginModal from '../feature/LoginModal';
 import logoUrl from '../../assets/buddydoc-logo.png';
 import SignupModal from '../feature/SignupModal';
 import { ReactComponent as BellIcon } from '../../assets/bell-icon.svg';
 import { useNavigate } from 'react-router-dom';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
-import { isSignupOpenState } from '../../store/atomDefinitions';
+import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
+import SearchModal from '../feature/SearchModal';
+import emptyUserIcon from '../../assets/user-circle-icon.svg';
+import MenuBarTrigger from './menuBar/MenuBarTrigger';
+import PortalContent from './menuBar/PortalContent';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [isLoginOpen, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <Layout>
       <Logo src={logoUrl} alt="" onClick={() => navigate('/')} />
-      <ButtonSet>
-        <Dialog.Root>
+      <WideMenus>
+        <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
-            <NavButton>
-              <SearchBox>
-                <SearchButton>
-                  <MagnifyingGlassIcon />
-                </SearchButton>
-                <SearchInput type="text" placeholder="찾으려는 내용을 입력해주세요." />
-              </SearchBox>
-            </NavButton>
+            <StyledMagnifyingGlassIcon />
           </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
+          <Dialog.Portal>
+            <SearchModal onOpenChange={setIsSearchOpen} />
+          </Dialog.Portal>
         </Dialog.Root>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
+          <>
             <IconContainer>
-              <div>채팅</div>
+              <div onClick={() => navigate(`/chat`)}>채팅</div>
               <ChatNotificationDot />
             </IconContainer>
-          </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
-        </Dialog.Root>
-        <Dialog.Root>
-          <Dialog.Trigger asChild>
-            <IconContainer>
-              <BellIcon />
-              <NotificationDot />
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <IconContainer>
+                  <BellIcon />
+                  <NotificationDot />
+                </IconContainer>
+              </Dialog.Trigger>
+              <Dialog.Portal></Dialog.Portal>
+            </Dialog.Root>
+            <IconContainer onClick={() => navigate('/mypage')}>
+              <img src={emptyUserIcon} alt="" />
             </IconContainer>
-          </Dialog.Trigger>
-          <Dialog.Portal></Dialog.Portal>
-        </Dialog.Root>
-        <Dialog.Root>
+          </>
+        ) : (
+          <>
+            <Dialog.Root open={isLoginOpen} onOpenChange={setIsLoginOpen}>
+              <Dialog.Trigger asChild>
+                <NavButton>로그인</NavButton>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <LoginModal />
+              </Dialog.Portal>
+            </Dialog.Root>
+            <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+              <Dialog.Portal>
+                <SignupModal />
+              </Dialog.Portal>
+            </Dialog.Root>
+          </>
+        )}
+      </WideMenus>
+      <ToggleHeader>
+        <Dialog.Root open={isSearchOpen} onOpenChange={setIsSearchOpen}>
           <Dialog.Trigger asChild>
-            <NavButton>로그인</NavButton>
+            <StyledMagnifyingGlassIcon />
           </Dialog.Trigger>
           <Dialog.Portal>
-            <LoginModal />
+            <SearchModal onOpenChange={setIsSearchOpen} />
           </Dialog.Portal>
         </Dialog.Root>
-        <Dialog.Root open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-          <Dialog.Trigger asChild>
-            <NavButton>회원가입</NavButton>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <SignupModal />
-          </Dialog.Portal>
-        </Dialog.Root>
-      </ButtonSet>
+        {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
+          <>
+            <Menubar.Root>
+              <Menubar.Menu>
+                <MenuBarTrigger>
+                  <HamburgerMenuIcon />
+                  <PortalContent>
+                    <Menubar.Item>
+                      <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <IconContainer>
+                        <div onClick={() => navigate(`/chat`)}>채팅</div>
+                      </IconContainer>
+                    </Menubar.Item>
+                    <Menubar.Item>
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <IconContainer>
+                            <div>알림</div>
+                          </IconContainer>
+                        </Dialog.Trigger>
+                        <Dialog.Portal></Dialog.Portal>
+                      </Dialog.Root>
+                    </Menubar.Item>
+                  </PortalContent>
+                </MenuBarTrigger>
+              </Menubar.Menu>
+            </Menubar.Root>
+          </>
+        ) : (
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <div>로그인</div>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <LoginModal />
+            </Dialog.Portal>
+          </Dialog.Root>
+        )}
+      </ToggleHeader>
     </Layout>
   );
 };
@@ -74,105 +128,67 @@ const Layout = styled.div`
   position: sticky;
   top: 0;
   width: 100%;
-  height: 8vh;
-  padding: 0 2vw;
+  height: 4.375rem;
+  padding: 0 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
   background: #fff;
   z-index: 998;
-  box-shadow: 0 0 15px rgba(175, 175, 175, 0.5);
+  box-shadow: 0 0 1rem rgba(175, 175, 175, 0.5);
+  @media screen and (max-width: 768px) {
+    padding: 0 2rem;
+  }
 `;
 
 const Logo = styled.img`
-  width: 8vw;
+  width: 8rem;
 `;
 
-const ButtonSet = styled.div`
+const WideMenus = styled.ul`
   display: flex;
-  column-gap: 25px;
+  column-gap: 1.5625rem;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const ToggleHeader = styled.div`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+  }
 `;
 
 const NavButton = styled.div`
   cursor: pointer;
   text-align: center;
+  padding: 1rem 0;
+  @media screen and (max-width: 768px) {
+    border-bottom: 0.6px solid #e2e3e5;
+  }
 
   &:hover {
     color: #686868;
   }
 `;
 
-const SearchBox = styled.div`
-  width: fit-content;
-  height: fit-content;
-  position: relative;
-`;
-
-const SearchInput = styled.input`
-  height: 30px;
-  width: 30px;
-  border-style: none;
-  letter-spacing: 2px;
-  outline: none;
-  border-radius: 50%;
-  transition: all 0.5s ease-in-out;
-  background-color: #fff;
-  padding-right: 40px;
-  color: black;
-
-  &::placeholder {
-    color: black;
-    letter-spacing: 2px;
-    font-weight: 100;
-  }
-
-  &:focus {
-    width: 250px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid #bfc0c4;
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
-`;
-
-const SearchButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border-style: none;
-  font-size: 20px;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-  border-radius: 50%;
-  position: absolute;
-  right: 0px;
-  color: black;
-  background-color: transparent;
-  pointer-events: painted;
-
-  &:focus ~ ${SearchInput} {
-    width: 250px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid #bfc0c4;
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
-
-  & > svg {
-    width: 18px;
-    height: 18px;
-  }
-`;
-
 const IconContainer = styled(NavButton)`
   position: relative;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const NotificationDot = styled.div`
   position: absolute;
-  top: 0;
+  top: 1rem;
   right: -5px;
   width: 7px;
   height: 7px;
@@ -182,6 +198,11 @@ const NotificationDot = styled.div`
 
 const ChatNotificationDot = styled(NotificationDot)`
   right: -9px;
+`;
+
+const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 export default Navbar;

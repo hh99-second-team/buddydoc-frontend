@@ -1,48 +1,54 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
-import { CaretDownIcon } from '@radix-ui/react-icons';
-import { skills, positions, career } from '../../../constants/data';
+import { useNavigate } from 'react-router-dom';
+// import { CaretDownIcon } from '@radix-ui/react-icons';
 
 function ManageProfile() {
+  const navigate = useNavigate();
   // 분야 상태관리
-  const [selectedPositionItem, setSelectedPositionItem] = useState<string>('분야 선택');
+  const [selectedPositionItem, setSelectedPositionItem] = useState('프론트엔드');
   // 경력 상태관리
-  const [selectedCareerItem, setSelectedCareerItem] = useState<string>('경력 선택');
-  // 드롭박스에서 선택된 기술스택 상태관리
-  const [selectedTechSkills, setSelectedTechSkills] = useState<string>('기술스택 선택');
-  // 내 기술스택 상태관리
-  // const [myTechSkills, setMyTechSkills] = useState<string[]>([]);
+  const [selectedCareerItem, setSelectedCareerItem] = useState('신입');
+  // 기술스택 상태관리
+  const [selectedTechSkillItem, setSelectedTechSkillItem] = useState('React');
+
+  // 로그아웃
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   // 드롭다운 생성함수
-  const dropdownSetter = (selectedItem: any, contents: string[], category: string) => {
+  const dropdownSetter = (selectedItem: string, contents: string[], category: string) => {
     return (
       <ProfileItemContentContainer>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Button
               variant="solid"
-              highContrast
+              color="cyan"
               style={{
-                width: '550px',
+                width: '500px',
                 height: '36px',
                 justifyContent: 'space-between',
               }}>
               {selectedItem}
-              <CaretDownIcon />
+              {/* <CaretDownIcon /> */}
             </Button>
           </DropdownMenu.Trigger>
-          <DropdownMenuContent>
+          <DropdownMenu.Content style={{ width: '500px' }}>
             {contents.map((item, index) => (
-              <DropdownMenuItem
+              <DropdownMenu.Item
                 key={index}
                 onClick={() => {
                   dropdownCategoryHandler(category, item);
-                }}>
+                }}
+                style={{ justifyContent: 'center' }}>
                 {item}
-              </DropdownMenuItem>
+              </DropdownMenu.Item>
             ))}
-          </DropdownMenuContent>
+          </DropdownMenu.Content>
         </DropdownMenu.Root>
       </ProfileItemContentContainer>
     );
@@ -54,7 +60,7 @@ function ManageProfile() {
       setSelectedPositionItem(item);
     }
     if (category === 'techSkill') {
-      setSelectedTechSkills(item);
+      setSelectedTechSkillItem(item);
     }
     if (category === 'career') {
       setSelectedCareerItem(item);
@@ -69,7 +75,7 @@ function ManageProfile() {
         </Button>
       </SideMenuHeader>
       <SideMenuBody>
-        {/* 프로필 정보 title */}
+        {/* 프로필 정보 postTitle */}
         <ProfileItemTitleGroup>
           <ProfileItemTitle>프로필 사진</ProfileItemTitle>
           <ProfileItemTitle marginTop="170px">닉네임</ProfileItemTitle>
@@ -94,17 +100,17 @@ function ManageProfile() {
 
           {/* 분야 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedPositionItem, positions, 'position')}
+            {dropdownSetter(selectedPositionItem, ['프론트엔드', '백엔드', '디자이너 '], 'position')}
           </ProfileItemContentContainer>
 
           {/* 분야 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedCareerItem, career, 'career')}
+            {dropdownSetter(selectedCareerItem, ['신입', '1년', '2년'], 'career')}
           </ProfileItemContentContainer>
 
           {/* 기술 스택 */}
           <ProfileItemContentContainer>
-            {dropdownSetter(selectedTechSkills, skills, 'techSkill')}
+            {dropdownSetter(selectedTechSkillItem, ['React', 'Spring', 'Node.js'], 'techSkill')}
           </ProfileItemContentContainer>
 
           {/* 한 줄 소개 */}
@@ -128,6 +134,22 @@ function ManageProfile() {
               + 추가
             </Button>
           </ProfileItemContentContainer>
+          <ProfileItemContentContainer>
+            <Button
+              style={{
+                width: '100%',
+                fontWeight: 'bold',
+                backgroundColor: '#007DFa',
+                color: '#fff',
+                fontSize: '17px',
+                marginTop: '10px',
+                padding: '0px',
+                cursor: 'pointer',
+              }}
+              onClick={handleLogout}>
+              로그아웃
+            </Button>
+          </ProfileItemContentContainer>
         </ProfileItemContentGroup>
       </SideMenuBody>
     </>
@@ -145,7 +167,7 @@ const SideMenuHeader = styled.div`
   gap: 10px;
 `;
 const SideMenuBody = styled.div`
-  width: 900px;
+  width: inherit;
   display: flex;
   flex-direction: row;
   margin-top: 30px;
@@ -154,7 +176,7 @@ const ProfileItemTitleGroup = styled.div`
   width: 200px;
   padding-left: 30px;
 `;
-const ProfileItemTitle = styled.p<{ marginTop?: string }>`
+const ProfileItemTitle = styled.h4<{ marginTop?: string }>`
   font-size: 18px;
   font-weight: bold;
   margin-top: ${(props) => props.marginTop || '0px'};
@@ -167,23 +189,6 @@ const ProfileItemContentGroup = styled.div`
 const ProfileItemContentContainer = styled.div`
   margin-bottom: 40px;
 `;
-const DropdownMenuContent = styled(DropdownMenu.Content)`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 15px;
-  column-gap: 10px;
-  width: 550px;
-`;
-const DropdownMenuItem = styled(DropdownMenu.Item)`
-  display: flex;
-  padding: 10px 16px;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  font-size: 14px;
-  justify-content: 'center';
-`;
 const ProfifleItemContentImage = styled.div`
   width: 150px;
   height: 150px;
@@ -191,7 +196,7 @@ const ProfifleItemContentImage = styled.div`
   background-color: #e2e3e5;
 `;
 const ProfileInput = styled.input`
-  width: 550px;
+  width: 400px;
   height: ${(props) => props.height || '40px'};
   border-radius: 10px;
   border: 1px solid #d6d6d6;

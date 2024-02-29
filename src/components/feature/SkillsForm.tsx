@@ -1,46 +1,55 @@
 import React, { useState } from 'react';
 import Button from '../common/Button';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { skills } from '../../constants/data';
 import api from '../../services/api';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
+import * as ScrollArea from '@radix-ui/react-scroll-area';
+import SelectedIcon from '../common/SelectedIcon';
+import { SignUpType } from '../../types/commonTypes';
 
 interface FormProps {
-  inputVal: any;
+  inputVal: SignUpType;
   setPrevPage: () => void;
   setSkills: (skills: string[]) => void;
 }
 
 const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const onChangeSkills = (value: string[]) => setSelectedSkills(value);
 
   const handleSubmit = async () => {
     setSkills(selectedSkills);
-    const response = await api.signup(inputVal);
-    console.log(response);
-    setIsSignupOpen(false);
+
+    if (!skills.length) {
+      alert('기술 스택을 선택하세요.');
+    }
+
+    if (localStorage.getItem('accessToken')) {
+      await api.signup(inputVal);
+      setIsSignupOpen(false);
+    }
   };
 
   return (
-    <div>
-      <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
-        {skills.map((skill, idx) => (
-          <SkillItem key={idx} value={skill}>
-            {skill}
-          </SkillItem>
-        ))}
-      </SkillBox>
-      <Title>나의 기술 스택</Title>
-      <SelectedSkillBox>
-        {selectedSkills.map((skill, idx) => (
-          <SelectedSkillItem key={idx}>{skill}</SelectedSkillItem>
-        ))}
-      </SelectedSkillBox>
+    <ScrollAreaRoot>
+      <Title>
+        기술 스택 선택<span> *</span>
+      </Title>
+      <ScrollAreaViewport>
+        <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
+          {skills.map((skill, idx) => (
+            <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
+              <SelectedIcon type="skill" item={skill} removeBtn={false} />
+            </SkillItem>
+          ))}
+        </SkillBox>
+      </ScrollAreaViewport>
+
       <ButtonSet>
         <Button size="full" color="primary" onClick={setPrevPage}>
           이전
@@ -49,64 +58,69 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
           완료
         </Button>
       </ButtonSet>
-    </div>
+      <ScrollArea.Scrollbar orientation="vertical">
+        <ScrollArea.Corner />
+      </ScrollArea.Scrollbar>
+    </ScrollAreaRoot>
   );
 };
 
-const SkillBoxStyles = css`
+const ScrollAreaRoot = styled(ScrollArea.Root)`
+  overflow: hidden;
+`;
+
+const ScrollAreaViewport = styled(ScrollArea.Viewport)`
+  height: 450px;
+  border-radius: 12px;
+  border: 1px solid var(--grey02, #e2e3e5);
+  background: var(--white, #fff);
+  padding: 2rem;
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+`;
+
+const SkillBox = styled(ToggleGroup.Root)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 15px;
   column-gap: 10px;
-`;
-
-const SkillBox = styled(ToggleGroup.Root)`
-  ${SkillBoxStyles};
-`;
-
-const SelectedSkillBox = styled.div`
-  ${SkillBoxStyles};
-  border-radius: 10px;
-  margin-top: 10px;
-`;
-
-const SkillItemStyles = css`
-  display: flex;
-  padding: 10px 16px;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  font-size: 14px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const SkillItem = styled(ToggleGroup.Item)`
-  ${SkillItemStyles};
   background: #fff;
-
-  &:hover {
-    background-color: #f9fafc;
+  padding: 0;
+  border: none;
+  & > div {
+    &:hover {
+      background-color: #f9fafc;
+    }
   }
+
   &[data-state='on'] {
-    background-color: var(--grey02, #e2e3e5);
+    & > div {
+      background-color: var(--grey02, #e2e3e5);
+    }
   }
-`;
-
-const SelectedSkillItem = styled.div`
-  ${SkillItemStyles}
-  background-color: var(--grey02, #e2e3e5);
 `;
 
 const Title = styled.p`
-  text-align: center;
-  margin-top: 40px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+
+  & > span {
+    color: rgb(224, 67, 53);
+  }
 `;
 
 const ButtonSet = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 20px;
-  margin-top: 30px;
+  margin-top: 2rem;
 `;
 
 export default SkillsForm;
