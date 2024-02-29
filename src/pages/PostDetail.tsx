@@ -40,16 +40,18 @@ const PostDetail = () => {
     <Layout>
       {!isLoading && <DetailHeader post={data!} />}
       {!isLoading && <GatherInfo post={data!} />}
-      <ButtonSet>
-        <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
-          <Button size="full" color="primary" onClick={handleApplicationBtn}>
-            신청하기
-          </Button>
-          <Dialog.Portal>
-            <ApplicationModal postId={postId} setIsOpen={setIsApplicationModalOpen} />
-          </Dialog.Portal>
-        </Dialog.Root>
-        {/* <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
+
+      {Number(localStorage.getItem('userId')) !== data?.user.userId && (
+        <ButtonSet>
+          <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
+            <Button size="full" color="primary" onClick={handleApplicationBtn}>
+              신청하기
+            </Button>
+            <Dialog.Portal>
+              <ApplicationModal postId={postId} setIsOpen={setIsApplicationModalOpen} />
+            </Dialog.Portal>
+          </Dialog.Root>
+          {/* <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
           <Dialog.Trigger asChild>
             <Button size="half" color="black">
               문의하기
@@ -59,7 +61,8 @@ const PostDetail = () => {
             <NoteModal setIsOpen={setIsNoteModalOpen} />
           </Dialog.Portal>
         </Dialog.Root> */}
-      </ButtonSet>
+        </ButtonSet>
+      )}
       <PostViewer>{!isLoading && <Viewer initialValue={data?.content} />}</PostViewer>
     </Layout>
   );

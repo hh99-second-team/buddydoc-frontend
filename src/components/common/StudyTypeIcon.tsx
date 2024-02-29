@@ -6,7 +6,7 @@ interface Props {
 }
 
 const StudyTypeIcon = ({ children }: Props) => {
-  return <TypeBox>{children === 'study' ? '스터디' : '프로젝트'}</TypeBox>;
+  return <TypeBox>{children === '스터디' ? '스터디' : '프로젝트'}</TypeBox>;
 };
 
 const TypeBox = styled.div`

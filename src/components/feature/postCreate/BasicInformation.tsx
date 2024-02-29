@@ -89,49 +89,49 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           />
         </InputBox>
       </GridBox>
-      {inputVal.postType === '프로젝트' && (
-        <StyledGrid>
-          <InputBox>
-            <p>필요 포지션</p>
-            <MultiSelectedGrid>
-              <Select
-                selectValue={inputVal.position[inputVal.position.length - 1]}
-                onValueChange={onChangePositions}
-                items={positions}
-                placeholder="필요한 포지션을 선택하세요."
-              />
-              <SelectedBox>
-                {inputVal.position.map((position) => (
-                  <SelectedIcon
-                    key={position}
-                    type="position"
-                    item={position}
-                    onRemove={handlePositionRemove}
-                    removeBtn={true}
-                  />
-                ))}
-              </SelectedBox>
-            </MultiSelectedGrid>
-          </InputBox>
+      {/* {inputVal.postType === '프로젝트' && ( */}
+      <StyledGrid>
+        <InputBox>
+          <p>필요 포지션</p>
+          <MultiSelectedGrid>
+            <Select
+              selectValue={inputVal.position[inputVal.position.length - 1]}
+              onValueChange={onChangePositions}
+              items={positions}
+              placeholder="필요한 포지션을 선택하세요."
+            />
+            <SelectedBox>
+              {inputVal.position.map((position) => (
+                <SelectedIcon
+                  key={position}
+                  type="position"
+                  item={position}
+                  onRemove={handlePositionRemove}
+                  removeBtn={true}
+                />
+              ))}
+            </SelectedBox>
+          </MultiSelectedGrid>
+        </InputBox>
 
-          <InputBox>
-            <p>기술 스택</p>
-            <MultiSelectedGrid>
-              <Select
-                selectValue={inputVal.skillList[inputVal.skillList.length - 1]}
-                onValueChange={onChangeSkills}
-                items={skills}
-                placeholder="필요 기술 스택을 선택하세요."
-              />
-              <SelectedBox>
-                {inputVal.skillList.map((skill) => (
-                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
-                ))}
-              </SelectedBox>
-            </MultiSelectedGrid>
-          </InputBox>
-        </StyledGrid>
-      )}
+        <InputBox>
+          <p>기술 스택</p>
+          <MultiSelectedGrid>
+            <Select
+              selectValue={inputVal.skillList[inputVal.skillList.length - 1]}
+              onValueChange={onChangeSkills}
+              items={skills}
+              placeholder="필요 기술 스택을 선택하세요."
+            />
+            <SelectedBox>
+              {inputVal.skillList.map((skill) => (
+                <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
+              ))}
+            </SelectedBox>
+          </MultiSelectedGrid>
+        </InputBox>
+      </StyledGrid>
+      {/* )} */}
     </div>
   );
 };
