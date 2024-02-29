@@ -120,7 +120,7 @@ const api = {
 
   /** 내 정보 작성 게시글 목록 */
   getMyPosts: async () => {
-    const response = await axiosInstance.get('/user/posts');
+    const response = await axiosInstance.get('/user/my-posts');
     return response.data;
   },
 

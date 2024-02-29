@@ -16,33 +16,6 @@ const dummyDatas = [
     period: '2024.05.05 ~ 2025.05.05',
     participationStatus: '참여 완료',
   },
-  {
-    category: 'coffeeChat',
-    MentorName: 'JY Kim',
-    companyName: 'company A',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 프론트엔드',
-    career: 5,
-  },
-  {
-    category: 'coffeeChat',
-    MentorName: 'HW Lim',
-    companyName: 'company B',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 백엔드',
-    career: 6,
-  },
-  {
-    category: 'coffeeChat',
-    MentorName: 'GD Hong',
-    companyName: 'company C',
-    period: '2024.05.05 ~ 2025.05.05',
-    participationStatus: '참여 완료',
-    devPosition: '개발팀 백엔드',
-    career: 7,
-  },
 ];
 
 function LikeList() {
@@ -51,7 +24,6 @@ function LikeList() {
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
-  const [coffeeChatCount, setCoffeeChatCount] = useState(0);
 
   // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
@@ -64,19 +36,15 @@ function LikeList() {
           case '프로젝트':
             acc.project++;
             break;
-          case 'coffeeChat':
-            acc.coffeeChat++;
-            break;
           default:
             break;
         }
         return acc;
       },
-      { study: 0, project: 0, coffeeChat: 0 }
+      { study: 0, project: 0 }
     );
     setStudyCount(counts.study);
     setProjectCount(counts.project);
-    setCoffeeChatCount(counts.coffeeChat);
   }, []);
 
   // 각 활동 탭에 해당하는 데이터 분류해주는 함수
@@ -119,37 +87,6 @@ function LikeList() {
             <ContentButton>프로젝트 홈</ContentButton>
           </ContentContainer>
         ));
-      // category가 coffeeChat인 데이터
-      case 'coffeeChat':
-        return filteredData.map((data, index) => (
-          <ContentContainer key={index}>
-            <CategoryContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="studyIcon"
-              />
-              <Category>커피챗</Category>
-            </CategoryContainer>
-            <MentorInfoContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="MentorProfileImage"
-                size="7"
-                radius="full"
-              />
-              <MentorInfoText>
-                <MentorName>{data.MentorName}</MentorName>
-                <CompanyName>{data.companyName}</CompanyName>
-                <MentorCareer>
-                  {data.devPosition} / {data.career}년
-                </MentorCareer>
-              </MentorInfoText>
-            </MentorInfoContainer>
-            <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
-            <DateInfo>기간 : {data.period}</DateInfo>
-            <ContentButton>파트너 홈</ContentButton>
-          </ContentContainer>
-        ));
       default:
         return <p>참여중인 목록이 없습니다.</p>;
     }
@@ -177,14 +114,6 @@ function LikeList() {
               <br />
               프로젝트
             </StyledTabsTrigger>
-            <StyledTabsTrigger
-              value="coffeeChat"
-              onClick={() => setSelectedTab('coffeeChat')}
-              aria-selected={selectedTab === 'coffeeChat' ? 'true' : 'false'}>
-              {coffeeChatCount}
-              <br />
-              커피챗
-            </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
             <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
@@ -200,12 +129,22 @@ function LikeList() {
 export default LikeList;
 
 const SideMenuHeader = styled.div`
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
   font-size: 30px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 `;
 const SideMenuDescription = styled.div`
-  font-size: 15px;
-  font-weight: bold;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 const SideMenuBody = styled.div`
   width: inherit;
@@ -214,14 +153,14 @@ const SideMenuBody = styled.div`
   margin-top: 30px;
 `;
 const StyledTabsList = styled(Tabs.List)`
-  width: 700px;
-  height: 90px;
+  width: 900px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
 `;
 const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 220px;
-  height: 100%;
+  width: 435px;
+  height: 100px;
   border: 2px solid black;
   border-radius: 10px;
   font-size: 18px;
@@ -244,8 +183,8 @@ const StyledTabsContent = styled(Tabs.Content)`
 `;
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 170px;
-  background-color: lightgray;
+  min-height: 230px;
+  background-color: #e6e6e6;
   border-radius: 15px;
   padding: 30px;
   margin-bottom: 15px;
@@ -254,15 +193,21 @@ const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 `;
 const Category = styled.p`
-  border: 2px solid black;
+  border: 2px solid gray;
   border-radius: 20px;
-  padding: 1px 10px;
+  padding: 1px 12px;
+  font-size: 18px;
+  font-weight: 700;
   background-color: #fff;
 `;
-const Title = styled.h3``;
+const Title = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 15px;
+`;
 const ParticipationStatus = styled.h4`
   position: absolute;
   bottom: 10px;
@@ -273,28 +218,18 @@ const DateInfo = styled.p<{ left?: string }>`
   bottom: 30px;
   ${(props) => (props.left ? `left: ${props.left};` : 'right: 30px;')}
   margin: 0px;
+  font-weight: 700;
+  color: #787878;
+  text-align: end;
 `;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
-  top: 60px;
+  font-weight: 800;
+  font-size: 18px;
+  top: 40px;
   right: 30px;
-  width: 150px;
-  height: 40px;
+  width: 170px;
+  height: 50px;
 `;
-const MentorName = styled.h2`
-  margin-bottom: 0px;
-`;
-const CompanyName = styled.p`
-  margin: 0px;
-`;
-const MentorCareer = styled.p``;
-const MentorInfoContainer = styled.p`
-  margin: 0 0 30px 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-`;
-const MentorInfoText = styled.p``;
