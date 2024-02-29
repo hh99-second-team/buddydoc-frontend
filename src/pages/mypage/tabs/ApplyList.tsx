@@ -136,9 +136,9 @@ function ApplyList() {
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
-            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
-            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{mypageMainRender('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{mypageMainRender('프로젝트')}</StyledTabsContent>
+            <StyledTabsContent value="coffeeChat">{mypageMainRender('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>
       </SideMenuBody>

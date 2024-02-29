@@ -6,9 +6,9 @@ import { Layout } from '../styles/GlobalStyles';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const SearchPage = () => {
-  const params = useParams();
+  const { search } = useParams();
   const navigate = useNavigate();
-  const [searchTitle, setsearchTitle] = useState(params.word);
+  const [searchTitle, setsearchTitle] = useState(search);
 
   const handleSearchButton = () => navigate(`/search/${searchTitle}`);
 

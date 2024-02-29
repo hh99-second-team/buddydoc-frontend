@@ -18,12 +18,12 @@ const Router = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:id" element={<PostDetail />} />
+        <Route path="/:postId" element={<PostDetail />} />
         <Route path="/create" element={<PostCreate />} />
         <Route path="/modify/:postId" element={<PostModify />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/chatpage" element={<ChatPage />} />
-        <Route path="/search/:word" element={<SearchPage />} />
+        <Route path="/search/:search" element={<SearchPage />} />
         <Route path="/callback" element={<OauthCallBack />} />
       </Routes>
       <Footer />
