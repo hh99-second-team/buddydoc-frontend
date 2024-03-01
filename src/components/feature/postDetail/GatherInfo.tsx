@@ -45,6 +45,9 @@ const Content = styled.div`
   }
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
+    & > *:nth-child(n + 7) {
+      grid-column: 1; /* 네 번째 줄에 있는 요소는 1열로 설정 */
+    }
   }
 `;
 

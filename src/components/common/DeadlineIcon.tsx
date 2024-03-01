@@ -23,7 +23,7 @@ const DDayBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 6.442px;
-  border-radius: 45.091px;
+  border-radius: 12px;
   background: #ff5858;
   color: white;
 

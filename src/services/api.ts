@@ -22,7 +22,7 @@ const axiosInstance: AxiosInstance = axios.create({
 const api = {
   /** 게시물 목록 조회 */
   getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
-    const response = await axiosInstance.get('/post', { params: { lastPostId, postType } });
+    const response = await axiosInstance.get('/post', { params: { orderBy: 'createdAt', lastPostId, postType } });
     return response.data;
   },
 

@@ -5,7 +5,7 @@ import topIcon from '../../assets/top.icon.png';
 const TopButton = () => {
   const [isShowButton, setIsShowButton] = useState<boolean>(false);
 
-  const ScrollToTop = () => {
+  const ScrollTop = () => {
     window.scroll({
       top: 0,
       behavior: 'smooth',
@@ -28,7 +28,7 @@ const TopButton = () => {
 
   return (
     <>
-      <GoToTopButton src={topIcon} alt="" className={isShowButton ? 'show' : ''} onClick={ScrollToTop} />
+      <GoToTopButton src={topIcon} alt="" className={isShowButton ? 'show' : ''} onClick={ScrollTop} />
     </>
   );
 };
