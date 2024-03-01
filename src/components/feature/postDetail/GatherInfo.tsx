@@ -4,6 +4,7 @@ import SkillList from '../../common/SkillList';
 import { getDateFomat } from '../../../utils/dateUtils';
 import { PostDetailType } from '../../../types/commonTypes';
 import { gatherInfo } from '../../../constants/data';
+import SelectedIcon from '../../common/SelectedIcon';
 
 const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const gatherContent: { [key: string]: any } = {
@@ -21,7 +22,13 @@ const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
       {gatherInfo.map((info) => (
         <Info key={info}>
           <p>{info}</p>
-          {info === '기술 스택' ? <SkillList skillList={gatherContent[info]} /> : <p>{gatherContent[info]}</p>}
+          {info === '기술 스택' ? (
+            <SkillList skillList={gatherContent[info]} />
+          ) : info === '모집 분야' ? (
+            <p>{gatherContent[info].join(' / ')}</p>
+          ) : (
+            <p>{gatherContent[info]}</p>
+          )}
         </Info>
       ))}
     </Content>
