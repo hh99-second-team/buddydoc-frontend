@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
 import { CaretDownIcon } from '@radix-ui/react-icons';
-import { skills, positions, career } from '../../../constants/data';
+import { skills, positions, career } from '../../../../constants/data';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../services/api';
-import { UserType } from '../../../types/commonTypes';
+import api from '../../../../services/api';
+import { UserType } from '../../../../types/commonTypes';
 // import { CaretDownIcon } from '@radix-ui/react-icons';
 
 function ManageProfile() {

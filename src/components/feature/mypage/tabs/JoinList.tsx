@@ -1,49 +1,51 @@
+import { Avatar, Box, Button } from '@radix-ui/themes';
+import * as Tabs from '@radix-ui/react-tabs';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import * as Tabs from '@radix-ui/react-tabs';
-import { Avatar, Box, Button } from '@radix-ui/themes';
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
 const dummyDatas = [
   {
     category: '스터디',
-    postTitle: '웹 개발 모각코 스터디1',
-    applyDate: '2024.02.03',
-    applyStatus: '대기중',
-    memberCount: 5,
-  },
-  {
-    category: '스터디',
-    postTitle: '웹 개발 모각코 스터디2',
-    applyDate: '2024.02.04',
-    applyStatus: '불발',
-    memberCount: 5,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트1',
-    applyDate: '20244.02.03',
-    applyStatus: '불발',
-    memberCount: 10,
+    postTitle: '웹개발 스터디1',
+    startDate: '2024.05.05',
+    memberCount: 12,
   },
   {
     category: '프로젝트',
     postTitle: '웹 프로젝트2',
-    applyDate: '20244.02.04',
-    applyStatus: '대기중',
-    memberCount: 11,
+    startDate: '20244.02.03',
+    memberCount: 12,
   },
 ];
 
-function ApplyList() {
+function JoinList() {
   // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('스터디');
 
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
+  // const [myStudyLists, setMyStudyLists] = useState<>();
 
-  // 페이지 렌더링할때 카테고리별 데이터 개수를 계산하여 useState에 설정
+  // 내 정보 참여 스터디 목록 api 호출
+  const fetchMyStudylists = async () => {
+    try {
+      const response = await api.getMyStudylists(); // API 호출
+      console.log(response);
+      // setMyStudyLists(response); // 가져온 정보를 상태에 저장
+    } catch (error) {
+      console.error('Error fetching my studylists:', error);
+      // 에러 처리
+    }
+  };
+
+  // 페이지 로드 시 내가 참여중인 스터디리스트 가져오기
+  useEffect(() => {
+    fetchMyStudylists();
+  }, []);
+
+  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
     const counts = dummyDatas.reduce(
       (acc, data) => {
@@ -65,7 +67,11 @@ function ApplyList() {
     setProjectCount(counts.project);
   }, []);
 
-  const mypageMainRender = (category: string) => {
+  // 각 활동 탭에 해당하는 데이터 분류해주는 함수
+  const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
+
+  // 분류에 따라 content를 다르게 렌더링하는 함수
+  const renderData = (category: string) => {
     switch (category) {
       // category가 study인 데이터
       case '스터디':
@@ -80,9 +86,8 @@ function ApplyList() {
             </CategoryContainer>
             <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
-            <ApplyStatus>{data.applyStatus}</ApplyStatus>
             <ContentButton>스터디 홈</ContentButton>
-            <DateInfo>신청일 : {data.applyDate}</DateInfo>
+            <DateInfo>시작일 : {data.startDate}</DateInfo>
           </ContentContainer>
         ));
       // category가 project인 데이터
@@ -92,29 +97,25 @@ function ApplyList() {
             <CategoryContainer>
               <Avatar
                 src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="projectIcon"
+                fallback="studyIcon"
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
             <Title>{data.postTitle}</Title>
             <MemberCount>{data.memberCount}</MemberCount>
-            <ApplyStatus>{data.applyStatus}</ApplyStatus>
+            <DateInfo>시작일 : {data.startDate}</DateInfo>
             <ContentButton>프로젝트 홈</ContentButton>
-            <DateInfo>신청일 : {data.applyDate}</DateInfo>
           </ContentContainer>
         ));
       default:
-        return <p>신청한 목록이 없습니다.</p>;
+        return <p>참여중인 목록이 없습니다.</p>;
     }
   };
 
-  // 각 활동 탭에 해당하는 데이터를 분류해주는 함수
-  const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
-
   return (
     <>
-      <SideMenuHeader>내 신청 현황</SideMenuHeader>
-      <SideMenuDescription>신청한 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
+      <SideMenuHeader>현재 참여 목록</SideMenuHeader>
+      <SideMenuDescription>현재 참여중인 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
       <SideMenuBody>
         <Tabs.Root defaultValue="스터디">
           <StyledTabsList>
@@ -136,9 +137,9 @@ function ApplyList() {
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="스터디">{mypageMainRender('스터디')}</StyledTabsContent>
-            <StyledTabsContent value="프로젝트">{mypageMainRender('프로젝트')}</StyledTabsContent>
-            <StyledTabsContent value="coffeeChat">{mypageMainRender('coffeeChat')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
+            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>
       </SideMenuBody>
@@ -146,7 +147,7 @@ function ApplyList() {
   );
 }
 
-export default ApplyList;
+export default JoinList;
 
 const SideMenuHeader = styled.div`
   color: #000;
@@ -242,23 +243,13 @@ const DateInfo = styled.p<{ left?: string }>`
   color: #787878;
   text-align: end;
 `;
-const ApplyStatus = styled.div`
-  position: absolute;
-  font-weight: 700;
-  border: 2px solid black;
-  border-radius: 10px;
-  top: 20px;
-  right: 30px;
-  padding: 3px 5px;
-  background-color: #fff;
-`;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
   font-weight: 800;
   font-size: 18px;
-  top: 60px;
+  top: 40px;
   right: 30px;
   width: 170px;
   height: 50px;

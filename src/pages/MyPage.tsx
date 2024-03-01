@@ -3,8 +3,8 @@ import '@radix-ui/themes/styles.css';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 // import SimpleProfileInfo from "./components/mypage/SimpleProfileInfo";
-import SideBar from './mypage/Sidebar';
-import SideMenu from './mypage/SideMenu';
+import SideBar from '../components/feature/mypage/Sidebar';
+import SideMenu from '../components/feature/mypage/SideMenu';
 
 const MyPage = () => {
   return (

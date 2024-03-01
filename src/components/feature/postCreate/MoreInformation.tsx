@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Input from '../../common/Input';
 import { Editor } from '@toast-ui/react-editor';
