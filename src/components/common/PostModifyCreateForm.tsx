@@ -6,6 +6,8 @@ import { PostCreateType } from '../../types/commonTypes';
 import styled from 'styled-components';
 import { Layout } from '../../styles/GlobalStyles';
 import Button from './Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   inputVal: PostCreateType;
@@ -28,7 +30,7 @@ const PostModifyCreateForm = ({ inputVal, setInputVal, handleSubmit }: Props) =>
       !inputVal.position.length ||
       !inputVal.skillList.length
     ) {
-      alert('모든 항목을 입력해주세요!');
+      toast.error('모든 항목을 입력해주세요.');
       return;
     }
 
@@ -47,6 +49,18 @@ const PostModifyCreateForm = ({ inputVal, setInputVal, handleSubmit }: Props) =>
           등록
         </Button>
       </ButtonSet>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </CreateLayout>
   );
 };

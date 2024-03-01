@@ -65,8 +65,8 @@ const api = {
   },
 
   /** 참여 신청하기 */
-  createApplication: async (postId: string, noti_message: string) => {
-    const response = await axiosInstance.post(`/post/${postId}/noti`, { noti_message });
+  createApplication: async (postId: string, applicationInfo: { position: string; noti_message: string }) => {
+    const response = await axiosInstance.post(`/post/${postId}/noti`, applicationInfo);
     return response.data;
   },
 

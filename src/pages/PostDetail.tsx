@@ -45,7 +45,7 @@ const PostDetail = () => {
               신청하기
             </Button>
             <Dialog.Portal>
-              <ApplicationModal postId={postId!} setIsOpen={setIsApplicationModalOpen} />
+              <ApplicationModal postId={postId!} setIsOpen={setIsApplicationModalOpen} positionList={data?.position!} />
             </Dialog.Portal>
           </Dialog.Root>
           {/* <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
