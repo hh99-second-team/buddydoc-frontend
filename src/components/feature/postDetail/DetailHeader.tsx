@@ -53,7 +53,9 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
-                  <StyledDotsVerticalIcon />
+                  <IconButton aria-label="Customise options">
+                    <DotsVerticalIcon />
+                  </IconButton>
                   <PortalContent>
                     <Menubar.Item>
                       <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>
@@ -162,11 +164,24 @@ const NavButton = styled.div`
   }
 `;
 
-const StyledDotsVerticalIcon = styled(DotsVerticalIcon)`
-  cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: black;
+const IconButton = styled.button`
+  all: unset;
+  font-family: inherit;
+  border-radius: 100%;
+  height: 2rem;
+  width: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--grey01, #f9fafc);
+  border: 1px solid #f9fafc;
+  box-shadow: 0 2px 8px var(--grey03, #ced0d3);
+  &:hover {
+    background-color: var(--grey01, #e2e3e5);
+  }
+  &:focus {
+    box-shadow: 0 0 0 2px gray;
+  }
 `;
 
 export default DetailHeader;
