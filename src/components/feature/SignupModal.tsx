@@ -10,12 +10,12 @@ const SignupModal = () => {
     userNickname: '',
     position: '',
     career: '',
-    skills: [],
+    skillList: [],
   });
   const [pageNum, setPageNum] = useState(1);
   const setPrevPage = () => setPageNum(1);
   const setNextPage = () => setPageNum(2);
-  const setSkills = (skills: string[]) => setInputVal({ ...inputVal, skills });
+  const setSkills = (skillList: string[]) => setInputVal({ ...inputVal, skillList });
 
   return (
     <Modal postTitle="회원가입">
