@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Input from '../../common/Input';
 import { Editor } from '@toast-ui/react-editor';
@@ -46,7 +46,9 @@ const MoreInformation = ({ inputVal, setInputVal }: Props) => {
         />
         <Editor
           ref={editorRef} // ref 참조
+          autofocus={false}
           initialValue={inputVal.content || ' '} // 글 수정 시 사용
+          placeholder="프로젝트를 소개해주세요."
           toolbarItems={toolbarItems}
           height="500px" // 에디터 창 높이
           initialEditType="wysiwyg" // 기본 에디터 타입 (or wysiwyg)
