@@ -74,7 +74,6 @@ const ButtonSet = styled.div`
 const PostViewer = styled.div`
   div {
     padding: 10px 0;
-    min-height: 500px;
     font-size: 1.3rem;
     line-height: 1.7;
   }
