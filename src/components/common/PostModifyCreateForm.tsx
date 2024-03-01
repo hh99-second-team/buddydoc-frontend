@@ -33,14 +33,14 @@ const PostModifyCreateForm = ({ inputVal, setInputVal, handleSubmit }: Props) =>
     }
 
     await handleSubmit();
-    navigate('/');
+    navigate(-1);
   };
   return (
     <CreateLayout>
       <BasicInformation inputVal={inputVal} setInputVal={setInputVal} />
       <MoreInformation inputVal={inputVal} setInputVal={setInputVal} />
       <ButtonSet>
-        <Button size="medium" color="black" onClick={() => navigate('/')}>
+        <Button size="medium" color="black" onClick={() => navigate(-1)}>
           취소
         </Button>
         <Button size="medium" color="primary" onClick={handleSubmitButton}>

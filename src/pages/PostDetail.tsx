@@ -17,12 +17,9 @@ import { isLoginOpenState } from '../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 
 const PostDetail = () => {
-  const params = useParams();
-  const postId = params.id!;
+  const { postId } = useParams<{ postId: string }>();
 
-  const { isLoading, data } = useQuery<PostDetailType>('postDetail', () => api.getPostDetail(postId), {
-    refetchOnMount: 'always', // 최초 렌더링 시에만 항상 API를 호출합니다.
-  });
+  const { isLoading, data } = useQuery<PostDetailType>(['postDetail', postId], () => api.getPostDetail(postId!));
 
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
@@ -48,7 +45,7 @@ const PostDetail = () => {
               신청하기
             </Button>
             <Dialog.Portal>
-              <ApplicationModal postId={postId} setIsOpen={setIsApplicationModalOpen} />
+              <ApplicationModal postId={postId!} setIsOpen={setIsApplicationModalOpen} />
             </Dialog.Portal>
           </Dialog.Root>
           {/* <Dialog.Root open={isNoteModalOpen} onOpenChange={setIsNoteModalOpen}>
