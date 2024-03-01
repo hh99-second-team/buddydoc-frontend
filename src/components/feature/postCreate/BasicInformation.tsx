@@ -30,10 +30,9 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
   };
 
   const onChangePosition = (position: string) => {
-    if (inputVal.position.includes(position)) {
-      return;
+    if (!inputVal.position.includes(position)) {
+      setInputVal({ ...inputVal, position: [...inputVal.position, position] });
     }
-    setInputVal({ ...inputVal, position: [...inputVal.position, position] });
   };
 
   const onChangeSkillList = (skill: string) => {
