@@ -11,6 +11,7 @@ import studyIcon from '../../../assets/study-icon.svg';
 import projectIcon from '../../../assets/project-icon.svg';
 import Views from '../../common/Views';
 import DeadlineIcon from '../../common/DeadlineIcon';
+import CircleIcon from '../../common/CircleIcon';
 
 const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       </SkillBox>
       <PostFooter>
         <UserInfo>
-          <img src={basicUserIcon} alt="" />
+          <CircleIcon src={basicUserIcon} fallback="" isProfile={true} />
           <p>{post.userNickname}</p>
         </UserInfo>
         <Views count={post.views} />
@@ -97,6 +98,9 @@ const Deadline = styled.p`
 const SkillBox = styled.div`
   position: absolute;
   top: 12.125rem;
+  & > div > span {
+    margin-right: 0.625rem;
+  }
 `;
 
 const PostFooter = styled.div`
@@ -109,6 +113,7 @@ const PostFooter = styled.div`
 `;
 
 const UserInfo = styled.div`
+  cursor: pointer;
   position: relative;
   display: flex;
   justify-content: baseline;

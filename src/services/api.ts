@@ -22,7 +22,7 @@ const axiosInstance: AxiosInstance = axios.create({
 const api = {
   /** 게시물 목록 조회 */
   getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
-    const response = await axiosInstance.get('/post', { params: { lastPostId, postType } });
+    const response = await axiosInstance.get('/post', { params: { orderBy: 'createdAt', lastPostId, postType } });
     return response.data;
   },
 
@@ -65,8 +65,8 @@ const api = {
   },
 
   /** 참여 신청하기 */
-  createApplication: async (postId: string, noti_message: string) => {
-    const response = await axiosInstance.post(`/post/${postId}/noti`, { noti_message });
+  createApplication: async (postId: string, applicationInfo: { position: string; noti_message: string }) => {
+    const response = await axiosInstance.post(`/post/${postId}/noti`, applicationInfo);
     return response.data;
   },
 
@@ -120,7 +120,7 @@ const api = {
 
   /** 내 정보 작성 게시글 목록 */
   getMyPosts: async () => {
-    const response = await axiosInstance.get('/user/posts');
+    const response = await axiosInstance.get('/user/my-posts');
     return response.data;
   },
 

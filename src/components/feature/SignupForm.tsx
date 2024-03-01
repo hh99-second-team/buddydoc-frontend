@@ -5,6 +5,8 @@ import Button from '../common/Button';
 import styled from 'styled-components';
 import { career, positions } from '../../constants/data';
 import { SignUpType } from '../../types/commonTypes';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FormProps {
   inputVal: SignUpType;
@@ -36,11 +38,11 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
 
   const handleNextPage = () => {
     if (!inputVal.userNickname || !inputVal.position || !inputVal.career) {
-      alert('모든 항목을 입력해주세요.');
+      toast.error('모든 항목을 입력해주세요.');
       return;
     }
     if (!isNicknameValid) {
-      alert('닉네임 양식을 지켜주세요.');
+      toast.error('닉네임 양식을 지켜주세요.');
       return;
     }
     setNextPage();
@@ -93,6 +95,18 @@ const SignupForm = ({ inputVal, setInputVal, setNextPage }: FormProps) => {
       <Button size="full" color="primary" onClick={handleNextPage}>
         다음
       </Button>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 };

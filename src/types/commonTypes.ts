@@ -59,14 +59,14 @@ export interface UserType {
   userId: number;
   userNickname: string;
   position: string;
-  skills: string[];
+  skillList: string[];
 }
 
 /** 유저 수정 데이터 형식 */
 export interface UserModifyType {
   userNickname: string;
   position: string;
-  skills: string[];
+  skillList: string[];
 }
 
 /** 회원가입 시 입력 타입 */
@@ -74,5 +74,5 @@ export interface SignUpType {
   userNickname: string;
   position: string;
   career: string;
-  skills: string[];
+  skillList: string[];
 }

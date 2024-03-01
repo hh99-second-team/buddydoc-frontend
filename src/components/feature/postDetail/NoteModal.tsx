@@ -24,6 +24,7 @@ const NoteModal = ({ setIsOpen }: ModalProps) => {
           value={noteText}
           onChange={onChangeNoteText}
           rows={20}
+          maxLength={400}
         />
         <Button size="full" color="primary" onClick={handleSubmit}>
           전송하기

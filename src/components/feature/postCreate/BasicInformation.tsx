@@ -21,17 +21,21 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
 
   const onChangePeriod = (period: string) => setInputVal({ ...inputVal, period });
 
-  const onChangeTO = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setInputVal({ ...inputVal, memberCount: e.target.value });
-
-  const onChangePositions = (position: string) => {
-    if (inputVal.position.includes(position)) {
-      return;
+  const onChangeMemberCount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const memberCount = e.target.value;
+    // 입력값이 숫자이고 100 이하의 양수인지 확인
+    if (memberCount === '' || (/^\d+$/.test(memberCount) && parseInt(memberCount) <= 50)) {
+      setInputVal({ ...inputVal, memberCount });
     }
-    setInputVal({ ...inputVal, position: [...inputVal.position, position] });
   };
 
-  const onChangeSkills = (skill: string) => {
+  const onChangePosition = (position: string) => {
+    if (!inputVal.position.includes(position)) {
+      setInputVal({ ...inputVal, position: [...inputVal.position, position] });
+    }
+  };
+
+  const onChangeSkillList = (skill: string) => {
     if (inputVal.skillList.includes(skill)) {
       return;
     }
@@ -68,10 +72,10 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
         <InputBox>
           <p>모집 인원</p>
           <Input
-            type="number"
-            placeholder="총 모집 인원을 입력해주세요."
+            type="text"
+            placeholder="총 모집 인원을 입력해주세요. (50 이하만 입력 가능)"
             value={inputVal.memberCount}
-            onChange={onChangeTO}
+            onChange={onChangeMemberCount}
             isValid={true}
           />
         </InputBox>
@@ -96,7 +100,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           <MultiSelectedGrid>
             <Select
               selectValue={inputVal.position[inputVal.position.length - 1]}
-              onValueChange={onChangePositions}
+              onValueChange={onChangePosition}
               items={positions}
               placeholder="필요한 포지션을 선택하세요."
             />
@@ -119,7 +123,7 @@ const BasicInformation = ({ inputVal, setInputVal }: Props) => {
           <MultiSelectedGrid>
             <Select
               selectValue={inputVal.skillList[inputVal.skillList.length - 1]}
-              onValueChange={onChangeSkills}
+              onValueChange={onChangeSkillList}
               items={skills}
               placeholder="필요 기술 스택을 선택하세요."
             />
