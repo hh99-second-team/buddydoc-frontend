@@ -7,10 +7,10 @@ import { gatherInfo } from '../../../constants/data';
 
 const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const gatherContent: { [key: string]: any } = {
-    '모집 일시': getDateFomat(post.createdAt),
-    '모집 분야': post.position,
     '모집 구분': post.postType === '스터디' ? '스터디' : '프로젝트',
     '모집 인원': post.memberCount + '명',
+    '모집 마감일': getDateFomat(post.deadLine),
+    '모집 포지션': post.position,
     '프로젝트 시작': getDateFomat(post.startDate),
     '프로젝트 기간': post.period,
     '기술 스택': post.skillList,
@@ -23,7 +23,7 @@ const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
           <p>{info}</p>
           {info === '기술 스택' ? (
             <SkillList skillList={gatherContent[info]} />
-          ) : info === '모집 분야' ? (
+          ) : info === '모집 포지션' ? (
             <p>{gatherContent[info].join(' / ')}</p>
           ) : (
             <p>{gatherContent[info]}</p>

@@ -8,7 +8,7 @@ import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
-import { ChevronLeftIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { PostDetailType } from '../../../types/commonTypes';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as Menubar from '@radix-ui/react-menubar';
