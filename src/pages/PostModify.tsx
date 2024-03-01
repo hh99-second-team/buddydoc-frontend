@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { PostCreateType } from '../types/commonTypes';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
 import api from '../services/api';
 import { useMutation, useQueryClient } from 'react-query';
 
 const PostModify = () => {
   const { postId } = useParams();
-  const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
 

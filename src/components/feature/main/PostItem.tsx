@@ -98,6 +98,9 @@ const Deadline = styled.p`
 const SkillBox = styled.div`
   position: absolute;
   top: 12.125rem;
+  & > div > span {
+    margin-right: 0.625rem;
+  }
 `;
 
 const PostFooter = styled.div`

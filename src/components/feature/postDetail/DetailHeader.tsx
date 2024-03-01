@@ -16,6 +16,7 @@ import AlertModal from '../../common/AlertModal';
 import api from '../../../services/api';
 import MenuBarTrigger from '../../common/menuBar/MenuBarTrigger';
 import PortalContent from '../../common/menuBar/PortalContent';
+import { ReactComponent as DotsMenu } from '../../../assets/dots-menu.icon.svg';
 
 const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const navigate = useNavigate();
@@ -47,14 +48,18 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   return (
     <Header>
       <Flex>
-        <ChevronLeftIcon onClick={() => navigate(-1)} />
+        <IconSet>
+          <ChevronLeftIcon onClick={() => navigate(-1)} />
+          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <DeadlineIcon date={post.deadLine} />
+        </IconSet>
         {checkUserId() && (
           <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
                   <IconButton aria-label="Customise options">
-                    <DotsVerticalIcon />
+                    <DotsMenu />
                   </IconButton>
                   <PortalContent>
                     <Menubar.Item>
@@ -80,10 +85,6 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
           </AlertDialog.Root>
         )}
       </Flex>
-      <IconSet>
-        <StudyTypeIcon>{post.postType}</StudyTypeIcon>
-        <DeadlineIcon date={post.deadLine} />
-      </IconSet>
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
@@ -118,6 +119,10 @@ const Flex = styled.div`
     width: 2rem;
     height: 2rem;
     cursor: pointer;
+
+    &:hover {
+      color: gray;
+    }
   }
 `;
 
@@ -125,6 +130,16 @@ const IconSet = styled.div`
   display: flex;
   align-items: center;
   column-gap: 10px;
+
+  & > svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: gray;
+  }
 `;
 
 const Title = styled.p`
@@ -168,19 +183,15 @@ const IconButton = styled.button`
   all: unset;
   font-family: inherit;
   border-radius: 100%;
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--grey01, #f9fafc);
-  border: 1px solid #f9fafc;
-  box-shadow: 0 2px 8px var(--grey03, #ced0d3);
+  padding: 0.625rem;
   &:hover {
     background-color: var(--grey01, #e2e3e5);
-  }
-  &:focus {
-    box-shadow: 0 0 0 2px gray;
+    box-shadow: 0 2px 8px var(--grey03, #ced0d3);
   }
 `;
 
