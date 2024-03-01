@@ -89,6 +89,7 @@ const TabsList = styled(Tabs.List)`
 
 const TabsTrigger = styled(Tabs.Trigger)`
   all: unset;
+  cursor: pointer;
   background-color: white;
   height: 45px;
   display: flex;

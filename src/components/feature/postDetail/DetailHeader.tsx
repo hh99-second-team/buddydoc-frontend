@@ -53,7 +53,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
-                  <DotsVerticalIcon />
+                  <StyledDotsVerticalIcon />
                   <PortalContent>
                     <Menubar.Item>
                       <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>
@@ -110,9 +110,11 @@ const Header = styled.div`
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
   & > svg {
-    width: 24px;
-    height: 24px;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
   }
 `;
@@ -159,4 +161,12 @@ const NavButton = styled.div`
     background: #e2e3e5;
   }
 `;
+
+const StyledDotsVerticalIcon = styled(DotsVerticalIcon)`
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: black;
+`;
+
 export default DetailHeader;

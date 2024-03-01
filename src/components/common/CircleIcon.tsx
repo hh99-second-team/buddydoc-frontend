@@ -30,6 +30,7 @@ const getButtonSize = (size: string | undefined) => {
 };
 
 const AvatarRoot = styled(Avatar.Root)<{ size?: string; isProfile?: boolean }>`
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;

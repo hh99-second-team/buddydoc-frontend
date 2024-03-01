@@ -15,13 +15,14 @@ const CustomDatePicker = ({ selected, onChange }: Props) => {
       selected={selected}
       onChange={(date: Date) => onChange(date)}
       locale={ko}
-      dateFormat="yyyy년 MM월 dd일"
+      dateFormat="yyyy-MM-dd"
       minDate={new Date()}
     />
   );
 };
 
 const StyledDatePicker = styled(DatePicker)`
+  cursor: pointer;
   width: 100%;
   padding: 17px 30px;
   border: 1px solid #e2e3e5;
