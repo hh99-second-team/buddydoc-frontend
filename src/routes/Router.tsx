@@ -4,7 +4,7 @@ import MyPage from '../pages/MyPage';
 import PostDetail from '../pages/PostDetail';
 import Navbar from '../components/common/Navbar';
 import PostCreate from '../pages/PostCreate';
-import ScrollTop from '../components/feature/ScrollTop';
+import ScrollTop from '../components/feature/ScrollToTop';
 import ChatPage from '../pages/ChatPage';
 import Footer from '../components/common/Footer';
 import SearchPage from '../pages/SearchPage';
