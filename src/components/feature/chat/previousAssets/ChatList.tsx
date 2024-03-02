@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ChatRoomCard from './ChatRoomCard';
 import * as Tabs from '@radix-ui/react-tabs';
-import Chatting from './ChatScreen';
+import Chatting from '../ChatScreen';
 
 const ChatList = () => {
   const tabTitle = ['FE 스터디', 'BE 스터디', '웹개발 프로젝트'];

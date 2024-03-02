@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import styled from 'styled-components';
-import ChatRoomCard from './ChatRoomCard';
 
 const ChatScreen = () => {
   const [userId, setUserId] = useState('');
   const [postId, setPostId] = useState('');
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
+  const socket = io('http://localhost:3000/chat');
+  // const socket = io('https://buddydoc.site/chat');
 
   useEffect(() => {
-    const socket = io('http://localhost:3000/chat');
-
     socket.on('connect', () => {
       console.log('Socket connected');
     });
@@ -28,7 +27,6 @@ const ChatScreen = () => {
   }, []);
 
   const handleJoinRoom = () => {
-    const socket = io('http://localhost:3000/chat');
     socket.emit('join-room', { postId });
   };
 
@@ -36,7 +34,6 @@ const ChatScreen = () => {
     console.log(postId);
     console.log(message);
     console.log(userId);
-    const socket = io('http://localhost:3000/chat');
     socket.emit('send-message', {
       message,
       userId,
@@ -47,8 +44,6 @@ const ChatScreen = () => {
 
   return (
     <Layout>
-      <Title>채팅</Title>
-      <ChatRoomCard title="버디독" />
       <div>
         받은 메시지
         <ul>

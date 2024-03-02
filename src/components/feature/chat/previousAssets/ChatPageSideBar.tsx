@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import JoinList from './tabs/JoinList';
+import { io } from 'socket.io-client';
+// import JoinList from '../tabs/JoinList';
 
 const ChatPageSideBar = () => {
   const tabTitle = ['현재 참여 목록', '채팅', '설정'];
@@ -17,9 +18,11 @@ const ChatPageSideBar = () => {
           ))}
         </TabsList>
         <TabsContentContainer>
-          <Tabs.Content value="현재참여목록">{/* <JoinList /> */}</Tabs.Content>
-          <Tabs.Content value="채팅">채팅</Tabs.Content>
-          <Tabs.Content value="설정">설정</Tabs.Content>
+          {tabTitle.map((title) => (
+            <Tabs.Content key={title} value={title}>
+              {title}
+            </Tabs.Content>
+          ))}
         </TabsContentContainer>
       </Tabs.Root>
     </Layout>
