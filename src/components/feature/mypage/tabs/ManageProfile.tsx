@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { skills, positions, career } from '../../../../constants/data';
 import { UserType } from '../../../../types/commonTypes';
@@ -8,7 +8,7 @@ import api from '../../../../services/api';
 import Input from '../../../common/Input';
 import CircleIcon from '../../../common/CircleIcon';
 import emptyProfileImg from '../../../../assets/user-circle-icon.svg';
-import { ReactComponent as AddPhotoIcon } from '../../../../assets/camera-add.svg';
+import { ReactComponent as AddPhotoIcon } from '../../../../assets/add-circle.icon.svg';
 import Select from '../../../common/Select';
 import SelectedIcon from '../../../common/SelectedIcon';
 import Button from '../../../common/Button';
@@ -16,7 +16,7 @@ import Button from '../../../common/Button';
 const ManageProfile = () => {
   const navigate = useNavigate();
 
-  const { data } = useQuery<UserType>(['userInfo'], api.getMyInfo);
+  const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
   const [userInfo, setUserInfo] = useState<UserType>(
     data || {
@@ -26,6 +26,12 @@ const ManageProfile = () => {
       skillList: [],
     }
   );
+
+  const mutation = useMutation(async (userData: UserType) => await api.updateMyInfo(userData), {
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   const onChangeUserNickname = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserInfo({ ...userInfo, userNickname: e.target.value });
@@ -50,7 +56,7 @@ const ManageProfile = () => {
     navigate('/');
   };
 
-  const handleSave = () => {};
+  const handleSave = () => mutation.mutateAsync(userInfo);
 
   return (
     <Layout>
@@ -86,20 +92,24 @@ const ManageProfile = () => {
         <InputBox>
           <p>기술 스택</p>
           <Select
-            selectValue={userInfo.skillList ? userInfo.skillList[userInfo.skillList.length - 1] : ''}
+            selectValue={userInfo.skillList && userInfo.skillList[userInfo.skillList.length - 1]}
             onValueChange={onChangeSkillList}
             items={skills}
             placeholder="보유 기술 스택을 선택하세요."
           />
           <SkillBox>
-            {userInfo.skillList.map((skill) => (
-              <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
-            ))}
+            {userInfo.skillList &&
+              userInfo.skillList.map((skill) => (
+                <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
+              ))}
           </SkillBox>
         </InputBox>
       </GridGroup>
-      <Button size="half" color="primary" onClick={handleSave}>
+      <Button size="full" color="primary" onClick={handleSave}>
         저장
+      </Button>
+      <Button size="full" color="black" onClick={handleLogout}>
+        로그아웃
       </Button>
     </Layout>
   );
@@ -143,6 +153,7 @@ const GridGroup = styled.div`
   grid-template-columns: repeat(2, 1fr);
   column-gap: 4rem;
   row-gap: 4rem;
+
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
