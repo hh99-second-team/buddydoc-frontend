@@ -132,6 +132,7 @@ const ProfileBox = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 
   & > svg {
     position: absolute;

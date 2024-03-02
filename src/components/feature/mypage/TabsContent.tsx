@@ -80,18 +80,20 @@ const StyledTabsTrigger = styled(Tabs.Trigger)`
   }
 
   @media screen and (max-width: 768px) {
-    padding: 1rem 0;
-    border: none;
     border-radius: 0;
-    font-size: 18px;
-    font-weight: bold;
-    background: transparent;
+    border: none;
+    background-color: transparent;
     transition: border-bottom 0.3s;
     border-bottom: 2px solid transparent;
+
     &:hover {
+      border: none;
       border-bottom: 2px solid #e6e6e6;
     }
     &[aria-selected='true'] {
+      border: none;
+      background-color: transparent;
+      color: black;
       border-bottom: 2px solid black;
     }
   }
