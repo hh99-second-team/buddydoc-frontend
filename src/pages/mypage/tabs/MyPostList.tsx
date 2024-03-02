@@ -7,21 +7,21 @@ import { PostCardType } from '../../../types/commonTypes';
 
 const dummyDatas = [
   {
-    category: 'study',
+    category: '스터디',
     postTitle: '웹 개발 모각코 스터디1',
     postStatus: '모집중',
     postDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
-    category: 'project',
+    category: '프로젝트',
     postTitle: '웹 프로젝트1',
     postStatus: '모집중',
     postDate: '2024.02.02',
     endDate: '2024.02.03',
   },
   {
-    category: 'project',
+    category: '프로젝트',
     postTitle: '웹 프로젝트2',
     postStatus: '모집중',
     postDate: '2024.02.02',
@@ -31,7 +31,7 @@ const dummyDatas = [
 
 function MyPostList() {
   // 선택된 탭 상태관리
-  const [selectedTab, setSelectedTab] = useState('study');
+  const [selectedTab, setSelectedTab] = useState('스터디');
 
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
@@ -60,10 +60,10 @@ function MyPostList() {
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {
-          case 'study':
+          case '스터디':
             acc.study++;
             break;
-          case 'project':
+          case '프로젝트':
             acc.project++;
             break;
           default:
@@ -84,7 +84,7 @@ function MyPostList() {
   const renderData = (category: string) => {
     switch (category) {
       // category가 study인 데이터
-      case 'study':
+      case '스터디':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -105,7 +105,7 @@ function MyPostList() {
           </ContentContainer>
         ));
       // category가 project인 데이터
-      case 'project':
+      case '프로젝트':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -134,28 +134,29 @@ function MyPostList() {
       <SideMenuHeader>작성 목록</SideMenuHeader>
       <SideMenuDescription>내가 작성한 모집글입니다.</SideMenuDescription>
       <SideMenuBody>
-        <Tabs.Root defaultValue="study">
+        <Tabs.Root defaultValue="스터디">
           <StyledTabsList>
             <StyledTabsTrigger
-              value="study"
-              onClick={() => setSelectedTab('study')}
-              aria-selected={selectedTab === 'study' ? 'true' : 'false'}>
+              value="스터디"
+              onClick={() => setSelectedTab('스터디')}
+              aria-selected={selectedTab === '스터디' ? 'true' : 'false'}>
               {studyCount}
               <br />
               스터디
             </StyledTabsTrigger>
             <StyledTabsTrigger
-              value="project"
-              onClick={() => setSelectedTab('project')}
-              aria-selected={selectedTab === 'project' ? 'true' : 'false'}>
+              value="프로젝트"
+              onClick={() => setSelectedTab('프로젝트')}
+              aria-selected={selectedTab === '프로젝트' ? 'true' : 'false'}>
               {projectCount}
               <br />
               프로젝트
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="study">{renderData('study')}</StyledTabsContent>
-            <StyledTabsContent value="project">{renderData('project')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
+            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>
       </SideMenuBody>
