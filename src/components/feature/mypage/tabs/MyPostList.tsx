@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, Box, Button } from '@radix-ui/themes';
-import api from '../../../services/api';
-import { PostCardType } from '../../../types/commonTypes';
+import api from '../../../../services/api';
+import { PostCardType } from '../../../../types/commonTypes';
 
 const dummyDatas = [
   {

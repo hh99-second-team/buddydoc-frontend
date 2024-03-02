@@ -42,6 +42,7 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
 };
 
 const BookmarkBox = styled.div<{ direction: 'row' | 'column' }>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   column-gap: ${(props) => (props.direction === 'row' ? '5px' : '0')};

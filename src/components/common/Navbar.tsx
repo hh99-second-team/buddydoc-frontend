@@ -84,7 +84,7 @@ const Navbar = () => {
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
-                  <HamburgerMenuIcon />
+                  <StyledHamburgerMenuIcon />
                   <PortalContent>
                     <Menubar.Item>
                       <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
@@ -143,6 +143,7 @@ const Layout = styled.div`
 `;
 
 const Logo = styled.img`
+  cursor: pointer;
   width: 8rem;
 `;
 
@@ -201,8 +202,13 @@ const ChatNotificationDot = styled(NotificationDot)`
 `;
 
 const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`
+  cursor: pointer;
   width: 1.5rem;
   height: 1.5rem;
+`;
+
+const StyledHamburgerMenuIcon = styled(HamburgerMenuIcon)`
+  cursor: pointer;
 `;
 
 export default Navbar;

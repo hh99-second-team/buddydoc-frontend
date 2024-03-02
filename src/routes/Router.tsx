@@ -4,7 +4,7 @@ import MyPage from '../pages/MyPage';
 import PostDetail from '../pages/PostDetail';
 import Navbar from '../components/common/Navbar';
 import PostCreate from '../pages/PostCreate';
-import ScrollToTop from '../components/feature/scrollToTop';
+import ScrollTop from '../components/feature/ScrollToTop';
 import ChatPage from '../pages/ChatPage';
 import Footer from '../components/common/Footer';
 import SearchPage from '../pages/SearchPage';
@@ -15,15 +15,15 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <ScrollToTop />
+      <ScrollTop />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/:id" element={<PostDetail />} />
+        <Route path="/:postId" element={<PostDetail />} />
         <Route path="/create" element={<PostCreate />} />
         <Route path="/modify/:postId" element={<PostModify />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/chatpage" element={<ChatPage />} />
-        <Route path="/search/:word" element={<SearchPage />} />
+        <Route path="/search/:search" element={<SearchPage />} />
         <Route path="/callback" element={<OauthCallBack />} />
       </Routes>
       <Footer />
