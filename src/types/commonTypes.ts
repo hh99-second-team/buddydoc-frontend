@@ -2,10 +2,8 @@
 export interface PostCardType {
   postId: number;
   post_userId: number;
-  users: {
-    userNickname: string;
-  };
-  postType: string;
+  userNickname: string;
+  postType: '스터디' | '프로젝트';
   postTitle: string;
   createdAt: Date;
   updatedAt: Date;
@@ -22,7 +20,7 @@ export interface PostCardType {
 
 /** 게시물 작성 / 수정 데이터 형식 */
 export interface PostCreateType {
-  postType: string;
+  postType: '스터디' | '프로젝트';
   postTitle: string;
   position: string[];
   skillList: string[];
@@ -36,7 +34,7 @@ export interface PostCreateType {
 /** 게시물 상세 정보 데이터 형식 */
 export interface PostDetailType {
   postId: number;
-  postType: string;
+  postType: '스터디' | '프로젝트';
   user: {
     userId: number;
     nickname: string;
@@ -61,14 +59,14 @@ export interface UserType {
   userId: number;
   userNickname: string;
   position: string;
-  skills: string[];
+  skillList: string[];
 }
 
 /** 유저 수정 데이터 형식 */
 export interface UserModifyType {
   userNickname: string;
   position: string;
-  skills: string[];
+  skillList: string[];
 }
 
 /** 회원가입 시 입력 타입 */
@@ -76,5 +74,5 @@ export interface SignUpType {
   userNickname: string;
   position: string;
   career: string;
-  skills: string[];
+  skillList: string[];
 }

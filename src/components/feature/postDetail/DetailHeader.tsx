@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StudyTypeIcon from '../../common/StudyTypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
-import userIcon from '../../../assets/user-circle-icon.svg';
 import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
-import { ChevronLeftIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
+import { ChevronLeftIcon } from '@radix-ui/react-icons';
 import { PostDetailType } from '../../../types/commonTypes';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as Menubar from '@radix-ui/react-menubar';
@@ -16,6 +15,7 @@ import AlertModal from '../../common/AlertModal';
 import api from '../../../services/api';
 import MenuBarTrigger from '../../common/menuBar/MenuBarTrigger';
 import PortalContent from '../../common/menuBar/PortalContent';
+import { ReactComponent as DotsMenu } from '../../../assets/dots-menu.icon.svg';
 
 const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const navigate = useNavigate();
@@ -47,13 +47,19 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   return (
     <Header>
       <Flex>
-        <ChevronLeftIcon onClick={() => navigate(-1)} />
+        <IconSet>
+          <ChevronLeftIcon onClick={() => navigate(-1)} />
+          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <DeadlineIcon date={post.deadLine} />
+        </IconSet>
         {checkUserId() && (
           <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
-                  <DotsVerticalIcon />
+                  <IconButton aria-label="Customise options">
+                    <DotsMenu />
+                  </IconButton>
                   <PortalContent>
                     <Menubar.Item>
                       <NavButton onClick={() => navigate(`/modify/${post.postId}`, { state: { post } })}>
@@ -78,14 +84,10 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
           </AlertDialog.Root>
         )}
       </Flex>
-      <IconSet>
-        <StudyTypeIcon>{post.postType}</StudyTypeIcon>
-        <DeadlineIcon date={post.deadLine} />
-      </IconSet>
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={userIcon} fallback={post.user?.nickname} />
+          <CircleIcon src="" fallback={post.user?.nickname} />
           <div>
             <p>{post.user?.nickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>
@@ -110,10 +112,16 @@ const Header = styled.div`
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
   & > svg {
-    width: 24px;
-    height: 24px;
+    width: 2rem;
+    height: 2rem;
     cursor: pointer;
+
+    &:hover {
+      color: gray;
+    }
   }
 `;
 
@@ -121,6 +129,16 @@ const IconSet = styled.div`
   display: flex;
   align-items: center;
   column-gap: 10px;
+
+  & > svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: gray;
+  }
 `;
 
 const Title = styled.p`
@@ -159,4 +177,21 @@ const NavButton = styled.div`
     background: #e2e3e5;
   }
 `;
+
+const IconButton = styled.button`
+  all: unset;
+  font-family: inherit;
+  border-radius: 100%;
+  height: 1.5rem;
+  width: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  &:hover {
+    background-color: var(--grey01, #e2e3e5);
+    box-shadow: 0 2px 8px var(--grey03, #ced0d3);
+  }
+`;
+
 export default DetailHeader;

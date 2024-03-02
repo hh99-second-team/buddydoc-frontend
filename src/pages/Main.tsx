@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../components/feature/main/Banner';
 import PostList from '../components/feature/main/PostList';
 import styled from 'styled-components';
@@ -7,11 +7,12 @@ import { Layout } from '../styles/GlobalStyles';
 import Button from '../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { isLoginOpenState } from '../store/atomDefinitions';
+import { isLoginOpenState, isSignupOpenState } from '../store/atomDefinitions';
 
 const Main = () => {
   const navigate = useNavigate();
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+  const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const handleGatherBtn = () => {
     if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
@@ -21,6 +22,12 @@ const Main = () => {
     navigate('/create');
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('isLogin') === 'false') {
+      setIsSignupOpen(true);
+    }
+  }, [setIsSignupOpen]);
+
   return (
     <>
       <Banner />
@@ -29,8 +36,8 @@ const Main = () => {
           <TabHeader>
             <TabsList aria-label="게시물 목록">
               <TabsTrigger value="all">전체</TabsTrigger>
-              <TabsTrigger value="study">스터디</TabsTrigger>
-              <TabsTrigger value="project">프로젝트</TabsTrigger>
+              <TabsTrigger value="스터디">스터디</TabsTrigger>
+              <TabsTrigger value="프로젝트">프로젝트</TabsTrigger>
             </TabsList>
             <Button size="large" color="primary" onClick={handleGatherBtn}>
               팀원 모집하기
@@ -39,11 +46,11 @@ const Main = () => {
           <TabsContent value="all">
             <PostList />
           </TabsContent>
-          <TabsContent value="study">
-            <PostList postType="study" />
+          <TabsContent value="스터디">
+            <PostList postType="스터디" />
           </TabsContent>
-          <TabsContent value="project">
-            <PostList postType="project" />
+          <TabsContent value="프로젝트">
+            <PostList postType="프로젝트" />
           </TabsContent>
         </TabsRoot>
       </Layout>
@@ -82,6 +89,7 @@ const TabsList = styled(Tabs.List)`
 
 const TabsTrigger = styled(Tabs.Trigger)`
   all: unset;
+  cursor: pointer;
   background-color: white;
   height: 45px;
   display: flex;

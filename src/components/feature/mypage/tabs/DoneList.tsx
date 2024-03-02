@@ -2,56 +2,38 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Avatar, Box, Button } from '@radix-ui/themes';
-import api from '../../../services/api';
 
 const dummyDatas = [
   {
-    category: 'study',
-    postTitle: '웹 개발 모각코 스터디1',
-    applyDate: '2024.02.03',
-    applyStatus: '대기중',
-    memberCount: 5,
+    category: '스터디',
+    postTitle: '웹개발 스터디1',
+    period: '2024.05.05 ~ 2025.05.05',
+    participationStatus: '참여 완료',
   },
   {
-    category: 'study',
-    postTitle: '웹 개발 모각코 스터디2',
-    applyDate: '2024.02.04',
-    applyStatus: '불발',
-    memberCount: 5,
-  },
-  {
-    category: 'project',
-    postTitle: '웹 프로젝트1',
-    applyDate: '20244.02.03',
-    applyStatus: '불발',
-    memberCount: 10,
-  },
-  {
-    category: 'project',
+    category: '프로젝트',
     postTitle: '웹 프로젝트2',
-    applyDate: '20244.02.04',
-    applyStatus: '대기중',
-    memberCount: 11,
+    period: '2024.05.05 ~ 2025.05.05',
+    participationStatus: '참여 완료',
   },
 ];
 
-function ApplyList() {
+function LikeList() {
   // 선택된 탭 상태관리
-  const [selectedTab, setSelectedTab] = useState('study');
-
+  const [selectedTab, setSelectedTab] = useState('스터디');
   // 참여중인 활동별 개수 상태관리
   const [studyCount, setStudyCount] = useState(0);
   const [projectCount, setProjectCount] = useState(0);
 
-  // 페이지 렌더링할때 카테고리별 데이터 개수를 계산하여 useState에 설정
+  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
   useEffect(() => {
     const counts = dummyDatas.reduce(
       (acc, data) => {
         switch (data.category) {
-          case 'study':
+          case '스터디':
             acc.study++;
             break;
-          case 'project':
+          case '프로젝트':
             acc.project++;
             break;
           default:
@@ -65,10 +47,14 @@ function ApplyList() {
     setProjectCount(counts.project);
   }, []);
 
-  const mypageMainRender = (category: string) => {
+  // 각 활동 탭에 해당하는 데이터 분류해주는 함수
+  const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
+
+  // 분류에 따라 content를 다르게 렌더링하는 함수
+  const renderData = (category: string) => {
     switch (category) {
       // category가 study인 데이터
-      case 'study':
+      case '스터디':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
@@ -79,65 +65,60 @@ function ApplyList() {
               <Category>스터디</Category>
             </CategoryContainer>
             <Title>{data.postTitle}</Title>
-            <MemberCount>{data.memberCount}</MemberCount>
-            <ApplyStatus>{data.applyStatus}</ApplyStatus>
+            <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
             <ContentButton>스터디 홈</ContentButton>
-            <DateInfo>신청일 : {data.applyDate}</DateInfo>
+            <DateInfo>기간 : {data.period}</DateInfo>
           </ContentContainer>
         ));
       // category가 project인 데이터
-      case 'project':
+      case '프로젝트':
         return filteredData.map((data, index) => (
           <ContentContainer key={index}>
             <CategoryContainer>
               <Avatar
                 src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="projectIcon"
+                fallback="studyIcon"
               />
               <Category>프로젝트</Category>
             </CategoryContainer>
             <Title>{data.postTitle}</Title>
-            <MemberCount>{data.memberCount}</MemberCount>
-            <ApplyStatus>{data.applyStatus}</ApplyStatus>
+            <ParticipationStatus>{data.participationStatus}</ParticipationStatus>
+            <DateInfo>기간 : {data.period}</DateInfo>
             <ContentButton>프로젝트 홈</ContentButton>
-            <DateInfo>신청일 : {data.applyDate}</DateInfo>
           </ContentContainer>
         ));
       default:
-        return <p>신청한 목록이 없습니다.</p>;
+        return <p>참여중인 목록이 없습니다.</p>;
     }
   };
-
-  // 각 활동 탭에 해당하는 데이터를 분류해주는 함수
-  const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
-
   return (
     <>
-      <SideMenuHeader>내 신청 현황</SideMenuHeader>
-      <SideMenuDescription>신청한 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
+      <SideMenuHeader>완료 목록</SideMenuHeader>
+      <SideMenuDescription>기간이 지난 커피챗 목록, 완수한 스터디/프로젝트 목록입니다.</SideMenuDescription>
       <SideMenuBody>
-        <Tabs.Root defaultValue="study">
+        <Tabs.Root defaultValue="스터디">
           <StyledTabsList>
             <StyledTabsTrigger
-              value="study"
-              onClick={() => setSelectedTab('study')}
-              aria-selected={selectedTab === 'study' ? 'true' : 'false'}>
+              value="스터디"
+              onClick={() => setSelectedTab('스터디')}
+              aria-selected={selectedTab === '스터디' ? 'true' : 'false'}>
               {studyCount}
               <br />
               스터디
             </StyledTabsTrigger>
             <StyledTabsTrigger
-              value="project"
-              onClick={() => setSelectedTab('project')}
-              aria-selected={selectedTab === 'project' ? 'true' : 'false'}>
+              value="프로젝트"
+              onClick={() => setSelectedTab('프로젝트')}
+              aria-selected={selectedTab === '프로젝트' ? 'true' : 'false'}>
               {projectCount}
               <br />
               프로젝트
             </StyledTabsTrigger>
           </StyledTabsList>
           <Box pt="5" pb="2">
-            <StyledTabsContent value="study">{mypageMainRender('study')}</StyledTabsContent>
-            <StyledTabsContent value="project">{mypageMainRender('project')}</StyledTabsContent>
+            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
+            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
+            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
           </Box>
         </Tabs.Root>
       </SideMenuBody>
@@ -145,7 +126,7 @@ function ApplyList() {
   );
 }
 
-export default ApplyList;
+export default LikeList;
 
 const SideMenuHeader = styled.div`
   color: #000;
@@ -227,9 +208,9 @@ const Title = styled.p`
   font-weight: bold;
   margin-top: 15px;
 `;
-const MemberCount = styled.p`
+const ParticipationStatus = styled.h4`
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   left: 30px;
 `;
 const DateInfo = styled.p<{ left?: string }>`
@@ -241,23 +222,13 @@ const DateInfo = styled.p<{ left?: string }>`
   color: #787878;
   text-align: end;
 `;
-const ApplyStatus = styled.div`
-  position: absolute;
-  font-weight: 700;
-  border: 2px solid black;
-  border-radius: 10px;
-  top: 20px;
-  right: 30px;
-  padding: 3px 5px;
-  background-color: #fff;
-`;
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
   border-radius: 10px;
   font-weight: 800;
   font-size: 18px;
-  top: 60px;
+  top: 40px;
   right: 30px;
   width: 170px;
   height: 50px;

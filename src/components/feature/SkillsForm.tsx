@@ -9,6 +9,8 @@ import { useRecoilState } from 'recoil';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import SelectedIcon from '../common/SelectedIcon';
 import { SignUpType } from '../../types/commonTypes';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FormProps {
   inputVal: SignUpType;
@@ -26,11 +28,12 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
     setSkills(selectedSkills);
 
     if (!skills.length) {
-      alert('기술 스택을 선택하세요.');
+      toast.error('기술 스택을 선택하세요.');
     }
 
     if (localStorage.getItem('accessToken')) {
-      await api.signup(inputVal);
+      const response = await api.signup(inputVal);
+      toast.success('회원가입 성공');
       setIsSignupOpen(false);
     }
   };
@@ -61,6 +64,18 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
       <ScrollArea.Scrollbar orientation="vertical">
         <ScrollArea.Corner />
       </ScrollArea.Scrollbar>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </ScrollAreaRoot>
   );
 };

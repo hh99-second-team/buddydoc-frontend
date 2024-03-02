@@ -11,9 +11,9 @@ import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
 import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
 import SearchModal from '../feature/SearchModal';
-import emptyUserIcon from '../../assets/user-circle-icon.svg';
 import MenuBarTrigger from './menuBar/MenuBarTrigger';
 import PortalContent from './menuBar/PortalContent';
+import CircleIcon from './CircleIcon';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const Navbar = () => {
         {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
-              <div onClick={() => navigate(`/chat`)}>채팅</div>
+              <div onClick={() => navigate(`/chatpage`)}>채팅</div>
               <ChatNotificationDot />
             </IconContainer>
             <Dialog.Root>
@@ -49,7 +49,7 @@ const Navbar = () => {
               <Dialog.Portal></Dialog.Portal>
             </Dialog.Root>
             <IconContainer onClick={() => navigate('/mypage')}>
-              <img src={emptyUserIcon} alt="" />
+              <CircleIcon src="" isProfile={true} />
             </IconContainer>
           </>
         ) : (
@@ -84,7 +84,7 @@ const Navbar = () => {
             <Menubar.Root>
               <Menubar.Menu>
                 <MenuBarTrigger>
-                  <HamburgerMenuIcon />
+                  <StyledHamburgerMenuIcon />
                   <PortalContent>
                     <Menubar.Item>
                       <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
@@ -143,6 +143,7 @@ const Layout = styled.div`
 `;
 
 const Logo = styled.img`
+  cursor: pointer;
   width: 8rem;
 `;
 
@@ -201,8 +202,13 @@ const ChatNotificationDot = styled(NotificationDot)`
 `;
 
 const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`
+  cursor: pointer;
   width: 1.5rem;
   height: 1.5rem;
+`;
+
+const StyledHamburgerMenuIcon = styled(HamburgerMenuIcon)`
+  cursor: pointer;
 `;
 
 export default Navbar;

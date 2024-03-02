@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { skillsIcon } from '../../constants/data';
 import CircleIcon from '../common/CircleIcon';
 
@@ -11,7 +10,7 @@ interface Props {
 
 const SkillList = ({ skip, skillList, size }: Props) => {
   return (
-    <SkillBox>
+    <div>
       {skip &&
         skillList
           .slice(0, 5)
@@ -21,14 +20,8 @@ const SkillList = ({ skip, skillList, size }: Props) => {
       )}
       {!skip &&
         skillList.map((skill, idx) => <CircleIcon key={idx} size={size} src={skillsIcon[skill]} fallback={skill} />)}
-    </SkillBox>
+    </div>
   );
 };
-
-const SkillBox = styled.div`
-  display: flex;
-  column-gap: 10px;
-  align-items: center;
-`;
 
 export default SkillList;
