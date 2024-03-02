@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import StudyTypeIcon from '../../common/StudyTypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
-import userIcon from '../../../assets/user-circle-icon.svg';
 import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
@@ -88,7 +87,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={userIcon} fallback={post.user?.nickname} />
+          <CircleIcon src="" fallback={post.user?.nickname} />
           <div>
             <p>{post.user?.nickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>

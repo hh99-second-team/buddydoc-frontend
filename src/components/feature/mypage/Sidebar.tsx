@@ -68,16 +68,15 @@ const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
   font-weight: bold;
   text-align: start;
   transition: background-color 0.3s;
-
-  @media screen and (max-width: 768px) {
-    text-align: center;
-  }
+  background-color: ${(props) => props.selected && '#e2e3e5'};
 
   &:hover {
     background-color: #e2e3e5;
   }
 
-  background-color: ${(props) => props.selected && '#e2e3e5'};
+  @media screen and (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export default SideBar;

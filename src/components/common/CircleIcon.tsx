@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Avatar from '@radix-ui/react-avatar';
 import styled from 'styled-components';
+import emptyProfileImg from '../../assets/user-circle-icon.svg';
 
 interface IconProps {
   src: string;
@@ -12,7 +13,7 @@ interface IconProps {
 const CircleIcon = ({ src, fallback, size, isProfile }: IconProps) => {
   return (
     <AvatarRoot size={size} isProfile={isProfile}>
-      <AvatarImage src={src} alt="Colm Tuite" />
+      <AvatarImage src={src || emptyProfileImg} alt="Colm Tuite" />
       <AvatarFallback delayMs={600}>{fallback}</AvatarFallback>
     </AvatarRoot>
   );

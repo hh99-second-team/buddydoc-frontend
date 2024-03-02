@@ -5,11 +5,12 @@ import ApplyList from './tabs/ApplyList';
 import LikeList from './tabs/LikeList';
 import MyPostList from './tabs/MyPostList';
 import JoinList from './tabs/JoinList';
+import styled from 'styled-components';
 // import DoneList from './tabs/DoneList';
 
 function SideMenu() {
   return (
-    <div>
+    <Layout>
       {/* 프로필 관리 탭 */}
       <Tabs.Content value="ManageProfile">
         <ManageProfile />
@@ -39,8 +40,16 @@ function SideMenu() {
       {/* <Tabs.Content value="DoneList">
         <DoneList />
       </Tabs.Content> */}
-    </div>
+    </Layout>
   );
 }
+
+const Layout = styled.div`
+  padding-left: 5vw;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+  }
+`;
 
 export default SideMenu;

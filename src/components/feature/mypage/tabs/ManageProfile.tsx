@@ -7,7 +7,6 @@ import { UserType } from '../../../../types/commonTypes';
 import api from '../../../../services/api';
 import Input from '../../../common/Input';
 import CircleIcon from '../../../common/CircleIcon';
-import emptyProfileImg from '../../../../assets/user-circle-icon.svg';
 import { ReactComponent as AddPhotoIcon } from '../../../../assets/add-circle.icon.svg';
 import Select from '../../../common/Select';
 import SelectedIcon from '../../../common/SelectedIcon';
@@ -18,14 +17,12 @@ const ManageProfile = () => {
 
   const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
-  const [userInfo, setUserInfo] = useState<UserType>(
-    data || {
-      userId: 0,
-      userNickname: '',
-      position: '',
-      skillList: [],
-    }
-  );
+  const [userInfo, setUserInfo] = useState<UserType>({
+    userId: 0,
+    userNickname: '',
+    position: '',
+    skillList: [],
+  });
 
   const mutation = useMutation(async (userData: UserType) => await api.updateMyInfo(userData), {
     onSuccess: () => {
@@ -61,7 +58,7 @@ const ManageProfile = () => {
   return (
     <Layout>
       <ProfileBox>
-        <CircleIcon src={emptyProfileImg} isProfile={true} size="10rem" />
+        <CircleIcon src="" isProfile={true} size="10rem" />
         <AddPhotoIcon />
       </ProfileBox>
       <Header>기본 정보</Header>
@@ -97,12 +94,13 @@ const ManageProfile = () => {
             items={skills}
             placeholder="보유 기술 스택을 선택하세요."
           />
-          <SkillBox>
-            {userInfo.skillList &&
-              userInfo.skillList.map((skill) => (
+          {!!userInfo.skillList.length && (
+            <SkillBox>
+              {userInfo.skillList.map((skill) => (
                 <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
               ))}
-          </SkillBox>
+            </SkillBox>
+          )}
         </InputBox>
       </GridGroup>
       <Button size="full" color="primary" onClick={handleSave}>
@@ -121,10 +119,6 @@ const Layout = styled.div`
   row-gap: 2rem;
   justify-content: center;
   align-items: center;
-  padding-left: 5vw;
-  @media screen and (max-width: 768px) {
-    padding-left: 0;
-  }
 `;
 
 const Header = styled.div`
@@ -152,7 +146,7 @@ const GridGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 4rem;
-  row-gap: 4rem;
+  row-gap: 2rem;
 
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
