@@ -2,20 +2,18 @@ import React from 'react';
 import '@radix-ui/themes/styles.css';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-// import SimpleProfileInfo from "./components/mypage/SimpleProfileInfo";
 import SideBar from '../components/feature/mypage/Sidebar';
 import SideMenu from '../components/feature/mypage/SideMenu';
 import { Layout } from '../styles/GlobalStyles';
 
 const MyPage = () => {
+  const tabTypes = ['프로필', '현재 참여 목록', '내 신청 현황', '관심 목록', '작성 목록'];
+
   return (
     <Layout>
-      {/* 메인 영역 */}
-      <TabsRoot defaultValue="ManageProfile">
-        {/* 좌측 사이드바 메뉴 */}
-        <SideBar />
-        {/* 우측 메인 */}
-        <SideMenu />
+      <TabsRoot defaultValue={tabTypes[0]}>
+        <SideBar tabTypes={tabTypes} />
+        <SideMenu tabTypes={tabTypes} />
       </TabsRoot>
     </Layout>
   );

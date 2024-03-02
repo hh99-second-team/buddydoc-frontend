@@ -6,43 +6,22 @@ import LikeList from './tabs/LikeList';
 import MyPostList from './tabs/MyPostList';
 import JoinList from './tabs/JoinList';
 import styled from 'styled-components';
-// import DoneList from './tabs/DoneList';
 
-function SideMenu() {
+const SideMenu: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
   return (
     <Layout>
-      {/* 프로필 관리 탭 */}
-      <Tabs.Content value="ManageProfile">
-        <ManageProfile />
-      </Tabs.Content>
-
-      {/* 현재 참여 목록 탭 */}
-      <Tabs.Content value="JoinList">
-        <JoinList />
-      </Tabs.Content>
-
-      {/* 내 신청 현황 탭 */}
-      <Tabs.Content value="ApplyList">
-        <ApplyList />
-      </Tabs.Content>
-
-      {/* 관심 목록 탭 */}
-      <Tabs.Content value="LikeList">
-        <LikeList />
-      </Tabs.Content>
-
-      {/* 작성 목록 탭 */}
-      <Tabs.Content value="MyList">
-        <MyPostList />
-      </Tabs.Content>
-
-      {/* 완료 목록 탭 */}
-      {/* <Tabs.Content value="DoneList">
-        <DoneList />
-      </Tabs.Content> */}
+      {tabTypes.map((tab, idx) => (
+        <TabsContent value={tab}>
+          {idx === 0 && <ManageProfile />}
+          {idx === 1 && <JoinList />}
+          {idx === 2 && <ApplyList />}
+          {idx === 3 && <LikeList />}
+          {idx === 4 && <MyPostList />}
+        </TabsContent>
+      ))}
     </Layout>
   );
-}
+};
 
 const Layout = styled.div`
   padding-left: 5vw;
@@ -50,6 +29,10 @@ const Layout = styled.div`
   @media screen and (max-width: 768px) {
     padding-left: 0;
   }
+`;
+
+const TabsContent = styled(Tabs.Content)`
+  width: 100%;
 `;
 
 export default SideMenu;

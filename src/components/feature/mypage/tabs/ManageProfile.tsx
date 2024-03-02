@@ -114,9 +114,9 @@ const ManageProfile = () => {
 };
 
 const Layout = styled.div`
+  row-gap: 2rem;
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
   justify-content: center;
   align-items: center;
 `;
