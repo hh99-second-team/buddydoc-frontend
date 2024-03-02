@@ -67,7 +67,7 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
         {/* 최초엔 10개의 스켈레톤 표시 */}
         {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
         {/* 그 이후에는 한 개의 스켈레톤만 보여주기 */}
-        {isLoading && posts.length > 1 && <SkeletonPost />}
+        {isLoading && posts.length > 1 && Array.from({ length: 4 }, (_, idx) => <SkeletonPost key={idx} />)}
       </>
     );
   };
