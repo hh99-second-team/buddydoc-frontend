@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 interface IconProps {
   src: string;
-  fallback: string;
+  fallback?: string;
   size?: string;
   isProfile?: boolean;
 }
 
-const CircleIcon = ({ src, fallback }: IconProps) => {
+const CircleIcon = ({ src, fallback, size, isProfile }: IconProps) => {
   return (
-    <AvatarRoot>
+    <AvatarRoot size={size} isProfile={isProfile}>
       <AvatarImage src={src} alt="Colm Tuite" />
       <AvatarFallback delayMs={600}>{fallback}</AvatarFallback>
     </AvatarRoot>
@@ -42,7 +42,7 @@ const AvatarRoot = styled(Avatar.Root)<{ size?: string; isProfile?: boolean }>`
   background: #fff;
   border-radius: 100%;
   border: ${(props) => (props.isProfile ? '' : '1px solid var(--grey03, #ced0d3)')};
-  filter: ${(props) => (props.isProfile ? 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))' : '')};
+  /* filter: ${(props) => (props.isProfile ? 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))' : '')}; */
 `;
 
 const AvatarImage = styled(Avatar.Image)`
