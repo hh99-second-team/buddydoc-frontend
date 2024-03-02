@@ -112,6 +112,9 @@ const Layout = styled.div`
   justify-content: center;
   align-items: center;
   padding-left: 5vw;
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+  }
 `;
 
 const Header = styled.div`
@@ -135,10 +138,14 @@ const ProfileBox = styled.div`
 `;
 
 const GridGroup = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 4rem;
   row-gap: 4rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const InputBox = styled.div`

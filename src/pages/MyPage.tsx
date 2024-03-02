@@ -25,7 +25,7 @@ const TabsRoot = styled(Tabs.Root)`
   display: grid;
   grid-template-columns: 12rem auto;
   @media screen and (max-width: 768px) {
-    display: flexbox;
+    display: flex;
     flex-direction: column;
   }
 `;
