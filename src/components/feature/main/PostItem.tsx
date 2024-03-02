@@ -6,7 +6,6 @@ import StudyTypeIcon from '../../common/StudyTypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils/dateUtils';
 import { PostCardType } from '../../../types/commonTypes';
-import basicUserIcon from '../../../assets/user-circle-icon.svg';
 import studyIcon from '../../../assets/study-icon.svg';
 import projectIcon from '../../../assets/project-icon.svg';
 import Views from '../../common/Views';
@@ -33,7 +32,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       </SkillBox>
       <PostFooter>
         <UserInfo>
-          <CircleIcon src={basicUserIcon} fallback="" isProfile={true} />
+          <CircleIcon src="" isProfile={true} />
           <p>{post.userNickname}</p>
         </UserInfo>
         <Views count={post.views} />

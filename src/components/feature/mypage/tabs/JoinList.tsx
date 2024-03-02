@@ -1,8 +1,10 @@
-import { Avatar, Box, Button } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import api from '../../../../services/api';
+import PostTabsContent from '../TabsContent';
+import CircleIcon from '../../../common/CircleIcon';
 
 const dummyDatas = [
   {
@@ -19,14 +21,15 @@ const dummyDatas = [
   },
 ];
 
-function JoinList() {
+const JoinList = () => {
+  const tabTypes = ['스터디', '프로젝트'];
+
   // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('스터디');
 
   // 참여중인 활동별 개수 상태관리
-  const [studyCount, setStudyCount] = useState(0);
-  const [projectCount, setProjectCount] = useState(0);
-  // const [myStudyLists, setMyStudyLists] = useState<>();
+  const [, setStudyCount] = useState(0);
+  const [, setProjectCount] = useState(0);
 
   // 내 정보 참여 스터디 목록 api 호출
   const fetchMyStudylists = async () => {
@@ -67,155 +70,52 @@ function JoinList() {
     setProjectCount(counts.project);
   }, []);
 
-  // 각 활동 탭에 해당하는 데이터 분류해주는 함수
-  const filteredData = dummyDatas.filter((data) => data.category === selectedTab);
-
-  // 분류에 따라 content를 다르게 렌더링하는 함수
-  const renderData = (category: string) => {
-    switch (category) {
-      // category가 study인 데이터
-      case '스터디':
-        return filteredData.map((data, index) => (
-          <ContentContainer key={index}>
-            <CategoryContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="studyIcon"
-              />
-              <Category>스터디</Category>
-            </CategoryContainer>
-            <Title>{data.postTitle}</Title>
-            <MemberCount>{data.memberCount}</MemberCount>
-            <ContentButton>스터디 홈</ContentButton>
-            <DateInfo>시작일 : {data.startDate}</DateInfo>
-          </ContentContainer>
-        ));
-      // category가 project인 데이터
-      case '프로젝트':
-        return filteredData.map((data, index) => (
-          <ContentContainer key={index}>
-            <CategoryContainer>
-              <Avatar
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
-                fallback="studyIcon"
-              />
-              <Category>프로젝트</Category>
-            </CategoryContainer>
-            <Title>{data.postTitle}</Title>
-            <MemberCount>{data.memberCount}</MemberCount>
-            <DateInfo>시작일 : {data.startDate}</DateInfo>
-            <ContentButton>프로젝트 홈</ContentButton>
-          </ContentContainer>
-        ));
-      default:
-        return <p>참여중인 목록이 없습니다.</p>;
-    }
-  };
-
   return (
-    <>
-      <SideMenuHeader>현재 참여 목록</SideMenuHeader>
-      <SideMenuDescription>현재 참여중인 스터디/프로젝트/커피챗 목록입니다.</SideMenuDescription>
-      <SideMenuBody>
-        <Tabs.Root defaultValue="스터디">
-          <StyledTabsList>
-            <StyledTabsTrigger
-              value="스터디"
-              onClick={() => setSelectedTab('스터디')}
-              aria-selected={selectedTab === '스터디' ? 'true' : 'false'}>
-              {studyCount}
-              <br />
-              스터디
-            </StyledTabsTrigger>
-            <StyledTabsTrigger
-              value="프로젝트"
-              onClick={() => setSelectedTab('프로젝트')}
-              aria-selected={selectedTab === '프로젝트' ? 'true' : 'false'}>
-              {projectCount}
-              <br />
-              프로젝트
-            </StyledTabsTrigger>
-          </StyledTabsList>
-          <Box pt="5" pb="2">
-            <StyledTabsContent value="스터디">{renderData('스터디')}</StyledTabsContent>
-            <StyledTabsContent value="프로젝트">{renderData('프로젝트')}</StyledTabsContent>
-            <StyledTabsContent value="coffeeChat">{renderData('coffeeChat')}</StyledTabsContent>
-          </Box>
-        </Tabs.Root>
-      </SideMenuBody>
-    </>
+    <PostTabsContent
+      tabTypes={tabTypes}
+      header="현재 참여 목록"
+      description="현재 참여중인 스터디/프로젝트/커피챗 목록입니다."
+      selectedTab={selectedTab}
+      setSelectedTab={setSelectedTab}>
+      {tabTypes.map((tab) => (
+        <Tabs.Content value={tab}>
+          {dummyDatas
+            .filter((data) => data.category === tab)
+            .map((data, idx) => (
+              <ContentContainer key={idx}>
+                <CategoryContainer>
+                  <CircleIcon src="" />
+                  <Category>프로젝트</Category>
+                </CategoryContainer>
+                <Title>{data.postTitle}</Title>
+                <MemberCount>{data.memberCount}</MemberCount>
+                <DateInfo>시작일 : {data.startDate}</DateInfo>
+                <ContentButton>프로젝트 홈</ContentButton>
+              </ContentContainer>
+            ))}
+        </Tabs.Content>
+      ))}
+    </PostTabsContent>
   );
-}
+};
 
-export default JoinList;
-
-const SideMenuHeader = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-const SideMenuDescription = styled.div`
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-const SideMenuBody = styled.div`
-  width: inherit;
-  display: flex;
-  flex-direction: row;
-  margin-top: 30px;
-`;
-const StyledTabsList = styled(Tabs.List)`
-  width: 900px;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-`;
-const StyledTabsTrigger = styled(Tabs.Trigger)`
-  width: 435px;
-  height: 100px;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: #000;
-    color: #fff;
-  }
-  &[aria-selected='true'] {
-    background-color: #000;
-    color: #fff;
-  }
-`;
-const StyledTabsContent = styled(Tabs.Content)`
-  border: 2px solid black;
-  border-radius: 10px;
-  min-height: 200px;
-  padding: 10px;
-`;
 const ContentContainer = styled.div`
   position: relative;
   min-height: 230px;
-  background-color: #e6e6e6;
   border-radius: 15px;
+  border: 2px solid black;
+  border-radius: 10px;
   padding: 30px;
   margin-bottom: 15px;
 `;
+
 const CategoryContainer = styled.div`
   font-weight: bold;
   display: flex;
   align-items: center;
   gap: 20px;
 `;
+
 const Category = styled.p`
   border: 2px solid gray;
   border-radius: 20px;
@@ -224,16 +124,19 @@ const Category = styled.p`
   font-weight: 700;
   background-color: #fff;
 `;
+
 const Title = styled.p`
   font-size: 25px;
   font-weight: bold;
   margin-top: 15px;
 `;
+
 const MemberCount = styled.p`
   position: absolute;
   bottom: 30px;
   left: 30px;
 `;
+
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
   bottom: 30px;
@@ -243,6 +146,7 @@ const DateInfo = styled.p<{ left?: string }>`
   color: #787878;
   text-align: end;
 `;
+
 const ContentButton = styled(Button)`
   position: absolute;
   background-color: #000;
@@ -254,3 +158,5 @@ const ContentButton = styled(Button)`
   width: 170px;
   height: 50px;
 `;
+
+export default JoinList;
