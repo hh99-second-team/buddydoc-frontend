@@ -4,6 +4,8 @@ import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
 import { isLoginOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import api from '../../api';
+import { useMutation, useQueryClient } from 'react-query';
+import { PostDetailType } from '../../types';
 
 interface BookmarkProps {
   count: number;
@@ -16,6 +18,20 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
   const [isBookmarkSelected, setIsBookmarkSelected] = useState(isToggle);
   const [bookmarkCount, setBookmarkCount] = useState(count);
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(async (postId: number) => await api.updateBookmark(postId), {
+    onSuccess: () => {
+      const postDetailData: PostDetailType = queryClient.getQueryData(['postDetail', postId.toString()])!;
+      console.log(isBookmarkSelected, bookmarkCount);
+
+      queryClient.setQueryData(['postDetail', postId.toString()], {
+        ...postDetailData,
+        isBookmarked: !isBookmarkSelected,
+        preference: isBookmarkSelected ? bookmarkCount - 1 : bookmarkCount + 1,
+      });
+    },
+  });
 
   const handleToggleBookmark = async (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
     e.stopPropagation();
@@ -26,9 +42,9 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
       return;
     }
 
-    await api.updateBookmark(postId);
     setIsBookmarkSelected((state) => !state);
     setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
+    await mutation.mutateAsync(postId);
   };
 
   return (
