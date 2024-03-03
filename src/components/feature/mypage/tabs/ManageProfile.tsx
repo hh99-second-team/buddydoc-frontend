@@ -154,7 +154,7 @@ const ProfileBox = styled.div`
   & > svg {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: -0.3rem;
     color: #e2e3e5;
   }
 `;
