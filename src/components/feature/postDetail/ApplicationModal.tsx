@@ -22,9 +22,17 @@ const ApplicationModal = ({ postId, setIsOpen, positionList }: ModalProps) => {
   const onChangeNotiMsgText = (e: React.ChangeEvent<HTMLInputElement>) => setNotiMsg(e.target.value);
 
   const handleSubmit = async () => {
-    await api.createApplication(postId, { position, noti_message: notiMsg });
-    toast.success('신청이 완료됐습니다.');
-    setIsOpen(false);
+    if (!position || !notiMsg) {
+      toast.error('모든 항목을 입력해주세요.');
+      return;
+    }
+    try {
+      await api.createApplication(postId, { position, noti_message: notiMsg });
+      toast.success('신청이 완료됐습니다.');
+      setIsOpen(false);
+    } catch (e) {
+      toast.error('이미 신청한 글입니다.');
+    }
   };
 
   return (

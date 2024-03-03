@@ -4,41 +4,15 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { Button } from '@radix-ui/themes';
 import TabsContent from '../TabsContent';
 import TypeIcon from '../../../common/TypeIcon';
-
-const dummyDatas = [
-  {
-    category: '스터디',
-    postTitle: '웹 개발 모각코 스터디1',
-    applyDate: '2024.02.03',
-    applyStatus: '대기중',
-    memberCount: 5,
-  },
-  {
-    category: '스터디',
-    postTitle: '웹 개발 모각코 스터디2',
-    applyDate: '2024.02.04',
-    applyStatus: '불발',
-    memberCount: 5,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트1',
-    applyDate: '20244.02.03',
-    applyStatus: '불발',
-    memberCount: 10,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트2',
-    applyDate: '20244.02.04',
-    applyStatus: '대기중',
-    memberCount: 11,
-  },
-];
+import { useQuery } from 'react-query';
+import api from '../../../../api';
+import { ApplyType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
 
 const ApplyList = () => {
   const tabTypes = ['스터디', '프로젝트'];
   const [selectedTab, setSelectedTab] = useState('스터디');
+  const { data } = useQuery<ApplyType[]>(['applyList'], api.getMyNotilists);
 
   return (
     <TabsContent
@@ -49,20 +23,23 @@ const ApplyList = () => {
       setSelectedTab={setSelectedTab}>
       {tabTypes.map((tab) => (
         <Tabs.Content value={tab}>
-          {dummyDatas
-            .filter((data) => data.category === tab)
-            .map((data, idx) => (
-              <ContentContainer key={idx}>
-                <CategoryContainer>
-                  <TypeIcon>{tab}</TypeIcon>
-                </CategoryContainer>
-                <Title>{data.postTitle}</Title>
-                <MemberCount>{data.memberCount}</MemberCount>
-                <ApplyStatus>{data.applyStatus}</ApplyStatus>
-                <ContentButton>{tab} 홈</ContentButton>
-                <DateInfo>신청일 : {data.applyDate}</DateInfo>
-              </ContentContainer>
-            ))}
+          {data &&
+            data
+              .filter((data) => data.postType === tab)
+              .map((data, idx) => (
+                <ContentContainer key={idx}>
+                  <CategoryContainer>
+                    <TypeIcon>{tab}</TypeIcon>
+                  </CategoryContainer>
+                  <Title>{data.postTitle}</Title>
+                  <MemberCount>{data.memberCount}</MemberCount>
+                  <ApplyStatus>
+                    {data.notiStatus === 'reject' ? '거부' : data.notiStatus === 'pending' ? '대기 중' : '승인'}
+                  </ApplyStatus>
+                  <ContentButton>{tab} 홈</ContentButton>
+                  <DateInfo>신청일 : {getDateFomat(data.createdAt)}</DateInfo>
+                </ContentContainer>
+              ))}
         </Tabs.Content>
       ))}
     </TabsContent>

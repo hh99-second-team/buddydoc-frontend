@@ -75,3 +75,32 @@ export interface SignUpType {
   career: string;
   skillList: string[];
 }
+
+/** 현재 참여 목록 */
+export interface JoinType {
+  postId: number;
+  postType: '스터디' | '프로젝트';
+  postTitle: string;
+  memberCount: number;
+  startDate: Date;
+}
+
+/** 내 신청 목록 */
+export interface ApplyType {
+  postId: number;
+  postType: '스터디' | '프로젝트';
+  postTitle: string;
+  memberCount: number;
+  notiStatus: 'reject' | 'pending' | 'accept';
+  startDate: Date;
+  createdAt: Date;
+}
+
+/** 내 관심 목록 */
+export interface LikeType {
+  postId: number;
+  postTitle: string;
+  postType: '스터디' | '프로젝트';
+  deadLine: Date;
+  memberCount: number;
+}

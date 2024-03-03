@@ -1,48 +1,18 @@
 import { Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import api from '../../../../api';
 import PostTabsContent from '../TabsContent';
 import TypeIcon from '../../../common/TypeIcon';
-
-const dummyDatas = [
-  {
-    category: '스터디',
-    postTitle: '웹개발 스터디1',
-    startDate: '2024.05.05',
-    memberCount: 12,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트2',
-    startDate: '20244.02.03',
-    memberCount: 12,
-  },
-];
+import { useQuery } from 'react-query';
+import { JoinType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
 
 const JoinList = () => {
   const tabTypes = ['스터디', '프로젝트'];
-
-  // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('스터디');
-
-  // 내 정보 참여 스터디 목록 api 호출
-  const fetchMyStudylists = async () => {
-    try {
-      const response = await api.getMyStudylists(); // API 호출
-      console.log(response);
-      // setMyStudyLists(response); // 가져온 정보를 상태에 저장
-    } catch (error) {
-      console.error('Error fetching my studylists:', error);
-      // 에러 처리
-    }
-  };
-
-  // 페이지 로드 시 내가 참여중인 스터디리스트 가져오기
-  useEffect(() => {
-    fetchMyStudylists();
-  }, []);
+  const { data } = useQuery<JoinType[]>(['joinList'], api.getMyStudylists);
 
   return (
     <PostTabsContent
@@ -53,19 +23,20 @@ const JoinList = () => {
       setSelectedTab={setSelectedTab}>
       {tabTypes.map((tab) => (
         <Tabs.Content value={tab}>
-          {dummyDatas
-            .filter((data) => data.category === tab)
-            .map((data, idx) => (
-              <ContentContainer key={idx}>
-                <CategoryContainer>
-                  <TypeIcon>{tab}</TypeIcon>
-                </CategoryContainer>
-                <Title>{data.postTitle}</Title>
-                <MemberCount>{data.memberCount}</MemberCount>
-                <DateInfo>시작일 : {data.startDate}</DateInfo>
-                <ContentButton>{tab} 홈</ContentButton>
-              </ContentContainer>
-            ))}
+          {data &&
+            data
+              .filter((data) => data.postType === tab)
+              .map((data, idx) => (
+                <ContentContainer key={idx}>
+                  <CategoryContainer>
+                    <TypeIcon>{tab}</TypeIcon>
+                  </CategoryContainer>
+                  <Title>{data.postTitle}</Title>
+                  <MemberCount>{data.memberCount}</MemberCount>
+                  <DateInfo>시작일 : {getDateFomat(data.startDate)}</DateInfo>
+                  <ContentButton>{tab} 홈</ContentButton>
+                </ContentContainer>
+              ))}
         </Tabs.Content>
       ))}
     </PostTabsContent>

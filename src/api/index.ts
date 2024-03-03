@@ -96,21 +96,29 @@ const api = {
     return response.data;
   },
 
-  /** 내 정보 관심 목록 */
-  getMyBookmarks: async () => {
-    const response = await axios.get('/user/my-bookmarks');
-    return response.data;
-  },
-
   /** 내 정보 참여 스터디 목록 */
   getMyStudylists: async () => {
     const response = await axios.get('/user/my-studylists');
     return response.data;
   },
 
+  /** 내 신청 목록 */
+  getMyNotilists: async () => {
+    const response = await axios.get('/user/my-noti');
+    return response.data;
+  },
+
+  /** 내 정보 관심 목록 */
+  getMyBookmarks: async () => {
+    const response = await axios.get('/user/my-bookmarks');
+    return response.data;
+  },
+
   /** 내 정보 작성 게시글 목록 */
   getMyPosts: async () => {
     const response = await axios.get('/user/my-posts');
+    console.log(response.data);
+
     return response.data;
   },
 
