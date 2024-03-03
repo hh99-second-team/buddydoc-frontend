@@ -87,7 +87,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} />
+          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} isProfile={true} />
           <div>
             <p>{post.user?.userNickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>

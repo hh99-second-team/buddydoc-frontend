@@ -67,17 +67,24 @@ const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
         {/* 로딩 중일 때 Skeleton UI 표시*/}
         {/* 최초엔 10개의 스켈레톤 표시 */}
         {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
-        {/* 그 이후에는 한 개의 스켈레톤만 보여주기 */}
+        {/* 그 이후에는 4 개의 스켈레톤만 보여주기 */}
         {isLoading && posts.length > 1 && Array.from({ length: 4 }, (_, idx) => <SkeletonPost key={idx} />)}
       </>
     );
   };
 
-  return <PostContainer>{renderPostList()}</PostContainer>;
+  return (
+    <>
+      <PostContainer>{renderPostList()}</PostContainer>
+      {posts.length === 0 && (
+        <EmptyPostTitle>{searchTitle ? `"${searchTitle}" 검색 결과가 없습니다.` : '게시글이 없습니다.'}</EmptyPostTitle>
+      )}
+    </>
+  );
 };
 
 const PostContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 54px;
@@ -86,5 +93,11 @@ const PostContainer = styled.div`
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
+`;
+
+const EmptyPostTitle = styled.p`
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
 `;
 export default PostList;

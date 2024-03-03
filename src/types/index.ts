@@ -31,7 +31,7 @@ export interface PostCreateType {
   deadLine: Date;
   startDate: Date;
   period: string;
-  memberCount: number;
+  memberCount: string;
 }
 
 /** 게시물 상세 정보 데이터 형식 */

@@ -49,12 +49,12 @@ const Main = () => {
             </Button>
           </TabHeader>
           <Flex>
-            <CheckboxRoot defaultChecked checked={isEnd} onCheckedChange={handleToggleIsEnd}>
+            <CheckboxRoot id="check" defaultChecked checked={isEnd} onCheckedChange={handleToggleIsEnd}>
               <CheckboxIndicator>
                 <CheckIcon />
               </CheckboxIndicator>
             </CheckboxRoot>
-            <Label htmlFor="c1">모집 완료 글도 보기</Label>
+            <Label htmlFor="check">모집 완료 글도 보기</Label>
           </Flex>
           <TabsContent value="all">
             <PostList key={isEnd.toString()} isEnd={isEnd} />

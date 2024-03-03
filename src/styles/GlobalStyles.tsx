@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }
+  
   html {
     touch-action: none;
     user-select: none;
@@ -21,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-
+  
   fieldset {
     border: none;
   }

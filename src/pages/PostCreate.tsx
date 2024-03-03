@@ -13,7 +13,7 @@ const PostCreate = () => {
     deadLine: new Date(),
     startDate: new Date(),
     period: '',
-    memberCount: 0,
+    memberCount: '',
   });
 
   const handleSubmit = async () => {
