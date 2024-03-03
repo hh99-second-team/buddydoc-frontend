@@ -15,6 +15,7 @@ import { useQuery } from 'react-query';
 import { PostDetailType } from '../types';
 import { isLoginOpenState } from '../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
+import { getDayDiff } from '../utils';
 
 const PostDetail = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -38,7 +39,7 @@ const PostDetail = () => {
       {!isLoading && <DetailHeader post={data!} />}
       {!isLoading && <GatherInfo post={data!} />}
 
-      {Number(localStorage.getItem('userId')) !== data?.user.userId && (
+      {getDayDiff(data?.deadLine!) <= 0 && Number(localStorage.getItem('userId')) !== data?.user.userId && (
         <ButtonSet>
           <Dialog.Root open={isApplicationModalOpen} onOpenChange={setIsApplicationModalOpen}>
             <Button size="full" color="primary" onClick={handleApplicationBtn}>
