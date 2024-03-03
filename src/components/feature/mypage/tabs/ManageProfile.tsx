@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -17,12 +17,22 @@ const ManageProfile = () => {
 
   const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
-  const [userInfo, setUserInfo] = useState<UserType>({
-    userId: 0,
-    userNickname: '',
-    position: '',
-    skillList: [],
-  });
+  const [userInfo, setUserInfo] = useState<UserType>(
+    data || {
+      userId: 0,
+      userNickname: '',
+      position: '',
+      career: '',
+      skillList: [],
+      profileImage: '',
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setUserInfo(data);
+    }
+  }, [data]);
 
   const mutation = useMutation(async (userData: UserType) => await api.updateMyInfo(userData), {
     onSuccess: () => {
@@ -34,6 +44,8 @@ const ManageProfile = () => {
     setUserInfo({ ...userInfo, userNickname: e.target.value });
 
   const onChangePosition = (position: string) => setUserInfo({ ...userInfo, position });
+
+  const onChangeCareer = (career: string) => setUserInfo({ ...userInfo, career });
 
   const onChangeSkillList = (skill: string) => {
     if (userInfo.skillList.includes(skill)) {
@@ -58,7 +70,7 @@ const ManageProfile = () => {
   return (
     <Layout>
       <ProfileBox>
-        <CircleIcon src="" isProfile={true} size="10rem" />
+        <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
         <AddPhotoIcon />
       </ProfileBox>
       <Header>기본 정보</Header>
@@ -84,7 +96,12 @@ const ManageProfile = () => {
         </InputBox>
         <InputBox>
           <p>경력</p>
-          <Select selectValue="" onValueChange={() => {}} items={career} placeholder="경력을 선택해주세요." />
+          <Select
+            selectValue={userInfo.career}
+            onValueChange={onChangeCareer}
+            items={career}
+            placeholder="경력을 선택해주세요."
+          />
         </InputBox>
         <InputBox>
           <p>기술 스택</p>

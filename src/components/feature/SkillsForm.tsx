@@ -33,37 +33,41 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
 
     if (localStorage.getItem('accessToken')) {
       const response = await api.signup(inputVal);
-      toast.success('회원가입 성공');
+      localStorage.setItem('isLogin', 'true');
+      localStorage.setItem('nickname', inputVal.userNickname);
       setIsSignupOpen(false);
+      toast.success('회원가입 성공');
     }
   };
 
   return (
-    <ScrollAreaRoot>
-      <Title>
-        기술 스택 선택<span> *</span>
-      </Title>
-      <ScrollAreaViewport>
-        <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
-          {skills.map((skill, idx) => (
-            <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
-              <SelectedIcon type="skill" item={skill} removeBtn={false} />
-            </SkillItem>
-          ))}
-        </SkillBox>
-      </ScrollAreaViewport>
+    <>
+      <ScrollAreaRoot>
+        <Title>
+          기술 스택 선택<span> *</span>
+        </Title>
+        <ScrollAreaViewport>
+          <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
+            {skills.map((skill, idx) => (
+              <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
+                <SelectedIcon type="skill" item={skill} removeBtn={false} />
+              </SkillItem>
+            ))}
+          </SkillBox>
+        </ScrollAreaViewport>
 
-      <ButtonSet>
-        <Button size="full" color="primary" onClick={setPrevPage}>
-          이전
-        </Button>
-        <Button size="full" color="primary" onClick={handleSubmit}>
-          완료
-        </Button>
-      </ButtonSet>
-      <ScrollArea.Scrollbar orientation="vertical">
-        <ScrollArea.Corner />
-      </ScrollArea.Scrollbar>
+        <ButtonSet>
+          <Button size="full" color="primary" onClick={setPrevPage}>
+            이전
+          </Button>
+          <Button size="full" color="primary" onClick={handleSubmit}>
+            완료
+          </Button>
+        </ButtonSet>
+        <ScrollArea.Scrollbar orientation="vertical">
+          <ScrollArea.Corner />
+        </ScrollArea.Scrollbar>
+      </ScrollAreaRoot>
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -76,7 +80,7 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
         pauseOnHover
         theme="light"
       />
-    </ScrollAreaRoot>
+    </>
   );
 };
 

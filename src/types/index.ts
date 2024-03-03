@@ -64,6 +64,8 @@ export interface UserType {
   userNickname: string;
   position: string;
   skillList: string[];
+  profileImage: string;
+  career: string;
 }
 
 /** 유저 수정 데이터 형식 */

@@ -28,37 +28,39 @@ const ApplicationModal = ({ postId, setIsOpen, positionList }: ModalProps) => {
   };
 
   return (
-    <Modal postTitle="신청서">
-      <Container>
-        <div>
+    <>
+      <Modal postTitle="신청서">
+        <Container>
           <div>
-            <Title>
-              지원 포지션<span> *</span>
-            </Title>
-            <Select
-              selectValue={position}
-              onValueChange={onChangePosition}
-              placeholder="지원하는 포지션을 선택해주세요"
-              items={positionList}
-            />
+            <div>
+              <Title>
+                지원 포지션<span> *</span>
+              </Title>
+              <Select
+                selectValue={position}
+                onValueChange={onChangePosition}
+                placeholder="지원하는 포지션을 선택해주세요"
+                items={positionList}
+              />
+            </div>
+            <div>
+              <Title>
+                자기소개<span> *</span>
+              </Title>
+              <Textarea
+                placeholder="간단한 지원동기나 자기소개를 작성해주세요 :)"
+                value={notiMsg}
+                onChange={onChangeNotiMsgText}
+                rows={10}
+                maxLength={400}
+              />
+            </div>
           </div>
-          <div>
-            <Title>
-              자기소개<span> *</span>
-            </Title>
-            <Textarea
-              placeholder="간단한 지원동기나 자기소개를 작성해주세요 :)"
-              value={notiMsg}
-              onChange={onChangeNotiMsgText}
-              rows={10}
-              maxLength={400}
-            />
-          </div>
-        </div>
-        <Button size="full" color="primary" onClick={handleSubmit}>
-          신청하기
-        </Button>
-      </Container>
+          <Button size="full" color="primary" onClick={handleSubmit}>
+            신청하기
+          </Button>
+        </Container>
+      </Modal>
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -71,7 +73,7 @@ const ApplicationModal = ({ postId, setIsOpen, positionList }: ModalProps) => {
         pauseOnHover
         theme="light"
       />
-    </Modal>
+    </>
   );
 };
 
