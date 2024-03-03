@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Button from '../common/Button';
 import styled from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { skills } from '../../constants/data';
-import api from '../../services/api';
+import { skills } from '../../constants';
+import api from '../../api';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import SelectedIcon from '../common/SelectedIcon';
-import { SignUpType } from '../../types/commonTypes';
+import { SignUpType } from '../../types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

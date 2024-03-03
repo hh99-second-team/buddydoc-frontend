@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { PostCreateType } from '../types/commonTypes';
-import api from '../services/api';
+import { PostCreateType } from '../types';
+import api from '../api';
 import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
 
 const PostCreate = () => {
@@ -13,7 +13,7 @@ const PostCreate = () => {
     deadLine: new Date(),
     startDate: new Date(),
     period: '',
-    memberCount: 0,
+    memberCount: '',
   });
 
   const handleSubmit = async () => {

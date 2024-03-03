@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import { Box } from '@radix-ui/themes';
 
 interface Props {
   tabTypes: string[];
@@ -22,13 +21,11 @@ const TabsContent = ({ tabTypes, header, description, children, selectedTab, set
           <StyledTabsList>
             {tabTypes.map((tab) => (
               <StyledTabsTrigger value={tab} onClick={() => setSelectedTab(tab)} aria-selected={selectedTab === tab}>
-                {1}개의 {tab}
+                {tab}
               </StyledTabsTrigger>
             ))}
           </StyledTabsList>
-          <Box pt="5" pb="2">
-            {children}
-          </Box>
+          <CardList>{children}</CardList>
         </Tabs.Root>
       </SideMenuBody>
     </>
@@ -96,6 +93,14 @@ const StyledTabsTrigger = styled(Tabs.Trigger)`
       color: black;
       border-bottom: 2px solid black;
     }
+  }
+`;
+
+const CardList = styled.div`
+  margin-top: 1.4rem;
+  & > div {
+    display: grid;
+    row-gap: 1rem;
   }
 `;
 

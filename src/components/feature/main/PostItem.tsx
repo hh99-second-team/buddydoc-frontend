@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Bookmark from '../../common/Bookmark';
 import SkillList from '../../common/SkillList';
-import StudyTypeIcon from '../../common/StudyTypeIcon';
+import TypeIcon from '../../common/TypeIcon';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../../utils/dateUtils';
-import { PostCardType } from '../../../types/commonTypes';
+import { getDateFomat } from '../../../utils';
+import { PostCardType } from '../../../types';
 import studyIcon from '../../../assets/study-icon.svg';
 import projectIcon from '../../../assets/project-icon.svg';
 import Views from '../../common/Views';
@@ -20,7 +20,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       <CardHeader>
         <TypeBox>
           {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
-          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <TypeIcon>{post.postType}</TypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </TypeBox>
         <Bookmark postId={post.postId} direction="column" count={post.preference} isToggle={post.bookmark} />
@@ -32,8 +32,8 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       </SkillBox>
       <PostFooter>
         <UserInfo>
-          <CircleIcon src="" isProfile={true} />
-          <p>{post.userNickname}</p>
+          <CircleIcon src={post.users.profileImage} isProfile={true} />
+          <p>{post.users.userNickname}</p>
         </UserInfo>
         <Views count={post.views} />
       </PostFooter>
