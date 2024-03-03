@@ -13,6 +13,7 @@ const ChatPage = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   // ENDPOINT 설정
   const ENDPOINT = 'http://localhost:3000/chat';
@@ -26,16 +27,25 @@ const ChatPage = () => {
     return () => newSocket.close(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
   }, []);
 
-  // 소켓 연결상태 log출력
+  // 소켓 연결/해제 , 메시지 수신
   useEffect(() => {
     if (socket) {
       socket.on('connect', () => {
         console.log('Socket connected');
       });
+      // 메시지 수신 Request를 보냄
+      socket.emit('read-Messages', { postId: 2 });
+      // 메시지 수신 Response를 받음
       socket.on('read-Messages', (data) => {
-        console.log(data);
-        setMessages((prevMessages) => [...prevMessages, data]);
+        if (data.isLastPage === true) {
+          setIsLastPage(true);
+        }
+        console.log('raw data', data);
+        console.log('isLastPage', data.isLastPage);
+        console.log('messages', data.messages);
       });
+      // isLastPage(false);
+
       //컴포넌트가 언마운트될 때 소켓 연결 해제
       return () => {
         socket.on('disconnect', () => {
@@ -54,6 +64,15 @@ const ChatPage = () => {
       setInputMessage('');
     }
   };
+
+  // const receiveMsg = () => {
+  //   if (socket) {
+  //     socket.emit('read-Messages', { postId: 2, lastMessageId: 30 });
+  //     socket.on('read-Messages', (data) => {
+  //       console.log(data);
+  //     });
+  //   }
+  // };
 
   //   return (
   //     <div>
@@ -82,7 +101,15 @@ const ChatPage = () => {
         {/* 채팅방 이름 */}
         <ChatRoomTitle>{chatRoomTitle}</ChatRoomTitle>
         {/* 채팅방 영역 */}
-        <ChatRoomBody></ChatRoomBody>
+        <ChatRoomBody>
+          <ul>
+            {messages.map((item) => (
+              <li key={item} value={item}>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </ChatRoomBody>
         {/* 입력창 및 전송버튼 */}
         <ChatRoomInputGroup>
           <Input
