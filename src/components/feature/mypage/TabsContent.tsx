@@ -61,46 +61,38 @@ const StyledTabsList = styled(Tabs.List)`
 
 const StyledTabsTrigger = styled(Tabs.Trigger)`
   padding: 1rem 0;
-  border-radius: 12px;
-  border: 2px solid #e6e6e6;
-  background-color: #e6e6e6;
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: bold;
-  transition: border 0.3s;
+  border: none;
+  background-color: transparent;
+  transition: border-bottom 0.3s;
+  transition: color 0.3s;
+  border-bottom: 2px solid transparent;
+  color: var(--grey03, #ced0d3);
   &:hover {
-    border: 2px solid black;
+    border-bottom: 2px solid #e6e6e6;
+    color: darkgray;
   }
   &[aria-selected='true'] {
-    border: 2px solid black;
-    background-color: black;
-    color: white;
+    border: none;
+    background-color: transparent;
+    color: black;
+    border-bottom: 2px solid black;
   }
 
   @media screen and (max-width: 768px) {
-    border-radius: 0;
-    border: none;
-    background-color: transparent;
-    transition: border-bottom 0.3s;
-    border-bottom: 2px solid transparent;
-
-    &:hover {
-      border: none;
-      border-bottom: 2px solid #e6e6e6;
-    }
-    &[aria-selected='true'] {
-      border: none;
-      background-color: transparent;
-      color: black;
-      border-bottom: 2px solid black;
-    }
+    font-size: 18px;
   }
 `;
 
 const CardList = styled.div`
-  margin-top: 1.4rem;
+  margin-top: 2rem;
   & > div {
     display: grid;
-    row-gap: 1rem;
+    row-gap: 1.125rem;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 1.4rem;
   }
 `;
 
