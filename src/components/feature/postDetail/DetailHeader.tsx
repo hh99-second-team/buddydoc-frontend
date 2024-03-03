@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import StudyTypeIcon from '../../common/StudyTypeIcon';
+import TypeIcon from '../../common/TypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
-import userIcon from '../../../assets/user-circle-icon.svg';
 import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
 import Views from '../../common/Views';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../../utils/dateUtils';
+import { getDateFomat } from '../../../utils';
 import { ChevronLeftIcon } from '@radix-ui/react-icons';
-import { PostDetailType } from '../../../types/commonTypes';
+import { PostDetailType } from '../../../types';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as Menubar from '@radix-ui/react-menubar';
 import AlertModal from '../../common/AlertModal';
-import api from '../../../services/api';
+import api from '../../../api';
 import MenuBarTrigger from '../../common/menuBar/MenuBarTrigger';
 import PortalContent from '../../common/menuBar/PortalContent';
 import { ReactComponent as DotsMenu } from '../../../assets/dots-menu.icon.svg';
@@ -50,7 +49,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Flex>
         <IconSet>
           <ChevronLeftIcon onClick={() => navigate(-1)} />
-          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <TypeIcon>{post.postType}</TypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </IconSet>
         {checkUserId() && (
@@ -88,15 +87,15 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={userIcon} fallback={post.user?.nickname} />
+          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} isProfile={true} />
           <div>
-            <p>{post.user?.nickname}</p>
+            <p>{post.user?.userNickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>
           </div>
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark direction="row" count={post.preference} isToggle={post.bookmarked} postId={post.postId} />
+          <Bookmark direction="row" count={post.preference} isToggle={post.isBookmarked} postId={post.postId} />
         </CountBox>
       </BottomSet>
     </Header>

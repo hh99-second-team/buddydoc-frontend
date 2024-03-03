@@ -1,42 +1,94 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button, DropdownMenu, TextArea, TextField } from '@radix-ui/themes';
-import { CaretDownIcon } from '@radix-ui/react-icons';
-import { skills, positions, career } from '../../../../constants/data';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../../services/api';
-import { UserType } from '../../../../types/commonTypes';
-// import { CaretDownIcon } from '@radix-ui/react-icons';
+import { skills, positions, career } from '../../../../constants';
+import { UserType } from '../../../../types';
+import api from '../../../../api';
+import Input from '../../../common/Input';
+import CircleIcon from '../../../common/CircleIcon';
+import { ReactComponent as AddPhotoIcon } from '../../../../assets/add-circle.icon.svg';
+import Select from '../../../common/Select';
+import SelectedIcon from '../../../common/SelectedIcon';
+import Button from '../../../common/Button';
+import { Uploader } from 'uploader';
+import { UploadButton } from 'react-uploader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function ManageProfile() {
+// 이미지 업로더
+const uploader = Uploader({
+  apiKey: 'free', // Get production API keys from Bytescale
+});
+
+const options = { multi: false };
+
+const ManageProfile = () => {
   const navigate = useNavigate();
-  // 분야 상태관리
-  const [selectedPosition, setSelectedPositionItem] = useState<string>('분야 선택');
-  // 경력 상태관리
-  // const [selectedCareer, setSelectedCareer] = useState<string>('경력 선택');
-  // 드롭박스에서 선택된 기술스택 상태관리
-  const [selectedSkills, setSelectedTechSkills] = useState<string>('기술스택 선택');
-  // 내 기술스택 상태관리
-  // const [myTechSkills, setMyTechSkills] = useState<string[]>([]);
+  const queryClient = useQueryClient();
 
-  // 내 정보를 저장할 상태
-  const [myInfo, setMyInfo] = useState<UserType>();
+  const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
-  // 내 정보 가져오기 함수
-  const fetchMyInfo = async () => {
-    try {
-      const response = await api.getMyInfo(); // API 호출
-      setMyInfo(response); // 가져온 정보를 상태에 저장
-    } catch (error) {
-      console.error('Error fetching my info:', error);
-      // 에러 처리
+  const [userInfo, setUserInfo] = useState<UserType>(
+    data || {
+      userId: 0,
+      userNickname: '',
+      position: '',
+      career: '',
+      skillList: [],
+      profileImage: '',
     }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setUserInfo(data);
+    }
+  }, [data]);
+
+  const mutation = useMutation(
+    async (userData: UserType) => {
+      console.log(userData);
+
+      await api.updateMyInfo(userData);
+    },
+    {
+      onSuccess: () => {
+        toast.success('저장 성공');
+        localStorage.setItem('profileImage', userInfo.profileImage);
+        refetch();
+      },
+      onError: () => {
+        toast.error('저장에 실패했습니다.');
+      },
+    }
+  );
+
+  const onChangeUserNickname = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUserInfo({ ...userInfo, userNickname: e.target.value });
+
+  const onChangePosition = (position: string) => setUserInfo({ ...userInfo, position });
+
+  const onChangeCareer = (career: string) => setUserInfo({ ...userInfo, career });
+
+  const onChangeSkillList = (skill: string) => {
+    if (userInfo.skillList.includes(skill)) {
+      return;
+    }
+    setUserInfo({ ...userInfo, skillList: [...userInfo.skillList, skill] });
   };
 
-  // 페이지 로드 시 내 정보 가져오기
-  useEffect(() => {
-    fetchMyInfo();
-  }, []);
+  const handleSkillRemove = (skill: string) => {
+    const removedSkills = userInfo.skillList.filter((value) => value !== skill);
+    setUserInfo({ ...userInfo, skillList: removedSkills });
+  };
+
+  const modifyProfileImgHandler = (profileImage: string) => {
+    if (!!profileImage) {
+      setUserInfo({ ...userInfo, profileImage });
+      queryClient.setQueryData(['userInfo'], { ...userInfo, profileImage });
+    }
+  };
 
   // 로그아웃 함수
   const handleLogout = () => {
@@ -44,203 +96,152 @@ function ManageProfile() {
     navigate('/');
   };
 
-  // 드롭다운 생성함수
-  const dropdownSetter = (selectedItem: any, contents: string[], category: string) => {
-    return (
-      <ProfileItemContentContainer>
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <Button
-              variant="solid"
-              highContrast
-              style={{
-                width: '550px',
-                height: '36px',
-                justifyContent: 'space-between',
-              }}>
-              {selectedItem}
-              <CaretDownIcon />
-            </Button>
-          </DropdownMenu.Trigger>
-          <DropdownMenuContent>
-            {contents.map((item, index) => (
-              <DropdownMenuItem
-                key={index}
-                onClick={() => {
-                  dropdownCategoryHandler(category, item);
-                }}>
-                {item}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu.Root>
-      </ProfileItemContentContainer>
-    );
-  };
+  const handleSave = () => mutation.mutateAsync(userInfo);
 
-  // 드롭다운 카테고리 분류
-  const dropdownCategoryHandler = (category: string, item: string) => {
-    if (category === 'position') {
-      setSelectedPositionItem(item);
-    }
-    if (category === 'techSkill') {
-      setSelectedTechSkills(item);
-    }
-    // if (category === 'career') {
-    //   setSelectedCareerItem(item);
-    // }
-  };
   return (
-    <>
-      <SideMenuHeader>
-        기본 정보
-        {/* <Button radius="full" variant="solid" style={{ fontWeight: 'bold' }}>
-          수정
-        </Button> */}
-      </SideMenuHeader>
-      <SideMenuBody>
-        {/* 프로필 정보 postTitle */}
-        <ProfileItemTitleGroup>
-          <ProfileItemTitle>프로필 사진</ProfileItemTitle>
-          <ProfileItemTitle marginTop="170px">닉네임</ProfileItemTitle>
-          <ProfileItemTitle marginTop="50px">분야</ProfileItemTitle>
-          {/* <ProfileItemTitle marginTop="50px">경력</ProfileItemTitle> */}
-          <ProfileItemTitle marginTop="50px">기술스택</ProfileItemTitle>
-          {/* <ProfileItemTitle marginTop="50px">한 줄 소개</ProfileItemTitle> */}
-          {/* <ProfileItemTitle marginTop="210px">URL</ProfileItemTitle> */}
-        </ProfileItemTitleGroup>
-
-        {/* 프로필 정보 content */}
-        <ProfileItemContentGroup>
-          {/* 프로필 이미지 */}
-          <ProfileItemContentContainer>
-            <ProfifleItemContentImage />
-          </ProfileItemContentContainer>
-          {/* 닉네임 */}
-          <ProfileItemContentContainer>
-            <ProfileInput type="text" value={myInfo?.userNickname} />
-          </ProfileItemContentContainer>
-          <ProfileItemContentContainer>
-            {dropdownSetter(myInfo?.position, positions, 'position')}
-          </ProfileItemContentContainer>
-          {/* 경력 */}
-          {/* <ProfileItemContentContainer>{dropdownSetter(myInfo?.career, career, 'career')}</ProfileItemContentContainer> */}
-          {/* 기술 스택 */}
-          <ProfileItemContentContainer>
-            {/* {dropdownSetter('기술스택 선택', skills, 'techSkill')} */}
-            기술스택 영역
-          </ProfileItemContentContainer>
-          {/* 한 줄 소개 */}
-          {/* <ProfileItemContentContainer> */}
-          {/* <TextArea placeholder="소개글을 작성해보세요." style={{ height: '200px', padding: '10px' }} /> */}
-          {/* +글자수 체크 함수부분 */}
-          {/* </ProfileItemContentContainer> */}
-          {/* URL */}
-          {/* <ProfileItemContentContainer>
-            <TextField.Input value="https://" />
-            <Button
-              style={{
-                fontWeight: 'bold',
-                backgroundColor: 'transparent',
-                color: 'black',
-                fontSize: '17px',
-                marginTop: '10px',
-                padding: '0px',
-              }}>
-              + 추가
-            </Button> */}
-          {/* </ProfileItemContentContainer> */}
-          <ProfileItemContentContainer>
-            <Button
-              style={{
-                width: '100%',
-                fontWeight: 'bold',
-                backgroundColor: '#007DFa',
-                color: '#fff',
-                fontSize: '17px',
-                marginTop: '10px',
-                padding: '0px',
-                cursor: 'pointer',
-              }}
-              onClick={handleLogout}>
-              로그아웃
-            </Button>
-          </ProfileItemContentContainer>
-        </ProfileItemContentGroup>
-      </SideMenuBody>
-    </>
+    <Layout>
+      <UploadButton
+        uploader={uploader}
+        options={options}
+        onComplete={(file) => modifyProfileImgHandler(file.length > 0 ? file[0].fileUrl : '')}>
+        {({ onClick }) => (
+          <ProfileBox onClick={onClick}>
+            <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
+            <AddPhotoIcon />
+          </ProfileBox>
+        )}
+      </UploadButton>
+      <Header>기본 정보</Header>
+      <GridGroup>
+        <InputBox>
+          <p>닉네임</p>
+          <Input
+            type="text"
+            value={userInfo.userNickname}
+            onChange={onChangeUserNickname}
+            placeholder="닉네임을 입력해주세요."
+            isValid="none"
+          />
+        </InputBox>
+        <InputBox>
+          <p>포지션</p>
+          <Select
+            selectValue={userInfo.position}
+            onValueChange={onChangePosition}
+            items={positions}
+            placeholder="포지션을 선택해주세요."
+          />
+        </InputBox>
+        <InputBox>
+          <p>경력</p>
+          <Select
+            selectValue={userInfo.career}
+            onValueChange={onChangeCareer}
+            items={career}
+            placeholder="경력을 선택해주세요."
+          />
+        </InputBox>
+        <InputBox>
+          <p>기술 스택</p>
+          <Select
+            selectValue={userInfo.skillList && userInfo.skillList[userInfo.skillList.length - 1]}
+            onValueChange={onChangeSkillList}
+            items={skills}
+            placeholder="보유 기술 스택을 선택하세요."
+          />
+          {!!userInfo.skillList.length && (
+            <SkillBox>
+              {userInfo.skillList.map((skill) => (
+                <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
+              ))}
+            </SkillBox>
+          )}
+        </InputBox>
+      </GridGroup>
+      <Button size="full" color="primary" onClick={handleSave}>
+        저장
+      </Button>
+      <Button size="full" color="black" onClick={handleLogout}>
+        로그아웃
+      </Button>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </Layout>
   );
-}
+};
 
-export default ManageProfile;
-
-const SideMenuHeader = styled.div`
-  font-size: 30px;
-  font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-`;
-const SideMenuBody = styled.div`
-  width: 900px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 30px;
-`;
-const ProfileItemTitleGroup = styled.div`
-  width: 200px;
-  padding-left: 30px;
-`;
-const ProfileItemTitle = styled.p<{ marginTop?: string }>`
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: ${(props) => props.marginTop || '0px'};
-`;
-const ProfileItemContentGroup = styled.div`
-  width: 550px;
-  font-size: 18px;
-  font-weight: bold;
-`;
-const ProfileItemContentContainer = styled.div`
-  margin-bottom: 40px;
-`;
-const DropdownMenuContent = styled(DropdownMenu.Content)`
+const Layout = styled.div`
+  row-gap: 2rem;
   display: flex;
   flex-direction: column;
-  /* grid-template-columns: repeat(3, 1fr); */
-  /* row-gap: 15px;
-  column-gap: 10px; */
-  width: 550px;
-`;
-const DropdownMenuItem = styled(DropdownMenu.Item)`
-  display: flex;
-  padding: 10px 16px;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  font-size: 14px;
   justify-content: center;
-  transition: 0.3s;
-  &:hover {
-    background-color: gray;
-    color: #fff;
+  align-items: center;
+`;
+
+const Header = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 1.3rem 0;
+`;
+
+const ProfileBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  & > svg {
+    position: absolute;
+    bottom: 0;
+    right: -0.3rem;
+    color: #e2e3e5;
   }
 `;
-const ProfifleItemContentImage = styled.div`
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
-  background-color: #e2e3e5;
+
+const GridGroup = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 4rem;
+  row-gap: 2rem;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
-const ProfileInput = styled.input`
-  width: 550px;
-  height: ${(props) => props.height || '40px'};
-  border-radius: 10px;
-  border: 1px solid #d6d6d6;
-  background: #f8f8f8;
-  text-align: start;
-  box-sizing: border-box;
-  padding-left: 10px;
+
+const InputBox = styled.div`
+  & > p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
 `;
+
+const SkillBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0.6rem;
+  row-gap: 0.6rem;
+  padding: 1rem;
+  margin: 1rem 0 2rem 0;
+  border: 1px solid #e2e3e5;
+  border-radius: 12px;
+
+  & > div > span {
+    margin-right: 0.3rem;
+  }
+`;
+
+export default ManageProfile;

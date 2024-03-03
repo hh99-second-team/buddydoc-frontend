@@ -3319,6 +3319,11 @@
   resolved "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@upload-io/upload-api-client-upload-js@^2.18.0":
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/@upload-io/upload-api-client-upload-js/-/upload-api-client-upload-js-2.18.0.tgz#948cf288ace5ef22a152b37096335fda2ef7cc5c"
+  integrity sha512-yPwsRCecXSilYn4q5ZDD4fyI2PVyUcLimv2LQcfpV3hRyzc8t82NuWHYEYpRZa5K68zxw2RljDf30geT1vJN9g==
+
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
   resolved "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.11.6.tgz"
@@ -7595,6 +7600,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
@@ -8887,6 +8897,11 @@ postcss@^8.3.5, postcss@^8.4.23, postcss@^8.4.33, postcss@^8.4.4:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+preact@^10.6.5:
+  version "10.19.6"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.19.6.tgz#66007b67aad4d11899f583df1b0116d94a89b8f5"
+  integrity sha512-gympg+T2Z1fG1unB8NH29yHJwnEaCH37Z32diPDku316OTnRPeMbiRV9kTrfZpocXjdfnWuFUl/Mj4BHaf6gnw==
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -8942,6 +8957,11 @@ process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+
+progress-smoother@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/progress-smoother/-/progress-smoother-1.7.0.tgz#77a5d77b19ce55ef81fdf02007ba6213df08ee5e"
+  integrity sha512-ZIbSbPQ8SnEf5Sa0If9lfvn5URyrZfgTTh5DM+04j1GafiLIaWDWW+1AkYXzGl7JQvzAvCy5E1ZPOgx8XORyew==
 
 promise@^8.1.0:
   version "8.3.0"
@@ -9386,6 +9406,14 @@ react-transition-group@^4.4.5:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-uploader@^3.43.0:
+  version "3.43.0"
+  resolved "https://registry.yarnpkg.com/react-uploader/-/react-uploader-3.43.0.tgz#0dd4f709549d8067aae2fb8615262d371ddeca53"
+  integrity sha512-RCaMSdRsfrIC6Mt2UDhk9G4A+mzcuumW2bOfuPyKwKktotNdlcj8ZqRDihtzXVy/K9PVvxnr2PxCfQuDXOkcyQ==
+  dependencies:
+    lodash.isequal "^4.5.0"
+    uploader "^3.47.0"
 
 react@^18.2.0:
   version "18.2.0"
@@ -10780,6 +10808,23 @@ update-browserslist-db@^1.0.13:
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"
+
+upload-js@^2.22.0:
+  version "2.24.3"
+  resolved "https://registry.yarnpkg.com/upload-js/-/upload-js-2.24.3.tgz#cf18a2d4f726d247380d5b89b336a0c8b28f3e92"
+  integrity sha512-iiTowtr2uRw2coGXlqiN1ff/wfMPVMv2MqaZYqEYBSNGmxD1pLl9R9wU8BT/mK+Yn8fDx7utlPovXziS8PVaIA==
+  dependencies:
+    "@upload-io/upload-api-client-upload-js" "^2.18.0"
+    progress-smoother "^1.7.0"
+
+uploader@^3.47.0:
+  version "3.48.3"
+  resolved "https://registry.yarnpkg.com/uploader/-/uploader-3.48.3.tgz#5b7f8c57ff115e42ab66d9aed68b1c7f2a544f1a"
+  integrity sha512-BGXSS9O54m81TL5Ogn4OHISD/WPuIS3kvNCYomDl8cltPGzUMrHseU1sXHKGrFg65L28qJL6LnGA2fXUxpQVBQ==
+  dependencies:
+    classnames "^2.2.6"
+    preact "^10.6.5"
+    upload-js "^2.22.0"
 
 uri-js@^4.2.2:
   version "4.4.1"

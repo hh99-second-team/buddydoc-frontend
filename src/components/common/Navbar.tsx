@@ -11,9 +11,9 @@ import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
 import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
 import SearchModal from '../feature/SearchModal';
-import emptyUserIcon from '../../assets/user-circle-icon.svg';
 import MenuBarTrigger from './menuBar/MenuBarTrigger';
 import PortalContent from './menuBar/PortalContent';
+import CircleIcon from './CircleIcon';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const Navbar = () => {
               <Dialog.Portal></Dialog.Portal>
             </Dialog.Root>
             <IconContainer onClick={() => navigate('/mypage')}>
-              <img src={emptyUserIcon} alt="" />
+              <CircleIcon src={localStorage.getItem('profileImage') || ''} isProfile={true} />
             </IconContainer>
           </>
         ) : (
