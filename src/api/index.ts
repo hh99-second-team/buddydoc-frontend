@@ -1,46 +1,35 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { PostCreateType, SignUpType, UserModifyType } from '../types/commonTypes';
+import { axios } from './axios';
+import { PostCreateType, SignUpType, UserModifyType } from '../types';
 
-// 환경 변수에서 API 루트 경로 가져오기
 const API_ROOT = process.env.REACT_APP_API_ROOT;
 
-// 토큰 가져오기
-const token = localStorage.getItem('accessToken');
-
-// Axios 인스턴스 생성
-const axiosInstance: AxiosInstance = axios.create({
-  baseURL: API_ROOT, // API 루트 경로를 기본 URL로 설정
-  timeout: 5000, // 요청 타임아웃 설정 (예: 5초)
-  headers: {
-    'Content-Type': 'application/json', // JSON 형식의 요청을 보낼 것임을 명시
-    'Access-Control-Allow-Origin': '*',
-    Authorization: token ? `Bearer ${token}` : '', // 토큰이 존재하는 경우에만 헤더에 추가
-  },
-});
-
-// API 호출 메서드 정의
 const api = {
   /** 게시물 목록 조회 */
-  getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
-    const response = await axiosInstance.get('/post', { params: { orderBy: 'createdAt', lastPostId, postType } });
-    return response.data;
+  getPost: async (lastPostId: number, isEnd?: boolean, postType?: '스터디' | '프로젝트') => {
+    const response = await axios.get('/post', {
+      params: { orderBy: 'createdAt', lastPostId, isEnd: isEnd ? '1' : '0', postType },
+    });
+    return response.data.posts;
   },
 
   /** 게시물 검색 */
   getPostSearch: async (lastPostId: number, search: string) => {
-    const response = await axiosInstance.get(`/post/search`, { params: { lastPostId, search } });
-    return response.data;
+    const response = await axios.get(`/post/search`, { params: { lastPostId, search } });
+    const result = response.data.result.options.map((data: any) => data._source);
+
+    return { posts: result, isLastPage: response.data.result.isLastPage };
   },
 
   /** 게시물 상세 정보 조회 */
   getPostDetail: async (postId: string) => {
-    const response = await axiosInstance.get(`/post/${postId}`);
-    return response.data.data[0];
+    const response = await axios.get(`/post/${postId}`);
+
+    return response.data.post;
   },
 
   /** 게시물 작성 */
   createPost: async (post: PostCreateType) => {
-    const response = await axiosInstance.post('/post', {
+    const response = await axios.post('/post', {
       ...post,
       memberCount: Number(post.memberCount),
     });
@@ -50,7 +39,7 @@ const api = {
 
   /** 게시물 수정 */
   updatePost: async (postId: string, post: PostCreateType) => {
-    const response = await axiosInstance.put(`/post/${postId}`, {
+    const response = await axios.put(`/post/${postId}`, {
       ...post,
       memberCount: Number(post.memberCount),
     });
@@ -60,25 +49,25 @@ const api = {
 
   /** 게시물 삭제 */
   deletePost: async (postId: string) => {
-    const response = await axiosInstance.delete(`/post/${postId}`);
+    const response = await axios.delete(`/post/${postId}`);
     return response.data;
   },
 
   /** 참여 신청하기 */
   createApplication: async (postId: string, applicationInfo: { position: string; noti_message: string }) => {
-    const response = await axiosInstance.post(`/post/${postId}/noti`, applicationInfo);
+    const response = await axios.post(`/post/${postId}/noti`, applicationInfo);
     return response.data;
   },
 
   /** 북마크 */
   updateBookmark: async (postId: number) => {
-    const response = await axiosInstance.post(`/post/${postId}/bookmarks`);
+    const response = await axios.post(`/post/${postId}/bookmarks`);
     return response.data;
   },
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {
-    const response: AxiosResponse<SignUpType> = await axiosInstance.post('/signup', userData);
+    const response = await axios.post('/signup', userData);
     return response.data;
   },
 
@@ -102,31 +91,31 @@ const api = {
 
   /** 내 정보 조회 */
   getMyInfo: async () => {
-    const response = await axiosInstance.get('/user/my-info');
+    const response = await axios.get('/user/my-info');
     return response.data;
   },
 
   /** 내 정보 관심 목록 */
   getMyBookmarks: async () => {
-    const response = await axiosInstance.get('/user/my-bookmarks');
+    const response = await axios.get('/user/my-bookmarks');
     return response.data;
   },
 
   /** 내 정보 참여 스터디 목록 */
   getMyStudylists: async () => {
-    const response = await axiosInstance.get('/user/my-studylists');
+    const response = await axios.get('/user/my-studylists');
     return response.data;
   },
 
   /** 내 정보 작성 게시글 목록 */
   getMyPosts: async () => {
-    const response = await axiosInstance.get('/user/my-posts');
+    const response = await axios.get('/user/my-posts');
     return response.data;
   },
 
   /** 내 정보 수정 */
   updateMyInfo: async (info: UserModifyType) => {
-    const response = await axiosInstance.put('/user/my-info', { info });
+    const response = await axios.put('/user/my-info', { info });
     return response.data;
   },
 };

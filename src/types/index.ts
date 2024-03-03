@@ -2,7 +2,6 @@
 export interface PostCardType {
   postId: number;
   post_userId: number;
-  userNickname: string;
   postType: '스터디' | '프로젝트';
   postTitle: string;
   createdAt: Date;
@@ -10,12 +9,16 @@ export interface PostCardType {
   deadLine: Date;
   startDate: Date;
   memberCount: number;
-  period: string;
   position: string[];
   skillList: string[];
   preference: number;
   bookmark: boolean;
+  isEnd: string;
   views: number;
+  users: {
+    userNickname: string;
+    profileImage: string;
+  };
 }
 
 /** 게시물 작성 / 수정 데이터 형식 */
@@ -28,7 +31,7 @@ export interface PostCreateType {
   deadLine: Date;
   startDate: Date;
   period: string;
-  memberCount: number;
+  memberCount: string;
 }
 
 /** 게시물 상세 정보 데이터 형식 */
@@ -37,7 +40,8 @@ export interface PostDetailType {
   postType: '스터디' | '프로젝트';
   user: {
     userId: number;
-    nickname: string;
+    userNickname: string;
+    profileImage: string;
   };
   postTitle: string;
   position: string[];
@@ -50,7 +54,7 @@ export interface PostDetailType {
   memberCount: number;
   period: string;
   preference: number;
-  bookmarked: boolean;
+  isBookmarked: boolean;
   views: number;
 }
 

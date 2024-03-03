@@ -5,8 +5,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-const StudyTypeIcon = ({ children }: Props) => {
-  return <TypeBox>{children === '스터디' ? '스터디' : '프로젝트'}</TypeBox>;
+const TypeIcon = ({ children }: Props) => {
+  return <TypeBox>{children}</TypeBox>;
 };
 
 const TypeBox = styled.div`
@@ -22,4 +22,4 @@ const TypeBox = styled.div`
   color: #434855;
 `;
 
-export default StudyTypeIcon;
+export default TypeIcon;

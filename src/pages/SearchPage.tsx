@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const SearchPage = () => {
   const { search } = useParams();
   const navigate = useNavigate();
+
   const [searchTitle, setsearchTitle] = useState(search);
 
   const handleSearchButton = () => navigate(`/search/${searchTitle}`);
@@ -34,7 +35,7 @@ const SearchPage = () => {
           검색
         </Button>
       </SearchBox>
-      <PostList />
+      <PostList key={search} searchTitle={search} />
     </Layout>
   );
 };

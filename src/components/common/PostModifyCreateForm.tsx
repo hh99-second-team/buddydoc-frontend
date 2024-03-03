@@ -2,7 +2,7 @@ import React from 'react';
 import BasicInformation from '../feature/postCreate/BasicInformation';
 import MoreInformation from '../feature/postCreate/MoreInformation';
 import { useNavigate } from 'react-router-dom';
-import { PostCreateType } from '../../types/commonTypes';
+import { PostCreateType } from '../../types';
 import styled from 'styled-components';
 import { Layout } from '../../styles/GlobalStyles';
 import Button from './Button';

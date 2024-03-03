@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from '../common/Modal';
 import styled, { css } from 'styled-components';
-import api from '../../services/api';
+import api from '../../api';
 import kakaoIcon from '../../assets/kakao.icon.png';
 import googleIcon from '../../assets/google.icon.png';
 import naverIcon from '../../assets/naver.icon.png';

@@ -3,7 +3,7 @@ import Modal from '../common/Modal';
 import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import SkillsForm from './SkillsForm';
-import { SignUpType } from '../../types/commonTypes';
+import { SignUpType } from '../../types';
 
 const SignupModal = () => {
   const [inputVal, setInputVal] = useState<SignUpType>({
