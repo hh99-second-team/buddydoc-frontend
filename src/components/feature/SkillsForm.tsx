@@ -15,24 +15,19 @@ import 'react-toastify/dist/ReactToastify.css';
 interface FormProps {
   inputVal: SignUpType;
   setPrevPage: () => void;
-  setSkills: (skills: string[]) => void;
 }
 
-const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
+const SkillsForm = ({ inputVal, setPrevPage }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const onChangeSkills = (value: string[]) => setSelectedSkills(value);
 
   const handleSubmit = async () => {
-    setSkills(selectedSkills);
-
-    if (!skills.length) {
+    if (!selectedSkills.length) {
       toast.error('기술 스택을 선택하세요.');
-    }
-
-    if (localStorage.getItem('accessToken')) {
-      const response = await api.signup(inputVal);
+    } else if (localStorage.getItem('accessToken')) {
+      const response = await api.signup({ ...inputVal, skillList: selectedSkills });
       localStorage.setItem('isLogin', 'true');
       localStorage.setItem('nickname', inputVal.userNickname);
       setIsSignupOpen(false);

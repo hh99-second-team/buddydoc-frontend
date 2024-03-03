@@ -15,13 +15,12 @@ const SignupModal = () => {
   const [pageNum, setPageNum] = useState(1);
   const setPrevPage = () => setPageNum(1);
   const setNextPage = () => setPageNum(2);
-  const setSkills = (skillList: string[]) => setInputVal({ ...inputVal, skillList });
 
   return (
     <Modal postTitle="회원가입">
       <Container>
         {pageNum === 1 && <SignupForm inputVal={inputVal} setInputVal={setInputVal} setNextPage={setNextPage} />}
-        {pageNum === 2 && <SkillsForm inputVal={inputVal} setPrevPage={setPrevPage} setSkills={setSkills} />}
+        {pageNum === 2 && <SkillsForm inputVal={inputVal} setPrevPage={setPrevPage} />}
       </Container>
     </Modal>
   );

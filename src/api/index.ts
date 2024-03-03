@@ -67,6 +67,7 @@ const api = {
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {
+    console.log(userData);
     const response = await axios.post('/signup', userData);
     return response.data;
   },
@@ -115,7 +116,6 @@ const api = {
 
   /** 내 정보 수정 */
   updateMyInfo: async (info: UserType) => {
-    console.log(info);
     const response = await axios.put('/user/my-info', info);
     return response.data;
   },
