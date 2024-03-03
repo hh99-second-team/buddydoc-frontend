@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const Footer = () => {
-  const menuList = ['Home', 'About', 'Services', 'Team', 'Contact'];
   const location = useLocation();
 
   if (location.pathname.startsWith('/chat')) return <></>;
@@ -16,27 +15,6 @@ const Footer = () => {
         <Wave id="wave3"></Wave>
         <Wave id="wave4"></Wave>
       </div>
-      <Menu>
-        <MenuItem>
-          <SocialIconLink>{/* <ion-icon name="logo-facebook"></ion-icon> */}</SocialIconLink>
-        </MenuItem>
-        <MenuItem>
-          <SocialIconLink>{/* <ion-icon name="logo-twitter"></ion-icon> */}</SocialIconLink>
-        </MenuItem>
-        <MenuItem>
-          <SocialIconLink>{/* <ion-icon name="logo-linkedin"></ion-icon> */}</SocialIconLink>
-        </MenuItem>
-        <MenuItem>
-          <SocialIconLink>{/* <ion-icon name="logo-instagram"></ion-icon> */}</SocialIconLink>
-        </MenuItem>
-      </Menu>
-      <Menu>
-        {menuList.map((menu) => (
-          <MenuItem key={menu}>
-            <MenuLink>{menu}</MenuLink>
-          </MenuItem>
-        ))}
-      </Menu>
       <p>곽민지 | 박성진 | 임희원 | 김기민 | 최예은</p>
       <p>&copy;2024 항해 18기 2조 | All Rights Reserved</p>
     </FooterBox>
@@ -59,47 +37,7 @@ const FooterBox = styled.footer`
     color: #fff;
     margin: 15px 0 10px 0;
     font-size: 1rem;
-    font-weight: 300;
-  }
-`;
-
-const Menu = styled.ul`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  flex-wrap: wrap;
-`;
-
-const MenuItem = styled.li`
-  list-style: none;
-`;
-
-const SocialIconLink = styled.p`
-  font-size: 2rem;
-  color: #fff;
-  margin: 0 10px;
-  display: inline-block;
-  transition: 0.5s;
-
-  &:hover {
-    transform: translateY(-10px);
-  }
-`;
-
-const MenuLink = styled.p`
-  font-size: 1.2rem;
-  color: #fff;
-  margin: 0 10px;
-  display: inline-block;
-  transition: 0.5s;
-  text-decoration: none;
-  opacity: 0.75;
-  font-weight: 300;
-
-  &:hover {
-    opacity: 1;
+    font-weight: 400;
   }
 `;
 

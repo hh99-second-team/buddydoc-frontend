@@ -6,10 +6,13 @@ interface TextareaProps {
   value: string;
   onChange: any;
   rows?: number;
+  maxLength: number;
 }
 
-const Textarea = ({ placeholder, value, onChange, rows }: TextareaProps) => {
-  return <TextBox rows={rows} placeholder={placeholder} value={value} onChange={onChange}></TextBox>;
+const Textarea = ({ placeholder, value, onChange, rows, maxLength }: TextareaProps) => {
+  return (
+    <TextBox rows={rows} placeholder={placeholder} value={value} onChange={onChange} maxLength={maxLength}></TextBox>
+  );
 };
 
 const TextBox = styled.textarea`

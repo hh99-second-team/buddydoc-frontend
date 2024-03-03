@@ -2,6 +2,9 @@ import React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import styled from 'styled-components';
 import JoinList from '../components/feature/chat/tabs/JoinList';
+import Settings from '../components/feature/mypage/tabs/Settings';
+// import ChatPageSideBar from '../components/feature/chat/ChatPageSideBar';
+// import ChatPageMain from '../components/feature/chat/ChatPageMain';
 
 const ChatPage = () => {
   // const tabTitle = ['현재참여목록', '채팅', '설정'];
