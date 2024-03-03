@@ -11,49 +11,49 @@ const ChatPage = () => {
   const tabTitle = ['현재참여목록', '채팅'];
   const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
   const [inputMessage, setInputMessage] = useState('');
-  //   const [messages, setMessages] = useState([]);
-  //   const [inputMessage, setInputMessage] = useState('');
-  //   const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-  //   // ENDPOINT 설정
-  //   const ENDPOINT = 'http://localhost:3000/chat';
-  //   // const ENDPOINT = "https://buddydoc.site:3000/chat"
+  // ENDPOINT 설정
+  const ENDPOINT = 'http://localhost:3000/chat';
+  // const ENDPOINT = "https://buddydoc.site:3000/chat"
 
-  //   // 렌더링시 Socket 연결관리
-  //   useEffect(() => {
-  //     // Socket 연결
-  //     const newSocket = io(ENDPOINT); // 기존 백엔드 서버
-  //     setSocket(newSocket); // 소켓 상태관리
-  //     return () => newSocket.close(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
-  //   }, []);
+  // 렌더링시 Socket 연결관리
+  useEffect(() => {
+    // Socket 연결
+    const newSocket = io(ENDPOINT); // 기존 백엔드 서버
+    setSocket(newSocket); // 소켓 상태관리
+    return () => newSocket.close(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
+  }, []);
 
-  //   // 소켓 연결상태 log출력
-  //   useEffect(() => {
-  //     if (socket) {
-  //       socket.on('connect', () => {
-  //         console.log('Socket connected');
-  //       });
-  //       socket.on('read-Messages', (data) => {
-  //         console.log(data);
-  //         setMessages((prevMessages) => [...prevMessages, data]);
-  //       });
-  //       //컴포넌트가 언마운트될 때 소켓 연결 해제
-  //       return () => {
-  //         socket.on('disconnect', () => {
-  //           console.log('Socket disconnected');
-  //         });
-  //       };
-  //     }
-  //   }, [socket]);
+  // 소켓 연결상태 log출력
+  useEffect(() => {
+    if (socket) {
+      socket.on('connect', () => {
+        console.log('Socket connected');
+      });
+      socket.on('read-Messages', (data) => {
+        console.log(data);
+        setMessages((prevMessages) => [...prevMessages, data]);
+      });
+      //컴포넌트가 언마운트될 때 소켓 연결 해제
+      return () => {
+        socket.on('disconnect', () => {
+          console.log('Socket disconnected');
+        });
+      };
+    }
+  }, [socket]);
 
-  //   // 메시지 전송
-  //   const sendMessage = (inputChatMessage) => {
-  //     if (socket && inputMessage.trim() !== '') {
-  //       socket.emit('send-message', { chat_message: inputChatMessage, userId: 1, postId: 2 });
-  //       // console.log(inputChatMessage);
-  //       setInputMessage('');
-  //     }
-  //   };
+  // 메시지 전송
+  const sendMessage = (event, inputChatMessage) => {
+    event.preventDefault();
+    if (socket && inputMessage.trim() !== '') {
+      socket.emit('send-message', { chat_message: inputChatMessage, userId: 1, postId: 2 });
+      // console.log(inputChatMessage);
+      setInputMessage('');
+    }
+  };
 
   //   return (
   //     <div>
@@ -85,15 +85,13 @@ const ChatPage = () => {
         <ChatRoomBody></ChatRoomBody>
         {/* 입력창 및 전송버튼 */}
         <ChatRoomInputGroup>
-          <form>
-            <Input
-              type="text"
-              placeholder="메시지 입력"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-            />
-            <SendButton>전송</SendButton>
-          </form>
+          <Input
+            type="text"
+            placeholder="메시지 입력"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+          />
+          <SendButton onClick={(e) => sendMessage(e, inputMessage)}>전송</SendButton>
         </ChatRoomInputGroup>
       </>
     );
@@ -101,42 +99,24 @@ const ChatPage = () => {
 
   return (
     <Layout>
-      <TabsRoot defaultValue={tabTitle[0] ? tabTitle[0] : ''}>
+      <TabsRoot defaultValue={joinList[0] ? joinList[0] : ''}>
         <Tabs.List>
-          <ChatRoomList>
-            {tabTitle.map((title) => (
-              <TabsTrigger key={title} value={title}>
-                {title}
+          <ChatList>
+            <ChatListTitle>채팅</ChatListTitle>
+            {joinList.map((item) => (
+              <TabsTrigger key={item} value={item}>
+                {item}
               </TabsTrigger>
             ))}
-          </ChatRoomList>
+          </ChatList>
         </Tabs.List>
-        <TabsContentContainer>
-          <Tabs.Content value="현재참여목록">
-            <JoinList />
-          </Tabs.Content>
-          <Tabs.Content value="채팅">
-            <TabsRoot defaultValue={joinList[0] ? joinList[0] : ''}>
-              <Tabs.List>
-                <ChatList>
-                  <ChatListTitle>채팅</ChatListTitle>
-                  {joinList.map((item) => (
-                    <TabsTrigger key={item} value={item}>
-                      {item}
-                    </TabsTrigger>
-                  ))}
-                </ChatList>
-              </Tabs.List>
-              <ChatRoomContainer>
-                {joinList.map((item) => (
-                  <Tabs.Content key={item} value={item}>
-                    {createChatRoom(item)}
-                  </Tabs.Content>
-                ))}
-              </ChatRoomContainer>
-            </TabsRoot>
-          </Tabs.Content>
-        </TabsContentContainer>
+        <ChatRoomContainer>
+          {joinList.map((item) => (
+            <Tabs.Content key={item} value={item}>
+              {createChatRoom(item)}
+            </Tabs.Content>
+          ))}
+        </ChatRoomContainer>
       </TabsRoot>
     </Layout>
   );
@@ -144,7 +124,7 @@ const ChatPage = () => {
 
 const Layout = styled.div`
   display: flex;
-  background: var(--grey01, #dadde2);
+  background: var(--grey01, #bbbbbb); // 색상 임의 변경
 `;
 const TabsRoot = styled(Tabs.Root)`
   display: flex;
@@ -246,7 +226,7 @@ const SendButton = styled(Button)`
   width: 100px;
   height: 40px;
 `;
-const ChatRoomInputGroup = styled.div`
+const ChatRoomInputGroup = styled.form`
   position: absolute;
   width: 1130px;
   height: 150px;
