@@ -104,3 +104,12 @@ export interface LikeType {
   deadLine: Date;
   memberCount: number;
 }
+
+/** 내 작성글 목록 */
+export interface WriteType {
+  postId: number;
+  postTitle: string;
+  postType: '스터디' | '프로젝트';
+  createdAt: Date;
+  deadLine: Date;
+}

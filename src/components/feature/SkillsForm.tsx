@@ -27,11 +27,15 @@ const SkillsForm = ({ inputVal, setPrevPage }: FormProps) => {
     if (!selectedSkills.length) {
       toast.error('기술 스택을 선택하세요.');
     } else if (localStorage.getItem('accessToken')) {
-      const response = await api.signup({ ...inputVal, skillList: selectedSkills });
-      localStorage.setItem('isLogin', 'true');
-      localStorage.setItem('nickname', inputVal.userNickname);
-      setIsSignupOpen(false);
-      toast.success('회원가입 성공');
+      try {
+        await api.signup({ ...inputVal, skillList: selectedSkills });
+        localStorage.setItem('isLogin', 'true');
+        localStorage.setItem('nickname', inputVal.userNickname);
+        setIsSignupOpen(false);
+        toast.success('회원가입 성공');
+      } catch (e) {
+        toast.error('회원가입에 실패했습니다.');
+      }
     }
   };
 

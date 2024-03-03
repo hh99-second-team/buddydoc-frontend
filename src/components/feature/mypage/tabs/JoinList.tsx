@@ -1,4 +1,3 @@
-import { Button } from '@radix-ui/themes';
 import * as Tabs from '@radix-ui/react-tabs';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -34,7 +33,6 @@ const JoinList = () => {
                   <Title>{data.postTitle}</Title>
                   <MemberCount>{data.memberCount}</MemberCount>
                   <DateInfo>시작일 : {getDateFomat(data.startDate)}</DateInfo>
-                  <ContentButton>{tab} 홈</ContentButton>
                 </ContentContainer>
               ))}
         </Tabs.Content>
@@ -45,14 +43,13 @@ const JoinList = () => {
 
 const ContentContainer = styled.div`
   position: relative;
-  min-height: 230px;
+  min-height: 10rem;
   border-radius: 30px;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
   box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
-  padding: 30px;
-  margin-bottom: 15px;
+  padding: 1.8rem;
 `;
 
 const CategoryContainer = styled.div`
@@ -82,18 +79,6 @@ const DateInfo = styled.p<{ left?: string }>`
   font-weight: 700;
   color: #787878;
   text-align: end;
-`;
-
-const ContentButton = styled(Button)`
-  position: absolute;
-  background-color: #000;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 40px;
-  right: 30px;
-  width: 170px;
-  height: 50px;
 `;
 
 export default JoinList;
