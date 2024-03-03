@@ -7,7 +7,9 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins",  'Apple SD Gothic Neo', sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
   }

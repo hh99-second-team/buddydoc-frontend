@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import api from '../../../../api';
 import PostTabsContent from '../TabsContent';
-import CircleIcon from '../../../common/CircleIcon';
+import TypeIcon from '../../../common/TypeIcon';
 
 const dummyDatas = [
   {
@@ -27,10 +27,6 @@ const JoinList = () => {
   // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('스터디');
 
-  // 참여중인 활동별 개수 상태관리
-  const [, setStudyCount] = useState(0);
-  const [, setProjectCount] = useState(0);
-
   // 내 정보 참여 스터디 목록 api 호출
   const fetchMyStudylists = async () => {
     try {
@@ -48,28 +44,6 @@ const JoinList = () => {
     fetchMyStudylists();
   }, []);
 
-  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
-  useEffect(() => {
-    const counts = dummyDatas.reduce(
-      (acc, data) => {
-        switch (data.category) {
-          case '스터디':
-            acc.study++;
-            break;
-          case '프로젝트':
-            acc.project++;
-            break;
-          default:
-            break;
-        }
-        return acc;
-      },
-      { study: 0, project: 0 }
-    );
-    setStudyCount(counts.study);
-    setProjectCount(counts.project);
-  }, []);
-
   return (
     <PostTabsContent
       tabTypes={tabTypes}
@@ -84,13 +58,12 @@ const JoinList = () => {
             .map((data, idx) => (
               <ContentContainer key={idx}>
                 <CategoryContainer>
-                  <CircleIcon src="" />
-                  <Category>프로젝트</Category>
+                  <TypeIcon>{tab}</TypeIcon>
                 </CategoryContainer>
                 <Title>{data.postTitle}</Title>
                 <MemberCount>{data.memberCount}</MemberCount>
                 <DateInfo>시작일 : {data.startDate}</DateInfo>
-                <ContentButton>프로젝트 홈</ContentButton>
+                <ContentButton>{tab} 홈</ContentButton>
               </ContentContainer>
             ))}
         </Tabs.Content>
@@ -102,8 +75,10 @@ const JoinList = () => {
 const ContentContainer = styled.div`
   position: relative;
   min-height: 230px;
-  border-radius: 15px;
-  border: 2px solid black;
+  border-radius: 30px;
+  border: 1px solid var(--grey02, #e2e3e5);
+  background: var(--grey01, #f9fafc);
+  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   padding: 30px;
   margin-bottom: 15px;
@@ -114,15 +89,6 @@ const CategoryContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-`;
-
-const Category = styled.p`
-  border: 2px solid gray;
-  border-radius: 20px;
-  padding: 1px 12px;
-  font-size: 18px;
-  font-weight: 700;
-  background-color: #fff;
 `;
 
 const Title = styled.p`

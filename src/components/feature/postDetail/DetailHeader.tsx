@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import StudyTypeIcon from '../../common/StudyTypeIcon';
+import TypeIcon from '../../common/TypeIcon';
 import DeadlineIcon from '../../common/DeadlineIcon';
 import CircleIcon from '../../common/CircleIcon';
 import Bookmark from '../../common/Bookmark';
@@ -49,7 +49,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Flex>
         <IconSet>
           <ChevronLeftIcon onClick={() => navigate(-1)} />
-          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <TypeIcon>{post.postType}</TypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </IconSet>
         {checkUserId() && (

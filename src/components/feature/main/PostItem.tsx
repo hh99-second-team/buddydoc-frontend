@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Bookmark from '../../common/Bookmark';
 import SkillList from '../../common/SkillList';
-import StudyTypeIcon from '../../common/StudyTypeIcon';
+import TypeIcon from '../../common/TypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils';
 import { PostCardType } from '../../../types';
@@ -20,7 +20,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
       <CardHeader>
         <TypeBox>
           {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
-          <StudyTypeIcon>{post.postType}</StudyTypeIcon>
+          <TypeIcon>{post.postType}</TypeIcon>
           <DeadlineIcon date={post.deadLine} />
         </TypeBox>
         <Bookmark postId={post.postId} direction="column" count={post.preference} isToggle={post.bookmark} />

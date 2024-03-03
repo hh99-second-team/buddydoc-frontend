@@ -7,7 +7,7 @@ const api = {
   /** 게시물 목록 조회 */
   getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
     const response = await axios.get('/post', { params: { orderBy: 'createdAt', lastPostId, postType } });
-    return response.data;
+    return response.data.posts;
   },
 
   /** 게시물 검색 */
@@ -15,7 +15,7 @@ const api = {
     const response = await axios.get(`/post/search`, { params: { lastPostId, search } });
     const result = response.data.result.options.map((data: any) => data._source);
 
-    return { posts: result };
+    return { posts: result, isLastPage: response.data.result.isLastPage };
   },
 
   /** 게시물 상세 정보 조회 */
