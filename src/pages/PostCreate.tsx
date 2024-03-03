@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PostCreateType } from '../types/commonTypes';
+import { PostCreateType } from '../types';
 import api from '../services/api';
 import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
 

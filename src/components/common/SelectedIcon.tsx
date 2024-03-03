@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { skillsIcon } from '../../constants/data';
+import { skillsIcon } from '../../constants';
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 
 const SelectedIcon: React.FC<{ type: string; item: string; removeBtn: boolean; onRemove?: any }> = ({

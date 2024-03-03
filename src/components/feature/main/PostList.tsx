@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PostCardType } from '../../../types/commonTypes';
+import { PostCardType } from '../../../types';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';

@@ -12,7 +12,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import api from '../services/api';
 import { useQuery } from 'react-query';
-import { PostDetailType } from '../types/commonTypes';
+import { PostDetailType } from '../types';
 import { isLoginOpenState } from '../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 

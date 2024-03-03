@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Input from '../../common/Input';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { PostCreateType } from '../../../types/commonTypes';
+import { PostCreateType } from '../../../types';
 
 interface Props {
   inputVal: PostCreateType;

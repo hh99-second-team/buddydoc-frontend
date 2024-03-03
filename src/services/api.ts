@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { PostCreateType, SignUpType, UserModifyType } from '../types/commonTypes';
+import { PostCreateType, SignUpType, UserModifyType } from '../types';
 
 // 환경 변수에서 API 루트 경로 가져오기
 const API_ROOT = process.env.REACT_APP_API_ROOT;

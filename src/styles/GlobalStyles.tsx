@@ -4,10 +4,24 @@ import reset from 'styled-reset';
 const GlobalStyles = createGlobalStyle`
   ${reset}
   * {
+  margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins",  'Apple SD Gothic Neo', sans-serif;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    touch-action: none;
+    user-select: none;
   }
   body {
-    font-family: "Poppins",  'Apple SD Gothic Neo', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  fieldset {
+    border: none;
   }
 `;
 

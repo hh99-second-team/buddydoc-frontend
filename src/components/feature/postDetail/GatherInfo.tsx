@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import SkillList from '../../common/SkillList';
-import { getDateFomat } from '../../../utils/dateUtils';
-import { PostDetailType } from '../../../types/commonTypes';
-import { gatherInfo } from '../../../constants/data';
+import { getDateFomat } from '../../../utils';
+import { PostDetailType } from '../../../types';
+import { gatherInfo } from '../../../constants';
 
 const GatherInfo: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const gatherContent: { [key: string]: any } = {
