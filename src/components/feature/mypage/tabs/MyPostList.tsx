@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { Button } from '@radix-ui/themes';
-import api from '../../../../services/api';
+import api from '../../../../api';
 import CircleIcon from '../../../common/CircleIcon';
 import TabsContent from '../TabsContent';
 

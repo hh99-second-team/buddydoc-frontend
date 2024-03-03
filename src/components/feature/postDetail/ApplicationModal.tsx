@@ -3,7 +3,7 @@ import Modal from '../../common/Modal';
 import styled from 'styled-components';
 import Textarea from '../../common/Textarea';
 import Button from '../../common/Button';
-import api from '../../../services/api';
+import api from '../../../api';
 import Select from '../../common/Select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

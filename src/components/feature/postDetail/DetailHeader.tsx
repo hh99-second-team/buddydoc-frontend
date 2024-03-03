@@ -12,7 +12,7 @@ import { PostDetailType } from '../../../types';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as Menubar from '@radix-ui/react-menubar';
 import AlertModal from '../../common/AlertModal';
-import api from '../../../services/api';
+import api from '../../../api';
 import MenuBarTrigger from '../../common/menuBar/MenuBarTrigger';
 import PortalContent from '../../common/menuBar/PortalContent';
 import { ReactComponent as DotsMenu } from '../../../assets/dots-menu.icon.svg';

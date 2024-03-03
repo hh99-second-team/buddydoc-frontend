@@ -3,7 +3,7 @@ import Button from '../common/Button';
 import styled from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { skills } from '../../constants';
-import api from '../../services/api';
+import api from '../../api';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import * as ScrollArea from '@radix-ui/react-scroll-area';

@@ -10,7 +10,7 @@ import ApplicationModal from '../components/feature/postDetail/ApplicationModal'
 // import NoteModal from '../components/feature/postDetail/NoteModal';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import api from '../services/api';
+import api from '../api';
 import { useQuery } from 'react-query';
 import { PostDetailType } from '../types';
 import { isLoginOpenState } from '../store/atomDefinitions';

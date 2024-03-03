@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { skills, positions, career } from '../../../../constants';
 import { UserType } from '../../../../types';
-import api from '../../../../services/api';
+import api from '../../../../api';
 import Input from '../../../common/Input';
 import CircleIcon from '../../../common/CircleIcon';
 import { ReactComponent as AddPhotoIcon } from '../../../../assets/add-circle.icon.svg';

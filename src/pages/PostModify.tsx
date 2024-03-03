@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PostCreateType } from '../types';
 import { useLocation, useParams } from 'react-router-dom';
 import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
-import api from '../services/api';
+import api from '../api';
 import { useMutation, useQueryClient } from 'react-query';
 
 const PostModify = () => {

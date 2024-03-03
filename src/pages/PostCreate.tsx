@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PostCreateType } from '../types';
-import api from '../services/api';
+import api from '../api';
 import PostModifyCreateForm from '../components/common/PostModifyCreateForm';
 
 const PostCreate = () => {

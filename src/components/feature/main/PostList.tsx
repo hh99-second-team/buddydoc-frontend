@@ -3,7 +3,7 @@ import { PostCardType } from '../../../types';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
-import api from '../../../services/api';
+import api from '../../../api';
 import { useInView } from 'react-intersection-observer';
 
 interface ParamsType {

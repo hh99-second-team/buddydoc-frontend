@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
 import { isLoginOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
-import api from '../../services/api';
+import api from '../../api';
 
 interface BookmarkProps {
   count: number;
