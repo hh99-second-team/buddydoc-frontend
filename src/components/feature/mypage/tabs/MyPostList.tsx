@@ -30,10 +30,11 @@ const MyPostList = () => {
               .map((data, idx) => (
                 <CardBox key={idx}>
                   <CardContainer title={data.postTitle} status={getDDayCounter(data.deadLine)} postId={data.postId}>
-                    <DateInfo left="30px">작성일 : {getDateFomat(data.createdAt)}</DateInfo>
-                    <DateInfo>마감일 : {getDateFomat(data.deadLine)}</DateInfo>
+                    <DateInfo>
+                      모집기간: {getDateFomat(data.deadLine)} ~ {getDateFomat(data.createdAt)}
+                    </DateInfo>
                   </CardContainer>
-                  <Button size="full" color="gray">
+                  <Button size="full" color="primary">
                     신청자 관리
                   </Button>
                 </CardBox>

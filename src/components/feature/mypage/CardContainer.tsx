@@ -16,8 +16,9 @@ const CardContainer = ({ children, title, status, postId }: Props) => {
   return (
     <ContentContainer onClick={() => navigate(`/${postId}`)}>
       <CardHeader>
-        <Title>{title}</Title>
+        <TopTitle>{title}</TopTitle>
         <TypeIcon>{status}</TypeIcon>
+        <BottomTitle>{title}</BottomTitle>
       </CardHeader>
       {children}
     </ContentContainer>
@@ -26,7 +27,7 @@ const CardContainer = ({ children, title, status, postId }: Props) => {
 
 const ContentContainer = styled.div`
   position: relative;
-  height: 10rem;
+  height: 12rem;
   border-radius: 30px;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
@@ -35,23 +36,27 @@ const ContentContainer = styled.div`
   padding: 1.8rem;
   @media screen and (max-width: 768px) {
     height: 15rem;
+    padding: 1rem;
   }
 `;
 
 const CardHeader = styled.div`
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   @media screen and (max-width: 768px) {
     display: grid;
+    row-gap: 1rem;
 
     & > div {
-      width: 25vw;
+      width: 22vw;
     }
   }
 `;
 
-const Title = styled.p`
+const TopTitle = styled.p`
+  display: block;
+  width: 85%;
   font-size: 1.7rem;
   font-weight: 500;
   font-style: normal;
@@ -62,8 +67,33 @@ const Title = styled.p`
   text-align: left;
   word-wrap: break-word;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const BottomTitle = styled.p`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
 `;
 
 export default CardContainer;
