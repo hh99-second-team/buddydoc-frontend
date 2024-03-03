@@ -23,7 +23,6 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
   const mutation = useMutation(async (postId: number) => await api.updateBookmark(postId), {
     onSuccess: () => {
       const postDetailData: PostDetailType = queryClient.getQueryData(['postDetail', postId.toString()])!;
-      console.log(isBookmarkSelected, bookmarkCount);
 
       queryClient.setQueryData(['postDetail', postId.toString()], {
         ...postDetailData,

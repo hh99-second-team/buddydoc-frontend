@@ -5,8 +5,10 @@ const API_ROOT = process.env.REACT_APP_API_ROOT;
 
 const api = {
   /** 게시물 목록 조회 */
-  getPost: async (lastPostId: number, postType?: '스터디' | '프로젝트') => {
-    const response = await axios.get('/post', { params: { orderBy: 'createdAt', lastPostId, postType } });
+  getPost: async (lastPostId: number, isEnd?: boolean, postType?: '스터디' | '프로젝트') => {
+    const response = await axios.get('/post', {
+      params: { orderBy: 'createdAt', lastPostId, isEnd: isEnd ? '1' : '0', postType },
+    });
     return response.data.posts;
   },
 

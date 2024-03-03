@@ -9,9 +9,10 @@ import { useInView } from 'react-intersection-observer';
 interface ParamsType {
   postType?: '스터디' | '프로젝트';
   searchTitle?: string;
+  isEnd?: boolean;
 }
 
-const PostList = ({ postType, searchTitle }: ParamsType) => {
+const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
   const [posts, setPosts] = useState<PostCardType[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(0);
@@ -25,15 +26,15 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     setIsLoading(true);
 
     const response = !!postType
-      ? await api.getPost(page, postType)
+      ? await api.getPost(page, isEnd, postType)
       : !!searchTitle
       ? await api.getPostSearch(page, searchTitle)
-      : await api.getPost(page);
+      : await api.getPost(page, isEnd);
 
     setPosts((prevState) => [...prevState, ...response.posts]);
     setIsLastPage(response.isLastPage);
     setIsLoading(false);
-  }, [isLastPage, page, postType, searchTitle]);
+  }, [isEnd, isLastPage, page, postType, searchTitle]);
 
   // fetchPosts이 바뀔 때마다 함수 실행
   useEffect(() => {

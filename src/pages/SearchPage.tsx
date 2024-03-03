@@ -35,7 +35,7 @@ const SearchPage = () => {
           검색
         </Button>
       </SearchBox>
-      <PostList searchTitle={search} />
+      <PostList key={search} searchTitle={search} />
     </Layout>
   );
 };
