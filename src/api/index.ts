@@ -13,13 +13,16 @@ const api = {
   /** 게시물 검색 */
   getPostSearch: async (lastPostId: number, search: string) => {
     const response = await axios.get(`/post/search`, { params: { lastPostId, search } });
-    return response.data;
+    const result = response.data.result.options.map((data: any) => data._source);
+
+    return { posts: result };
   },
 
   /** 게시물 상세 정보 조회 */
   getPostDetail: async (postId: string) => {
     const response = await axios.get(`/post/${postId}`);
-    return response.data.data[0];
+
+    return response.data.post;
   },
 
   /** 게시물 작성 */
