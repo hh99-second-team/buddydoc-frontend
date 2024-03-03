@@ -10,6 +10,7 @@ import Footer from '../components/common/Footer';
 import SearchPage from '../pages/SearchPage';
 import OauthCallBack from '../pages/OauthCallBack';
 import PostModify from '../pages/PostModify';
+import Notifytest from '../pages/Notifytest';
 
 const Router = () => {
   return (
@@ -25,6 +26,7 @@ const Router = () => {
         <Route path="/chatpage" element={<ChatPage />} />
         <Route path="/search/:search" element={<SearchPage />} />
         <Route path="/callback" element={<OauthCallBack />} />
+        <Route path="/notifytest" element={<Notifytest />} />
       </Routes>
       <Footer />
     </BrowserRouter>

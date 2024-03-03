@@ -14,12 +14,14 @@ import SearchModal from '../feature/SearchModal';
 import MenuBarTrigger from './menuBar/MenuBarTrigger';
 import PortalContent from './menuBar/PortalContent';
 import CircleIcon from './CircleIcon';
+// import NotifyContent from '../feature/NotifyContent';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSignupOpen, setIsSignupOpen] = useRecoilState(isSignupOpenState);
   const [isLoginOpen, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isNotifyOpen, setIsNotifyOpen] = useState(false);
 
   return (
     <Layout>
@@ -41,7 +43,8 @@ const Navbar = () => {
             </IconContainer>
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <IconContainer>
+                <IconContainer onClick={() => setIsNotifyOpen(true)}>
+                  {/* 알림 아이콘 */}
                   <BellIcon />
                   <NotificationDot />
                 </IconContainer>
