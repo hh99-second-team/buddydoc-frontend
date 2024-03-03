@@ -4,12 +4,9 @@ import reset from 'styled-reset';
 const GlobalStyles = createGlobalStyle`
   ${reset}
   * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    font-family: "Noto Sans KR", AppleSDGothic, sans-serif;
+    font-family: "Noto Sans KR", AppleSDGothic, sans-serif!;
     font-style: normal;
-    box-sizing: border-box;
   }
 `;
 

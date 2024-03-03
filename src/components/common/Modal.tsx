@@ -22,11 +22,12 @@ const Modal = (props: ModalProps) => (
       <Description>
         <Title>
           {props.postTitle.length < 14 ? (
-            <p>{props.postTitle}</p>
+            <>{props.postTitle}</>
           ) : (
             <>
-              <p>{props.postTitle.slice(0, 13)}</p>
-              <p>{props.postTitle.slice(13, props.postTitle.length)}</p>
+              {props.postTitle.slice(0, 13)}
+              <br />
+              {props.postTitle.slice(13, props.postTitle.length)}
             </>
           )}
         </Title>
