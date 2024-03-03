@@ -8,12 +8,12 @@ import ChatScreen from '../components/feature/chat/ChatScreen';
 import { io } from 'socket.io-client';
 
 const ChatPage = () => {
-  const tabTitle = ['현재참여목록', '채팅'];
   const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [lastMessageId, setLastMessagId] = useState(0);
 
   // ENDPOINT 설정
   const ENDPOINT = 'http://localhost:3000/chat';
@@ -33,25 +33,31 @@ const ChatPage = () => {
       socket.on('connect', () => {
         console.log('Socket connected');
       });
-      // 메시지 수신 Request를 보냄
-      socket.emit('read-Messages', { postId: 2 });
-      // 메시지 수신 Response를 받음
-      socket.on('read-Messages', (data) => {
-        if (data.isLastPage === true) {
-          setIsLastPage(true);
-        }
-        console.log('raw data', data);
-        console.log('isLastPage', data.isLastPage);
-        console.log('messages', data.messages);
-      });
-      // isLastPage(false);
-
       //컴포넌트가 언마운트될 때 소켓 연결 해제
       return () => {
         socket.on('disconnect', () => {
           console.log('Socket disconnected');
         });
       };
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (socket) {
+      // 메시지 수신 Request를 보냄
+      socket.emit('read-Messages', { postId: 2, lastMessageId: 0 });
+      // 메시지 수신 Response를 받음
+      socket.on('read-Messages', (data) => {
+        console.log('가져온 데이터 : ', data);
+        setMessages(data.messages);
+        // console.log('마지막페이지 여부 : ', data.isLastPage);
+        // console.log('메시지 데이터 : ', data.messages);
+        // console.log('마지막 메시지 chatId', data.messages[data.messages.length - 1]);
+        // console.log('lastMessageId : ', lastMessageId);
+        data.messages.forEach((element) => {
+          console.log(element['chatId'], element['users']['userNickname'], element['chat_message']);
+        });
+      });
     }
   }, [socket]);
 
@@ -104,9 +110,7 @@ const ChatPage = () => {
         <ChatRoomBody>
           <ul>
             {messages.map((item) => (
-              <li key={item} value={item}>
-                {item}
-              </li>
+              <li key={item['chatId']}>{`${item['chat_message']}`}</li>
             ))}
           </ul>
         </ChatRoomBody>
