@@ -87,15 +87,15 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src="" fallback={post.user?.nickname} />
+          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} />
           <div>
-            <p>{post.user?.nickname}</p>
+            <p>{post.user?.userNickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>
           </div>
         </FlexBox>
         <CountBox>
           <Views count={post.views} />
-          <Bookmark direction="row" count={post.preference} isToggle={post.bookmarked} postId={post.postId} />
+          <Bookmark direction="row" count={post.preference} isToggle={post.isBookmarked} postId={post.postId} />
         </CountBox>
       </BottomSet>
     </Header>
