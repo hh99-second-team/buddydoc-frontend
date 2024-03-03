@@ -28,7 +28,7 @@ export const getDayMinuteCounter = (date?: Date): number | string => {
 };
 
 /** D-day 계산 함수 */
-export const getDDayCounter = (date?: Date): number | string => {
+export const getDDayCounter = (date?: Date): string => {
   if (!date) {
     return '';
   }

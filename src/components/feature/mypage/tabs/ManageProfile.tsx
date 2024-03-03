@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { skills, positions, career } from '../../../../constants';
 import { UserType } from '../../../../types';
@@ -11,29 +11,65 @@ import { ReactComponent as AddPhotoIcon } from '../../../../assets/add-circle.ic
 import Select from '../../../common/Select';
 import SelectedIcon from '../../../common/SelectedIcon';
 import Button from '../../../common/Button';
+import { Uploader } from 'uploader';
+import { UploadButton } from 'react-uploader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// 이미지 업로더
+const uploader = Uploader({
+  apiKey: 'free', // Get production API keys from Bytescale
+});
+
+const options = { multi: false };
 
 const ManageProfile = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
-  const [userInfo, setUserInfo] = useState<UserType>({
-    userId: 0,
-    userNickname: '',
-    position: '',
-    skillList: [],
-  });
+  const [userInfo, setUserInfo] = useState<UserType>(
+    data || {
+      userId: 0,
+      userNickname: '',
+      position: '',
+      career: '',
+      skillList: [],
+      profileImage: '',
+    }
+  );
 
-  const mutation = useMutation(async (userData: UserType) => await api.updateMyInfo(userData), {
-    onSuccess: () => {
-      refetch();
+  useEffect(() => {
+    if (data) {
+      setUserInfo(data);
+    }
+  }, [data]);
+
+  const mutation = useMutation(
+    async (userData: UserType) => {
+      console.log(userData);
+
+      await api.updateMyInfo(userData);
     },
-  });
+    {
+      onSuccess: () => {
+        toast.success('저장 성공');
+        localStorage.setItem('profileImage', userInfo.profileImage);
+        refetch();
+      },
+      onError: () => {
+        toast.error('저장에 실패했습니다.');
+      },
+    }
+  );
 
   const onChangeUserNickname = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserInfo({ ...userInfo, userNickname: e.target.value });
 
   const onChangePosition = (position: string) => setUserInfo({ ...userInfo, position });
+
+  const onChangeCareer = (career: string) => setUserInfo({ ...userInfo, career });
 
   const onChangeSkillList = (skill: string) => {
     if (userInfo.skillList.includes(skill)) {
@@ -47,6 +83,13 @@ const ManageProfile = () => {
     setUserInfo({ ...userInfo, skillList: removedSkills });
   };
 
+  const modifyProfileImgHandler = (profileImage: string) => {
+    if (!!profileImage) {
+      setUserInfo({ ...userInfo, profileImage });
+      queryClient.setQueryData(['userInfo'], { ...userInfo, profileImage });
+    }
+  };
+
   // 로그아웃 함수
   const handleLogout = () => {
     localStorage.clear();
@@ -57,10 +100,17 @@ const ManageProfile = () => {
 
   return (
     <Layout>
-      <ProfileBox>
-        <CircleIcon src="" isProfile={true} size="10rem" />
-        <AddPhotoIcon />
-      </ProfileBox>
+      <UploadButton
+        uploader={uploader}
+        options={options}
+        onComplete={(file) => modifyProfileImgHandler(file.length > 0 ? file[0].fileUrl : '')}>
+        {({ onClick }) => (
+          <ProfileBox onClick={onClick}>
+            <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
+            <AddPhotoIcon />
+          </ProfileBox>
+        )}
+      </UploadButton>
       <Header>기본 정보</Header>
       <GridGroup>
         <InputBox>
@@ -84,7 +134,12 @@ const ManageProfile = () => {
         </InputBox>
         <InputBox>
           <p>경력</p>
-          <Select selectValue="" onValueChange={() => {}} items={career} placeholder="경력을 선택해주세요." />
+          <Select
+            selectValue={userInfo.career}
+            onValueChange={onChangeCareer}
+            items={career}
+            placeholder="경력을 선택해주세요."
+          />
         </InputBox>
         <InputBox>
           <p>기술 스택</p>
@@ -109,6 +164,18 @@ const ManageProfile = () => {
       <Button size="full" color="black" onClick={handleLogout}>
         로그아웃
       </Button>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Layout>
   );
 };
@@ -137,7 +204,7 @@ const ProfileBox = styled.div`
   & > svg {
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: -0.3rem;
     color: #e2e3e5;
   }
 `;

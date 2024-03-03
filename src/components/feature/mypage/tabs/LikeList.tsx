@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import { Button } from '@radix-ui/themes';
 import TabsContent from '../TabsContent';
-import TypeIcon from '../../../common/TypeIcon';
-
-const dummyDatas = [
-  {
-    category: '스터디',
-    postTitle: '웹개발 스터디1',
-    endDate: '2024.05.05',
-    memberCount: 12,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트2',
-    endDate: '20244.02.03',
-    memberCount: 12,
-  },
-];
+import { useQuery } from 'react-query';
+import api from '../../../../api';
+import { LikeType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
+import CardContainer from '../CardContainer';
 
 const LikeList = () => {
   const tabTypes = ['스터디', '프로젝트'];
   const [selectedTab, setSelectedTab] = useState('스터디');
+  const { data } = useQuery<LikeType[]>(['likeList'], api.getMyBookmarks);
 
   return (
     <TabsContent
@@ -33,49 +22,20 @@ const LikeList = () => {
       setSelectedTab={setSelectedTab}>
       {tabTypes.map((tab) => (
         <Tabs.Content value={tab}>
-          {dummyDatas
-            .filter((data) => data.category === tab)
-            .map((data, idx) => (
-              <ContentContainer key={idx}>
-                <CategoryContainer>
-                  <TypeIcon>{tab}</TypeIcon>
-                </CategoryContainer>
-                <Title>{data.postTitle}</Title>
-                <MemberCount>{data.memberCount}</MemberCount>
-                <DateInfo>마감일 : {data.endDate}</DateInfo>
-                <ContentButton>게시글 확인</ContentButton>
-              </ContentContainer>
-            ))}
+          {data &&
+            data
+              .filter((data) => data.postType === tab)
+              .map((data, idx) => (
+                <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
+                  <MemberCount>{data.memberCount}</MemberCount>
+                  <DateInfo>마감일 : {getDateFomat(data.deadLine)}</DateInfo>
+                </CardContainer>
+              ))}
         </Tabs.Content>
       ))}
     </TabsContent>
   );
 };
-
-const ContentContainer = styled.div`
-  position: relative;
-  min-height: 230px;
-  border-radius: 30px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  background: var(--grey01, #f9fafc);
-  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 30px;
-  margin-bottom: 15px;
-`;
-
-const CategoryContainer = styled.div`
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
 
 const MemberCount = styled.p`
   position: absolute;
@@ -91,18 +51,6 @@ const DateInfo = styled.p<{ left?: string }>`
   font-weight: 700;
   color: #787878;
   text-align: end;
-`;
-
-const ContentButton = styled(Button)`
-  position: absolute;
-  background-color: #000;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 40px;
-  right: 30px;
-  width: 170px;
-  height: 50px;
 `;
 
 export default LikeList;

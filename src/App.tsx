@@ -9,7 +9,7 @@ import TopButton from './components/common/TopButton';
 
 const queryClient = new QueryClient();
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <RecoilRoot>
@@ -21,6 +21,6 @@ function App() {
       </RecoilRoot>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

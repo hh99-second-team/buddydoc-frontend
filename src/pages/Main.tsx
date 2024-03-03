@@ -162,6 +162,7 @@ const CheckboxIndicator = styled(Checkbox.Indicator)`
 const Label = styled.label`
   font-size: 1rem;
   font-weight: 500;
+  color: #4e4e4e;
 `;
 
 const Flex = styled.div`
