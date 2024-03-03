@@ -150,9 +150,6 @@ const CheckboxRoot = styled(Checkbox.Root)`
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  &:hover {
-    background-color: #e2e3e5;
-  }
 `;
 
 const CheckboxIndicator = styled(Checkbox.Indicator)`

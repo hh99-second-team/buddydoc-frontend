@@ -51,22 +51,23 @@ const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
   const renderPostList = () => {
     return (
       <>
-        {posts.map((post, idx) => (
-          <React.Fragment key={idx}>
-            {posts.length - 1 === idx ? (
-              <div ref={ref}>
-                <PostItem post={post} />
-              </div>
-            ) : (
-              <div>
-                <PostItem post={post} />
-              </div>
-            )}
-          </React.Fragment>
-        ))}
-        {/* 로딩 중일 때 Skeleton UI 표시*/}
         {/* 최초엔 10개의 스켈레톤 표시 */}
         {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
+        {!isLoading &&
+          posts.map((post, idx) => (
+            <React.Fragment key={idx}>
+              {posts.length - 1 === idx ? (
+                <div ref={ref}>
+                  <PostItem post={post} />
+                </div>
+              ) : (
+                <div>
+                  <PostItem post={post} />
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        {/* 로딩 중일 때 Skeleton UI 표시*/}
         {/* 그 이후에는 4 개의 스켈레톤만 보여주기 */}
         {isLoading && posts.length > 1 && Array.from({ length: 4 }, (_, idx) => <SkeletonPost key={idx} />)}
       </>
@@ -76,7 +77,7 @@ const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
   return (
     <>
       <PostContainer>{renderPostList()}</PostContainer>
-      {posts.length === 0 && (
+      {!isLoading && posts.length === 0 && (
         <EmptyPostTitle>{searchTitle ? `"${searchTitle}" 검색 결과가 없습니다.` : '게시글이 없습니다.'}</EmptyPostTitle>
       )}
     </>
