@@ -68,13 +68,6 @@ export interface UserType {
   career: string;
 }
 
-/** 유저 수정 데이터 형식 */
-export interface UserModifyType {
-  userNickname: string;
-  position: string;
-  skillList: string[];
-}
-
 /** 회원가입 시 입력 타입 */
 export interface SignUpType {
   userNickname: string;

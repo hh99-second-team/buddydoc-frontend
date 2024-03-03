@@ -1,5 +1,5 @@
 import { axios } from './axios';
-import { PostCreateType, SignUpType, UserModifyType } from '../types';
+import { PostCreateType, SignUpType, UserType } from '../types';
 
 const API_ROOT = process.env.REACT_APP_API_ROOT;
 
@@ -114,8 +114,9 @@ const api = {
   },
 
   /** 내 정보 수정 */
-  updateMyInfo: async (info: UserModifyType) => {
-    const response = await axios.put('/user/my-info', { info });
+  updateMyInfo: async (info: UserType) => {
+    console.log(info);
+    const response = await axios.put('/user/my-info', info);
     return response.data;
   },
 };
