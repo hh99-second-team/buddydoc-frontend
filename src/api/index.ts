@@ -1,5 +1,5 @@
 import { axios } from './axios';
-import { PostCreateType, SignUpType, UserModifyType } from '../types';
+import { PostCreateType, SignUpType, UserType } from '../types';
 
 const API_ROOT = process.env.REACT_APP_API_ROOT;
 
@@ -67,6 +67,7 @@ const api = {
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {
+    console.log(userData);
     const response = await axios.post('/signup', userData);
     return response.data;
   },
@@ -92,30 +93,42 @@ const api = {
   /** 내 정보 조회 */
   getMyInfo: async () => {
     const response = await axios.get('/user/my-info');
-    return response.data;
-  },
-
-  /** 내 정보 관심 목록 */
-  getMyBookmarks: async () => {
-    const response = await axios.get('/user/my-bookmarks');
-    return response.data;
+    return response.data.result;
   },
 
   /** 내 정보 참여 스터디 목록 */
   getMyStudylists: async () => {
     const response = await axios.get('/user/my-studylists');
-    return response.data;
+    return response.data.result;
+  },
+
+  /** 내 신청 목록 */
+  getMyNotilists: async () => {
+    const response = await axios.get('/user/my-noti');
+    return response.data.result;
+  },
+
+  /** 내 정보 관심 목록 */
+  getMyBookmarks: async () => {
+    const response = await axios.get('/user/my-bookmarks');
+    return response.data.result;
   },
 
   /** 내 정보 작성 게시글 목록 */
   getMyPosts: async () => {
     const response = await axios.get('/user/my-posts');
-    return response.data;
+    return response.data.result;
+  },
+
+  /** 신청자 목록 */
+  getApplication: async (postId: number) => {
+    const response = await axios.get(`/user/my-posts/${postId}`);
+    return response.data.result;
   },
 
   /** 내 정보 수정 */
-  updateMyInfo: async (info: UserModifyType) => {
-    const response = await axios.put('/user/my-info', { info });
+  updateMyInfo: async (info: UserType) => {
+    const response = await axios.put('/user/my-info', info);
     return response.data;
   },
 };

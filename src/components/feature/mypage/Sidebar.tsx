@@ -10,8 +10,8 @@ const SideBar: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
   return (
     <>
       <TabsList>
-        {tabTypes.map((tab) => (
-          <StyledTrigger value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
+        {tabTypes.map((tab, idx) => (
+          <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
             {tab}
           </StyledTrigger>
         ))}
@@ -26,8 +26,8 @@ const SideBar: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
         <DropdownMenu.Portal>
           <DropdownMenu.Content sideOffset={5}>
             <SmallTabsList>
-              {tabTypes.map((tab) => (
-                <DropdownMenu.Item>
+              {tabTypes.map((tab, idx) => (
+                <DropdownMenu.Item key={idx}>
                   <StyledTrigger value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
                     {tab}
                   </StyledTrigger>

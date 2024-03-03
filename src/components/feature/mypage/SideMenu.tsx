@@ -11,7 +11,7 @@ const SideMenu: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
   return (
     <Layout>
       {tabTypes.map((tab, idx) => (
-        <TabsContent value={tab}>
+        <TabsContent key={idx} value={tab}>
           {idx === 0 && <ManageProfile />}
           {idx === 1 && <JoinList />}
           {idx === 2 && <ApplyList />}
