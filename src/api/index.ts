@@ -120,6 +120,12 @@ const api = {
     return response.data.result;
   },
 
+  /** 신청자 목록 */
+  getApplication: async (postId: number) => {
+    const response = await axios.get(`/user/my-posts/${postId}`);
+    return response.data.result;
+  },
+
   /** 내 정보 수정 */
   updateMyInfo: async (info: UserType) => {
     const response = await axios.put('/user/my-info', info);

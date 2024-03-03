@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import api from '../../../../api';
 import PostTabsContent from '../TabsContent';
-import TypeIcon from '../../../common/TypeIcon';
 import { useQuery } from 'react-query';
 import { JoinType } from '../../../../types';
 import { getDateFomat } from '../../../../utils';
+import CardContainer from '../CardContainer';
 
 const JoinList = () => {
   const tabTypes = ['스터디', '프로젝트'];
@@ -26,44 +26,16 @@ const JoinList = () => {
             data
               .filter((data) => data.postType === tab)
               .map((data, idx) => (
-                <ContentContainer key={idx}>
-                  <CategoryContainer>
-                    <TypeIcon>{tab}</TypeIcon>
-                  </CategoryContainer>
-                  <Title>{data.postTitle}</Title>
-                  <MemberCount>{data.memberCount}</MemberCount>
+                <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
+                  <MemberCount>{data.memberCount}명</MemberCount>
                   <DateInfo>시작일 : {getDateFomat(data.startDate)}</DateInfo>
-                </ContentContainer>
+                </CardContainer>
               ))}
         </Tabs.Content>
       ))}
     </PostTabsContent>
   );
 };
-
-const ContentContainer = styled.div`
-  position: relative;
-  min-height: 10rem;
-  border-radius: 30px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  background: var(--grey01, #f9fafc);
-  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 1.8rem;
-`;
-
-const CategoryContainer = styled.div`
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
 
 const MemberCount = styled.p`
   position: absolute;

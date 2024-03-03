@@ -113,3 +113,11 @@ export interface WriteType {
   createdAt: Date;
   deadLine: Date;
 }
+
+/** 신청자 목록 */
+export interface ApplicationType {
+  noti_userId: number;
+  userNickname: string;
+  noti_message: string;
+  position: string;
+}

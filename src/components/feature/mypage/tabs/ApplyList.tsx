@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import TabsContent from '../TabsContent';
-import TypeIcon from '../../../common/TypeIcon';
 import { useQuery } from 'react-query';
 import api from '../../../../api';
 import { ApplyType } from '../../../../types';
 import { getDateFomat } from '../../../../utils';
+import CardContainer from '../CardContainer';
 
 const ApplyList = () => {
   const tabTypes = ['스터디', '프로젝트'];
@@ -26,47 +26,20 @@ const ApplyList = () => {
             data
               .filter((data) => data.postType === tab)
               .map((data, idx) => (
-                <ContentContainer key={idx}>
-                  <CategoryContainer>
-                    <TypeIcon>{tab}</TypeIcon>
-                  </CategoryContainer>
-                  <Title>{data.postTitle}</Title>
+                <CardContainer
+                  key={idx}
+                  title={data.postTitle}
+                  status={data.notiStatus === 'reject' ? '거부' : data.notiStatus === 'pending' ? '대기 중' : '승인'}
+                  postId={data.postId}>
                   <MemberCount>{data.memberCount}</MemberCount>
-                  <ApplyStatus>
-                    {data.notiStatus === 'reject' ? '거부' : data.notiStatus === 'pending' ? '대기 중' : '승인'}
-                  </ApplyStatus>
                   <DateInfo>신청일 : {getDateFomat(data.createdAt)}</DateInfo>
-                </ContentContainer>
+                </CardContainer>
               ))}
         </Tabs.Content>
       ))}
     </TabsContent>
   );
 };
-
-const ContentContainer = styled.div`
-  position: relative;
-  min-height: 10rem;
-  border-radius: 30px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  background: var(--grey01, #f9fafc);
-  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  padding: 1.8rem;
-`;
-
-const CategoryContainer = styled.div`
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
 
 const MemberCount = styled.p`
   position: absolute;
@@ -82,17 +55,6 @@ const DateInfo = styled.p<{ left?: string }>`
   font-weight: 700;
   color: #787878;
   text-align: end;
-`;
-
-const ApplyStatus = styled.div`
-  position: absolute;
-  font-weight: 700;
-  border: 2px solid black;
-  border-radius: 10px;
-  top: 20px;
-  right: 30px;
-  padding: 3px 5px;
-  background-color: #fff;
 `;
 
 export default ApplyList;
