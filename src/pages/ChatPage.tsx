@@ -9,7 +9,7 @@ import ToggleSidebar from '../components/common/ToggleSideBar';
 import { ChatBubbleIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../utils/dateUtils';
 
-interface Message {
+interface MessageType {
   userId: number;
   chatId: number;
   chat_message: string;
@@ -22,41 +22,37 @@ interface Message {
 const ChatPage = () => {
   const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
   const [inputMessage, setInputMessage] = useState('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [, setIsLastPage] = useState(false);
   const [lastMessageId, setLastMessageId] = useState(30);
 
-  const ENDPOINT = 'http://localhost:3000/chat';
+  const ENDPOINT = process.env.REACT_APP_API_ROOT + '/chat';
 
   useEffect(() => {
     const newSocket = io(ENDPOINT);
     setSocket(newSocket);
 
-    newSocket.on('connect', () => console.log('Socket connected'));
+    // newSocket.on('connect', () => console.log('Socket connected'));
     newSocket.on('read-Messages', handleReadMessages);
 
     return () => {
       newSocket.close();
-      console.log('Socket disconnected');
     };
   }, []);
 
   useEffect(() => {
     if (socket) {
-      console.log('Requesting>>');
       socket.emit('read-Messages', { postId: 2, lastMessageId });
     }
   }, [socket, lastMessageId]);
 
-  const handleReadMessages = (data: { messages: Message[]; isLastPage: boolean }) => {
+  const handleReadMessages = (data: { messages: MessageType[]; isLastPage: boolean }) => {
     try {
-      console.log('Response<<');
       const receivedMessages = data.messages;
       console.log('Received messages:', receivedMessages);
 
       if (receivedMessages.length > 0 && receivedMessages[0].chatId === messages[messages.length - 1]?.chatId) {
-        console.log('Duplicate message received, skipping...');
         return;
       }
 
@@ -67,9 +63,7 @@ const ChatPage = () => {
       } else {
         setLastMessageId(receivedMessages[receivedMessages.length - 1].chatId);
       }
-    } catch (error) {
-      console.error('Error while processing messages:', error);
-    }
+    } catch (error) {}
   };
 
   const sendMessage = (event: React.FormEvent, inputChatMessage: string) => {
