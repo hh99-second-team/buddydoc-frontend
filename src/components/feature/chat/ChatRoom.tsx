@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../../../utils';
 import { JoinType } from '../../../types';
+import CircleIcon from '../../common/CircleIcon';
 
 interface MessageType {
   userId: number;
@@ -14,6 +15,7 @@ interface MessageType {
   createdAt: Date;
   users: {
     userNickname: string;
+    profileImage: string;
   };
 }
 
@@ -86,6 +88,9 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
           {messages.map((message, idx) => (
             <div key={idx}>
               <ChatBox isSentByCurrentUser={message.userId.toString() === localStorage.getItem('userId')}>
+                {message.userId.toString() !== localStorage.getItem('userId') && (
+                  <CircleIcon src={message.users.profileImage} isProfile={true} />
+                )}
                 <ChatMessage>{message.chat_message}</ChatMessage>
                 <MessageDate>{getDateFomat(message.createdAt)}</MessageDate>
               </ChatBox>
