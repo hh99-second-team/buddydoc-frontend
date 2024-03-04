@@ -46,7 +46,7 @@ const Navbar = styled.nav`
 `;
 
 const Sidebar = styled.div<{ isOpen: boolean }>`
-  padding: 7rem 1rem;
+  padding: 7rem 1rem 0 1rem;
   width: 16rem;
   min-height: 100vh;
   box-shadow: 0px 4px 8px rgb(0 0 0 / 16%);

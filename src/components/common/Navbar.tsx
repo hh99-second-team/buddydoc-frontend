@@ -37,13 +37,11 @@ const Navbar = () => {
           <>
             <IconContainer>
               <div onClick={() => navigate(`/chat`)}>채팅</div>
-              <ChatNotificationDot />
             </IconContainer>
             <Dialog.Root>
               <Dialog.Trigger asChild>
                 <IconContainer>
                   <BellIcon />
-                  <NotificationDot />
                 </IconContainer>
               </Dialog.Trigger>
               <Dialog.Portal></Dialog.Portal>
@@ -180,25 +178,14 @@ const NavButton = styled.div`
 
 const IconContainer = styled(NavButton)`
   position: relative;
-  @media screen and (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 20px;
+    height: 20px;
   }
-`;
-
-const NotificationDot = styled.div`
-  position: absolute;
-  top: 1rem;
-  right: -5px;
-  width: 7px;
-  height: 7px;
-  background: #ff6c6c;
-  border-radius: 50%;
-`;
-
-const ChatNotificationDot = styled(NotificationDot)`
-  right: -9px;
 `;
 
 const StyledMagnifyingGlassIcon = styled(MagnifyingGlassIcon)`

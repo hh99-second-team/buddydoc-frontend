@@ -27,7 +27,7 @@ const ChatPage = () => {
               <ChatRoomTitle>채팅 목록</ChatRoomTitle>
               <div>
                 {data.map((item, idx) => (
-                  <TabsTrigger key={idx} value={selectedTab}>
+                  <TabsTrigger key={idx} value={item.postTitle} onClick={() => setSelectedTab(item.postTitle)}>
                     <p>{item.postTitle}</p>
                   </TabsTrigger>
                 ))}
