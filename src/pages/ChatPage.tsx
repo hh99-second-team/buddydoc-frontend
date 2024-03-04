@@ -6,7 +6,7 @@ import Input from '../components/common/Input';
 import { Button } from '@radix-ui/themes';
 import { Layout } from '../styles/GlobalStyles';
 import ToggleSidebar from '../components/common/ToggleSideBar';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { ChatBubbleIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 
 interface Message {
   chatId: number;
@@ -80,7 +80,7 @@ const ChatPage: React.FC = () => {
         <Tabs.List>
           <ToggleSidebar title="채팅 목록" tabsItems={joinList}>
             <IconButton aria-label="Customise options">
-              <HamburgerMenuIcon />
+              <ChatBubbleIcon />
             </IconButton>
           </ToggleSidebar>
           <ChatRoomList>
@@ -97,21 +97,24 @@ const ChatPage: React.FC = () => {
             <Tabs.Content key={item} value={item}>
               <>
                 <ChatRoomTitle>{item}</ChatRoomTitle>
-                <ChatRoomBody>
-                  <ul>
+                <ChatRoomLayout>
+                  <ChatRoomBody>
                     {messages.map((message, index) => (
-                      <li key={index}>{message.chat_message}</li>
+                      <ChatBox key={index}>{message.chat_message}</ChatBox>
                     ))}
-                  </ul>
-                </ChatRoomBody>
+                  </ChatRoomBody>
+                </ChatRoomLayout>
                 <ChatRoomInputGroup>
                   <Input
                     type="text"
                     placeholder="메시지 입력"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
+                    isValid="none"
                   />
-                  <SendButton onClick={(e) => sendMessage(e, inputMessage)}>전송</SendButton>
+                  <SendButton onClick={(e) => sendMessage(e, inputMessage)}>
+                    <PaperPlaneIcon />
+                  </SendButton>
                 </ChatRoomInputGroup>
               </>
             </Tabs.Content>
@@ -125,7 +128,11 @@ const ChatPage: React.FC = () => {
 const TabsRoot = styled(Tabs.Root)`
   display: flex;
   flex-direction: row;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
+
 const ChatRoomList = styled.div`
   display: flex;
   flex-direction: column;
@@ -135,7 +142,11 @@ const ChatRoomList = styled.div`
   flex-shrink: 0;
   padding-top: 60px;
   background-color: #fff;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
+
 const TabsTrigger = styled(Tabs.Trigger)`
   width: 100%;
   height: 49px;
@@ -155,6 +166,7 @@ const TabsTrigger = styled(Tabs.Trigger)`
   border: none;
   background: none;
   cursor: pointer;
+
   &:hover {
     background-color: var(--grey03);
     color: #0b7cad;
@@ -167,50 +179,101 @@ const TabsTrigger = styled(Tabs.Trigger)`
     color: #0b7cad;
   }
 `;
+
 const ChatRoomContainer = styled.div`
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  padding: 40px;
-  background: #fff;
+  margin: auto;
+  width: 60%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
+
 const ChatRoomTitle = styled.h1`
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 24px;
+  color: #475f7b;
+  padding-left: 1rem;
 `;
+
+const ChatRoomLayout = styled.div`
+  height: 64vh;
+
+  border-radius: 29.792px;
+  border: 1px solid var(--grey02, #e2e3e5);
+  background: var(--grey01, #f9fafc);
+  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  @media screen and (max-width: 768px) {
+    display: grid;
+    row-gap: 1rem;
+  }
+`;
+
 const ChatRoomBody = styled.div`
-  flex-grow: 1;
   overflow-y: auto;
 `;
+
+const ChatBox = styled.div`
+  border: 1px solid var(--grey02, #e2e3e5);
+  border-radius: 12px;
+  padding: 0.4rem 1rem;
+  background: white;
+`;
+
 const ChatRoomInputGroup = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 80% auto;
+    gap: 0;
+    position: fixed;
+    width: 100%;
+    & > input {
+      border-radius: 0;
+    }
+  }
 `;
+
 const SendButton = styled(Button)`
-  background-color: #1dc9b7;
+  background-color: #475f7b;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  height: 100%;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
-  &:hover {
-    background-color: #15a18a;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 0;
   }
 `;
 
 const IconButton = styled.button`
   display: none;
+  border-radius: 8px;
+
   @media screen and (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: block;
     width: 3rem;
     height: 3rem;
     text-align: center;
-    background: transparent;
-    border: 1.3px solid #8e8e8e9f;
     border-radius: 12px;
+    border: 1px solid var(--grey02, #e2e3e5);
+    background: white;
+
+    & > svg {
+      color: #475f7b;
+    }
   }
 `;
 

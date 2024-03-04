@@ -10,8 +10,12 @@ interface Props {
 
 const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
   const [isOpen, setIsopen] = useState(false);
-  const handleToggleSidebar = () => setIsopen((state) => !state);
   const [selectedTab, setSelectedTab] = useState(tabsItems[0]);
+  const handleToggleSidebar = () => setIsopen((state) => !state);
+  const handleTrigger = (tab: string) => {
+    setSelectedTab(tab);
+    handleToggleSidebar();
+  };
 
   return (
     <>
@@ -21,7 +25,7 @@ const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
         <SidebarBody>
           <SidebarList>
             {tabsItems.map((tab, idx) => (
-              <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
+              <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => handleTrigger(tab)}>
                 <p>{tab}</p>
               </StyledTrigger>
             ))}
@@ -35,6 +39,7 @@ const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
 
 const Navbar = styled.nav`
   cursor: pointer;
+  position: relative;
   display: flex;
   justify-self: center;
   align-items: center;
