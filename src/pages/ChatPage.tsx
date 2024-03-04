@@ -5,6 +5,8 @@ import { io, Socket } from 'socket.io-client';
 import Input from '../components/common/Input';
 import { Button } from '@radix-ui/themes';
 import { Layout } from '../styles/GlobalStyles';
+import ToggleSidebar from '../components/common/ToggleSideBar';
+import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 
 interface Message {
   chatId: number;
@@ -76,6 +78,11 @@ const ChatPage: React.FC = () => {
     <Layout>
       <TabsRoot defaultValue={joinList[0] ? joinList[0] : ''}>
         <Tabs.List>
+          <ToggleSidebar title="채팅 목록" tabsItems={joinList}>
+            <IconButton aria-label="Customise options">
+              <HamburgerMenuIcon />
+            </IconButton>
+          </ToggleSidebar>
           <ChatRoomList>
             <ChatRoomTitle>채팅</ChatRoomTitle>
             {joinList.map((item) => (
@@ -191,6 +198,19 @@ const SendButton = styled(Button)`
   transition: background-color 0.3s;
   &:hover {
     background-color: #15a18a;
+  }
+`;
+
+const IconButton = styled.button`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    background: transparent;
+    border: 1.3px solid #8e8e8e9f;
+    border-radius: 12px;
   }
 `;
 
