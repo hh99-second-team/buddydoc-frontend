@@ -15,7 +15,7 @@ const ChatPage = () => {
 
   return (
     <Layout>
-      {data && (
+      {data ? (
         <TabsRoot defaultValue={data[0].postTitle}>
           <Tabs.List>
             <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.postTitle)}>
@@ -42,6 +42,8 @@ const ChatPage = () => {
             ))}
           </ChatRoomContainer>
         </TabsRoot>
+      ) : (
+        <EmptyMessage>스터디 / 프로젝트에 참여해주세요!</EmptyMessage>
       )}
     </Layout>
   );
@@ -157,6 +159,12 @@ const IconButton = styled.button`
       color: #475f7b;
     }
   }
+`;
+
+const EmptyMessage = styled.p`
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 5vh;
 `;
 
 export default ChatPage;

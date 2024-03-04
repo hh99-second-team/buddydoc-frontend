@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { Button } from '@radix-ui/themes';
 import Input from '../../../components/common/Input';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../../../utils';
 import { JoinType } from '../../../types';
@@ -148,43 +148,20 @@ const ChatBox = styled.div<{ isSentByCurrentUser: boolean }>`
   display: flex;
   align-items: flex-end;
   column-gap: 0.5rem;
-
-  ${({ isSentByCurrentUser }) =>
-    isSentByCurrentUser
-      ? css`
-          justify-content: flex-end;
-        `
-      : css`
-          justify-content: flex-start;
-        `}
+  justify-content: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? 'flex-end' : 'flex-start')};
 
   & > p {
     font-size: 0.7rem;
     color: #626262;
     margin: 0;
-    ${({ isSentByCurrentUser }) =>
-      isSentByCurrentUser
-        ? css`
-            order: -1;
-          `
-        : css`
-            order: 1;
-          `}
+    order: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? -1 : 1)};
   }
 
   & > div {
-    ${({ isSentByCurrentUser }) =>
-      isSentByCurrentUser
-        ? css`
-            background-color: #475f7b;
-            color: white;
-            border: 1px solid #3e546d;
-          `
-        : css`
-            background: white;
-            color: black;
-            border: 1px solid var(--grey02, #e2e3e5);
-          `}
+    background-color: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? '#475f7b' : 'white')};
+    color: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? 'white' : 'black')};
+    border: ${({ isSentByCurrentUser }) =>
+      isSentByCurrentUser ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)'};
   }
 `;
 
