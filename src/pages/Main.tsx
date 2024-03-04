@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from '../components/feature/main/Banner';
 import PostList from '../components/feature/main/PostList';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
+import * as Checkbox from '@radix-ui/react-checkbox';
 import { Layout } from '../styles/GlobalStyles';
 import Button from '../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isLoginOpenState, isSignupOpenState } from '../store/atomDefinitions';
+import { CheckIcon } from '@radix-ui/react-icons';
 
 const Main = () => {
   const navigate = useNavigate();
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
+  const [isEnd, setIsEnd] = useState(false);
 
   const handleGatherBtn = () => {
     if (!localStorage.getItem('isLogin') || localStorage.getItem('isLogin') === 'false') {
@@ -27,6 +30,8 @@ const Main = () => {
       setIsSignupOpen(true);
     }
   }, [setIsSignupOpen]);
+
+  const handleToggleIsEnd = () => setIsEnd((state) => !state);
 
   return (
     <>
@@ -43,14 +48,22 @@ const Main = () => {
               팀원 모집하기
             </Button>
           </TabHeader>
+          <Flex>
+            <CheckboxRoot id="check" defaultChecked checked={isEnd} onCheckedChange={handleToggleIsEnd}>
+              <CheckboxIndicator>
+                <CheckIcon />
+              </CheckboxIndicator>
+            </CheckboxRoot>
+            <Label htmlFor="check">모집 완료 글도 보기</Label>
+          </Flex>
           <TabsContent value="all">
-            <PostList />
+            <PostList key={isEnd.toString()} isEnd={isEnd} />
           </TabsContent>
           <TabsContent value="스터디">
-            <PostList postType="스터디" />
+            <PostList key={isEnd.toString()} postType="스터디" isEnd={isEnd} />
           </TabsContent>
           <TabsContent value="프로젝트">
-            <PostList postType="프로젝트" />
+            <PostList key={isEnd.toString()} postType="프로젝트" isEnd={isEnd} />
           </TabsContent>
         </TabsRoot>
       </Layout>
@@ -124,6 +137,40 @@ const TabsContent = styled(Tabs.Content)`
   border-bottom-left-radius: 6;
   border-bottom-right-radius: 6;
   outline: none;
+`;
+
+const CheckboxRoot = styled(Checkbox.Root)`
+  all: unset;
+  cursor: pointer;
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  &:hover {
+    background-color: #e2e3e5;
+  }
+`;
+
+const CheckboxIndicator = styled(Checkbox.Indicator)`
+  color: black; /* 해당 색상은 violet.violet11와 같은 색상으로 대체 가능합니다. */
+`;
+
+const Label = styled.label`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4e4e4e;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  column-gap: 1rem;
+  padding: 1rem 0.6rem 1rem 0;
 `;
 
 export default Main;

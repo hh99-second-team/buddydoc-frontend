@@ -3,24 +3,31 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
+import { ErrorBoundary } from 'react-error-boundary';
 import GlobalStyles from './styles/GlobalStyles';
 import Router from './routes/Router';
 import TopButton from './components/common/TopButton';
 
 const queryClient = new QueryClient();
 
-function App() {
+const FallbackComponent = () => {
+  return <div>에러페이지</div>;
+};
+
+const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <GlobalStyles />
-          <Router />
-          <TopButton />
-        </QueryClientProvider>
-      </RecoilRoot>
-    </ThemeProvider>
+    <ErrorBoundary fallback={<FallbackComponent />}>
+      <ThemeProvider theme={theme}>
+        <RecoilRoot>
+          <QueryClientProvider client={queryClient}>
+            <GlobalStyles />
+            <Router />
+            <TopButton />
+          </QueryClientProvider>
+        </RecoilRoot>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
-}
+};
 
 export default App;

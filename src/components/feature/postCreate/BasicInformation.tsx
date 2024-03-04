@@ -1,11 +1,11 @@
 import React from 'react';
-import { period, positions, skills, studyType } from '../../../constants/data';
+import { period, positions, skills, studyType } from '../../../constants';
 import styled from 'styled-components';
 import Select from '../../common/Select';
 import Input from '../../common/Input';
 import CustomDatePicker from '../../common/CustomDatePicker';
 import SelectedIcon from '../../common/SelectedIcon';
-import { PostCreateType } from '../../../types/commonTypes';
+import { PostCreateType } from '../../../types';
 
 interface Props {
   inputVal: PostCreateType;

@@ -13,7 +13,7 @@ interface IconProps {
 const CircleIcon = ({ src, fallback, size, isProfile }: IconProps) => {
   return (
     <AvatarRoot size={size} isProfile={isProfile}>
-      <AvatarImage src={src || emptyProfileImg} alt="Colm Tuite" />
+      <AvatarImage src={src ? src : isProfile ? emptyProfileImg : ''} alt="Colm Tuite" />
       <AvatarFallback delayMs={600}>{fallback}</AvatarFallback>
     </AvatarRoot>
   );

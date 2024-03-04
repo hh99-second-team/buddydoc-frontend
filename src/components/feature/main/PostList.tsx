@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PostCardType } from '../../../types/commonTypes';
+import { PostCardType } from '../../../types';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
-import api from '../../../services/api';
+import api from '../../../api';
 import { useInView } from 'react-intersection-observer';
 
 interface ParamsType {
   postType?: '스터디' | '프로젝트';
   searchTitle?: string;
+  isEnd?: boolean;
 }
 
-const PostList = ({ postType, searchTitle }: ParamsType) => {
+const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
   const [posts, setPosts] = useState<PostCardType[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(0);
@@ -25,15 +26,15 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
     setIsLoading(true);
 
     const response = !!postType
-      ? await api.getPost(page, postType)
+      ? await api.getPost(page, isEnd, postType)
       : !!searchTitle
       ? await api.getPostSearch(page, searchTitle)
-      : await api.getPost(page);
+      : await api.getPost(page, isEnd);
 
     setPosts((prevState) => [...prevState, ...response.posts]);
     setIsLastPage(response.isLastPage);
     setIsLoading(false);
-  }, [isLastPage, page, postType, searchTitle]);
+  }, [isEnd, isLastPage, page, postType, searchTitle]);
 
   // fetchPosts이 바뀔 때마다 함수 실행
   useEffect(() => {
@@ -66,17 +67,24 @@ const PostList = ({ postType, searchTitle }: ParamsType) => {
         {/* 로딩 중일 때 Skeleton UI 표시*/}
         {/* 최초엔 10개의 스켈레톤 표시 */}
         {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
-        {/* 그 이후에는 한 개의 스켈레톤만 보여주기 */}
+        {/* 그 이후에는 4 개의 스켈레톤만 보여주기 */}
         {isLoading && posts.length > 1 && Array.from({ length: 4 }, (_, idx) => <SkeletonPost key={idx} />)}
       </>
     );
   };
 
-  return <PostContainer>{renderPostList()}</PostContainer>;
+  return (
+    <>
+      <PostContainer>{renderPostList()}</PostContainer>
+      {posts.length === 0 && (
+        <EmptyPostTitle>{searchTitle ? `"${searchTitle}" 검색 결과가 없습니다.` : '게시글이 없습니다.'}</EmptyPostTitle>
+      )}
+    </>
+  );
 };
 
 const PostContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 54px;
@@ -85,5 +93,11 @@ const PostContainer = styled.div`
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
+`;
+
+const EmptyPostTitle = styled.p`
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
 `;
 export default PostList;
