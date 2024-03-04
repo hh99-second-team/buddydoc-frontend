@@ -15,6 +15,7 @@ import { Uploader } from 'uploader';
 import { UploadButton } from 'react-uploader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingSpinner from '../../../common/LoadingSpinner';
 
 // 이미지 업로더
 const uploader = Uploader({
@@ -27,7 +28,7 @@ const ManageProfile = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
+  const { data, isLoading, refetch } = useQuery<UserType>(['userInfo'], api.getMyInfo);
 
   const [userInfo, setUserInfo] = useState<UserType>(
     data || {
@@ -100,6 +101,7 @@ const ManageProfile = () => {
 
   return (
     <Layout>
+      {isLoading && <LoadingSpinner />}
       <UploadButton
         uploader={uploader}
         options={options}
