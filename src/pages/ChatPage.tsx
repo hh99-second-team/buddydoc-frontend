@@ -90,7 +90,7 @@ const ChatPage = () => {
             </IconButton>
           </ToggleSidebar>
           <ChatRoomList>
-            <ChatRoomTitle>채팅</ChatRoomTitle>
+            <ChatRoomTitle>채팅 목록</ChatRoomTitle>
             {joinList.map((item) => (
               <TabsTrigger key={item} value={item}>
                 {item}
@@ -163,8 +163,6 @@ const TabsTrigger = styled(Tabs.Trigger)`
   height: 49px;
   padding: 8px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 8px;
   color: #7a7a7a;
   text-align: center;
@@ -177,6 +175,7 @@ const TabsTrigger = styled(Tabs.Trigger)`
   border: none;
   background: none;
   cursor: pointer;
+  padding-left: 1rem;
 
   &:hover {
     background-color: var(--grey03);
@@ -201,7 +200,7 @@ const ChatRoomContainer = styled.div`
 `;
 
 const ChatRoomTitle = styled.h1`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 24px;
   color: #475f7b;
@@ -225,9 +224,11 @@ const ChatRoomLayout = styled.div`
 const ChatRoomBody = styled.div`
   height: 100%;
   overflow-y: scroll;
-  display: grid;
-  row-gap: 0.6rem;
+  flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 0.6rem;
 
   & > div {
     display: flex;
