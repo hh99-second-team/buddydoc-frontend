@@ -7,7 +7,7 @@ import { Button } from '@radix-ui/themes';
 import { Layout } from '../styles/GlobalStyles';
 import ToggleSidebar from '../components/common/ToggleSideBar';
 import { ChatBubbleIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
-import { getDateFomat } from '../utils/dateUtils';
+import { getDateFomat } from '../utils/index';
 
 interface MessageType {
   userId: number;
