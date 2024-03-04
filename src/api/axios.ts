@@ -21,7 +21,6 @@ axios.interceptors.request.use(
       request.headers['Authorization'] = `Bearer ${token}`;
     }
 
-    // refreshToken();
     return request;
   },
   (error) => {

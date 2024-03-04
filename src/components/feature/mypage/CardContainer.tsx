@@ -14,7 +14,7 @@ const CardContainer = ({ children, title, status, postId }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <ContentContainer onClick={() => navigate(`/${postId}`)}>
+    <ContentContainer onClick={() => navigate(`/post/${postId}`)}>
       <CardHeader>
         <TopTitle>{title}</TopTitle>
         <TypeIcon>{status}</TypeIcon>
