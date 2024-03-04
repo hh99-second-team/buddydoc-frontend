@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { Button } from '@radix-ui/themes';
 import Input from '../../../components/common/Input';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../../../utils';
 import { JoinType } from '../../../types';
@@ -21,12 +21,17 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [, setIsLastPage] = useState(false);
-  const [lastMessageId, setLastMessageId] = useState(30);
+  const [lastMessageId, setLastMessageId] = useState(0);
   const [socket, setSocket] = useState<Socket | null>(null);
   const ENDPOINT = process.env.REACT_APP_API_ROOT + '/chat';
 
   useEffect(() => {
-    const newSocket = io(ENDPOINT);
+    const accessToken = localStorage.getItem('accessToken'); // 로컬 스토리지에서 토큰을 가져옴
+    const newSocket = io(ENDPOINT, {
+      auth: {
+        token: accessToken, // 토큰을 인증용 객체에 포함하여 전달
+      },
+    });
     setSocket(newSocket);
 
     newSocket.on('connect', () => console.log('Socket connected'));
@@ -39,9 +44,9 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit('read-Messages', { postId: 2, lastMessageId });
+      socket.emit('read-Messages', { postId: post.postId, lastMessageId });
     }
-  }, [socket, lastMessageId]);
+  }, [socket, lastMessageId, post.postId]);
 
   const handleReadMessages = (data: { messages: MessageType[]; isLastPage: boolean }) => {
     try {
@@ -80,8 +85,10 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
         <ChatRoomBody>
           {messages.map((message, idx) => (
             <div key={idx}>
-              <ChatBox>{message.chat_message}</ChatBox>
-              <p>{getDateFomat(message.createdAt)}</p>
+              <ChatBox isSentByCurrentUser={message.userId.toString() === localStorage.getItem('userId')}>
+                <ChatMessage>{message.chat_message}</ChatMessage>
+                <MessageDate>{getDateFomat(message.createdAt)}</MessageDate>
+              </ChatBox>
             </div>
           ))}
         </ChatRoomBody>
@@ -124,17 +131,6 @@ const ChatRoomBody = styled.div`
   display: flex;
   flex-direction: column-reverse;
   row-gap: 0.6rem;
-
-  & > div {
-    display: flex;
-    align-items: end;
-    column-gap: 0.5rem;
-
-    & > p {
-      font-size: 0.7rem;
-      color: #626262;
-    }
-  }
 `;
 
 const ChatRoomTitle = styled.p`
@@ -148,11 +144,59 @@ const ChatRoomTitle = styled.p`
   }
 `;
 
-const ChatBox = styled.div`
-  border: 1px solid var(--grey02, #e2e3e5);
+const ChatBox = styled.div<{ isSentByCurrentUser: boolean }>`
+  display: flex;
+  align-items: flex-end;
+  column-gap: 0.5rem;
+
+  ${({ isSentByCurrentUser }) =>
+    isSentByCurrentUser
+      ? css`
+          justify-content: flex-end;
+        `
+      : css`
+          justify-content: flex-start;
+        `}
+
+  & > p {
+    font-size: 0.7rem;
+    color: #626262;
+    margin: 0;
+    ${({ isSentByCurrentUser }) =>
+      isSentByCurrentUser
+        ? css`
+            order: -1;
+          `
+        : css`
+            order: 1;
+          `}
+  }
+
+  & > div {
+    ${({ isSentByCurrentUser }) =>
+      isSentByCurrentUser
+        ? css`
+            background-color: #475f7b;
+            color: white;
+            border: 1px solid #3e546d;
+          `
+        : css`
+            background: white;
+            color: black;
+            border: 1px solid var(--grey02, #e2e3e5);
+          `}
+  }
+`;
+
+const ChatMessage = styled.div`
   border-radius: 12px;
   padding: 0.4rem 1rem;
-  background: white;
+`;
+
+const MessageDate = styled.p`
+  font-size: 0.7rem;
+  color: #626262;
+  margin: 0;
 `;
 
 const SendButton = styled(Button)`
