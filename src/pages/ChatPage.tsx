@@ -8,6 +8,9 @@ import { Layout } from '../styles/GlobalStyles';
 import ToggleSidebar from '../components/common/ToggleSideBar';
 import { ChatBubbleIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../utils/index';
+import { useQuery } from 'react-query';
+import api from '../api';
+import { JoinType } from '../types';
 
 interface MessageType {
   userId: number;
@@ -20,12 +23,14 @@ interface MessageType {
 }
 
 const ChatPage = () => {
-  const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
+  // const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [, setIsLastPage] = useState(false);
   const [lastMessageId, setLastMessageId] = useState(30);
+  const { data } = useQuery<JoinType[]>(['chatList'], () => api.getMyStudylists());
+  const [selectedTab, setSelectedTab] = useState(data ? data[0].postTitle : '');
 
   const ENDPOINT = process.env.REACT_APP_API_ROOT + '/chat';
 
@@ -69,61 +74,69 @@ const ChatPage = () => {
   const sendMessage = (event: React.FormEvent, inputChatMessage: string) => {
     event.preventDefault();
     if (socket && inputMessage.trim() !== '') {
-      socket.emit('send-message', { chat_message: inputChatMessage, userId: 1, postId: 2 });
+      socket.emit('send-message', {
+        chat_message: inputChatMessage,
+        userId: localStorage.getItem('userId'),
+        postId: data,
+      });
       setInputMessage('');
     }
   };
 
   return (
     <Layout>
-      <TabsRoot defaultValue={joinList[0] ? joinList[0] : ''}>
-        <Tabs.List>
-          <ToggleSidebar title="채팅 목록" tabsItems={joinList}>
-            <IconButton aria-label="Customise options">
-              <ChatBubbleIcon />
-            </IconButton>
-          </ToggleSidebar>
-          <ChatRoomList>
-            <ChatRoomTitle>채팅 목록</ChatRoomTitle>
-            {joinList.map((item) => (
-              <TabsTrigger key={item} value={item}>
-                {item}
-              </TabsTrigger>
+      {data && (
+        <TabsRoot defaultValue={selectedTab}>
+          <Tabs.List>
+            <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.postTitle)}>
+              <IconButton aria-label="Customise options">
+                <ChatBubbleIcon />
+              </IconButton>
+            </ToggleSidebar>
+            <ChatRoomList>
+              <ChatRoomTitle>채팅 목록</ChatRoomTitle>
+              <div>
+                {data.map((item, idx) => (
+                  <TabsTrigger key={idx} value={selectedTab}>
+                    <p>{item.postTitle}</p>
+                  </TabsTrigger>
+                ))}
+              </div>
+            </ChatRoomList>
+          </Tabs.List>
+          <ChatRoomContainer>
+            {data.map((item, idx) => (
+              <Tabs.Content key={idx} value={item.postTitle}>
+                <>
+                  <ChatRoomTitle>{item.postTitle}</ChatRoomTitle>
+                  <ChatRoomLayout>
+                    <ChatRoomBody>
+                      {messages.map((message, idx) => (
+                        <div key={idx}>
+                          <ChatBox>{message.chat_message}</ChatBox>
+                          <p>{getDateFomat(message.createdAt)}</p>
+                        </div>
+                      ))}
+                    </ChatRoomBody>
+                  </ChatRoomLayout>
+                  <ChatRoomInputGroup>
+                    <Input
+                      type="text"
+                      placeholder="메시지를 입력해주세요."
+                      value={inputMessage}
+                      onChange={(e) => setInputMessage(e.target.value)}
+                      isValid="none"
+                    />
+                    <SendButton onClick={(e) => sendMessage(e, inputMessage)}>
+                      <PaperPlaneIcon />
+                    </SendButton>
+                  </ChatRoomInputGroup>
+                </>
+              </Tabs.Content>
             ))}
-          </ChatRoomList>
-        </Tabs.List>
-        <ChatRoomContainer>
-          {joinList.map((item) => (
-            <Tabs.Content key={item} value={item}>
-              <>
-                <ChatRoomTitle>{item}</ChatRoomTitle>
-                <ChatRoomLayout>
-                  <ChatRoomBody>
-                    {messages.map((message, index) => (
-                      <div key={index}>
-                        <ChatBox>{message.chat_message}</ChatBox>
-                        <p>{getDateFomat(message.createdAt)}</p>
-                      </div>
-                    ))}
-                  </ChatRoomBody>
-                </ChatRoomLayout>
-                <ChatRoomInputGroup>
-                  <Input
-                    type="text"
-                    placeholder="메시지를 입력해주세요."
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    isValid="none"
-                  />
-                  <SendButton onClick={(e) => sendMessage(e, inputMessage)}>
-                    <PaperPlaneIcon />
-                  </SendButton>
-                </ChatRoomInputGroup>
-              </>
-            </Tabs.Content>
-          ))}
-        </ChatRoomContainer>
-      </TabsRoot>
+          </ChatRoomContainer>
+        </TabsRoot>
+      )}
     </Layout>
   );
 };
@@ -147,6 +160,11 @@ const ChatRoomList = styled.div`
   padding-top: 60px;
   background-color: #fff;
 
+  & > div {
+    height: 60vh;
+    overflow-y: scroll;
+  }
+
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -154,13 +172,11 @@ const ChatRoomList = styled.div`
 
 const TabsTrigger = styled(Tabs.Trigger)`
   width: 100%;
-  height: 49px;
   padding: 8px;
   display: flex;
   gap: 8px;
   color: #7a7a7a;
   text-align: center;
-  font-family: Pretendard;
   font-size: 18px;
   font-style: normal;
   font-weight: 800;
@@ -170,6 +186,17 @@ const TabsTrigger = styled(Tabs.Trigger)`
   background: none;
   cursor: pointer;
   padding-left: 1rem;
+
+  & > p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
 
   &:hover {
     background-color: var(--grey03);
@@ -190,15 +217,19 @@ const ChatRoomContainer = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
+    margin-bottom: 2.5rem;
   }
 `;
 
-const ChatRoomTitle = styled.h1`
+const ChatRoomTitle = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 24px;
   color: #475f7b;
   padding-left: 1rem;
+  @media screen and (max-width: 768px) {
+    width: 83%;
+  }
 `;
 
 const ChatRoomLayout = styled.div`
@@ -260,7 +291,6 @@ const SendButton = styled(Button)`
 
 const IconButton = styled.button`
   display: none;
-  border-radius: 8px;
 
   @media screen and (max-width: 768px) {
     position: absolute;
@@ -296,6 +326,7 @@ const ChatRoomInputGroup = styled.div`
 
     & > input {
       border-radius: 0;
+      background-color: white;
     }
   }
 `;

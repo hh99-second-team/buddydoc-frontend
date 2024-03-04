@@ -56,6 +56,7 @@ const Sidebar = styled.div<{ isOpen: boolean }>`
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
   z-index: 1;
   transition: left 0.5s;
+  z-index: 1001;
 `;
 
 const SidebarHeader = styled.div`
@@ -78,11 +79,14 @@ const SidebarOverlay = styled.div<{ isOpen: boolean }>`
   transition: opacity 0.5s, visibility 0.5s;
   opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
   visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  z-index: 1000;
 `;
 
 const SidebarBody = styled.div`
   max-height: calc(100vh - 67px);
   overflow-x: hidden;
+  height: 74vh;
+  overflow-y: scroll;
 `;
 
 const SidebarList = styled(Tabs.List)`
@@ -90,7 +94,7 @@ const SidebarList = styled(Tabs.List)`
   margin-bottom: 0;
   padding: 0;
   display: grid;
-  row-gap: 1.4rem;
+  row-gap: 1.6rem;
   margin-top: 2rem;
 `;
 
@@ -104,6 +108,14 @@ const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
   display: grid;
   & > p {
     font-size: 1.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 `;
 
