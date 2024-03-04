@@ -7,13 +7,19 @@ import { Button } from '@radix-ui/themes';
 import { Layout } from '../styles/GlobalStyles';
 import ToggleSidebar from '../components/common/ToggleSideBar';
 import { ChatBubbleIcon, PaperPlaneIcon } from '@radix-ui/react-icons';
+import { getDateFomat } from '../utils/dateUtils';
 
 interface Message {
+  userId: number;
   chatId: number;
   chat_message: string;
+  createdAt: Date;
+  users: {
+    userNickname: string;
+  };
 }
 
-const ChatPage: React.FC = () => {
+const ChatPage = () => {
   const joinList = ['웹개발 프로젝트', '리액트 스터디', 'Node.js스터디'];
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
@@ -100,14 +106,17 @@ const ChatPage: React.FC = () => {
                 <ChatRoomLayout>
                   <ChatRoomBody>
                     {messages.map((message, index) => (
-                      <ChatBox key={index}>{message.chat_message}</ChatBox>
+                      <div key={index}>
+                        <ChatBox>{message.chat_message}</ChatBox>
+                        <p>{getDateFomat(message.createdAt)}</p>
+                      </div>
                     ))}
                   </ChatRoomBody>
                 </ChatRoomLayout>
                 <ChatRoomInputGroup>
                   <Input
                     type="text"
-                    placeholder="메시지 입력"
+                    placeholder="메시지를 입력해주세요."
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     isValid="none"
@@ -128,6 +137,7 @@ const ChatPage: React.FC = () => {
 const TabsRoot = styled(Tabs.Root)`
   display: flex;
   flex-direction: row;
+
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
@@ -142,6 +152,7 @@ const ChatRoomList = styled.div`
   flex-shrink: 0;
   padding-top: 60px;
   background-color: #fff;
+
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -182,7 +193,7 @@ const TabsTrigger = styled(Tabs.Trigger)`
 
 const ChatRoomContainer = styled.div`
   margin: auto;
-  width: 60%;
+  width: 70%;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -199,12 +210,12 @@ const ChatRoomTitle = styled.h1`
 
 const ChatRoomLayout = styled.div`
   height: 64vh;
-
   border-radius: 29.792px;
   border: 1px solid var(--grey02, #e2e3e5);
   background: var(--grey01, #f9fafc);
   box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
   padding: 1rem;
+
   @media screen and (max-width: 768px) {
     display: grid;
     row-gap: 1rem;
@@ -212,7 +223,22 @@ const ChatRoomLayout = styled.div`
 `;
 
 const ChatRoomBody = styled.div`
-  overflow-y: auto;
+  height: 100%;
+  overflow-y: scroll;
+  display: grid;
+  row-gap: 0.6rem;
+  width: 100%;
+
+  & > div {
+    display: flex;
+    align-items: end;
+    column-gap: 0.5rem;
+
+    & > p {
+      font-size: 0.7rem;
+      color: #626262;
+    }
+  }
 `;
 
 const ChatBox = styled.div`
@@ -220,25 +246,6 @@ const ChatBox = styled.div`
   border-radius: 12px;
   padding: 0.4rem 1rem;
   background: white;
-`;
-
-const ChatRoomInputGroup = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-
-  @media screen and (max-width: 768px) {
-    bottom: 0;
-    left: 0;
-    display: grid;
-    grid-template-columns: 80% auto;
-    gap: 0;
-    position: fixed;
-    width: 100%;
-    & > input {
-      border-radius: 0;
-    }
-  }
 `;
 
 const SendButton = styled(Button)`
@@ -252,6 +259,7 @@ const SendButton = styled(Button)`
 
   @media screen and (max-width: 768px) {
     border-radius: 0;
+    height: 100%;
   }
 `;
 
@@ -273,6 +281,26 @@ const IconButton = styled.button`
 
     & > svg {
       color: #475f7b;
+    }
+  }
+`;
+
+const ChatRoomInputGroup = styled.div`
+  display: grid;
+  grid-template-columns: 90% auto;
+  gap: 10px;
+  margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    bottom: 0;
+    left: 0;
+    grid-template-columns: 80% auto;
+    gap: 0;
+    position: fixed;
+    width: 100%;
+
+    & > input {
+      border-radius: 0;
     }
   }
 `;
