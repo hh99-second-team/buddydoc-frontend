@@ -31,7 +31,6 @@ const ApplyList = () => {
                   title={data.postTitle}
                   status={data.notiStatus === 'reject' ? '거부' : data.notiStatus === 'pending' ? '대기 중' : '승인'}
                   postId={data.postId}>
-                  <MemberCount>{data.memberCount}</MemberCount>
                   <DateInfo>신청일 : {getDateFomat(data.createdAt)}</DateInfo>
                 </CardContainer>
               ))}
@@ -40,12 +39,6 @@ const ApplyList = () => {
     </TabsContent>
   );
 };
-
-const MemberCount = styled.p`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-`;
 
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;
