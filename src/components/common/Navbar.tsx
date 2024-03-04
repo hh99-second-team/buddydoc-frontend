@@ -36,7 +36,7 @@ const Navbar = () => {
         {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
-              <div onClick={() => navigate(`/chatpage`)}>채팅</div>
+              <div onClick={() => navigate(`/chat`)}>채팅</div>
               <ChatNotificationDot />
             </IconContainer>
             <Dialog.Root>

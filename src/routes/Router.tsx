@@ -23,8 +23,8 @@ const Router = () => {
         <Route path="/create" element={<PostCreate />} />
         <Route path="/modify/:postId" element={<PostModify />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/teampage" element={<TeamPage />} />
-        <Route path="/chatpage" element={<ChatPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/chat" element={<ChatPage />} />
         <Route path="/search/:search" element={<SearchPage />} />
         <Route path="/callback" element={<OauthCallBack />} />
       </Routes>
