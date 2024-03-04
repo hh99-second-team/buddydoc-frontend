@@ -41,21 +41,39 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
 
     return () => {
       newSocket.close();
+      console.log('소켓 연결 끊김');
     };
   }, []);
 
   useEffect(() => {
     if (socket) {
+      console.log('요청 중');
       socket.emit('read-Messages', { postId: post.postId, lastMessageId });
+
+      // 서버에서 새로운 메시지를 받으면 처리하는 코드
+      const handleReceiveMessage = (data: MessageType) => {
+        console.log('새로운 메시지 받음:', data);
+        setMessages((prevMessages) => [data, ...prevMessages]);
+      };
+
+      socket.on('receive-message', handleReceiveMessage);
+
+      return () => {
+        // 컴포넌트가 언마운트될 때 이벤트 핸들러를 정리합니다.
+        socket.off('receive-message', handleReceiveMessage);
+      };
     }
   }, [socket, lastMessageId, post.postId]);
 
   const handleReadMessages = (data: { messages: MessageType[]; isLastPage: boolean }) => {
     try {
+      console.log('응답');
       const receivedMessages = data.messages;
       console.log('Received messages:', receivedMessages);
 
       if (receivedMessages.length > 0 && receivedMessages[0].chatId === messages[messages.length - 1]?.chatId) {
+        console.log('같은 메세지옴?');
+
         return;
       }
 
@@ -66,7 +84,9 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
       } else {
         setLastMessageId(receivedMessages[receivedMessages.length - 1].chatId);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error('에러남', error);
+    }
   };
 
   const sendMessage = (event: React.FormEvent, inputChatMessage: string) => {
@@ -80,6 +100,7 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
       setInputMessage('');
     }
   };
+
   return (
     <>
       <ChatRoomTitle>{post.postTitle}</ChatRoomTitle>
