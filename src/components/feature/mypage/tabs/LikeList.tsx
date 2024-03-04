@@ -1,56 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import { Button } from '@radix-ui/themes';
 import TabsContent from '../TabsContent';
-import CircleIcon from '../../../common/CircleIcon';
-
-const dummyDatas = [
-  {
-    category: '스터디',
-    postTitle: '웹개발 스터디1',
-    endDate: '2024.05.05',
-    memberCount: 12,
-  },
-  {
-    category: '프로젝트',
-    postTitle: '웹 프로젝트2',
-    endDate: '20244.02.03',
-    memberCount: 12,
-  },
-];
+import { useQuery } from 'react-query';
+import api from '../../../../api';
+import { LikeType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
+import CardContainer from '../CardContainer';
 
 const LikeList = () => {
   const tabTypes = ['스터디', '프로젝트'];
-
-  // 선택된 탭 상태관리
   const [selectedTab, setSelectedTab] = useState('스터디');
-
-  // 참여중인 활동별 개수 상태관리
-  const [, setStudyCount] = useState(0);
-  const [, setProjectCount] = useState(0);
-
-  // 페이지 렌더링 시 카테고리별 데이터 개수를 계산하여 useState에 설정
-  useEffect(() => {
-    const counts = dummyDatas.reduce(
-      (acc, data) => {
-        switch (data.category) {
-          case '스터디':
-            acc.study++;
-            break;
-          case '프로젝트':
-            acc.project++;
-            break;
-          default:
-            break;
-        }
-        return acc;
-      },
-      { study: 0, project: 0 }
-    );
-    setStudyCount(counts.study);
-    setProjectCount(counts.project);
-  }, []);
+  const { data } = useQuery<LikeType[]>(['likeList'], api.getMyBookmarks);
 
   return (
     <TabsContent
@@ -61,57 +22,20 @@ const LikeList = () => {
       setSelectedTab={setSelectedTab}>
       {tabTypes.map((tab) => (
         <Tabs.Content value={tab}>
-          {dummyDatas
-            .filter((data) => data.category === tab)
-            .map((data, idx) => (
-              <ContentContainer key={idx}>
-                <CategoryContainer>
-                  <CircleIcon src="" />
-                  <Category>프로젝트</Category>
-                </CategoryContainer>
-                <Title>{data.postTitle}</Title>
-                <MemberCount>{data.memberCount}</MemberCount>
-                <DateInfo>마감일 : {data.endDate}</DateInfo>
-                <ContentButton>게시글 확인</ContentButton>
-              </ContentContainer>
-            ))}
+          {data &&
+            data
+              .filter((data) => data.postType === tab)
+              .map((data, idx) => (
+                <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
+                  <MemberCount>{data.memberCount}</MemberCount>
+                  <DateInfo>마감일 : {getDateFomat(data.deadLine)}</DateInfo>
+                </CardContainer>
+              ))}
         </Tabs.Content>
       ))}
     </TabsContent>
   );
 };
-
-const ContentContainer = styled.div`
-  position: relative;
-  min-height: 230px;
-  border-radius: 15px;
-  border: 2px solid black;
-  border-radius: 10px;
-  padding: 30px;
-  margin-bottom: 15px;
-`;
-
-const CategoryContainer = styled.div`
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Category = styled.p`
-  border: 2px solid gray;
-  border-radius: 20px;
-  padding: 1px 12px;
-  font-size: 18px;
-  font-weight: 700;
-  background-color: #fff;
-`;
-
-const Title = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 15px;
-`;
 
 const MemberCount = styled.p`
   position: absolute;
@@ -127,18 +51,6 @@ const DateInfo = styled.p<{ left?: string }>`
   font-weight: 700;
   color: #787878;
   text-align: end;
-`;
-
-const ContentButton = styled(Button)`
-  position: absolute;
-  background-color: #000;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  top: 40px;
-  right: 30px;
-  width: 170px;
-  height: 50px;
 `;
 
 export default LikeList;

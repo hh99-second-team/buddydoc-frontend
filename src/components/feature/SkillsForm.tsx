@@ -2,68 +2,71 @@ import React, { useState } from 'react';
 import Button from '../common/Button';
 import styled from 'styled-components';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { skills } from '../../constants/data';
-import api from '../../services/api';
+import { skills } from '../../constants';
+import api from '../../api';
 import { isSignupOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import SelectedIcon from '../common/SelectedIcon';
-import { SignUpType } from '../../types/commonTypes';
+import { SignUpType } from '../../types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface FormProps {
   inputVal: SignUpType;
   setPrevPage: () => void;
-  setSkills: (skills: string[]) => void;
 }
 
-const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
+const SkillsForm = ({ inputVal, setPrevPage }: FormProps) => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
 
   const onChangeSkills = (value: string[]) => setSelectedSkills(value);
 
   const handleSubmit = async () => {
-    setSkills(selectedSkills);
-
-    if (!skills.length) {
+    if (!selectedSkills.length) {
       toast.error('기술 스택을 선택하세요.');
-    }
-
-    if (localStorage.getItem('accessToken')) {
-      const response = await api.signup(inputVal);
-      toast.success('회원가입 성공');
-      setIsSignupOpen(false);
+    } else if (localStorage.getItem('accessToken')) {
+      try {
+        await api.signup({ ...inputVal, skillList: selectedSkills });
+        localStorage.setItem('isLogin', 'true');
+        localStorage.setItem('nickname', inputVal.userNickname);
+        setIsSignupOpen(false);
+        toast.success('회원가입 성공');
+      } catch (e) {
+        toast.error('회원가입에 실패했습니다.');
+      }
     }
   };
 
   return (
-    <ScrollAreaRoot>
-      <Title>
-        기술 스택 선택<span> *</span>
-      </Title>
-      <ScrollAreaViewport>
-        <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
-          {skills.map((skill, idx) => (
-            <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
-              <SelectedIcon type="skill" item={skill} removeBtn={false} />
-            </SkillItem>
-          ))}
-        </SkillBox>
-      </ScrollAreaViewport>
+    <>
+      <ScrollAreaRoot>
+        <Title>
+          기술 스택 선택<span> *</span>
+        </Title>
+        <ScrollAreaViewport>
+          <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
+            {skills.map((skill, idx) => (
+              <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
+                <SelectedIcon type="skill" item={skill} removeBtn={false} />
+              </SkillItem>
+            ))}
+          </SkillBox>
+        </ScrollAreaViewport>
 
-      <ButtonSet>
-        <Button size="full" color="primary" onClick={setPrevPage}>
-          이전
-        </Button>
-        <Button size="full" color="primary" onClick={handleSubmit}>
-          완료
-        </Button>
-      </ButtonSet>
-      <ScrollArea.Scrollbar orientation="vertical">
-        <ScrollArea.Corner />
-      </ScrollArea.Scrollbar>
+        <ButtonSet>
+          <Button size="full" color="primary" onClick={setPrevPage}>
+            이전
+          </Button>
+          <Button size="full" color="primary" onClick={handleSubmit}>
+            완료
+          </Button>
+        </ButtonSet>
+        <ScrollArea.Scrollbar orientation="vertical">
+          <ScrollArea.Corner />
+        </ScrollArea.Scrollbar>
+      </ScrollAreaRoot>
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -76,7 +79,7 @@ const SkillsForm = ({ inputVal, setPrevPage, setSkills }: FormProps) => {
         pauseOnHover
         theme="light"
       />
-    </ScrollAreaRoot>
+    </>
   );
 };
 

@@ -3,8 +3,8 @@ import Input from '../common/Input';
 import Select from '../common/Select';
 import Button from '../common/Button';
 import styled from 'styled-components';
-import { career, positions } from '../../constants/data';
-import { SignUpType } from '../../types/commonTypes';
+import { career, positions } from '../../constants';
+import { SignUpType } from '../../types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

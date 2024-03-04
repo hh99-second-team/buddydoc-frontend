@@ -1,5 +1,5 @@
 import React from 'react';
-import { skillsIcon } from '../../constants/data';
+import { skillsIcon } from '../../constants';
 import CircleIcon from '../common/CircleIcon';
 
 interface Props {

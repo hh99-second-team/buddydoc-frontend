@@ -52,7 +52,7 @@ const Navbar = () => {
               <Dialog.Portal></Dialog.Portal>
             </Dialog.Root>
             <IconContainer onClick={() => navigate('/mypage')}>
-              <CircleIcon src="" isProfile={true} />
+              <CircleIcon src={localStorage.getItem('profileImage') || ''} isProfile={true} />
             </IconContainer>
           </>
         ) : (

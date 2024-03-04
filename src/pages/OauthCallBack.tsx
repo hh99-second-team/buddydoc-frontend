@@ -8,6 +8,7 @@ import { isSignupOpenState } from '../store/atomDefinitions';
 interface DecodedToken {
   id: number;
   nickname: string;
+  profileImage: string;
 }
 
 const CallbackPage = () => {
@@ -25,6 +26,7 @@ const CallbackPage = () => {
       localStorage.setItem('accessToken', token);
       localStorage.setItem('userId', decoded.id.toString());
       localStorage.setItem('nickname', decoded.nickname);
+      localStorage.setItem('profileImage', decoded.profileImage || '');
     }
 
     if (!decoded?.nickname) {
