@@ -12,6 +12,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import Modal from '../../../common/Modal';
 import Select from '../../../common/Select';
 import SelectedIcon from '../../../common/SelectedIcon';
+import { motion } from 'framer-motion';
 
 const MyPostList = () => {
   const tabTypes = ['스터디', '프로젝트'];
@@ -45,9 +46,15 @@ const MyPostList = () => {
                   </CardContainer>
                   <Dialog.Root>
                     <Dialog.Trigger asChild>
-                      <Button size="full" color="primary" onClick={() => handleApplication(data.postId)}>
-                        신청자 관리
-                      </Button>
+                      <motion.div
+                        whileHover={{ scale: 1.01 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}>
+                        <Button size="full" color="primary" onClick={() => handleApplication(data.postId)}>
+                          신청자 관리
+                        </Button>
+                      </motion.div>
                     </Dialog.Trigger>
                     <Dialog.Portal>
                       <Modal postTitle="신청자 관리">
