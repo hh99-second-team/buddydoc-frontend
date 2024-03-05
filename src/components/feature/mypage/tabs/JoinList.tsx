@@ -27,7 +27,6 @@ const JoinList = () => {
               .filter((data) => data.postType === tab)
               .map((data, idx) => (
                 <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
-                  <MemberCount>{data.memberCount}명</MemberCount>
                   <DateInfo>시작일 : {getDateFomat(data.startDate)}</DateInfo>
                 </CardContainer>
               ))}
@@ -36,12 +35,6 @@ const JoinList = () => {
     </PostTabsContent>
   );
 };
-
-const MemberCount = styled.p`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-`;
 
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;

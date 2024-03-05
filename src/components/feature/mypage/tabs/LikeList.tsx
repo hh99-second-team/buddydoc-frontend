@@ -27,7 +27,6 @@ const LikeList = () => {
               .filter((data) => data.postType === tab)
               .map((data, idx) => (
                 <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
-                  <MemberCount>{data.memberCount}</MemberCount>
                   <DateInfo>마감일 : {getDateFomat(data.deadLine)}</DateInfo>
                 </CardContainer>
               ))}
@@ -36,12 +35,6 @@ const LikeList = () => {
     </TabsContent>
   );
 };
-
-const MemberCount = styled.p`
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-`;
 
 const DateInfo = styled.p<{ left?: string }>`
   position: absolute;

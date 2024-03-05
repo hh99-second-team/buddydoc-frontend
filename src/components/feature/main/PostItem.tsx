@@ -16,7 +16,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
   const navigate = useNavigate();
 
   return (
-    <Card onClick={() => navigate(`/${post.postId}`, { state: { post } })}>
+    <Card onClick={() => navigate(`/post/${post.postId}`, { state: { post } })}>
       <CardHeader>
         <TypeBox>
           {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
