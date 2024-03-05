@@ -6,7 +6,7 @@ import { PostCreateType } from '../../types';
 import styled from 'styled-components';
 import { Layout } from '../../styles/GlobalStyles';
 import Button from './Button';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
@@ -49,18 +49,6 @@ const PostModifyCreateForm = ({ inputVal, setInputVal, handleSubmit }: Props) =>
           등록
         </Button>
       </ButtonSet>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </CreateLayout>
   );
 };

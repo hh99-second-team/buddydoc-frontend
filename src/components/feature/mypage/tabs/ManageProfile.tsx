@@ -13,7 +13,7 @@ import SelectedIcon from '../../../common/SelectedIcon';
 import Button from '../../../common/Button';
 import { Uploader } from 'uploader';
 import { UploadButton } from 'react-uploader';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingSpinner from '../../../common/LoadingSpinner';
 
@@ -166,18 +166,6 @@ const ManageProfile = () => {
       <Button size="full" color="black" onClick={handleLogout}>
         로그아웃
       </Button>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
     </Layout>
   );
 };
