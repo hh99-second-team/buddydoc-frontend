@@ -5,7 +5,7 @@ const GlobalStyles = createGlobalStyle`
   ${reset}
   * {
     box-sizing: border-box;
-    font-family: "Noto Sans KR", AppleSDGothic, sans-serif!;
+    font-family: "Noto Sans KR", AppleSDGothic, sans-serif;
     font-style: normal;
   }
 `;

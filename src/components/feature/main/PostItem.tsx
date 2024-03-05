@@ -67,7 +67,7 @@ const Title = styled.div`
   position: absolute;
   top: 4.4375rem;
   width: 80%;
-  height: 3.8rem;
+  height: 3.73rem;
   color: #000;
   font-size: 1.5rem;
   font-style: normal;

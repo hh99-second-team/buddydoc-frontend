@@ -12,6 +12,7 @@ import SearchPage from '../pages/SearchPage';
 import OauthCallBack from '../pages/OauthCallBack';
 import PostModify from '../pages/PostModify';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ToastContainer } from 'react-toastify';
 
 const Router = () => {
   return (
@@ -32,6 +33,18 @@ const Router = () => {
             <Route path="/callback" element={<OauthCallBack />} />
           </Routes>
           <Footer />
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </motion.div>
       </AnimatePresence>
     </BrowserRouter>
