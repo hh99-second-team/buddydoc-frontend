@@ -180,7 +180,6 @@ const NavButton = styled.div`
 
 const IconButton = styled.button`
   all: unset;
-  font-family: inherit;
   border-radius: 100%;
   height: 1.5rem;
   width: 1.5rem;
