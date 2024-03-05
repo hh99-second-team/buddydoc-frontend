@@ -6,6 +6,7 @@ import TypeIcon from '../../common/TypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { getDateFomat } from '../../../utils';
 import { PostCardType } from '../../../types';
+import { motion } from 'framer-motion';
 import studyIcon from '../../../assets/study-icon.svg';
 import projectIcon from '../../../assets/project-icon.svg';
 import Views from '../../common/Views';
@@ -16,28 +17,34 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
   const navigate = useNavigate();
 
   return (
-    <Card onClick={() => navigate(`/post/${post.postId}`, { state: { post } })}>
-      <CardHeader>
-        <TypeBox>
-          {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
-          <TypeIcon>{post.postType}</TypeIcon>
-          <DeadlineIcon date={post.deadLine} />
-        </TypeBox>
-        <Bookmark postId={post.postId} direction="column" count={post.preference} isToggle={post.bookmark} />
-      </CardHeader>
-      <Title>{post.postTitle}</Title>
-      <Deadline>마감일 {getDateFomat(post.deadLine)}</Deadline>
-      <SkillBox>
-        <SkillList skip={true} skillList={post.skillList} size="small" />
-      </SkillBox>
-      <PostFooter>
-        <UserInfo>
-          <CircleIcon src={post.users.profileImage} isProfile={true} />
-          <p>{post.users.userNickname}</p>
-        </UserInfo>
-        <Views count={post.views} />
-      </PostFooter>
-    </Card>
+    <motion.div
+      whileHover={{ scale: 1.06 }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}>
+      <Card onClick={() => navigate(`/post/${post.postId}`, { state: { post } })}>
+        <CardHeader>
+          <TypeBox>
+            {post.postType === '스터디' ? <img src={studyIcon} alt="" /> : <img src={projectIcon} alt="" />}
+            <TypeIcon>{post.postType}</TypeIcon>
+            <DeadlineIcon date={post.deadLine} />
+          </TypeBox>
+          <Bookmark postId={post.postId} direction="column" count={post.preference} isToggle={post.bookmark} />
+        </CardHeader>
+        <Title>{post.postTitle}</Title>
+        <Deadline>마감일 {getDateFomat(post.deadLine)}</Deadline>
+        <SkillBox>
+          <SkillList skip={true} skillList={post.skillList} size="small" />
+        </SkillBox>
+        <PostFooter>
+          <UserInfo>
+            <CircleIcon src={post.users.profileImage} isProfile={true} />
+            <p>{post.users.userNickname}</p>
+          </UserInfo>
+          <Views count={post.views} />
+        </PostFooter>
+      </Card>
+    </motion.div>
   );
 };
 
