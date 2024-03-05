@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const location = useLocation();
@@ -8,16 +9,18 @@ const Footer = () => {
   if (location.pathname.startsWith('/chat')) return <></>;
 
   return (
-    <FooterBox>
-      <div>
-        <Wave id="wave1"></Wave>
-        <Wave id="wave2"></Wave>
-        <Wave id="wave3"></Wave>
-        <Wave id="wave4"></Wave>
-      </div>
-      <p>곽민지 | 박성진 | 임희원 | 김기민 | 최예은</p>
-      <p>&copy;2024 항해 18기 2조 | All Rights Reserved</p>
-    </FooterBox>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <FooterBox>
+        <div>
+          <Wave id="wave1"></Wave>
+          <Wave id="wave2"></Wave>
+          <Wave id="wave3"></Wave>
+          <Wave id="wave4"></Wave>
+        </div>
+        <p>곽민지 | 박성진 | 임희원 | 김기민 | 최예은</p>
+        <p>&copy;2024 항해 18기 2조 | All Rights Reserved</p>
+      </FooterBox>
+    </motion.div>
   );
 };
 

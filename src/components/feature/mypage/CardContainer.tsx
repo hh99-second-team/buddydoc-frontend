@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TypeIcon from '../../common/TypeIcon';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface Props {
   children: React.ReactNode;
@@ -14,14 +15,20 @@ const CardContainer = ({ children, title, status, postId }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <ContentContainer onClick={() => navigate(`/post/${postId}`)}>
-      <CardHeader>
-        <TopTitle>{title}</TopTitle>
-        <TypeIcon>{status}</TypeIcon>
-        <BottomTitle>{title}</BottomTitle>
-      </CardHeader>
-      {children}
-    </ContentContainer>
+    <motion.div
+      whileHover={{ scale: 1.01 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}>
+      <ContentContainer onClick={() => navigate(`/post/${postId}`)}>
+        <CardHeader>
+          <TopTitle>{title}</TopTitle>
+          <TypeIcon>{status}</TypeIcon>
+          <BottomTitle>{title}</BottomTitle>
+        </CardHeader>
+        {children}
+      </ContentContainer>
+    </motion.div>
   );
 };
 

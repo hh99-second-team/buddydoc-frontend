@@ -11,6 +11,7 @@ import Footer from '../components/common/Footer';
 import SearchPage from '../pages/SearchPage';
 import OauthCallBack from '../pages/OauthCallBack';
 import PostModify from '../pages/PostModify';
+import Notifytest from '../pages/Notifytest';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
 
@@ -31,6 +32,7 @@ const Router = () => {
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/search/:search" element={<SearchPage />} />
             <Route path="/callback" element={<OauthCallBack />} />
+            <Route path="/notifytest" element={<Notifytest />} />
           </Routes>
           <Footer />
           <ToastContainer

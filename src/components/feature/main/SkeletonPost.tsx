@@ -2,18 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { motion } from 'framer-motion';
 
 const SkeletonPost = () => {
   return (
-    <PostBox>
-      <SkeletonHeader />
-      <SkeletonDeadline />
-      <SkeletonContentBox count={2} />
-      <SkeletonImgBox>
-        <Skeleton count={5} />
-      </SkeletonImgBox>
-      <SkeletonWriter />
-    </PostBox>
+    <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+      <PostBox>
+        <SkeletonHeader />
+        <SkeletonDeadline />
+        <SkeletonContentBox count={2} />
+        <SkeletonImgBox>
+          <Skeleton count={5} />
+        </SkeletonImgBox>
+        <SkeletonWriter />
+      </PostBox>
+    </motion.div>
   );
 };
 
