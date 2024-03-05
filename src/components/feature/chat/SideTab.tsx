@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import ChatList from './ChatList';
+// import ChatList from './ChatList';
 // import JoinList from './JoinList';
 
 const SideTab = () => {
@@ -17,9 +17,7 @@ const SideTab = () => {
         ))}
       </TabsList>
       <Tabs.Content value="현재 참여 목록">{/* <JoinList /> */}</Tabs.Content>
-      <TabsContent value="채팅">
-        <ChatList />
-      </TabsContent>
+      <TabsContent value="채팅">{/* <ChatList /> */}</TabsContent>
       <Tabs.Content value="설정"></Tabs.Content>
     </TabsRoot>
   );

@@ -37,7 +37,7 @@ const Banner = () => {
 
 const StyledCarousel = styled(Carousel)`
   width: 100%;
-  height: auto; /* 자동으로 높이를 조절합니다. */
+  height: auto;
 `;
 
 const Container = styled.div`

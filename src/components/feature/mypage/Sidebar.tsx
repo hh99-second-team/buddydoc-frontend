@@ -1,47 +1,31 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import ToggleSidebar from '../../common/ToggleSideBar';
 
 const SideBar: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
   const [selectedTab, setSelectedTab] = useState('프로필');
 
   return (
-    <>
-      <TabsList>
+    <Tabs.List>
+      <SideMenuList>
         {tabTypes.map((tab, idx) => (
           <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
             {tab}
           </StyledTrigger>
         ))}
-      </TabsList>
-
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger asChild>
-          <IconButton aria-label="Customise options">
-            <HamburgerMenuIcon />
-          </IconButton>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content sideOffset={5}>
-            <SmallTabsList>
-              {tabTypes.map((tab, idx) => (
-                <DropdownMenu.Item key={idx}>
-                  <StyledTrigger value={tab} selected={selectedTab === tab} onClick={() => setSelectedTab(tab)}>
-                    {tab}
-                  </StyledTrigger>
-                </DropdownMenu.Item>
-              ))}
-            </SmallTabsList>
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
-    </>
+      </SideMenuList>
+      <ToggleSidebar title="마이페이지" tabsItems={tabTypes}>
+        <IconButton aria-label="Customise options">
+          <HamburgerMenuIcon />
+        </IconButton>
+      </ToggleSidebar>
+    </Tabs.List>
   );
 };
 
-const TabsList = styled(Tabs.List)`
+const SideMenuList = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
@@ -49,10 +33,6 @@ const TabsList = styled(Tabs.List)`
   @media screen and (max-width: 768px) {
     display: none;
   }
-`;
-
-const SmallTabsList = styled(Tabs.List)`
-  background-color: white;
 `;
 
 const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
@@ -78,14 +58,22 @@ const StyledTrigger = styled(Tabs.Trigger)<{ selected: boolean }>`
 
 const IconButton = styled.button`
   display: none;
+
   @media screen and (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: block;
     width: 3rem;
     height: 3rem;
     text-align: center;
-    background: transparent;
-    border: 1.3px solid #8e8e8e9f;
     border-radius: 12px;
+    border: 1px solid var(--grey02, #e2e3e5);
+    background: white;
+
+    & > svg {
+      color: #475f7b;
+    }
   }
 `;
 

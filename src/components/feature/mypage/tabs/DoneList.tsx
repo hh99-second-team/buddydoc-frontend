@@ -131,7 +131,6 @@ export default LikeList;
 const SideMenuHeader = styled.div`
   color: #000;
   text-align: center;
-  font-family: Pretendard;
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
@@ -140,7 +139,6 @@ const SideMenuHeader = styled.div`
 const SideMenuDescription = styled.div`
   color: #000;
   text-align: center;
-  font-family: Pretendard;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;

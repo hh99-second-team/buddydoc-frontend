@@ -6,9 +6,9 @@ import { Theme } from '@radix-ui/themes';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-    <Theme>
-      <App />
-    </Theme>
+  <Theme>
+    <App />
+  </Theme>
 );
 
 reportWebVitals();
