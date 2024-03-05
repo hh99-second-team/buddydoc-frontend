@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../common/Modal';
 import styled from 'styled-components';
 import Textarea from '../../common/Textarea';
@@ -7,6 +7,7 @@ import api from '../../../api';
 import Select from '../../common/Select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { io, Socket } from 'socket.io-client';
 
 interface ModalProps {
   postId: string;
@@ -17,9 +18,23 @@ interface ModalProps {
 const ApplicationModal = ({ postId, setIsOpen, positionList }: ModalProps) => {
   const [position, setPosition] = useState('');
   const [notiMsg, setNotiMsg] = useState('');
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   const onChangePosition = (position: string) => setPosition(position);
   const onChangeNotiMsgText = (e: React.ChangeEvent<HTMLInputElement>) => setNotiMsg(e.target.value);
+
+  // 알림 Request를 보내는 ENDPOINT 설정
+  const ENDPOINT = process.env.REACT_APP_API_ROOT + '/alarm';
+
+  // 모달창 렌더링시 socket 연결
+  useEffect(() => {
+    const newSocket = io(ENDPOINT);
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
+  }, []);
 
   const handleSubmit = async () => {
     if (!position || !notiMsg) {
@@ -29,6 +44,16 @@ const ApplicationModal = ({ postId, setIsOpen, positionList }: ModalProps) => {
     try {
       await api.createApplication(postId, { position, noti_message: notiMsg });
       toast.success('신청이 완료됐습니다.');
+      if (socket) {
+        // 알림 emit 로직 삽입
+        // userId추출
+        const userId = localStorage.getItem('userId');
+        // socket 연결
+        socket.emit('buddydocConnect', userId);
+        console.log('socket connected');
+        // 알림 request 전송
+        socket.emit('alarmMessage', { position, noti_message: notiMsg, userId, postId });
+      }
       setIsOpen(false);
     } catch (e) {
       toast.error('이미 신청한 글입니다.');

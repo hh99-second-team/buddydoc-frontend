@@ -10,7 +10,7 @@ const ChatScreen = () => {
   const [receivedMessages, setReceivedMessages] = useState([]);
 
   useEffect(() => {
-    const socket = io('http://localhost:3000/chat');
+    const socket = io(`${process.env.REACT_APP_API_ROOT}/chat`);
 
     socket.on('connect', () => {
       console.log('Socket connected');
@@ -28,7 +28,7 @@ const ChatScreen = () => {
   }, []);
 
   const handleJoinRoom = () => {
-    const socket = io('http://localhost:3000/chat');
+    const socket = io(`${process.env.REACT_APP_API_ROOT}/chat`);
     socket.emit('join-room', { postId });
   };
 
@@ -36,7 +36,7 @@ const ChatScreen = () => {
     console.log(postId);
     console.log(message);
     console.log(userId);
-    const socket = io('http://localhost:3000/chat');
+    const socket = io(`${process.env.REACT_APP_API_ROOT}/chat`);
     socket.emit('send-message', {
       message,
       userId,

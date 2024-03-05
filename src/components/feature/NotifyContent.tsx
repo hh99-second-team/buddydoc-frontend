@@ -1,22 +1,28 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const notifyDummy = [
   {
-    notifyTitle: '새로운 신청 1',
-    notifyDescription: '1건의 새로운 신청이 있습니다. - 1',
+    noti_message: '안녕하세요 같이 프로젝트 진행하고싶어요 1 ',
+    position: '프론트엔드',
+    postId: 43,
+    userId: 1,
   },
   {
-    notifyTitle: '새로운 신청 2',
-    notifyDescription: '1건의 새로운 신청이 있습니다. - 2',
+    noti_message: '안녕하세요 같이 프로젝트 진행하고싶어요 2 ',
+    position: '프론트엔드',
+    postId: 43,
+    userId: 2,
   },
 ];
 
 const NotifyContent = () => {
-  // useEffect(() => {
-  //   console.log('NotifyContent');
-  // }, []);
+  // localstorage에 있는 userId가져오기
+
+  useEffect(() => {
+    console.log('Notify Modal Opend !');
+  }, []);
 
   return (
     <DialogContent>
@@ -25,8 +31,8 @@ const NotifyContent = () => {
         {notifyDummy.map((data, index) => {
           return (
             <NotifyCard key={index}>
-              <NotifyTitle>{data.notifyTitle}</NotifyTitle>
-              <NotifyDescription>{data.notifyDescription}</NotifyDescription>
+              <NotifyTitle>{data.noti_message}</NotifyTitle>
+              <NotifyDescription>{data.position}</NotifyDescription>
             </NotifyCard>
           );
         })}
@@ -43,7 +49,7 @@ const DialogContent = styled(Dialog.Content)`
   width: 340px;
   height: 400px;
   border-radius: 12px;
-  background-color: lightgray;
+  box-shadow: 0px 4px 10px 6px rgba(0, 0, 0, 0.07);
   padding: 20px 18px;
 `;
 const DialogTitle = styled(Dialog.Title)`
