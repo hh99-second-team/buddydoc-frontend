@@ -75,7 +75,8 @@ const Content = styled(Dialog.Content)`
   transform: translate(-50%, -50%);
   width: 90vw;
   max-width: 650px;
-  max-height: 760px;
+  max-height: 80vh;
+  overflow-y: scroll;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 999;
 

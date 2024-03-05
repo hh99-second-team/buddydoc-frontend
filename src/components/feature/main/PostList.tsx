@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PostCardType } from '../../../types';
 import PostItem from './PostItem';
 import styled from 'styled-components';
@@ -12,72 +12,62 @@ interface ParamsType {
   isEnd?: boolean;
 }
 
-const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
+const usePostLoader = ({ postType, searchTitle, isEnd }: ParamsType) => {
   const [posts, setPosts] = useState<PostCardType[]>([]);
   const [isLastPage, setIsLastPage] = useState(false);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const fetchPosts = useCallback(async () => {
-    if (isLastPage) {
-      return;
-    }
-    setIsLoading(true);
-
-    const response = !!postType
-      ? await api.getPost(page, isEnd, postType)
-      : !!searchTitle
-      ? await api.getPostSearch(page, searchTitle)
-      : await api.getPost(page, isEnd);
-
-    setPosts((prevState) => [...prevState, ...response.posts]);
-    setIsLastPage(response.isLastPage);
-    setIsLoading(false);
-  }, [isEnd, isLastPage, page, postType, searchTitle]);
-
-  // fetchPosts이 바뀔 때마다 함수 실행
   useEffect(() => {
+    const fetchPosts = async () => {
+      if (isLastPage) return;
+
+      setIsLoading(true);
+
+      const response = await (postType
+        ? api.getPost(page, isEnd, postType)
+        : searchTitle
+        ? api.getPostSearch(page, searchTitle)
+        : api.getPost(page, isEnd));
+
+      setPosts((prevPosts) => [...prevPosts, ...response.posts]);
+      setIsLastPage(response.isLastPage);
+      setIsLoading(false);
+    };
+
     fetchPosts();
-  }, [fetchPosts]);
+  }, [isEnd, isLastPage, isLoading, page, postType, searchTitle]);
 
   useEffect(() => {
-    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-    if (inView && !isLoading) {
+    if (inView && !isLoading && posts.length > 0) {
       setPage(posts[posts.length - 1].postId);
     }
   }, [inView, isLoading, posts]);
 
-  const renderPostList = () => {
-    return (
-      <>
-        {/* 최초엔 10개의 스켈레톤 표시 */}
-        {isLoading && posts.length === 0 && Array.from({ length: 10 }, (_, idx) => <SkeletonPost key={idx} />)}
-        {!isLoading &&
-          posts.map((post, idx) => (
-            <React.Fragment key={idx}>
-              {posts.length - 1 === idx ? (
-                <div ref={ref}>
-                  <PostItem post={post} />
-                </div>
-              ) : (
-                <div>
-                  <PostItem post={post} />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        {/* 로딩 중일 때 Skeleton UI 표시*/}
-        {/* 그 이후에는 4 개의 스켈레톤만 보여주기 */}
-        {isLoading && posts.length > 1 && Array.from({ length: 4 }, (_, idx) => <SkeletonPost key={idx} />)}
-      </>
-    );
-  };
+  return { posts, isLoading, ref };
+};
+
+const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
+  const { posts, isLoading, ref } = usePostLoader({ postType, searchTitle, isEnd });
 
   return (
     <>
-      <PostContainer>{renderPostList()}</PostContainer>
-      {!isLoading && posts.length === 0 && (
+      <PostContainer>
+        {posts.map((post, idx) => (
+          <div key={idx} ref={idx === posts.length - 1 ? ref : undefined}>
+            <PostItem post={post} />
+          </div>
+        ))}
+        {isLoading && (
+          <>
+            {Array.from({ length: posts.length === 0 ? 10 : 4 }, (_, idx) => (
+              <SkeletonPost key={idx} />
+            ))}
+          </>
+        )}
+      </PostContainer>
+      {posts.length === 0 && (
         <EmptyPostTitle>{searchTitle ? `"${searchTitle}" 검색 결과가 없습니다.` : '게시글이 없습니다.'}</EmptyPostTitle>
       )}
     </>
@@ -101,4 +91,5 @@ const EmptyPostTitle = styled.p`
   text-align: center;
   font-size: 1.5rem;
 `;
+
 export default PostList;

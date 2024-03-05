@@ -38,6 +38,7 @@ const SideMenuHeader = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-top: 1.5rem;
 `;
 
 const SideMenuDescription = styled.div`
@@ -46,6 +47,7 @@ const SideMenuDescription = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-top: 0.5rem;
 `;
 
 const SideMenuBody = styled.div`
