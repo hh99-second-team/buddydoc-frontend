@@ -7,6 +7,7 @@ import { PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../../../utils';
 import { JoinType } from '../../../types';
 import CircleIcon from '../../common/CircleIcon';
+import { motion } from 'framer-motion';
 
 interface MessageType {
   userId: number;
@@ -107,7 +108,7 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
       <ChatRoomLayout>
         <ChatRoomBody>
           {messages.map((message, idx) => (
-            <div key={idx}>
+            <motion.div key={idx} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
               <ChatBox isSentByCurrentUser={message.userId.toString() === localStorage.getItem('userId')}>
                 {message.userId.toString() !== localStorage.getItem('userId') && (
                   <CircleIcon src={message.users.profileImage} isProfile={true} />
@@ -115,7 +116,7 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
                 <ChatMessage>{message.chat_message}</ChatMessage>
                 <MessageDate>{getDateFomat(message.createdAt)}</MessageDate>
               </ChatBox>
-            </div>
+            </motion.div>
           ))}
         </ChatRoomBody>
       </ChatRoomLayout>

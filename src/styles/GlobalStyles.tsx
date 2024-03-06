@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
 
 export const Layout = styled.div`
   padding: 5vh 140px;
+  min-height: 80vh;
   @media screen and (max-width: 768px) {
     padding: 5vh 3%;
   }

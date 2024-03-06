@@ -12,17 +12,26 @@ import * as Dialog from '@radix-ui/react-dialog';
 import Modal from '../../../common/Modal';
 import Select from '../../../common/Select';
 import SelectedIcon from '../../../common/SelectedIcon';
+import { motion } from 'framer-motion';
+import { ToastContainer, toast } from 'react-toastify';
 
 const MyPostList = () => {
   const tabTypes = ['스터디', '프로젝트'];
   const [selectedTab, setSelectedTab] = useState('스터디');
   const { data } = useQuery<WriteType[]>(['postList'], api.getMyPosts);
   const [application, setApplication] = useState<ApplicationType[]>();
-  const [statusSelect, setStatusSelect] = useState('');
+  const [statusSelect, setStatusSelect] = useState<'대기 중' | '승인' | '거절'>('대기 중');
 
   const handleApplication = async (postId: number) => setApplication(await api.getApplication(postId));
-  const handleStatusSave = async (userId: number, postId: number) => {};
-  const onChangeStatusSelect = (status: string) => setStatusSelect(status);
+  const handleStatusSave = async (postId: number, notiId: number) => {
+    if (!statusSelect) {
+      toast.error('승인 혹은 거절을 선택해주세요.');
+      return;
+    }
+    await api.createApplicantStatus(postId, notiId, statusSelect);
+    toast.success(`${statusSelect}이 완료되었습니다.`);
+  };
+  const onChangeStatusSelect = (status: '대기 중' | '승인' | '거절') => setStatusSelect(status);
 
   return (
     <TabsContent
@@ -45,9 +54,15 @@ const MyPostList = () => {
                   </CardContainer>
                   <Dialog.Root>
                     <Dialog.Trigger asChild>
-                      <Button size="full" color="primary" onClick={() => handleApplication(data.postId)}>
-                        신청자 관리
-                      </Button>
+                      <motion.div
+                        whileHover={{ scale: 1.01 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}>
+                        <Button size="full" color="primary" onClick={() => handleApplication(data.postId)}>
+                          신청자 관리
+                        </Button>
+                      </motion.div>
                     </Dialog.Trigger>
                     <Dialog.Portal>
                       <Modal postTitle="신청자 관리">
@@ -71,7 +86,7 @@ const MyPostList = () => {
                               <Button
                                 color="primary"
                                 size="full"
-                                onClick={() => handleStatusSave(appItem.noti_userId, data.postId)}>
+                                onClick={() => handleStatusSave(data.postId, appItem.notiId)}>
                                 상태 저장
                               </Button>
                             </ApplicationBox>
@@ -79,6 +94,18 @@ const MyPostList = () => {
                         ) : (
                           <p>아직 신청한 사람이 없습니다.</p>
                         )}
+                        <ToastContainer
+                          position="top-center"
+                          autoClose={2000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="light"
+                        />
                       </Modal>
                     </Dialog.Portal>
                   </Dialog.Root>

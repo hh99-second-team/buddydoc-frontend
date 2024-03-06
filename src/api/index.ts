@@ -131,6 +131,15 @@ const api = {
     const response = await axios.put('/user/my-info', info);
     return response.data;
   },
+
+  /** 내 작성글에 신청한 신청자 상태 저장 */
+  createApplicantStatus: async (postId: number, notiId: number, notiStatus: '대기 중' | '승인' | '거절') => {
+    const response = await axios.post(`/user/my-posts/${postId}`, {
+      notiId,
+      notiStatus: notiStatus === '대기 중' ? 'pending' : notiStatus === '승인' ? 'accept' : 'reject',
+    });
+    return response.data;
+  },
 };
 
 export default api;

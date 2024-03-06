@@ -16,6 +16,7 @@ import { UploadButton } from 'react-uploader';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingSpinner from '../../../common/LoadingSpinner';
+import { motion } from 'framer-motion';
 
 // 이미지 업로더
 const uploader = Uploader({
@@ -100,73 +101,75 @@ const ManageProfile = () => {
   const handleSave = () => mutation.mutateAsync(userInfo);
 
   return (
-    <Layout>
-      {isLoading && <LoadingSpinner />}
-      <UploadButton
-        uploader={uploader}
-        options={options}
-        onComplete={(file) => modifyProfileImgHandler(file.length > 0 ? file[0].fileUrl : '')}>
-        {({ onClick }) => (
-          <ProfileBox onClick={onClick}>
-            <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
-            <AddPhotoIcon />
-          </ProfileBox>
-        )}
-      </UploadButton>
-      <Header>기본 정보</Header>
-      <GridGroup>
-        <InputBox>
-          <p>닉네임</p>
-          <Input
-            type="text"
-            value={userInfo.userNickname}
-            onChange={onChangeUserNickname}
-            placeholder="닉네임을 입력해주세요."
-            isValid="none"
-          />
-        </InputBox>
-        <InputBox>
-          <p>포지션</p>
-          <Select
-            selectValue={userInfo.position}
-            onValueChange={onChangePosition}
-            items={positions}
-            placeholder="포지션을 선택해주세요."
-          />
-        </InputBox>
-        <InputBox>
-          <p>경력</p>
-          <Select
-            selectValue={userInfo.career}
-            onValueChange={onChangeCareer}
-            items={career}
-            placeholder="경력을 선택해주세요."
-          />
-        </InputBox>
-        <InputBox>
-          <p>기술 스택</p>
-          <Select
-            selectValue={userInfo.skillList && userInfo.skillList[userInfo.skillList.length - 1]}
-            onValueChange={onChangeSkillList}
-            items={skills}
-            placeholder="보유 기술 스택을 선택하세요."
-          />
-          {!!userInfo.skillList.length && (
-            <SkillBox>
-              {userInfo.skillList.map((skill) => (
-                <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
-              ))}
-            </SkillBox>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <Layout>
+        {isLoading && <LoadingSpinner />}
+        <UploadButton
+          uploader={uploader}
+          options={options}
+          onComplete={(file) => modifyProfileImgHandler(file.length > 0 ? file[0].fileUrl : '')}>
+          {({ onClick }) => (
+            <ProfileBox onClick={onClick}>
+              <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
+              <AddPhotoIcon />
+            </ProfileBox>
           )}
-        </InputBox>
-      </GridGroup>
-      <Button size="full" color="primary" onClick={handleSave}>
-        저장
-      </Button>
-      <Button size="full" color="black" onClick={handleLogout}>
-        로그아웃
-      </Button>
-    </Layout>
+        </UploadButton>
+        <Header>기본 정보</Header>
+        <GridGroup>
+          <InputBox>
+            <p>닉네임</p>
+            <Input
+              type="text"
+              value={userInfo.userNickname}
+              onChange={onChangeUserNickname}
+              placeholder="닉네임을 입력해주세요."
+              isValid="none"
+            />
+          </InputBox>
+          <InputBox>
+            <p>포지션</p>
+            <Select
+              selectValue={userInfo.position}
+              onValueChange={onChangePosition}
+              items={positions}
+              placeholder="포지션을 선택해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <p>경력</p>
+            <Select
+              selectValue={userInfo.career}
+              onValueChange={onChangeCareer}
+              items={career}
+              placeholder="경력을 선택해주세요."
+            />
+          </InputBox>
+          <InputBox>
+            <p>기술 스택</p>
+            <Select
+              selectValue={userInfo.skillList && userInfo.skillList[userInfo.skillList.length - 1]}
+              onValueChange={onChangeSkillList}
+              items={skills}
+              placeholder="보유 기술 스택을 선택하세요."
+            />
+            {!!userInfo.skillList.length && (
+              <SkillBox>
+                {userInfo.skillList.map((skill) => (
+                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
+                ))}
+              </SkillBox>
+            )}
+          </InputBox>
+        </GridGroup>
+        <Button size="full" color="primary" onClick={handleSave}>
+          저장
+        </Button>
+        <Button size="full" color="black" onClick={handleLogout}>
+          로그아웃
+        </Button>
+      </Layout>
+    </motion.div>
   );
 };
 

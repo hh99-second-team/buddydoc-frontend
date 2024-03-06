@@ -116,6 +116,7 @@ export interface WriteType {
 
 /** 신청자 목록 */
 export interface ApplicationType {
+  notiId: number;
   noti_userId: number;
   userNickname: string;
   noti_message: string;
