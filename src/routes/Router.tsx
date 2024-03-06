@@ -3,7 +3,7 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import PostDetail from '../pages/PostDetail';
 import TeamPage from '../pages/TeamPage';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../components/common/navbar/Navbar';
 import PostCreate from '../pages/PostCreate';
 import ScrollTop from '../components/feature/ScrollToTop';
 import ChatPage from '../pages/ChatPage';
@@ -26,7 +26,7 @@ const Router = () => {
             <Route path="/post/:postId" element={<PostDetail />} />
             <Route path="/create" element={<PostCreate />} />
             <Route path="/modify/:postId" element={<PostModify />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/:tabType" element={<MyPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/search/:search" element={<SearchPage />} />

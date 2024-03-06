@@ -7,13 +7,13 @@ import SideMenu from '../components/feature/mypage/SideMenu';
 import { Layout } from '../styles/GlobalStyles';
 
 const MyPage = () => {
-  const tabTypes = ['프로필', '현재 참여 목록', '내 신청 현황', '관심 목록', '작성 목록'];
+  const tabNames = ['profile', 'join', 'apply', 'like', 'mypost'];
 
   return (
     <Layout>
-      <TabsRoot defaultValue={tabTypes[0]}>
-        <SideBar tabTypes={tabTypes} />
-        <SideMenu tabTypes={tabTypes} />
+      <TabsRoot defaultValue={tabNames[0]}>
+        <SideBar tabNames={tabNames} />
+        <SideMenu tabNames={tabNames} />
       </TabsRoot>
     </Layout>
   );

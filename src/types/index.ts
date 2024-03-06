@@ -121,4 +121,15 @@ export interface ApplicationType {
   userNickname: string;
   noti_message: string;
   position: string;
+  notiStatus: 'reject' | 'pending' | 'accept';
+}
+
+/** 채팅방 목록 */
+export interface ChatRoomType {
+  postId: number;
+  memberCount: number;
+  posts: {
+    postTitle: string;
+    postType: '스터디' | '프로젝트';
+  };
 }

@@ -140,6 +140,11 @@ const api = {
     });
     return response.data;
   },
+
+  getChatRoomList: async () => {
+    const response = await axios.get('/chat/rooms');
+    return response.data;
+  },
 };
 
 export default api;

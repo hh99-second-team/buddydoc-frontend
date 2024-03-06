@@ -10,28 +10,16 @@ import { getDDayCounter, getDateFomat } from '../../../../utils';
 import CardContainer from '../CardContainer';
 import * as Dialog from '@radix-ui/react-dialog';
 import Modal from '../../../common/Modal';
-import Select from '../../../common/Select';
-import SelectedIcon from '../../../common/SelectedIcon';
 import { motion } from 'framer-motion';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import ApplyCard from './ApplyCard';
 
 const MyPostList = () => {
   const tabTypes = ['스터디', '프로젝트'];
   const [selectedTab, setSelectedTab] = useState('스터디');
   const { data } = useQuery<WriteType[]>(['postList'], api.getMyPosts);
   const [application, setApplication] = useState<ApplicationType[]>();
-  const [statusSelect, setStatusSelect] = useState<'대기 중' | '승인' | '거절'>('대기 중');
-
   const handleApplication = async (postId: number) => setApplication(await api.getApplication(postId));
-  const handleStatusSave = async (postId: number, notiId: number) => {
-    if (!statusSelect) {
-      toast.error('승인 혹은 거절을 선택해주세요.');
-      return;
-    }
-    await api.createApplicantStatus(postId, notiId, statusSelect);
-    toast.success(`${statusSelect}이 완료되었습니다.`);
-  };
-  const onChangeStatusSelect = (status: '대기 중' | '승인' | '거절') => setStatusSelect(status);
 
   return (
     <TabsContent
@@ -67,30 +55,7 @@ const MyPostList = () => {
                     <Dialog.Portal>
                       <Modal postTitle="신청자 관리">
                         {application ? (
-                          application.map((appItem, idx) => (
-                            <ApplicationBox key={idx}>
-                              <InfoBox>
-                                <Flex>
-                                  <Nickname>{appItem.userNickname}</Nickname>
-                                  <SelectedIcon type="position" item={appItem.position} removeBtn={false} />
-                                </Flex>
-                                <MessageBox>{appItem.noti_message}</MessageBox>
-                              </InfoBox>
-
-                              <Select
-                                selectValue={statusSelect}
-                                onValueChange={onChangeStatusSelect}
-                                items={['대기 중', '승인', '거절']}
-                                placeholder="신청 상태를 선택해주세요."
-                              />
-                              <Button
-                                color="primary"
-                                size="full"
-                                onClick={() => handleStatusSave(data.postId, appItem.notiId)}>
-                                상태 저장
-                              </Button>
-                            </ApplicationBox>
-                          ))
+                          application.map((appItem, idx) => <ApplyCard key={idx} item={appItem} postId={data.postId} />)
                         ) : (
                           <p>아직 신청한 사람이 없습니다.</p>
                         )}
@@ -130,37 +95,6 @@ const DateInfo = styled.p<{ left?: string }>`
   font-weight: 700;
   color: #787878;
   text-align: end;
-`;
-
-const ApplicationBox = styled.div`
-  border-radius: 12px;
-  border: 1px solid var(--grey02, #e2e3e5);
-  background: var(--grey01, #f9fafc);
-  box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  display: grid;
-  row-gap: 1rem;
-  margin-bottom: 2rem;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--grey02, #e2e3e5);
-`;
-
-const InfoBox = styled.div``;
-
-const Nickname = styled.p`
-  font-size: 1.2rem;
-  font-weight: 400;
-`;
-
-const MessageBox = styled.div`
-  margin-top: 1rem;
-  padding: 2rem 0;
 `;
 
 export default MyPostList;

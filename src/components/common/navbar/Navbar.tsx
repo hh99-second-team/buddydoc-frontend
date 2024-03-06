@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Menubar from '@radix-ui/react-menubar';
 import styled from 'styled-components';
-import LoginModal from '../feature/LoginModal';
-import logoUrl from '../../assets/buddydoc-logo.png';
-import SignupModal from '../feature/SignupModal';
-import { ReactComponent as BellIcon } from '../../assets/bell-icon.svg';
+import LoginModal from '../../feature/LoginModal';
+import logoUrl from '../../../assets/buddydoc-logo.png';
+import SignupModal from '../../feature/SignupModal';
+import { ReactComponent as BellIcon } from '../../../assets/bell-icon.svg';
 import { useNavigate } from 'react-router-dom';
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
-import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
-import SearchModal from '../feature/SearchModal';
-import MenuBarTrigger from './menuBar/MenuBarTrigger';
-import PortalContent from './menuBar/PortalContent';
-import CircleIcon from './CircleIcon';
+import { isLoginOpenState, isSignupOpenState } from '../../../store/atomDefinitions';
+import SearchModal from '../../feature/SearchModal';
+import MenuBarTrigger from '../menuBar/MenuBarTrigger';
+import PortalContent from '../menuBar/PortalContent';
+import CircleIcon from '../CircleIcon';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -36,17 +36,17 @@ const Navbar = () => {
         {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
-              <div onClick={() => navigate(`/chat`)}>채팅</div>
+              <div onClick={() => navigate('/chat')}>채팅</div>
             </IconContainer>
-            <Dialog.Root>
+            {/* <Dialog.Root>
               <Dialog.Trigger asChild>
                 <IconContainer>
                   <BellIcon />
                 </IconContainer>
               </Dialog.Trigger>
               <Dialog.Portal></Dialog.Portal>
-            </Dialog.Root>
-            <IconContainer onClick={() => navigate('/mypage')}>
+            </Dialog.Root> */}
+            <IconContainer onClick={() => navigate('/mypage/profile')}>
               <CircleIcon src={localStorage.getItem('profileImage') || ''} isProfile={true} />
             </IconContainer>
           </>
@@ -85,14 +85,14 @@ const Navbar = () => {
                   <StyledHamburgerMenuIcon />
                   <PortalContent>
                     <Menubar.Item>
-                      <NavButton onClick={() => navigate('/mypage')}>마이페이지</NavButton>
+                      <NavButton onClick={() => navigate('/mypage/profile')}>마이페이지</NavButton>
                     </Menubar.Item>
                     <Menubar.Item>
                       <IconContainer>
                         <div onClick={() => navigate(`/chat`)}>채팅</div>
                       </IconContainer>
                     </Menubar.Item>
-                    <Menubar.Item>
+                    {/* <Menubar.Item>
                       <Dialog.Root>
                         <Dialog.Trigger asChild>
                           <IconContainer>
@@ -101,7 +101,7 @@ const Navbar = () => {
                         </Dialog.Trigger>
                         <Dialog.Portal></Dialog.Portal>
                       </Dialog.Root>
-                    </Menubar.Item>
+                    </Menubar.Item> */}
                   </PortalContent>
                 </MenuBarTrigger>
               </Menubar.Menu>
