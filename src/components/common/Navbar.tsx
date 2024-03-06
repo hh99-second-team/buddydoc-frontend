@@ -36,7 +36,7 @@ const Navbar = () => {
         {!!localStorage.getItem('accessToken') && localStorage.getItem('isLogin') === 'true' ? (
           <>
             <IconContainer>
-              <div onClick={() => navigate(`/chat`)}>채팅</div>
+              <div onClick={() => navigate('/chat')}>채팅</div>
             </IconContainer>
             <Dialog.Root>
               <Dialog.Trigger asChild>
@@ -46,7 +46,7 @@ const Navbar = () => {
               </Dialog.Trigger>
               <Dialog.Portal></Dialog.Portal>
             </Dialog.Root>
-            <IconContainer onClick={() => navigate('/mypage')}>
+            <IconContainer onClick={() => navigate('/mypage/profile')}>
               <CircleIcon src={localStorage.getItem('profileImage') || ''} isProfile={true} />
             </IconContainer>
           </>

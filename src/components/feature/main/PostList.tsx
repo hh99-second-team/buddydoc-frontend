@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
-import usePostDataFetching from '../../../hooks/usePostDataFetching';
+import { usePostDataFetching } from '../../../hooks/useInfiniteScroll';
 
 interface ParamsType {
   postType?: '스터디' | '프로젝트';

@@ -7,10 +7,10 @@ import MyPostList from './tabs/MyPostList';
 import JoinList from './tabs/JoinList';
 import styled from 'styled-components';
 
-const SideMenu: React.FC<{ tabTypes: string[] }> = ({ tabTypes }) => {
+const SideMenu: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
   return (
     <Layout>
-      {tabTypes.map((tab, idx) => (
+      {tabNames.map((tab, idx) => (
         <TabsContent key={idx} value={tab}>
           {idx === 0 && <ManageProfile />}
           {idx === 1 && <JoinList />}

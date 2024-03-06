@@ -26,7 +26,7 @@ const Router = () => {
             <Route path="/post/:postId" element={<PostDetail />} />
             <Route path="/create" element={<PostCreate />} />
             <Route path="/modify/:postId" element={<PostModify />} />
-            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/:tabType" element={<MyPage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/search/:search" element={<SearchPage />} />
