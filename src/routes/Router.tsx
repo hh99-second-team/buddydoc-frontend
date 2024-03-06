@@ -3,7 +3,7 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import PostDetail from '../pages/PostDetail';
 import TeamPage from '../pages/TeamPage';
-import Navbar from '../components/common/Navbar';
+import Navbar from '../components/common/navbar/Navbar';
 import PostCreate from '../pages/PostCreate';
 import ScrollTop from '../components/feature/ScrollToTop';
 import ChatPage from '../pages/ChatPage';
