@@ -5,7 +5,7 @@ import Input from '../../../components/common/Input';
 import styled from 'styled-components';
 import { PaperPlaneIcon } from '@radix-ui/react-icons';
 import { getDateFomat } from '../../../utils';
-import { JoinType } from '../../../types';
+import { ChatRoomType } from '../../../types';
 import CircleIcon from '../../common/CircleIcon';
 import { motion } from 'framer-motion';
 
@@ -20,7 +20,7 @@ interface MessageType {
   };
 }
 
-const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
+const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [, setIsLastPage] = useState(false);
@@ -104,7 +104,7 @@ const ChatRoom: React.FC<{ post: JoinType }> = ({ post }) => {
 
   return (
     <>
-      <ChatRoomTitle>{post.postTitle}</ChatRoomTitle>
+      <ChatRoomTitle>{post.posts.postTitle}</ChatRoomTitle>
       <ChatRoomLayout>
         <ChatRoomBody>
           {messages.map((message, idx) => (

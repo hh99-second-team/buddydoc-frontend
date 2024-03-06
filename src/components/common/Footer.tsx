@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const Footer = () => {
   const location = useLocation();
 
-  if (location.pathname.startsWith('/chat')) return <></>;
+  if (location.pathname.startsWith('/chat' || '/callback')) return <></>;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>

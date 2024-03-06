@@ -6,17 +6,19 @@ import LikeList from './tabs/LikeList';
 import MyPostList from './tabs/MyPostList';
 import JoinList from './tabs/JoinList';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const SideMenu: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
+  const { tabType } = useParams();
   return (
     <Layout>
       {tabNames.map((tab, idx) => (
         <TabsContent key={idx} value={tab}>
-          {idx === 0 && <ManageProfile />}
-          {idx === 1 && <JoinList />}
-          {idx === 2 && <ApplyList />}
-          {idx === 3 && <LikeList />}
-          {idx === 4 && <MyPostList />}
+          {tabType === 'profile' && <ManageProfile />}
+          {tabType === 'join' && <JoinList />}
+          {tabType === 'apply' && <ApplyList />}
+          {tabType === 'like' && <LikeList />}
+          {tabType === 'mypost' && <MyPostList />}
         </TabsContent>
       ))}
     </Layout>

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useRecoilState } from 'recoil';
 import { isSignupOpenState } from '../store/atomDefinitions';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 interface DecodedToken {
   id: number;
@@ -38,7 +39,11 @@ const CallbackPage = () => {
     window.location.href = '/';
   }, [location, navigate, setIsSignupOpen]);
 
-  return <></>;
+  return (
+    <>
+      <LoadingSpinner />
+    </>
+  );
 };
 
 export default CallbackPage;
