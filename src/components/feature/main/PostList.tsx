@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { PostCardType } from '../../../types';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
-import api from '../../../api';
-import { useInfiniteQuery } from 'react-query';
+import usePostDataFetching from '../../../hooks/usePostDataFetching';
 
 interface ParamsType {
   postType?: '스터디' | '프로젝트';
@@ -15,37 +13,13 @@ interface ParamsType {
 }
 
 const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
-  const fetchPosts = async ({ pageParam = 0 }) => {
-    const response = !!postType
-      ? await api.getPost(pageParam, isEnd, postType)
-      : !!searchTitle
-      ? await api.getPostSearch(pageParam, searchTitle)
-      : await api.getPost(pageParam, isEnd);
-    return response;
-  };
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, isLoading } = useInfiniteQuery(
-    'posts',
-    fetchPosts,
-    {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.isLastPage) {
-          return undefined;
-        }
-        return allPages.length;
-      },
-    }
-  );
-
-  const posts: PostCardType[] = data?.pages.flatMap((page) => page.posts) || [];
-
   const [ref, inView] = useInView();
-
-  useEffect(() => {
-    if (inView && !isFetchingNextPage && hasNextPage && posts.length > 0) {
-      fetchNextPage();
-    }
-  }, [inView, isFetchingNextPage, hasNextPage, fetchNextPage, posts.length]);
+  const { posts, isFetchingNextPage, isError, isLoading } = usePostDataFetching({
+    postType,
+    searchTitle,
+    isEnd,
+    inView,
+  });
 
   const renderPostList = () => {
     return (
