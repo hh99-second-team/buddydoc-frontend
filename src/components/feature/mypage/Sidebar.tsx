@@ -32,7 +32,7 @@ const SideBar: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
           </StyledTrigger>
         ))}
       </SideMenuList>
-      <ToggleSidebar title="마이페이지" tabsItems={tabNames}>
+      <ToggleSidebar title="마이페이지" tabsItems={tabNames.map((tab) => tabTypes[tab])}>
         <IconButton aria-label="Customise options">
           <HamburgerMenuIcon />
         </IconButton>
