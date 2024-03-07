@@ -128,8 +128,6 @@ export interface ApplicationType {
 export interface ChatRoomType {
   postId: number;
   memberCount: number;
-  posts: {
-    postTitle: string;
-    postType: '스터디' | '프로젝트';
-  };
+  postTitle: string;
+  postType: '스터디' | '프로젝트';
 }

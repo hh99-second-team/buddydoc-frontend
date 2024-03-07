@@ -104,7 +104,7 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
 
   return (
     <>
-      <ChatRoomTitle>{post.posts.postTitle}</ChatRoomTitle>
+      <ChatRoomTitle>{post.postTitle}</ChatRoomTitle>
       <ChatRoomLayout>
         <ChatRoomBody>
           {messages.map((message, idx) => (

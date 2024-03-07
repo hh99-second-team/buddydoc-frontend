@@ -11,14 +11,14 @@ import ChatRoom from '../components/feature/chat/ChatRoom';
 
 const ChatPage = () => {
   const { data } = useQuery<ChatRoomType[]>(['chatList'], () => api.getChatRoomList());
-  const [, setSelectedTab] = useState(data ? data[0].posts.postTitle : '');
+  const [, setSelectedTab] = useState(data ? data[0].postTitle : '');
 
   return (
     <Layout>
       {data ? (
-        <TabsRoot defaultValue={data[0].posts.postTitle}>
+        <TabsRoot defaultValue={data[0].postTitle}>
           <Tabs.List>
-            <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.posts.postTitle)}>
+            <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.postTitle)}>
               <IconButton aria-label="Customise options">
                 <ChatBubbleIcon />
               </IconButton>
@@ -27,11 +27,8 @@ const ChatPage = () => {
               <ChatRoomTitle>채팅 목록</ChatRoomTitle>
               <div>
                 {data.map((item, idx) => (
-                  <TabsTrigger
-                    key={idx}
-                    value={item.posts.postTitle}
-                    onClick={() => setSelectedTab(item.posts.postTitle)}>
-                    <p>{item.posts.postTitle}</p>
+                  <TabsTrigger key={idx} value={item.postTitle} onClick={() => setSelectedTab(item.postTitle)}>
+                    <p>{item.postTitle}</p>
                   </TabsTrigger>
                 ))}
               </div>
@@ -39,7 +36,7 @@ const ChatPage = () => {
           </Tabs.List>
           <ChatRoomContainer>
             {data.map((item, idx) => (
-              <Tabs.Content key={idx} value={item.posts.postTitle}>
+              <Tabs.Content key={idx} value={item.postTitle}>
                 <ChatRoom post={item} />
               </Tabs.Content>
             ))}
