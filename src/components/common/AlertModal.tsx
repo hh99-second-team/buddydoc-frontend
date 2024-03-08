@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import Button from './Button';
@@ -10,11 +10,11 @@ interface Props {
   onClick: any;
 }
 
-const AlertModal = ({ handleClose, postTitle, children, onClick }: Props) => {
+const AlertModal = forwardRef<HTMLDivElement, Props>(({ handleClose, postTitle, children, onClick }, ref) => {
   return (
     <>
       <Overlay />
-      <Content>
+      <Content ref={ref}>
         <Title>{postTitle}</Title>
         {children && <Description>{children}</Description>}
         <Flex>
@@ -32,7 +32,7 @@ const AlertModal = ({ handleClose, postTitle, children, onClick }: Props) => {
       </Content>
     </>
   );
-};
+});
 
 const overlayShow = keyframes`
   0% { opacity: 0; }

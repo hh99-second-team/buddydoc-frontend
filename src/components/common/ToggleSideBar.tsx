@@ -20,7 +20,7 @@ const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
   return (
     <>
       <Navbar onClick={handleToggleSidebar}>{children}</Navbar>
-      <Sidebar isOpen={isOpen}>
+      <Sidebar isopen={isOpen ? 'true' : 'false'}>
         <SidebarHeader>{title}</SidebarHeader>
         <SidebarBody>
           <SidebarList>
@@ -32,7 +32,7 @@ const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
           </SidebarList>
         </SidebarBody>
       </Sidebar>
-      <SidebarOverlay isOpen={isOpen} onClick={handleToggleSidebar}></SidebarOverlay>
+      <SidebarOverlay isopen={isOpen ? 'true' : 'false'} onClick={handleToggleSidebar}></SidebarOverlay>
     </>
   );
 };
@@ -45,7 +45,7 @@ const Navbar = styled.nav`
   align-items: center;
 `;
 
-const Sidebar = styled.div<{ isOpen: boolean }>`
+const Sidebar = styled.div<{ isopen: 'true' | 'false' }>`
   padding: 7rem 1rem 0 1rem;
   width: 16rem;
   min-height: 100vh;
@@ -53,7 +53,7 @@ const Sidebar = styled.div<{ isOpen: boolean }>`
   background-color: #fff;
   position: fixed;
   top: 0;
-  left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+  left: ${({ isopen }) => (isopen === 'true' ? '0' : '-100%')};
   z-index: 1;
   transition: left 0.5s;
   z-index: 1001;
@@ -69,7 +69,7 @@ const SidebarHeader = styled.div`
   padding-left: 0.3rem;
 `;
 
-const SidebarOverlay = styled.div<{ isOpen: boolean }>`
+const SidebarOverlay = styled.div<{ isopen: 'true' | 'false' }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -77,8 +77,8 @@ const SidebarOverlay = styled.div<{ isOpen: boolean }>`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   transition: opacity 0.5s, visibility 0.5s;
-  opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-  visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+  opacity: ${({ isopen }) => (isopen === 'true' ? '1' : '0')};
+  visibility: ${({ isopen }) => (isopen === 'true' ? 'visible' : 'hidden')};
   z-index: 1000;
 `;
 

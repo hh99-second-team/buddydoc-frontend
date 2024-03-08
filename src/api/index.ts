@@ -67,7 +67,6 @@ const api = {
 
   /** 회원가입 */
   signup: async (userData: SignUpType) => {
-    console.log(userData);
     const response = await axios.post('/signup', userData);
     return response.data;
   },
@@ -143,8 +142,6 @@ const api = {
 
   getChatRoomList: async () => {
     const response = await axios.get('/chat/rooms');
-    console.log(response.data);
-
     return response.data;
   },
 };

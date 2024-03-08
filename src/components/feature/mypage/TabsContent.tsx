@@ -19,8 +19,12 @@ const TabsContent = ({ tabTypes, header, description, children, selectedTab, set
       <SideMenuBody>
         <Tabs.Root defaultValue={tabTypes[0]}>
           <StyledTabsList>
-            {tabTypes.map((tab) => (
-              <StyledTabsTrigger value={tab} onClick={() => setSelectedTab(tab)} aria-selected={selectedTab === tab}>
+            {tabTypes.map((tab, idx) => (
+              <StyledTabsTrigger
+                key={idx}
+                value={tab}
+                onClick={() => setSelectedTab(tab)}
+                aria-selected={selectedTab === tab}>
                 {tab}
               </StyledTabsTrigger>
             ))}

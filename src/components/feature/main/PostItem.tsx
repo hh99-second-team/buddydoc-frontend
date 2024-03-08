@@ -38,7 +38,7 @@ const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
         </SkillBox>
         <PostFooter>
           <UserInfo>
-            <CircleIcon src={post.users.profileImage} isProfile={true} />
+            <CircleIcon src={post.users.profileImage} type="profile" />
             <p>{post.users.userNickname}</p>
           </UserInfo>
           <Views count={post.views} />

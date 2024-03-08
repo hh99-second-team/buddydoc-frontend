@@ -87,7 +87,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
       <Title>{post.postTitle}</Title>
       <BottomSet>
         <FlexBox>
-          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} isProfile={true} />
+          <CircleIcon src={post.user.profileImage} fallback={post.user?.userNickname} type="profile" />
           <div>
             <p>{post.user?.userNickname}</p>
             <p>{getDateFomat(post.createdAt)}</p>
@@ -178,7 +178,7 @@ const NavButton = styled.div`
   }
 `;
 
-const IconButton = styled.button`
+const IconButton = styled.div`
   all: unset;
   border-radius: 100%;
   height: 1.5rem;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import styled, { keyframes } from 'styled-components';
@@ -8,10 +8,10 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal = (props: ModalProps) => (
+const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => (
   <>
     <Overlay />
-    <Content>
+    <Content ref={ref}>
       <Header>
         <Close asChild>
           <button aria-label="Close">
@@ -35,7 +35,7 @@ const Modal = (props: ModalProps) => (
       </Description>
     </Content>
   </>
-);
+));
 
 const overlayShow = keyframes`
   from {

@@ -28,8 +28,8 @@ const MyPostList = () => {
       description="내가 작성한 모집글입니다."
       selectedTab={selectedTab}
       setSelectedTab={setSelectedTab}>
-      {tabTypes.map((tab) => (
-        <Tabs.Content value={tab}>
+      {tabTypes.map((tab, idx) => (
+        <Tabs.Content key={idx} value={tab}>
           {data &&
             data
               .filter((data) => data.postType === tab)

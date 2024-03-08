@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 import Button from '../common/Button';
@@ -8,8 +8,8 @@ interface Props {
   onOpenChange: any;
 }
 
-const SearchModal = ({ onOpenChange }: Props) => {
-  const [searchTitle, setsearchTitle] = useState('');
+const SearchModal = forwardRef<HTMLDivElement, Props>(({ onOpenChange }, ref) => {
+  const [searchTitle, setSearchTitle] = useState('');
   const navigate = useNavigate();
 
   const handleSearchButton = () => {
@@ -25,13 +25,13 @@ const SearchModal = ({ onOpenChange }: Props) => {
 
   return (
     <>
-      <Overlay />
+      <Overlay ref={ref} />
       <Content>
         <input
           type="text"
           placeholder="검색어를 입력해주세요."
           value={searchTitle}
-          onChange={(e) => setsearchTitle(e.target.value)}
+          onChange={(e) => setSearchTitle(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Button size="small" color="black" onClick={handleSearchButton}>
@@ -40,7 +40,7 @@ const SearchModal = ({ onOpenChange }: Props) => {
       </Content>
     </>
   );
-};
+});
 
 const overlayShow = keyframes`
   from {
