@@ -103,7 +103,7 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
           {messages.map((message, idx) => (
             <motion.div key={idx} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
               <ChatBox
-                issentbycurrentuser={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
+                $issentbycurrentuser={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
                 {message.userId.toString() !== localStorage.getItem('userId') && (
                   <CircleIcon src={message.users.profileImage} type="profile" />
                 )}
@@ -165,24 +165,24 @@ const ChatRoomTitle = styled.p`
   }
 `;
 
-const ChatBox = styled.div<{ issentbycurrentuser: 'true' | 'false' }>`
+const ChatBox = styled.div<{ $issentbycurrentuser: 'true' | 'false' }>`
   display: flex;
   align-items: flex-end;
   column-gap: 0.5rem;
-  justify-content: ${({ issentbycurrentuser }) => (issentbycurrentuser === 'true' ? 'flex-end' : 'flex-start')};
+  justify-content: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? 'flex-end' : 'flex-start')};
 
   & > p {
     font-size: 0.7rem;
     color: #626262;
     margin: 0;
-    order: ${({ issentbycurrentuser }) => (issentbycurrentuser === 'true' ? -1 : 1)};
+    order: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? -1 : 1)};
   }
 
   & > div {
-    background-color: ${({ issentbycurrentuser }) => (issentbycurrentuser === 'true' ? '#475f7b' : 'white')};
-    color: ${({ issentbycurrentuser }) => (issentbycurrentuser === 'true' ? 'white' : 'black')};
-    border: ${({ issentbycurrentuser }) =>
-      issentbycurrentuser === 'true' ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)'};
+    background-color: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? '#475f7b' : 'white')};
+    color: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? 'white' : 'black')};
+    border: ${({ $issentbycurrentuser }) =>
+      $issentbycurrentuser === 'true' ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)'};
   }
 `;
 
