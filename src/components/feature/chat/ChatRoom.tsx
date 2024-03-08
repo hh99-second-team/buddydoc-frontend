@@ -102,13 +102,19 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
         <ChatRoomBody>
           {messages.map((message, idx) => (
             <motion.div key={idx} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <ChatBox
-                $issentbycurrentuser={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
+              <ChatBox $isme={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
                 {message.userId.toString() !== localStorage.getItem('userId') && (
-                  <CircleIcon src={message.users.profileImage} type="profile" />
+                  <CircleIcon src={message.users.profileImage} type="profile" size="2.5rem" />
                 )}
-                <ChatMessage>{message.chat_message}</ChatMessage>
-                <MessageDate>{getDateFomat(message.createdAt)}</MessageDate>
+                <div>
+                  {message.userId.toString() !== localStorage.getItem('userId') && (
+                    <Nickname>{message.users.userNickname}</Nickname>
+                  )}
+                  <FlexBox $isme={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
+                    <div>{message.chat_message}</div>
+                    <p>{getDateFomat(message.createdAt)}</p>
+                  </FlexBox>
+                </div>
               </ChatBox>
             </motion.div>
           ))}
@@ -165,36 +171,35 @@ const ChatRoomTitle = styled.p`
   }
 `;
 
-const ChatBox = styled.div<{ $issentbycurrentuser: 'true' | 'false' }>`
+const ChatBox = styled.div<{ $isme: 'true' | 'false' }>`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  justify-content: ${({ $isme }) => ($isme === 'true' ? 'flex-end' : 'flex-start')};
+`;
+
+const FlexBox = styled.div<{ $isme: 'true' | 'false' }>`
   display: flex;
   align-items: flex-end;
   column-gap: 0.5rem;
-  justify-content: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? 'flex-end' : 'flex-start')};
+
+  & > div {
+    border-radius: 12px;
+    padding: 0.4rem 1rem;
+    background-color: ${({ $isme }) => ($isme === 'true' ? '#475f7b' : 'white')};
+    color: ${({ $isme }) => ($isme === 'true' ? 'white' : 'black')};
+    border: ${({ $isme }) => ($isme === 'true' ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)')};
+  }
 
   & > p {
     font-size: 0.7rem;
     color: #626262;
     margin: 0;
-    order: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? -1 : 1)};
+    font-size: 0.7rem;
+    color: #626262;
+    margin: 0;
+    order: ${({ $isme }) => ($isme === 'true' ? -1 : 1)};
   }
-
-  & > div {
-    background-color: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? '#475f7b' : 'white')};
-    color: ${({ $issentbycurrentuser }) => ($issentbycurrentuser === 'true' ? 'white' : 'black')};
-    border: ${({ $issentbycurrentuser }) =>
-      $issentbycurrentuser === 'true' ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)'};
-  }
-`;
-
-const ChatMessage = styled.div`
-  border-radius: 12px;
-  padding: 0.4rem 1rem;
-`;
-
-const MessageDate = styled.p`
-  font-size: 0.7rem;
-  color: #626262;
-  margin: 0;
 `;
 
 const SendButton = styled(Button)`
@@ -231,6 +236,10 @@ const ChatRoomInputGroup = styled.div`
       background-color: white;
     }
   }
+`;
+
+const Nickname = styled.p`
+  font-size: 0.8rem;
 `;
 
 export default ChatRoom;
