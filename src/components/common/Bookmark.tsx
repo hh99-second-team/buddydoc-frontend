@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BookmarkIcon } from '../../assets/bookmark-icon.svg';
 import { isLoginOpenState } from '../../store/atomDefinitions';
 import { useRecoilState } from 'recoil';
 import api from '../../api';
 import { useMutation, useQueryClient } from 'react-query';
-import { PostDetailType } from '../../types';
 
 interface BookmarkProps {
   count: number;
@@ -15,24 +14,19 @@ interface BookmarkProps {
 }
 
 const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
-  const [isBookmarkSelected, setIsBookmarkSelected] = useState(isToggle);
-  const [bookmarkCount, setBookmarkCount] = useState(count);
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   const queryClient = useQueryClient();
 
   const mutation = useMutation(async (postId: number) => await api.updateBookmark(postId), {
     onSuccess: () => {
-      const postDetailData: PostDetailType = queryClient.getQueryData(['postDetail', postId.toString()])!;
-
-      queryClient.setQueryData(['postDetail', postId.toString()], {
-        ...postDetailData,
-        isBookmarked: !isBookmarkSelected,
-        preference: isBookmarkSelected ? bookmarkCount - 1 : bookmarkCount + 1,
-      });
+      queryClient.invalidateQueries(['postDetail', postId.toString()]);
+      queryClient.invalidateQueries(['posts']);
+      queryClient.invalidateQueries(['posts', '스터디']);
+      queryClient.invalidateQueries(['posts', '프로젝트']);
     },
   });
 
-  const handleToggleBookmark = async (e: React.MouseEvent<HTMLElement>, isBookmarkSelected: boolean) => {
+  const handleToggleBookmark = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
 
     // 로그인 안 했다면 로그인 창 띄워주기
@@ -41,17 +35,15 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
       return;
     }
 
-    setIsBookmarkSelected((state) => !state);
-    setBookmarkCount((state) => (isBookmarkSelected ? state - 1 : state + 1));
     await mutation.mutateAsync(postId);
   };
 
   return (
     <BookmarkBox direction={direction}>
-      <div onClick={(e) => handleToggleBookmark(e, isBookmarkSelected)}>
-        <BookmarkIcon className={isBookmarkSelected ? 'selected' : ''} />
+      <div onClick={(e) => handleToggleBookmark(e)}>
+        <BookmarkIcon className={isToggle ? 'selected' : ''} />
       </div>
-      {direction === 'row' && <p>{bookmarkCount}</p>}
+      {direction === 'row' && <p>{count}</p>}
     </BookmarkBox>
   );
 };
