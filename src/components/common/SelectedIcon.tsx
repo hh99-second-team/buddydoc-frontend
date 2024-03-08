@@ -12,7 +12,7 @@ interface Props {
 
 const SelectedIcon = ({ type, item, remove, onRemove }: Props) => {
   return (
-    <IconBox remove={remove}>
+    <IconBox $remove={remove}>
       {type === 'skill' && <img src={skillsIcon[item]} alt="" />}
       <p>{item}</p>
       {remove === 'true' && <CrossCircledIcon onClick={() => onRemove(item)} />}
@@ -20,10 +20,10 @@ const SelectedIcon = ({ type, item, remove, onRemove }: Props) => {
   );
 };
 
-const IconBox = styled.div<{ remove?: 'true' | 'false' }>`
+const IconBox = styled.div<{ $remove?: 'true' | 'false' }>`
   display: flex;
   align-items: center;
-  justify-content: ${(props) => (props.remove === 'true' ? 'space-between' : 'baseline')};
+  justify-content: ${(props) => (props.$remove === 'true' ? 'space-between' : 'baseline')};
   column-gap: 0.6rem;
   height: 51.5px;
   padding: 0 1rem;
