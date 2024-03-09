@@ -1,6 +1,5 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
@@ -36,7 +35,7 @@ const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
   };
 
   return (
-    <motion.div>
+    <>
       {isLoading && <SkeletonPost />}
       {!isLoading && posts.length === 0 && (
         <EmptyPostTitle>{searchTitle ? `"${searchTitle}" 검색 결과가 없습니다.` : '게시글이 없습니다.'}</EmptyPostTitle>
@@ -45,7 +44,7 @@ const PostList = ({ postType, searchTitle, isEnd }: ParamsType) => {
         {renderPostList()}
         <div ref={ref}></div>
       </PostContainer>
-    </motion.div>
+    </>
   );
 };
 
