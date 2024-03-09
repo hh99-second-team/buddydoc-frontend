@@ -19,20 +19,22 @@ const SideBar: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
   const [selectedTab, setSelectedTab] = useState(tabType);
 
   const handleTab = (tab: string) => {
-    navigate(`/mypage/${tab}`);
     setSelectedTab(tab);
+    changeNavigate(tab);
   };
+
+  const changeNavigate = (tab: string) => navigate(`/mypage/${tab}`);
 
   return (
     <Tabs.List>
       <SideMenuList>
         {tabNames.map((tab, idx) => (
           <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => handleTab(tab)}>
-            {tabTypes[tab]}
+            {tab}
           </StyledTrigger>
         ))}
       </SideMenuList>
-      <ToggleSidebar title="마이페이지" tabsItems={tabNames.map((tab) => tabTypes[tab])}>
+      <ToggleSidebar title="마이페이지" tabsItems={tabNames.map((tab) => tab)} changeNavigate={changeNavigate}>
         <IconButton aria-label="Customise options">
           <HamburgerMenuIcon />
         </IconButton>

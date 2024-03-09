@@ -6,15 +6,17 @@ interface Props {
   children: React.ReactNode;
   tabsItems: string[];
   title: string;
+  changeNavigate: (tab: string) => void;
 }
 
-const ToggleSidebar = ({ children, tabsItems, title }: Props) => {
+const ToggleSidebar = ({ children, tabsItems, title, changeNavigate }: Props) => {
   const [isOpen, setIsopen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(tabsItems[0]);
   const handleToggleSidebar = () => setIsopen((state) => !state);
   const handleTrigger = (tab: string) => {
     setSelectedTab(tab);
     handleToggleSidebar();
+    changeNavigate(tab);
   };
 
   return (
