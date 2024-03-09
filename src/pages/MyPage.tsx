@@ -7,13 +7,13 @@ import SideMenu from '../components/feature/mypage/SideMenu';
 import { Layout } from '../styles/GlobalStyles';
 
 const MyPage = () => {
-  const tabNames = ['profile', 'join', 'apply', 'like', 'mypost'];
+  const tabsNav = ['profile', 'join', 'apply', 'like', 'mypost'];
 
   return (
     <Layout>
-      <TabsRoot defaultValue={tabNames[0]}>
-        <SideBar tabNames={tabNames} />
-        <SideMenu tabNames={tabNames} />
+      <TabsRoot defaultValue={tabsNav[0]}>
+        <SideBar tabsNav={tabsNav} />
+        <SideMenu tabsNav={tabsNav} />
       </TabsRoot>
     </Layout>
   );

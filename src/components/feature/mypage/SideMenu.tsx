@@ -8,11 +8,11 @@ import JoinList from './tabs/JoinList';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
-const SideMenu: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
+const SideMenu: React.FC<{ tabsNav: string[] }> = ({ tabsNav }) => {
   const { tabType } = useParams();
   return (
     <Layout>
-      {tabNames.map((tab, idx) => (
+      {tabsNav.map((tab, idx) => (
         <TabsContent key={idx} value={tab}>
           {tabType === 'profile' && <ManageProfile />}
           {tabType === 'join' && <JoinList />}

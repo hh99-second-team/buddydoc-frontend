@@ -5,11 +5,12 @@ import * as Tabs from '@radix-ui/react-tabs';
 interface Props {
   children: React.ReactNode;
   tabsItems: string[];
+  tabsNames?: string[];
   title: string;
   changeNavigate: (tab: string) => void;
 }
 
-const ToggleSidebar = ({ children, tabsItems, title, changeNavigate }: Props) => {
+const ToggleSidebar = ({ children, tabsItems, tabsNames, title, changeNavigate }: Props) => {
   const [isOpen, setIsopen] = useState(false);
   const [selectedTab, setSelectedTab] = useState(tabsItems[0]);
   const handleToggleSidebar = () => setIsopen((state) => !state);
@@ -28,7 +29,7 @@ const ToggleSidebar = ({ children, tabsItems, title, changeNavigate }: Props) =>
           <SidebarList>
             {tabsItems.map((tab, idx) => (
               <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => handleTrigger(tab)}>
-                <p>{tab}</p>
+                <p>{tabsNames ? tabsNames[idx] : tab}</p>
               </StyledTrigger>
             ))}
           </SidebarList>

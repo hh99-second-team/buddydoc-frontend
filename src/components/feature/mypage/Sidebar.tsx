@@ -5,16 +5,10 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import ToggleSidebar from '../../common/ToggleSideBar';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const SideBar: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
+const SideBar: React.FC<{ tabsNav: string[] }> = ({ tabsNav }) => {
   const { tabType } = useParams();
 
-  const tabTypes: Record<string, string> = {
-    profile: '프로필',
-    join: '현재 참여 목록',
-    apply: '내 신청 현황',
-    like: '관심 목록',
-    mypost: '작성 목록',
-  };
+  const tabsNames: string[] = ['프로필', '현재 참여 목록', '내 신청 현황', '관심 목록', '작성 목록'];
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState(tabType);
 
@@ -28,13 +22,17 @@ const SideBar: React.FC<{ tabNames: string[] }> = ({ tabNames }) => {
   return (
     <Tabs.List>
       <SideMenuList>
-        {tabNames.map((tab, idx) => (
+        {tabsNav.map((tab, idx) => (
           <StyledTrigger key={idx} value={tab} selected={selectedTab === tab} onClick={() => handleTab(tab)}>
-            {tab}
+            {tabsNames[idx]}
           </StyledTrigger>
         ))}
       </SideMenuList>
-      <ToggleSidebar title="마이페이지" tabsItems={tabNames.map((tab) => tab)} changeNavigate={changeNavigate}>
+      <ToggleSidebar
+        title="마이페이지"
+        tabsItems={tabsNav.map((tab) => tab)}
+        changeNavigate={changeNavigate}
+        tabsNames={tabsNames}>
         <IconButton aria-label="Customise options">
           <HamburgerMenuIcon />
         </IconButton>
