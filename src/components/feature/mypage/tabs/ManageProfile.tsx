@@ -48,23 +48,16 @@ const ManageProfile = () => {
     }
   }, [data]);
 
-  const mutation = useMutation(
-    async (userData: UserType) => {
-      console.log(userData);
-
-      await api.updateMyInfo(userData);
+  const mutation = useMutation(async (userData: UserType) => await api.updateMyInfo(userData), {
+    onSuccess: () => {
+      toast.success('저장 성공');
+      localStorage.setItem('profileImage', userInfo.profileImage);
+      refetch();
     },
-    {
-      onSuccess: () => {
-        toast.success('저장 성공');
-        localStorage.setItem('profileImage', userInfo.profileImage);
-        refetch();
-      },
-      onError: () => {
-        toast.error('저장에 실패했습니다.');
-      },
-    }
-  );
+    onError: () => {
+      toast.error('저장에 실패했습니다.');
+    },
+  });
 
   const onChangeUserNickname = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUserInfo({ ...userInfo, userNickname: e.target.value });
@@ -110,7 +103,7 @@ const ManageProfile = () => {
           onComplete={(file) => modifyProfileImgHandler(file.length > 0 ? file[0].fileUrl : '')}>
           {({ onClick }) => (
             <ProfileBox onClick={onClick}>
-              <CircleIcon src={userInfo.profileImage} isProfile={true} size="10rem" />
+              <CircleIcon src={userInfo.profileImage} type="profile" size="10rem" />
               <AddPhotoIcon />
             </ProfileBox>
           )}
@@ -156,7 +149,7 @@ const ManageProfile = () => {
             {!!userInfo.skillList.length && (
               <SkillBox>
                 {userInfo.skillList.map((skill) => (
-                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} removeBtn={true} />
+                  <SelectedIcon key={skill} type="skill" item={skill} onRemove={handleSkillRemove} remove="true" />
                 ))}
               </SkillBox>
             )}

@@ -18,7 +18,7 @@ const ChatPage = () => {
       {data ? (
         <TabsRoot defaultValue={data[0].postTitle}>
           <Tabs.List>
-            <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.postTitle)}>
+            <ToggleSidebar title="채팅 목록" tabsItems={data.map((item) => item.postTitle)} changeNavigate={() => {}}>
               <IconButton aria-label="Customise options">
                 <ChatBubbleIcon />
               </IconButton>

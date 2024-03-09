@@ -25,7 +25,7 @@ const ApplyCard: React.FC<{ item: ApplicationType; postId: number }> = ({ item, 
       <InfoBox>
         <Flex>
           <Nickname>{item.userNickname}</Nickname>
-          <SelectedIcon type="position" item={item.position} removeBtn={false} />
+          <SelectedIcon type="position" item={item.position} />
         </Flex>
         <MessageBox>{item.noti_message}</MessageBox>
       </InfoBox>

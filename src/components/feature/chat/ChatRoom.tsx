@@ -37,23 +37,20 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
     });
     setSocket(newSocket);
 
-    newSocket.on('connect', () => console.log('Socket connected'));
+    newSocket.on('connect', () => {});
     newSocket.on('read-Messages', handleReadMessages);
 
     return () => {
       newSocket.close();
-      console.log('소켓 연결 끊김');
     };
   }, []);
 
   useEffect(() => {
     if (socket) {
-      console.log('요청 중');
       socket.emit('read-Messages', { postId: post.postId, lastMessageId });
 
       // 서버에서 새로운 메시지를 받으면 처리하는 코드
       const handleReceiveMessage = (data: MessageType) => {
-        console.log('새로운 메시지 받음:', data);
         setMessages((prevMessages) => [data, ...prevMessages]);
       };
 
@@ -68,13 +65,9 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
 
   const handleReadMessages = (data: { messages: MessageType[]; isLastPage: boolean }) => {
     try {
-      console.log('응답');
       const receivedMessages = data.messages;
-      console.log('Received messages:', receivedMessages);
 
       if (receivedMessages.length > 0 && receivedMessages[0].chatId === messages[messages.length - 1]?.chatId) {
-        console.log('같은 메세지옴?');
-
         return;
       }
 
@@ -109,12 +102,19 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
         <ChatRoomBody>
           {messages.map((message, idx) => (
             <motion.div key={idx} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-              <ChatBox isSentByCurrentUser={message.userId.toString() === localStorage.getItem('userId')}>
+              <ChatBox $isme={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
                 {message.userId.toString() !== localStorage.getItem('userId') && (
-                  <CircleIcon src={message.users.profileImage} isProfile={true} />
+                  <CircleIcon src={message.users.profileImage} type="profile" size="2.5rem" />
                 )}
-                <ChatMessage>{message.chat_message}</ChatMessage>
-                <MessageDate>{getDateFomat(message.createdAt)}</MessageDate>
+                <div>
+                  {message.userId.toString() !== localStorage.getItem('userId') && (
+                    <Nickname>{message.users.userNickname}</Nickname>
+                  )}
+                  <FlexBox $isme={message.userId.toString() === localStorage.getItem('userId') ? 'true' : 'false'}>
+                    <div>{message.chat_message}</div>
+                    <p>{getDateFomat(message.createdAt)}</p>
+                  </FlexBox>
+                </div>
               </ChatBox>
             </motion.div>
           ))}
@@ -171,36 +171,35 @@ const ChatRoomTitle = styled.p`
   }
 `;
 
-const ChatBox = styled.div<{ isSentByCurrentUser: boolean }>`
+const ChatBox = styled.div<{ $isme: 'true' | 'false' }>`
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  justify-content: ${({ $isme }) => ($isme === 'true' ? 'flex-end' : 'flex-start')};
+`;
+
+const FlexBox = styled.div<{ $isme: 'true' | 'false' }>`
   display: flex;
   align-items: flex-end;
   column-gap: 0.5rem;
-  justify-content: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? 'flex-end' : 'flex-start')};
+
+  & > div {
+    border-radius: 12px;
+    padding: 0.4rem 1rem;
+    background-color: ${({ $isme }) => ($isme === 'true' ? '#475f7b' : 'white')};
+    color: ${({ $isme }) => ($isme === 'true' ? 'white' : 'black')};
+    border: ${({ $isme }) => ($isme === 'true' ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)')};
+  }
 
   & > p {
     font-size: 0.7rem;
     color: #626262;
     margin: 0;
-    order: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? -1 : 1)};
+    font-size: 0.7rem;
+    color: #626262;
+    margin: 0;
+    order: ${({ $isme }) => ($isme === 'true' ? -1 : 1)};
   }
-
-  & > div {
-    background-color: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? '#475f7b' : 'white')};
-    color: ${({ isSentByCurrentUser }) => (isSentByCurrentUser ? 'white' : 'black')};
-    border: ${({ isSentByCurrentUser }) =>
-      isSentByCurrentUser ? '1px solid #3e546d' : '1px solid var(--grey02, #e2e3e5)'};
-  }
-`;
-
-const ChatMessage = styled.div`
-  border-radius: 12px;
-  padding: 0.4rem 1rem;
-`;
-
-const MessageDate = styled.p`
-  font-size: 0.7rem;
-  color: #626262;
-  margin: 0;
 `;
 
 const SendButton = styled(Button)`
@@ -237,6 +236,10 @@ const ChatRoomInputGroup = styled.div`
       background-color: white;
     }
   }
+`;
+
+const Nickname = styled.p`
+  font-size: 0.8rem;
 `;
 
 export default ChatRoom;

@@ -7,13 +7,13 @@ interface IconProps {
   src: string;
   fallback?: string;
   size?: string;
-  isProfile?: boolean;
+  type?: 'profile';
 }
 
-const CircleIcon = ({ src, fallback, size, isProfile }: IconProps) => {
+const CircleIcon = ({ src, fallback, size, type }: IconProps) => {
   return (
-    <AvatarRoot size={size} isProfile={isProfile}>
-      <AvatarImage src={src ? src : isProfile ? emptyProfileImg : ''} alt="Colm Tuite" />
+    <AvatarRoot size={size} type={type}>
+      <AvatarImage src={src ? src : type ? emptyProfileImg : ''} alt="Colm Tuite" />
       <AvatarFallback delayMs={600}>{fallback}</AvatarFallback>
     </AvatarRoot>
   );
@@ -30,7 +30,7 @@ const getButtonSize = (size: string | undefined) => {
   }
 };
 
-const AvatarRoot = styled(Avatar.Root)<{ size?: string; isProfile?: boolean }>`
+const AvatarRoot = styled(Avatar.Root)<{ size?: string; type?: string }>`
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -42,8 +42,8 @@ const AvatarRoot = styled(Avatar.Root)<{ size?: string; isProfile?: boolean }>`
   height: ${(props) => getButtonSize(props.size)};
   background: #fff;
   border-radius: 100%;
-  border: ${(props) => (props.isProfile ? '' : '1px solid var(--grey03, #ced0d3)')};
-  /* filter: ${(props) => (props.isProfile ? 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))' : '')}; */
+  border: ${(props) => (props.type ? '' : '1px solid var(--grey03, #ced0d3)')};
+  /* filter: ${(props) => (props.type ? 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))' : '')}; */
 `;
 
 const AvatarImage = styled(Avatar.Image)`

@@ -20,8 +20,8 @@ const ApplyList = () => {
       description="신청한 스터디/프로젝트/커피챗 목록입니다."
       selectedTab={selectedTab}
       setSelectedTab={setSelectedTab}>
-      {tabTypes.map((tab) => (
-        <Tabs.Content value={tab}>
+      {tabTypes.map((tab, idx) => (
+        <Tabs.Content key={idx} value={tab}>
           {data &&
             data
               .filter((data) => data.postType === tab)

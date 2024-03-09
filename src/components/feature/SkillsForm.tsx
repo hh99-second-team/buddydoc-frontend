@@ -49,7 +49,7 @@ const SkillsForm = ({ inputVal, setPrevPage }: FormProps) => {
           <SkillBox type="multiple" value={selectedSkills} onValueChange={onChangeSkills}>
             {skills.map((skill, idx) => (
               <SkillItem key={idx} value={skill} onClick={() => onChangeSkills(selectedSkills)}>
-                <SelectedIcon type="skill" item={skill} removeBtn={false} />
+                <SelectedIcon type="skill" item={skill} />
               </SkillItem>
             ))}
           </SkillBox>

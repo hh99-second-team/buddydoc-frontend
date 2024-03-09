@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import LoginModal from '../../feature/LoginModal';
 import logoUrl from '../../../assets/buddydoc-logo.png';
 import SignupModal from '../../feature/SignupModal';
-import { ReactComponent as BellIcon } from '../../../assets/bell-icon.svg';
 import { useNavigate } from 'react-router-dom';
 import { HamburgerMenuIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useRecoilState } from 'recoil';
@@ -38,16 +37,8 @@ const Navbar = () => {
             <IconContainer>
               <div onClick={() => navigate('/chat')}>채팅</div>
             </IconContainer>
-            {/* <Dialog.Root>
-              <Dialog.Trigger asChild>
-                <IconContainer>
-                  <BellIcon />
-                </IconContainer>
-              </Dialog.Trigger>
-              <Dialog.Portal></Dialog.Portal>
-            </Dialog.Root> */}
             <IconContainer onClick={() => navigate('/mypage/profile')}>
-              <CircleIcon src={localStorage.getItem('profileImage') || ''} isProfile={true} />
+              <CircleIcon src={localStorage.getItem('profileImage') || ''} type="profile" />
             </IconContainer>
           </>
         ) : (
@@ -92,16 +83,6 @@ const Navbar = () => {
                         <div onClick={() => navigate(`/chat`)}>채팅</div>
                       </IconContainer>
                     </Menubar.Item>
-                    {/* <Menubar.Item>
-                      <Dialog.Root>
-                        <Dialog.Trigger asChild>
-                          <IconContainer>
-                            <div>알림</div>
-                          </IconContainer>
-                        </Dialog.Trigger>
-                        <Dialog.Portal></Dialog.Portal>
-                      </Dialog.Root>
-                    </Menubar.Item> */}
                   </PortalContent>
                 </MenuBarTrigger>
               </Menubar.Menu>

@@ -8,7 +8,13 @@ import GlobalStyles from './styles/GlobalStyles';
 import Router from './routes/Router';
 import TopButton from './components/common/TopButton';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 2, // 2분
+    },
+  },
+});
 
 const FallbackComponent = () => {
   return <div>에러페이지</div>;

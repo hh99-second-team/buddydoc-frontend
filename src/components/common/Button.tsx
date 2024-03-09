@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 
 interface ButtonProps {
@@ -8,13 +8,13 @@ interface ButtonProps {
   onClick?: any;
 }
 
-const Button = ({ size, color, children, onClick }: ButtonProps) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ size, color, children, onClick }, ref) => {
   return (
-    <StyledButton size={size} color={color} onClick={onClick}>
+    <StyledButton ref={ref} size={size} color={color} onClick={onClick}>
       {children}
     </StyledButton>
   );
-};
+});
 
 const StyledButton = styled.button<ButtonProps>`
   padding: ${(props) => getButtonPadding(props.size)};

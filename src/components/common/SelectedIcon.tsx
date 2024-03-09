@@ -3,25 +3,27 @@ import styled from 'styled-components';
 import { skillsIcon } from '../../constants';
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 
-const SelectedIcon: React.FC<{ type: string; item: string; removeBtn: boolean; onRemove?: any }> = ({
-  type,
-  item,
-  removeBtn,
-  onRemove,
-}) => {
+interface Props {
+  type: string;
+  item: string;
+  remove?: 'true' | 'false';
+  onRemove?: any;
+}
+
+const SelectedIcon = ({ type, item, remove, onRemove }: Props) => {
   return (
-    <IconBox removeBtn>
+    <IconBox $remove={remove}>
       {type === 'skill' && <img src={skillsIcon[item]} alt="" />}
       <p>{item}</p>
-      {removeBtn && <CrossCircledIcon onClick={() => onRemove(item)} />}
+      {remove === 'true' && <CrossCircledIcon onClick={() => onRemove(item)} />}
     </IconBox>
   );
 };
 
-const IconBox = styled.div<{ removeBtn: boolean }>`
+const IconBox = styled.div<{ $remove?: 'true' | 'false' }>`
   display: flex;
   align-items: center;
-  justify-content: ${(props) => (!props.removeBtn ? 'baseline' : 'space-between')};
+  justify-content: ${(props) => (props.$remove === 'true' ? 'space-between' : 'baseline')};
   column-gap: 0.6rem;
   height: 51.5px;
   padding: 0 1rem;
