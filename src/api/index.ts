@@ -5,7 +5,7 @@ const API_ROOT = process.env.REACT_APP_API_ROOT;
 
 const api = {
   /** 게시물 목록 조회 */
-  getPost: async (lastPostId: number, isEnd?: boolean, postType?: '스터디' | '프로젝트') => {
+  getPost: async (lastPostId: string, isEnd?: boolean, postType?: '스터디' | '프로젝트') => {
     const response = await axios.get('/post', {
       params: { orderBy: 'createdAt', lastPostId, isEnd: isEnd ? '1' : '0', postType },
     });
@@ -13,8 +13,8 @@ const api = {
   },
 
   /** 게시물 검색 */
-  getPostSearch: async (lastPostId: number, search: string) => {
-    const response = await axios.get(`/post/search`, { params: { lastPostId, search } });
+  getPostSearch: async (pageCursor: string, search: string) => {
+    const response = await axios.get(`/post/search`, { params: pageCursor ? { pageCursor, search } : { search } });
     const result = response.data.result.options.map((data: any) => data._source);
 
     return { posts: result, isLastPage: response.data.result.isLastPage };
