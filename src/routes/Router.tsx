@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from '../pages/main/Main';
 import MyPage from '../pages/myPages/MyPage';
 import PostDetail from '../pages/postDetail/PostDetail';
-import TeamPage from '../pages/teampage/TeamPage';
+import TeamPage from '../pages/team/TeamPage';
 import Navbar from '../components/navbar/Navbar';
 import PostCreate from '../pages/postCreate/PostCreate';
 import ScrollTop from '../components/ScrollToTop';
