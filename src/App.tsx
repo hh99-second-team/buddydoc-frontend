@@ -6,7 +6,7 @@ import { theme } from './styles/theme';
 import { ErrorBoundary } from 'react-error-boundary';
 import GlobalStyles from './styles/GlobalStyles';
 import Router from './routes/Router';
-import TopButton from './components/common/TopButton';
+import TopButton from './components/TopButton';
 
 const queryClient = new QueryClient({
   defaultOptions: {

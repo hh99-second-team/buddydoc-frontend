@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from '../pages/Main';
-import MyPage from '../pages/MyPage';
-import PostDetail from '../pages/PostDetail';
-import TeamPage from '../pages/TeamPage';
-import Navbar from '../components/common/navbar/Navbar';
-import PostCreate from '../pages/PostCreate';
-import ScrollTop from '../components/feature/ScrollToTop';
-import ChatPage from '../pages/ChatPage';
-import Footer from '../components/common/Footer';
-import SearchPage from '../pages/SearchPage';
-import OauthCallBack from '../pages/OauthCallBack';
-import PostModify from '../pages/PostModify';
+import Main from '../pages/main/Main';
+import MyPage from '../pages/mypage/MyPage';
+import PostDetail from '../pages/postDetail/PostDetail';
+import TeamPage from '../pages/teampage/TeamPage';
+import Navbar from '../components/navbar/Navbar';
+import PostCreate from '../pages/postCreate/PostCreate';
+import ScrollTop from '../components/ScrollToTop';
+import ChatPage from '../pages/chat/Chat';
+import Footer from '../components/Footer';
+import SearchPage from '../pages/searchPage/SearchPage';
+import OauthCallBack from '../pages/oauthCallBack/OauthCallBack';
+import PostModify from '../pages/postModify/PostModify';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
 
