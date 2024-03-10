@@ -8,9 +8,18 @@ interface InputProps {
   onChange: (value: any) => void;
   onKeyDown?: (value: any) => void;
   isValid?: 'none' | boolean;
+  maxLength?: number;
 }
 
-const Input = ({ type, placeholder, value, onChange, onKeyDown, isValid }: InputProps) => {
+const Input = ({
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  onKeyDown,
+  isValid = 'none',
+  maxLength = 1000,
+}: InputProps) => {
   return (
     <InputBox
       type={type}
@@ -19,6 +28,7 @@ const Input = ({ type, placeholder, value, onChange, onKeyDown, isValid }: Input
       onChange={onChange}
       onKeyDown={onKeyDown}
       className={isValid === 'none' ? '' : isValid ? 'valid' : 'not--valid'}
+      maxLength={maxLength}
     />
   );
 };

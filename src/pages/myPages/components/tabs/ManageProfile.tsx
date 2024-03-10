@@ -87,8 +87,9 @@ const ManageProfile = () => {
 
   // 로그아웃 함수
   const handleLogout = () => {
-    localStorage.clear();
+    queryClient.resetQueries();
     navigate('/');
+    localStorage.clear();
   };
 
   const handleSave = () => mutation.mutateAsync(userInfo);

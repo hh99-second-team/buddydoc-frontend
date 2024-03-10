@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Modal from '../modal/Modal';
 import styled, { css } from 'styled-components';
 import api from '../../api';
@@ -6,7 +6,7 @@ import kakaoIcon from '../../assets/kakao.icon.png';
 import googleIcon from '../../assets/google.icon.png';
 import naverIcon from '../../assets/naver.icon.png';
 
-const LoginModal = () => {
+const LoginModal = forwardRef<HTMLDivElement>(() => {
   return (
     <Modal
       postTitle="SNS 계정으로 간편하게 
@@ -25,7 +25,7 @@ const LoginModal = () => {
       </NaverConnect>
     </Modal>
   );
-};
+});
 
 const SocialStyles = css`
   display: flex;

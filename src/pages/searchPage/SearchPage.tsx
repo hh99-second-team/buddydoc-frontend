@@ -14,7 +14,7 @@ const SearchPage = () => {
   const handleSearchButton = () => navigate(`/search/${searchTitle}`);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       handleSearchButton();
     }
   };

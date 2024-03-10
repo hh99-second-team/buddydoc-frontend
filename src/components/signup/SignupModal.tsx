@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import Modal from '../modal/Modal';
 import styled from 'styled-components';
 import SignupForm from './SignupForm';
 import SkillsForm from './SkillsForm';
 import { SignUpType } from '../../types';
 
-const SignupModal = () => {
+const SignupModal = forwardRef<HTMLDivElement>(() => {
   const [inputVal, setInputVal] = useState<SignUpType>({
     userNickname: '',
     position: '',
@@ -24,7 +24,7 @@ const SignupModal = () => {
       </Container>
     </Modal>
   );
-};
+});
 
 const Container = styled.div`
   display: flex;
