@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { PostCardType } from '../types';
 import api from '../api';
+import { getUnixTime } from 'date-fns';
 
 interface InfiniteScrollProps {
   inView: boolean;
@@ -33,12 +34,13 @@ interface ParamsType {
 }
 
 const usePostDataFetching = ({ postType, searchTitle, isEnd, inView }: ParamsType) => {
-  const fetchPosts = async ({ pageParam = 0 }) => {
+  const fetchPosts = async ({ pageParam = 0 || '' }) => {
     const response = !!postType
       ? await api.getPost(pageParam, isEnd, postType)
       : !!searchTitle
       ? await api.getPostSearch(pageParam, searchTitle)
       : await api.getPost(pageParam, isEnd);
+
     return response;
   };
 
@@ -46,11 +48,19 @@ const usePostDataFetching = ({ postType, searchTitle, isEnd, inView }: ParamsTyp
     ['posts', postType ? postType : searchTitle ? searchTitle : ''],
     fetchPosts,
     {
-      getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.isLastPage) {
+      getNextPageParam: (lastPage) => {
+        if (!lastPage || lastPage.isLastPage || !lastPage.posts.length) {
           return undefined;
         }
-        return allPages.length;
+
+        const lastPostIdx = lastPage.posts.length - 1;
+        if (searchTitle && !lastPage.isLastPage) {
+          return (
+            getUnixTime(new Date(lastPage.posts[lastPostIdx].createdAt)) + ',' + lastPage.posts[lastPostIdx].postId
+          );
+        }
+
+        return lastPage.posts[lastPostIdx].postId;
       },
     }
   );
