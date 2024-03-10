@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ApplicationType } from '../../../types';
+import { ApplicationType } from '../../../../types';
 import styled from 'styled-components';
-import Select from '../../../components/Select';
-import SelectedIcon from '../../../components/SelectedIcon';
-import api from '../../../api';
+import Select from '../../../../components/Select';
+import SelectedIcon from '../../../../components/SelectedIcon';
+import api from '../../../../api';
 import { toast } from 'react-toastify';
-import Button from '../../../components/Button';
+import Button from '../../../../components/Button';
 
 const ApplyCard: React.FC<{ item: ApplicationType; postId: number }> = ({ item, postId }) => {
   const [statusSelect, setStatusSelect] = useState<'대기 중' | '승인' | '거절'>('대기 중');

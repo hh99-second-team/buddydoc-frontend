@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import TabsContent from '../TabsContent';
 import { useQuery } from 'react-query';
-import api from '../../../api';
-import { ApplyType } from '../../../types';
-import { getDateFomat } from '../../../utils';
+import api from '../../../../api';
+import { ApplyType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
 import CardContainer from '../CardContainer';
 
 const ApplyList = () => {

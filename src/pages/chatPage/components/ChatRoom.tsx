@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { Button } from '@radix-ui/themes';
-import Input from '../../components/Input';
+import Input from '../../../components/Input';
 import styled from 'styled-components';
 import { PaperPlaneIcon } from '@radix-ui/react-icons';
-import { getDateFomat } from '../../utils';
-import { ChatRoomType } from '../../types';
-import CircleIcon from '../../components/CircleIcon';
+import { getDateFomat } from '../../../utils';
+import { ChatRoomType } from '../../../types';
+import CircleIcon from '../../../components/CircleIcon';
 import { motion } from 'framer-motion';
 
 interface MessageType {
@@ -83,15 +83,25 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
     }
   };
 
-  const sendMessage = (event: React.FormEvent, inputChatMessage: string) => {
-    event.preventDefault();
+  const handleSendMessage = () => {
     if (socket && inputMessage.trim() !== '') {
       socket.emit('send-message', {
-        chat_message: inputChatMessage,
+        chat_message: inputMessage,
         userId: localStorage.getItem('userId'),
         postId: post.postId,
       });
       setInputMessage('');
+    }
+  };
+
+  const handleOnClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSendMessage();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      handleSendMessage();
     }
   };
 
@@ -126,9 +136,10 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
           placeholder="메시지를 입력해주세요."
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           isValid="none"
         />
-        <SendButton onClick={(e) => sendMessage(e, inputMessage)}>
+        <SendButton onClick={handleOnClick}>
           <PaperPlaneIcon />
         </SendButton>
       </ChatRoomInputGroup>

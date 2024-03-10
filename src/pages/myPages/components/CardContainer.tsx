@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TypeIcon from '../../components/TypeIcon';
+import TypeIcon from '../../../components/TypeIcon';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 

@@ -6,16 +6,18 @@ interface InputProps {
   placeholder: string;
   value: string | number;
   onChange: (value: any) => void;
+  onKeyDown?: (value: any) => void;
   isValid?: 'none' | boolean;
 }
 
-const Input = ({ type, placeholder, value, onChange, isValid }: InputProps) => {
+const Input = ({ type, placeholder, value, onChange, onKeyDown, isValid }: InputProps) => {
   return (
     <InputBox
       type={type}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       className={isValid === 'none' ? '' : isValid ? 'valid' : 'not--valid'}
     />
   );

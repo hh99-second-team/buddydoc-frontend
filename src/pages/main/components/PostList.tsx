@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import PostItem from './PostItem';
 import styled from 'styled-components';
 import SkeletonPost from './SkeletonPost';
-import { usePostDataFetching } from '../../hooks/useInfiniteScroll';
+import { usePostDataFetching } from '../../../hooks/useInfiniteScroll';
 
 interface ParamsType {
   postType?: '스터디' | '프로젝트';

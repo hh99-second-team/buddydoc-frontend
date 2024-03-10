@@ -7,7 +7,7 @@ import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { useQuery } from 'react-query';
 import api from '../../api';
 import { ChatRoomType } from '../../types';
-import ChatRoom from './ChatRoom';
+import ChatRoom from './components/ChatRoom';
 
 const ChatPage = () => {
   const { data } = useQuery<ChatRoomType[]>(['chatList'], () => api.getChatRoomList());

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button';
-import PostList from '../main/PostList';
+import PostList from '../main/components/PostList';
 import { Layout } from '../../styles/GlobalStyles';
 import { useNavigate, useParams } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import firstBanner from '../../assets/banner-green.png';
-import secondBanner from '../../assets/banner-black.png';
+import firstBanner from '../../../assets/banner-green.png';
+import secondBanner from '../../../assets/banner-black.png';
 import styled from 'styled-components';
 
 interface BannerProps {

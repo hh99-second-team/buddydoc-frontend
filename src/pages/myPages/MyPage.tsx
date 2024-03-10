@@ -2,8 +2,8 @@ import React from 'react';
 import '@radix-ui/themes/styles.css';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
-import SideBar from './Sidebar';
-import SideMenu from './SideMenu';
+import SideBar from './components/Sidebar';
+import SideMenu from './components/SideMenu';
 import { Layout } from '../../styles/GlobalStyles';
 
 const MyPage = () => {

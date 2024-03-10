@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bookmark from '../../components/Bookmark';
-import SkillList from '../../components/SkillList';
-import TypeIcon from '../../components/TypeIcon';
+import Bookmark from '../../../components/Bookmark';
+import SkillList from '../../../components/SkillList';
+import TypeIcon from '../../../components/TypeIcon';
 import { useNavigate } from 'react-router-dom';
-import { getDateFomat } from '../../utils';
-import { PostCardType } from '../../types';
+import { getDateFomat } from '../../../utils';
+import { PostCardType } from '../../../types';
 import { motion } from 'framer-motion';
-import studyIcon from '../../assets/study-icon.svg';
-import projectIcon from '../../assets/project-icon.svg';
-import Views from '../../components/Views';
-import DeadlineIcon from '../../components/DeadlineIcon';
-import CircleIcon from '../../components/CircleIcon';
+import studyIcon from '../../../assets/study-icon.svg';
+import projectIcon from '../../../assets/project-icon.svg';
+import Views from '../../../components/Views';
+import DeadlineIcon from '../../../components/DeadlineIcon';
+import CircleIcon from '../../../components/CircleIcon';
 
 const PostItem: React.FC<{ post: PostCardType }> = ({ post }) => {
   const navigate = useNavigate();

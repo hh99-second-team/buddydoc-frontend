@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
-import ToggleSidebar from '../../components/ToggleSideBar';
+import ToggleSidebar from '../../../components/ToggleSideBar';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const SideBar: React.FC<{ tabsNav: string[] }> = ({ tabsNav }) => {

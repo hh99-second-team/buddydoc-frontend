@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Banner from './Banner';
-import PostList from './PostList';
+import Banner from './components/Banner';
+import PostList from './components/PostList';
 import styled from 'styled-components';
 import * as Tabs from '@radix-ui/react-tabs';
 import * as Checkbox from '@radix-ui/react-checkbox';

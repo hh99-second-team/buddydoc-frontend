@@ -1,23 +1,23 @@
-import * as Tabs from '@radix-ui/react-tabs';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import api from '../../../api';
-import PostTabsContent from '../TabsContent';
+import * as Tabs from '@radix-ui/react-tabs';
+import TabsContent from '../TabsContent';
 import { useQuery } from 'react-query';
-import { JoinType } from '../../../types';
-import { getDateFomat } from '../../../utils';
+import api from '../../../../api';
+import { LikeType } from '../../../../types';
+import { getDateFomat } from '../../../../utils';
 import CardContainer from '../CardContainer';
 
-const JoinList = () => {
+const LikeList = () => {
   const tabTypes = ['스터디', '프로젝트'];
   const [selectedTab, setSelectedTab] = useState('스터디');
-  const { data } = useQuery<JoinType[]>(['joinList'], api.getMyStudylists);
+  const { data } = useQuery<LikeType[]>(['likeList'], api.getMyBookmarks);
 
   return (
-    <PostTabsContent
+    <TabsContent
       tabTypes={tabTypes}
-      header="현재 참여 목록"
-      description="현재 참여중인 스터디/프로젝트/커피챗 목록입니다."
+      header="관심 목록"
+      description="북마크한 목록입니다."
       selectedTab={selectedTab}
       setSelectedTab={setSelectedTab}>
       {tabTypes.map((tab, idx) => (
@@ -27,12 +27,12 @@ const JoinList = () => {
               .filter((data) => data.postType === tab)
               .map((data, idx) => (
                 <CardContainer key={idx} title={data.postTitle} status={tab} postId={data.postId}>
-                  <DateInfo>시작일 : {getDateFomat(data.startDate)}</DateInfo>
+                  <DateInfo>마감일 : {getDateFomat(data.deadLine)}</DateInfo>
                 </CardContainer>
               ))}
         </Tabs.Content>
       ))}
-    </PostTabsContent>
+    </TabsContent>
   );
 };
 
@@ -46,4 +46,4 @@ const DateInfo = styled.p<{ left?: string }>`
   text-align: end;
 `;
 
-export default JoinList;
+export default LikeList;
