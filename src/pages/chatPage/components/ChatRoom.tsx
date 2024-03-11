@@ -54,11 +54,11 @@ const ChatRoom: React.FC<{ post: ChatRoomType }> = ({ post }) => {
         setMessages((prevMessages) => [data, ...prevMessages]);
       };
 
-      socket.on('receive-message', handleReceiveMessage);
+      socket.on(`receive-message-${post.postId}`, handleReceiveMessage);
 
       return () => {
         // 컴포넌트가 언마운트될 때 이벤트 핸들러를 정리합니다.
-        socket.off('receive-message', handleReceiveMessage);
+        socket.off(`receive-message-${post.postId}`, handleReceiveMessage);
       };
     }
   }, [socket, lastMessageId, post.postId]);
