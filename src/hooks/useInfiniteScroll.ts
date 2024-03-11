@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { PostCardType } from '../types';
 import api from '../api';
-import { getUnixTime } from 'date-fns';
 
 interface InfiniteScrollProps {
   inView: boolean;
@@ -56,7 +55,9 @@ const usePostDataFetching = ({ postType, searchTitle, isEnd, inView }: ParamsTyp
         const lastPostIdx = lastPage.posts.length - 1;
         if (searchTitle && !lastPage.isLastPage) {
           return (
-            getUnixTime(new Date(lastPage.posts[lastPostIdx].createdAt)) + ',' + lastPage.posts[lastPostIdx].postId
+            parseInt(new Date(lastPage.posts[lastPostIdx].createdAt).getTime().toString()) +
+            ',' +
+            lastPage.posts[lastPostIdx].postId
           );
         }
 
