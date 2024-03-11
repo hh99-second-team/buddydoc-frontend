@@ -16,10 +16,12 @@ import api from '../../../api';
 import MenuBarTrigger from '../../../components/menuBar/MenuBarTrigger';
 import PortalContent from '../../../components/menuBar/PortalContent';
 import { ReactComponent as DotsMenu } from '../../../assets/dots-menu.icon.svg';
+import { useQueryClient } from 'react-query';
 
 const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -31,6 +33,7 @@ const DetailHeader: React.FC<{ post: PostDetailType }> = ({ post }) => {
 
   const handleDeletePost = async () => {
     await api.deletePost(post.postId.toString());
+    queryClient.invalidateQueries();
     navigate('/');
   };
 

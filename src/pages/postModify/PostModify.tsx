@@ -15,7 +15,7 @@ const PostModify = () => {
   // useMutation을 이용하여 수정 작업을 수행합니다.
   const mutation = useMutation(async (postData: PostCreateType) => await api.updatePost(postId!, postData), {
     onSuccess: () => {
-      queryClient.setQueryData(['postDetail', postId], inputVal);
+      queryClient.invalidateQueries();
     },
   });
 
