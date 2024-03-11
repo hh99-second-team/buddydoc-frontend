@@ -10,8 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { isLoginOpenState, isSignupOpenState } from '../../store/atomDefinitions';
 import { CheckIcon } from '@radix-ui/react-icons';
+import { useQueryClient } from 'react-query';
 
 const Main = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [, setIsLoginOpen] = useRecoilState(isLoginOpenState);
   const [, setIsSignupOpen] = useRecoilState(isSignupOpenState);
@@ -31,7 +33,10 @@ const Main = () => {
     }
   }, [setIsSignupOpen]);
 
-  const handleToggleIsEnd = () => setIsEnd((state) => !state);
+  const handleToggleIsEnd = () => {
+    queryClient.invalidateQueries();
+    setIsEnd((state) => !state);
+  };
 
   return (
     <>

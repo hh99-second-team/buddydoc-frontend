@@ -19,10 +19,7 @@ const Bookmark = ({ count, direction, isToggle, postId }: BookmarkProps) => {
 
   const mutation = useMutation(async (postId: number) => await api.updateBookmark(postId), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['postDetail', postId.toString()]);
-      queryClient.invalidateQueries(['posts']);
-      queryClient.invalidateQueries(['posts', '스터디']);
-      queryClient.invalidateQueries(['posts', '프로젝트']);
+      queryClient.invalidateQueries();
     },
   });
 
