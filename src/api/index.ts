@@ -9,15 +9,15 @@ const api = {
     const response = await axios.get('/post', {
       params: { orderBy: 'createdAt', lastPostId, isEnd: isEnd ? '1' : '0', postType },
     });
+
     return response.data.posts;
   },
 
   /** 게시물 검색 */
   getPostSearch: async (pageCursor: string, search: string) => {
-    const response = await axios.get(`/post/search`, { params: pageCursor ? { pageCursor, search } : { search } });
-    const result = response.data.result.options.map((data: any) => data._source);
+    const response = await axios.get(`/post/search`, { params: { pageCursor, search } });
 
-    return { posts: result, isLastPage: response.data.result.isLastPage };
+    return response.data.posts;
   },
 
   /** 게시물 상세 정보 조회 */
