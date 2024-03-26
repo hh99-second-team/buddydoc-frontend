@@ -33,7 +33,7 @@ interface ParamsType {
 }
 
 const usePostDataFetching = ({ postType, searchTitle, isEnd, inView }: ParamsType) => {
-  const fetchPosts = async ({ pageParam = 0 || '' }) => {
+  const fetchPosts = async ({ pageParam = '' }) => {
     const response = !!postType
       ? await api.getPost(pageParam, isEnd, postType)
       : !!searchTitle
@@ -53,14 +53,6 @@ const usePostDataFetching = ({ postType, searchTitle, isEnd, inView }: ParamsTyp
         }
 
         const lastPostIdx = lastPage.posts.length - 1;
-        if (searchTitle && !lastPage.isLastPage) {
-          return (
-            parseInt(new Date(lastPage.posts[lastPostIdx].createdAt).getTime().toString()) +
-            ',' +
-            lastPage.posts[lastPostIdx].postId
-          );
-        }
-
         return lastPage.posts[lastPostIdx].postId;
       },
     }
